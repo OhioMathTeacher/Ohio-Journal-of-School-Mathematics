@@ -1,0 +1,6 @@
+[submodule "Fall-2025"]
+	path = Fall-2025
+	url = https://github.com/OhioMathTeacher/Ohio-Journal-Fall-2025.git
+[submodule "Spring-2026"]
+	path = Spring-2026
+	url = https://github.com/OhioMathTeacher/Ohio-Journal-Spring-2026.git
