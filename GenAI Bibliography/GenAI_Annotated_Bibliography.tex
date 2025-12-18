@@ -1,0 +1,184 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Annotated Bibliography - GenAI in K-12 Math
+% For Greg Foley's Panel
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt, a4paper]{article}
+\usepackage{fontspec}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage[top=0.5in, bottom=0.75in, left=0.5in, right=0.5in]{geometry}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{chngcntr}
+
+% Define colors
+\definecolor{PrimaryColor}{RGB}{0, 51, 102}
+\definecolor{SecondaryColor}{RGB}{102, 153, 204}
+\definecolor{HighlightColor}{RGB}{255, 204, 0}
+
+% Set fonts
+\setmainfont{Linux Libertine O}
+\setsansfont{Linux Biolinum O}
+
+% Custom section formatting
+\titleformat{\section}{\sffamily\Large\bfseries\color{PrimaryColor}\filcenter}{}{0em}{}
+\titleformat{\subsection}{\sffamily\large\bfseries\color{SecondaryColor}}{\thesubsection.\quad}{0em}{}
+\titleformat{\subsubsection}{\sffamily\normalsize\bfseries}{}{0em}{}
+
+% Hyperref setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=PrimaryColor,
+    urlcolor=SecondaryColor,
+    citecolor=PrimaryColor
+}
+
+% Custom environment for annotations
+\newenvironment{annotation}[1]
+{\par\vspace{2pt}\noindent\textbf{#1}\par\vspace{1pt}\noindent\small\ignorespaces}
+{\par\vspace{3pt}}
+
+% Enable subsection numbering
+\setcounter{secnumdepth}{2}
+
+% Remove section number from subsection numbering (just show 1, 2, 3...)
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\counterwithout{subsection}{section}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{PK--12 Focused Articles}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection[\texorpdfstring{Using Generative AI to Reframe Mathematical Tasks for Personalized Learning }{Using Generative AI to Reframe Mathematical Tasks for Personalized Learning }]{Using Generative AI to Reframe Mathematical Tasks for Personalized Learning (\texorpdfstring{\url{https://ohiomathjournal.org/index.php/osmj/article/view/5052}}{})}}
+
+\begin{annotation}{Authors}
+Theodora Beauchamp, Candace Walkington, Katie Bainbridge (2025). \textit{K--9 focus.}
+\end{annotation}
+
+\begin{annotation}{Summary}
+This study examines how mathematics teachers use the MagicSchool AI platform to personalize word problems for K--9 students by incorporating student interests (sports, video games, popular culture). The research involves 12 teachers (3 preservice, 9 in-service) working with students from Kindergarten through Algebra 1. Teachers used three MagicSchool tools: Math Word Problem Maker, Make it Relevant, and Rewrite It to adapt standardized test problems and curriculum materials. Findings show that interest-based personalization through AI can boost student engagement and reduce math anxiety, though the study also identifies challenges and limitations of AI-driven personalization.
+\end{annotation}
+
+\subsection[\texorpdfstring{High School Students View Snapchat AI to Be Like Google: Teacher Candidates Viewing Generative Artificial Intelligence in the Classroom }{High School Students View Snapchat AI to Be Like Google: Teacher Candidates Viewing Generative Artificial Intelligence in the Classroom }]{High School Students View Snapchat AI to Be Like Google: Teacher Candidates Viewing Generative Artificial Intelligence in the Classroom (\texorpdfstring{\url{https://doi.org/10.18061/ojsm.5053}}{})}}
+
+\begin{annotation}{Authors}
+Haley M. Smiley, Amanda Gantt Sawyer, Juliana E. Galano (2025). \textit{High school focus.}
+\end{annotation}
+
+
+\begin{annotation}{Summary}
+Written from the perspective of teacher candidates observing in public schools, this paper documents how high school students actually use genAI tools in classrooms, particularly Snapchat's My AI (powered by ChatGPT). The paper presents observational case studies showing students bypassing school WiFi blocks by using cellular data to access social media platforms with embedded AI. The study highlights critical issues: genAI tools have difficulty with correct mathematical answers, produce biased responses, and create inappropriate content for younger audiences. Particularly valuable for PK--12 educators and administrators developing policies around student genAI use.
+\end{annotation}
+
+
+\subsection[\texorpdfstring{Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom }{Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom }]{Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom (\texorpdfstring{\url{https://ohiomathjournal.org/article/id/6574/}}{})}}}
+
+\begin{annotation}{Authors}
+Nirmala Naresh, Iris DeLoach Johnson, Zuhal Yilmaz, Deborah Cockerham (2025). \textit{Secondary teachers focus.}
+\end{annotation}
+
+\begin{annotation}{Summary}
+This two-part longitudinal study explores the integration of generative artificial intelligence in mathematics education by examining the perspectives, knowledge, and experiences of in-service and preservice secondary mathematics teachers. Analysis focused on teacher-AI interactions, including prompt types (Ask, Affirm/Seek Validation, Guide) and how interactions addressed concerns from previous research. The study examines teachers' reactions and beliefs regarding conceptual understanding supported during GenAI problem-solving experiences, concluding with pedagogical reflections on challenges, limitations, and plans for future AI tool use.
+\end{annotation}
+
+
+\subsection[\texorpdfstring{Utilizing AI to Create Mathematics-Themed Children's Stories }{Utilizing AI to Create Mathematics-Themed Children's Stories }]{Utilizing AI to Create Mathematics-Themed Children's Stories (\texorpdfstring{\url{https://doi.org/10.18061/ojsm.6570}}{})}}
+
+\begin{annotation}{Authors}
+Ann Wheeler, Tiffany Sears Leach, Sarah Cooley (2025). \textit{Elementary/middle school focus.}
+\end{annotation}
+
+\begin{annotation}{Summary}
+This practitioner-based article describes an elementary classroom lesson utilizing two artificial intelligence resources, MagicSchool AI and ChatGPT, to help future elementary and middle school teachers write mathematics-themed children's stories. The authors provide lesson background information, student prompts, and sample children's stories demonstrating how AI can support creative integration of mathematical concepts into narrative form. Particularly useful for elementary educators and teacher preparation programs interested in innovative, engaging ways to present mathematical concepts through storytelling.
+\end{annotation}
+
+
+\subsection[\texorpdfstring{Supporting Responsive Mathematics Teaching in Elementary Classrooms Using ChatGPT }{Supporting Responsive Mathematics Teaching in Elementary Classrooms Using ChatGPT }]{Supporting Responsive Mathematics Teaching in Elementary Classrooms Using ChatGPT (To be published Spring 2026)}
+
+\begin{annotation}{Authors}
+Sarah Selmer. \textit{Elementary classrooms focus.}
+\end{annotation}
+
+\begin{annotation}{Summary}
+This study examines 28 prospective teachers' reported experiences and perceptions as they used a standardized prompt with ChatGPT-3.5 to analyze and respond to 56 elementary students' work on high cognitive demand mathematics tasks. Responsive mathematics teaching prioritizes understanding student thinking over scripted instruction, and teachers develop this skill through professional noticing of children's mathematical thinking---attending to, interpreting, and deciding how to respond to students' reasoning. This evidence-based study contributes to understanding how AI tools might act as pedagogical support to enhance prospective teachers' abilities to maintain cognitive demand and focus on student sense-making.
+\end{annotation}
+
+
+\subsection[\texorpdfstring{Practical Applications of AI in Teaching Mathematics for Elementary Teachers }{Practical Applications of AI in Teaching Mathematics for Elementary Teachers }]{Practical Applications of AI in Teaching Mathematics for Elementary Teachers (To be published Spring 2026)}
+
+\begin{annotation}{Authors}
+Bridget Druken, Jason John McPheron. \textit{Preservice elementary teachers focus.}
+\end{annotation}
+
+\begin{annotation}{Summary}
+This article examines how educators can use generative artificial intelligence in mathematics courses for preservice elementary teachers. The authors provide strategies for AI integration in three areas: syllabus policy statements, planning support, and classroom activities. The article proposes four specific activities for AI-curious mathematics teacher educators: (1) drafting AI-focused syllabus policies, (2) generating example data for statistics and data science lessons, (3) summarizing PST discussions using ChatGPT, and (4) inviting PSTs to engage in teacher-student conversations about challenging and conceptually dense mathematical concepts.
+\end{annotation}
+
+
+\subsection[\texorpdfstring{From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses }{From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses }]{From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses (To be published Spring 2026)}
+
+\begin{annotation}{Authors}
+Alesia Mickle Moldavan. \textit{Elementary teachers/K--12 classrooms focus.}
+\end{annotation}
+
+\begin{annotation}{Summary}
+This study examines the use of an artificial intelligence tool (MagicSchool.ai) to support current and future elementary teachers in developing mathematical story problems, alongside the content knowledge and pedagogical strategies needed to facilitate problem-solving that encourages critical thinking, perseverance, and mathematical discussion. Analysis of participants' course artifacts and reflections revealed four key ways AI tools strengthened instructional practice: deepening understanding of mathematical processes and scaffolding, improving question types and sequencing, broadening exploration of diverse problem-solving approaches, and enhancing self-reflection in facilitating productive mathematical discussions.
+\end{annotation}
+
+
+\subsection[\texorpdfstring{AI as Collaborative Tool for Teachers for Effective Integration of Dynamic Geometry Tools }{AI as Collaborative Tool for Teachers for Effective Integration of Dynamic Geometry Tools }]{AI as Collaborative Tool for Teachers for Effective Integration of Dynamic Geometry Tools (To be published Spring 2026)}
+
+\begin{annotation}{Authors}
+S. Asli Özgün-Koca, Michael Meagher, Todd Edwards. \textit{K--12 teachers focus.}
+\end{annotation}
+
+\begin{annotation}{Summary}
+This paper explores how AI can serve as a critical partner in developing technology-integrated materials for mathematics instruction, focusing on the iterative process of human-AI collaboration in creating GeoGebra applets. The authors present a case study beginning with a fourth-grade teacher scenario: students struggling with fraction concepts need interactive digital tools, but the teacher lacks GeoGebra expertise and time. Using the TPACK framework, the article examines how AI (specifically ChatGPT) can address barriers teachers face in creating dynamic geometry environments. Valuable for K--12 mathematics teachers seeking to integrate dynamic geometry tools without extensive programming knowledge.
+\end{annotation}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{University-Focused Articles}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection[\texorpdfstring{Development and Application of a Chatbot for University-level Calculus Learning }{Development and Application of a Chatbot for University-level Calculus Learning }]{Development and Application of a Chatbot for University-level Calculus Learning (\texorpdfstring{\url{https://doi.org/10.18061/ojsm.6571}}{})}}
+
+\begin{annotation}{Authors}
+Sein Park, Eun Jin Jeong, Jong Yeoul Park (2025). \textit{College-level calculus focus.}
+\end{annotation}
+
+\begin{annotation}{Summary}
+This paper introduces `Solgit', an AI-powered calculus chatbot designed to support college-level mathematics education through both in-class and self-directed learning. Using Retrieval Augmented Generation (RAG) technique, the chatbot provides accurate responses by linking subject-specific materials. The chatbot offers diagnostic tests, tailored precalculus reviews, and generates diverse calculus problems with solutions. While focused on university-level mathematics, the pedagogical approaches and AI integration strategies may inform secondary educators working with advanced students.
+\end{annotation}
+
+
+\subsection{Statistics Mnemonics Assembled with Reflection and Technology (SMART): Using LLMs in Introductory Business Statistics (\url{https://doi.org/10.18061/ojsm.6620})}
+
+\begin{annotation}{Authors}
+Megan Mocko, Leah McEwen, Zachary Williams (2025). \textit{Introductory business statistics focus.}
+\end{annotation}
+
+\begin{annotation}{Summary}
+This study presents results from a three-part, multiday SMART (Statistics Mnemonics Assembled with Reflection and Technology) activity designed to help students in an introductory business statistics course explore mnemonic use with and without large language models (LLMs) to support memory retention and conceptual understanding. Analysis of 70 student reflections suggests that mnemonics created without the aid of LLMs felt more personal to students, while LLM-supported efforts helped students work more efficiently. Seventy-five percent of 108 statements about anxiety reported feeling a reduction in anxiety, including having more confidence, feeling better prepared, and improved recall.
+\end{annotation}
+
+
+\subsection[\texorpdfstring{Designing for Discernment: A Mixed-Methods Case Study of GenAI-Supported Critical Thinking }{Designing for Discernment: A Mixed-Methods Case Study of GenAI-Supported Critical Thinking }]{Designing for Discernment: A Mixed-Methods Case Study of GenAI-Supported Critical Thinking (\texorpdfstring{\url{https://doi.org/10.18061/ojsm.6645}}{})}}
+
+\begin{annotation}{Authors}
+Yueyue Li, Jie Wu, Zheng Yang (2025). \textit{Undergraduate engineering focus.}
+\end{annotation}
+
+\begin{annotation}{Summary}
+Against the backdrop of rapid proliferation of generative AI tools in higher education, this paper investigates how integrating a GenAI tool into an undergraduate engineering course impacts students' critical thinking and teamwork. In a one-semester case study involving 69 students, a novel ``GenAI-CT'' instructional model was deployed, integrating GenAI-driven activities with critical thinking exercises. However, significant challenges were observed: many students struggled with tasks requiring complex logical structuring even with AI assistance, and there was a tendency to over-rely on AI-generated answers without sufficient critical evaluation. The study introduces a GenAI-CT framework delineating ethical and pedagogical integration of AI tools into STEM education.
+\end{annotation}
+
+
+\end{document}
