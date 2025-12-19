@@ -3,6 +3,8 @@
 
 Compiled for Greg Foley's K-12 Math Teaching Panel - December 17, 2025
 
+*\*Indicates author who is currently a K-12 schoolteacher*
+
 ---
 
 ## Published Articles - Spring 2025 (Volume 99)
@@ -61,8 +63,23 @@ This practitioner-based article describes an elementary classroom lesson utilizi
 
 ---
 
-### 5. Supporting Responsive Mathematics Teaching in Elementary Classrooms Using ChatGPT
-**Authors:** [Selmer - first name to be confirmed]  
+### 5. Math Isn't Neutral: Designing Word Problems with GPT-4 for Relevance
+**Authors:** Mosum Trivedi*  
+**Status:** In Review  
+**Citation:** Ohio Journal of School Mathematics, Issue 101, Fall 2025 (forthcoming)  
+**Contact:** [To be added]
+
+*\*K-12 schoolteacher*
+
+**PK-12 Focus:** ✓ **High school** (geometry and IB mathematics)
+
+**Annotation:**  
+Textbook word problems often miss students' lives; AI can address this when teachers maintain control of the design process. This practitioner-focused article demonstrates a practical, repeatable approach to using GPT-4 to design mathematically rigorous tasks that feel relevant to students. The author, a mathematics teacher at Detroit Public Schools, presents an iterative prompting approach that pairs content goals with two added parameters: Social Context and Pedagogical Approach. Drawing on examples from a Detroit high school classroom, the paper shows how simple geometry items were reshaped into modeling tasks, civic case studies, and systems-based investigations of environmental data. For immediate classroom use, the article includes: (1) a step-by-step implementation guide, (2) a revision checklist for identifying quantity and wording issues, and (3) a rubric for analyzing results. A brief classroom pilot using a trigonometry quiz with local contexts illustrates gains in student discourse, diagramming, and flexible reasoning, while also documenting common pitfalls and revision strategies for AI-generated drafts. The goal is not to automate curriculum development, but to amplify teacher judgment and help answer the daily question students ask: "Why are we doing this?" This is particularly valuable for teachers seeking to make mathematics instruction more culturally relevant and contextually grounded while maintaining mathematical rigor.
+
+---
+
+### 6. Supporting Responsive Mathematics Teaching in Elementary Classrooms Using ChatGPT
+**Authors:** Sarah Selmer  
 **Status:** In Review  
 **Citation:** Ohio Journal of School Mathematics, Issue 101, Fall 2025 (forthcoming)  
 **Contact:** [To be added]
@@ -90,10 +107,12 @@ This paper introduces an AI-powered calculus chatbot, "Solgit," designed to supp
 ---
 
 ### U2. SMART Activities: Statistics Mnemonics Assembled with Reflection and Technology
-**Authors:** Megan Mocko, [additional authors from main.tex]  
+**Authors:** Megan E. Mocko, Lawrence M. Lesser, Alejandra Lugo*, Megan Shein  
 **Status:** Copyediting - Revision Round 2  
 **Citation:** Ohio Journal of School Mathematics, Issue 101, Fall 2025 (forthcoming)  
 **Contact:** [To be added]
+
+*\*K-12 schoolteacher*
 
 **Focus:** ✗ **University/College** (business statistics students)
 
@@ -117,7 +136,7 @@ Against the backdrop of rapid proliferation of generative AI tools bringing both
 
 ## Articles in Progress - Spring 2026 (Volume 102)
 
-### 6. Practical Applications of AI in Teaching Mathematics for Elementary Teachers
+### 7. Practical Applications of AI in Teaching Mathematics for Elementary Teachers
 **Authors:** Bridget Druken, Jason John McPheron  
 **Status:** Pre-Publication  
 **Citation:** Ohio Journal of School Mathematics, Issue 102, Spring 2026 (forthcoming)  
@@ -130,7 +149,7 @@ This article examines how educators can use generative artificial intelligence i
 
 ---
 
-### 7. From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses
+### 8. From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses
 **Authors:** Alesia Mickle Moldavan  
 **Status:** Pre-Publication  
 **Citation:** Ohio Journal of School Mathematics, Issue 102, Spring 2026 (forthcoming)  
@@ -143,7 +162,7 @@ This study examines the use of an artificial intelligence tool (MagicSchool.ai) 
 
 ---
 
-### 8. AI as Collaborative Tool for Teachers for Effective Integration of Dynamic Geometry Tools
+### 9. AI as Collaborative Tool for Teachers for Effective Integration of Dynamic Geometry Tools
 **Authors:** S. Asli Özgün-Koca, Michael Meagher, Todd Edwards  
 **Status:** In Review  
 **Citation:** Ohio Journal of School Mathematics, Issue 102, Spring 2026 (forthcoming)  
@@ -171,11 +190,13 @@ This paper introduces 'Solgit', an AI-powered calculus chatbot designed to suppo
 
 ---
 
-### 10. Statistics Mnemonics Assembled with Reflection and Technology (SMART): Using LLMs in Introductory Business Statistics
-**Authors:** [Mocko et al. - full author list to be confirmed]  
+### 11. Statistics Mnemonics Assembled with Reflection and Technology (SMART): Using LLMs in Introductory Business Statistics
+**Authors:** Megan E. Mocko, Lawrence M. Lesser, Alejandra Lugo*, Megan Shein  
 **Status:** Copyediting - Revision Round 2  
 **Citation:** Ohio Journal of School Mathematics, Issue 101, Fall 2025 (forthcoming)  
 **Contact:** [To be added]
+
+*\*K-12 schoolteacher*
 
 **Focus:** ✗ **UNIVERSITY** (introductory business statistics course)
 
@@ -184,7 +205,7 @@ This study presents results from a three-part, multiday SMART (Statistics Mnemon
 
 ---
 
-### 11. Designing for Discernment: A Mixed-Methods Case Study of GenAI-Supported Critical Thinking
+### 12. Designing for Discernment: A Mixed-Methods Case Study of GenAI-Supported Critical Thinking
 **Authors:** Yueyue Li, Jie Wu, Zheng Yang  
 **Status:** In Review  
 **Citation:** Ohio Journal of School Mathematics, Issue 101, Fall 2025 (forthcoming)  
@@ -199,19 +220,20 @@ Against the backdrop of rapid proliferation of generative AI tools in higher edu
 
 ## Summary for Greg Foley's K-12 Math Teaching Panel
 
-**Total genAI articles in OJSM (Spring 2025 - Spring 2026):** 11 identified  
-**PK-12 Focused:** 8 articles ✓  
-**University Focused:** 3 articles ✗ (included for completeness)
+**Total genAI articles in OJSM (Spring 2025 - Spring 2026):** 12 identified  
+**PK-12 Focused:** 9 articles ✓  
+**University Focused:** 3 articles ✗ (included for completeness)  
+**K-12 Teacher Authors:** 2 current schoolteachers (Mosum Trivedi, Alejandra Lugo)
 
 ### Distribution:
 - **Published (Spring 2025):** 2 articles (both PK-12)
-- **In Progress (Fall 2025):** 6 articles (3 PK-12, 3 University)
+- **In Progress (Fall 2025):** 7 articles (4 PK-12, 3 University)
 - **In Progress (Spring 2026):** 3 articles (all PK-12)
 
 ### PK-12 Grade Level Coverage:
 - **Elementary (K-5):** 5 articles (Beauchamp K-9, Wheeler, Selmer, Druken & McPheron, Moldavan)
 - **Middle School (6-8):** 3 articles (Beauchamp K-9, Wheeler, Naresh et al.)
-- **High School (9-12):** 2 articles (Smiley et al., Naresh et al.)
+- **High School (9-12):** 3 articles (Smiley et al., Naresh et al., Trivedi)
 - **Cross-level/Teacher Focus:** 3 articles (Özgün-Koca et al., Druken & McPheron, Moldavan)
 
 ### University-Level Coverage:
@@ -222,12 +244,13 @@ Against the backdrop of rapid proliferation of generative AI tools in higher edu
 *Note: University-level articles may have applications for advanced high school courses (AP Calculus, AP Statistics, dual enrollment)*
 
 ### Key Themes Across PK-12 Articles:
-1. **Personalization & Student Engagement** (Beauchamp, Wheeler, Moldavan)
+1. **Personalization & Student Engagement** (Beauchamp, Wheeler, Moldavan, Trivedi)
 2. **Teacher Professional Development** (Naresh, Selmer, Druken & McPheron, Özgün-Koca)
 3. **Student AI Use & Policy** (Smiley et al.)
 4. **Professional Noticing & Responsive Teaching** (Selmer, Moldavan)
 5. **Technology Integration Support** (Özgün-Koca et al., Wheeler)
 6. **AI Limitations & Ethics** (Smiley et al., Druken & McPheron)
+7. **Culturally Relevant Pedagogy** (Trivedi)
 
 ### Tools/Platforms Featured:
 - **MagicSchool AI** (Beauchamp, Wheeler, Moldavan)
