@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.14.0 (TeX Live 2022/dev/Debian)  (format=lualatex 2024.5.18)  18 DEC 2025 00:25
+This is LuaHBTeX, Version 1.14.0 (TeX Live 2022/dev/Debian)  (format=lualatex 2024.5.18)  18 DEC 2025 20:29
  restricted system commands enabled.
 **GenAI_Annotated_Bibliography.tex
 (./GenAI_Annotated_Bibliography.tex
@@ -461,9 +461,9 @@ t;+tlig;+smcp;"
 
 Package hyperref Info: Option `colorlinks' set `true' on input line 38.
 
-No file GenAI_Annotated_Bibliography.aux.
-
+(./GenAI_Annotated_Bibliography.aux)
 \openout1 = GenAI_Annotated_Bibliography.aux
+
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
 LaTeX Font Info:    ... okay on input line 52.
 LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 52.
@@ -475,6 +475,7 @@ LaTeX Font Info:    ... okay on input line 52.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 52.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 5
 2.
+
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
@@ -618,242 +619,220 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 52.
 LaTeX Info: Redefining \pageref on input line 52.
 LaTeX Info: Redefining \nameref on input line 52.
+
+(./GenAI_Annotated_Bibliography.out)
+Runaway argument?
+{\376\377\000S\000t\000a\000t\000i\000s\000t\000i\000c\000s\000\040\0\ETC.
+! File ended while scanning use of \@@BOOKMARK.
+<inserted text> 
+\par 
+l.52 \begin{document}
+                   
+I suspect you have forgotten a `}', causing me
+to read past where you wanted me to stop.
+I'll try to recover; but if the error is serious,
+you'd better type `E' or `X' now and fix your file.
+
+(./GenAI_Annotated_Bibliography.out)
+Runaway argument?
+{\376\377\000S\000t\000a\000t\000i\000s\000t\000i\000c\000s\000\040\0\ETC.
+! File ended while scanning use of \@@BOOKMARK.
+<inserted text> 
+\par 
+l.52 \begin{document}
+                   
+I suspect you have forgotten a `}', causing me
+to read past where you wanted me to stop.
+I'll try to recover; but if the error is serious,
+you'd better type `E' or `X' now and fix your file.
+
 \@outlinefile=\write3
 
 \openout3 = GenAI_Annotated_Bibliography.out
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 58.
-
-! Too many }'s.
-l.58 ....org/index.php/osmj/article/view/5052}}{})}}
-                                                  
-You've closed more groups than you opened.
-Such booboos are generally harmless, so keep going.
-
-! Too many }'s.
-l.68 ...rl{https://doi.org/10.18061/ojsm.5053}}{})}}
-                                                  
-You've closed more groups than you opened.
-Such booboos are generally harmless, so keep going.
-
-! Too many }'s.
-l.80 .../ohiomathjournal.org/article/id/6574/}}{})}}
-                                                  }
-You've closed more groups than you opened.
-Such booboos are generally harmless, so keep going.
-
-! Too many }'s.
-l.80 ...ohiomathjournal.org/article/id/6574/}}{})}}}
-                                                  
-You've closed more groups than you opened.
-Such booboos are generally harmless, so keep going.
-
-! Too many }'s.
-l.91 ...rl{https://doi.org/10.18061/ojsm.6570}}{})}}
-                                                  
-You've closed more groups than you opened.
-Such booboos are generally harmless, so keep going.
-
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 62.
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-! Too many }'s.
-l.151 ...l{https://doi.org/10.18061/ojsm.6571}}{})}}
-                                                  
-You've closed more groups than you opened.
-Such booboos are generally harmless, so keep going.
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\begingroup' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\begingroup' on input line 162.
+(hyperref)                removing `\catcode' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\catcode' on input line 162.
+(hyperref)                removing `\active' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\active' on input line 162.
+(hyperref)                removing `\<def>-command' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 162.
+(hyperref)                removing `\catcode' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\catcode' on input line 162.
+(hyperref)                removing `\active' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\active' on input line 162.
+(hyperref)                removing `\<let>-command' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 162.
+(hyperref)                removing `\<let>-command' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 162.
+(hyperref)                removing `\%' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\%' on input line 162.
+(hyperref)                removing `\catcode' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\catcode' on input line 162.
+(hyperref)                removing `\active' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\active' on input line 162.
+(hyperref)                removing `\<def>-command' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 162.
+(hyperref)                removing `\<def>-command' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 162.
+(hyperref)                removing `\#' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\#' on input line 162.
+(hyperref)                removing `\catcode' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\catcode' on input line 162.
+(hyperref)                removing `\<def>-command' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 162.
+(hyperref)                removing `\<def>-command' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 162.
+(hyperref)                removing `\&' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\&' on input line 162.
+(hyperref)                removing `\<def>-command' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 162.
+(hyperref)                removing `\textunderscore' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\textunderscore' on input line 162.
+(hyperref)                removing `\<let>-command' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 162.
+(hyperref)                removing `\_' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\_' on input line 162.
+(hyperref)                removing `\catcode' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\catcode' on input line 162.
+(hyperref)                removing `\active' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\active' on input line 162.
+(hyperref)                removing `\<let>-command' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 162.
+(hyperref)                removing `\<let>-command' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 162.
+(hyperref)                removing `\<let>-command' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 162.
+(hyperref)                removing `\~' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\~' on input line 162.
+(hyperref)                removing `\<let>-command' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 162.
+(hyperref)                removing `\textasciitilde' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\textasciitilde' on input line 162.
+(hyperref)                removing `\<let>-command' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 162.
+(hyperref)                removing `\\' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\\' on input line 162.
+(hyperref)                removing `\<def>-command' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 162.
+(hyperref)                removing `\<def>-command' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 162.
+(hyperref)                removing `\Hy@tempa' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\Hy@tempa' on input line 162.
+(hyperref)                removing `\<def>-command' on input line 175.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 162.
+(hyperref)                removing `\Hy@tempa' on input line 175.
 
 
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\Hy@tempa' on input line 162.
-
-
-Overfull \hbox (4.8811pt too wide) in paragraph at lines 173--173
+Overfull \hbox (4.8811pt too wide) in paragraph at lines 186--186
 |[]\TU/LinuxBiolinumO(0)/b/n/12 De-sign-ing for Dis-cern-ment: A Mixed-Methods 
 Case Study of GenAI-Supported Crit-i-cal Think-
  []
 
-! Too many }'s.
-l.173 ...l{https://doi.org/10.18061/ojsm.6645}}{})}}
-                                                  
-You've closed more groups than you opened.
-Such booboos are generally harmless, so keep going.
-
 [3] (./GenAI_Annotated_Bibliography.aux)
-
-Package rerunfilecheck Warning: File `GenAI_Annotated_Bibliography.out' has cha
-nged.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `GenAI_Annotated_Bibliography.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  A6A257925DCC4BAB7C996E9A4BBAEE4E;6770.
+Package rerunfilecheck Info: File `GenAI_Annotated_Bibliography.out' has not ch
+anged.
+(rerunfilecheck)             Checksum: 4591369DC176191E1F913A1F360EA87C;7204.
 )
 
 Here is how much of LuaTeX's memory you used:
- 13167 strings out of 477805
+ 13197 strings out of 477805
  125007,662416 words of node,token memory allocated
- 538 words of node memory still in use:
-   6 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 1 glyph, 10 attribute, 56 glue_spec
-, 10 attribute_list, 1 write, 3 pdf_action nodes
-   avail lists: 2:405,3:324,4:105,5:877,6:67,7:13256,8:64,9:242,10:10,11:1246
- 33454 multiletter control sequences out of 65536+600000
- 61 fonts using 14316095 bytes
- 68i,6n,84p,812b,356s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/opentype/public/libertine/LinLibertine_RI.o
-tf></usr/share/texlive/texmf-dist/fonts/opentype/public/libertine/LinLibertine_R
-.otf></usr/share/texlive/texmf-dist/fonts/opentype/public/libertine/LinLibertine
-_RB.otf></usr/share/texmf/fonts/opentype/public/lm/lmmonolt10-bold.otf></usr/sha
-re/texlive/texmf-dist/fonts/opentype/public/libertine/LinBiolinum_RB.otf>
-Output written on GenAI_Annotated_Bibliography.pdf (3 pages, 50803 bytes).
+ 548 words of node memory still in use:
+   6 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 1 glyph, 11 attribute, 56 glue_spec
+, 11 attribute_list, 1 write, 4 pdf_action nodes
+   avail lists: 2:423,3:341,4:107,5:888,6:70,7:13480,8:64,9:245,10:10,11:1253
+ 33468 multiletter control sequences out of 65536+600000
+ 62 fonts using 14691303 bytes
+ 68i,6n,84p,1161b,354s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/opentype/public/libertine/LinLibertine_R.ot
+f></usr/share/texlive/texmf-dist/fonts/opentype/public/libertine/LinLibertine_RB
+.otf></usr/share/texmf/fonts/opentype/public/lm/lmmonolt10-bold.otf></usr/share/
+texlive/texmf-dist/fonts/opentype/public/libertine/LinBiolinum_RB.otf></usr/shar
+e/texlive/texmf-dist/fonts/opentype/public/libertine/LinLibertine_RI.otf>
+Output written on GenAI_Annotated_Bibliography.pdf (3 pages, 55335 bytes).
 
-PDF statistics: 81 PDF objects out of 1000 (max. 8388607)
- 60 compressed objects within 1 object stream
- 17 named destinations out of 1000 (max. 131072)
- 1 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 123 PDF objects out of 1000 (max. 8388607)
+ 101 compressed objects within 2 object streams
+ 18 named destinations out of 1000 (max. 131072)
+ 97 words of extra memory for PDF output out of 10000 (max. 100000000)
 
