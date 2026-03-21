@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Revision Review Applet</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="app-header">
+      <h1>Revision Review Applet</h1>
+      <p>One issue at a time. No manuscript text changes happen here.</p>
+    </header>
+
+    <section class="toolbar">
+      <div class="left-tools">
+        <label class="file-label" for="importFile">Import Issues JSON</label>
+        <input id="importFile" type="file" accept="application/json" />
+      </div>
+      <div class="right-tools">
+        <button id="resetBtn" class="ghost">Reset Decisions</button>
+        <button id="exportBtn" class="primary">Export Decisions</button>
+      </div>
+    </section>
+
+    <section class="status-row">
+      <div id="progressText">Issue 1 of 1</div>
+      <div id="countsText">Accepted: 0 | Rejected: 0 | Revise: 0 | Pending: 0</div>
+    </section>
+
+    <section id="issueCard" class="card">
+      <div class="meta-row">
+        <span id="priorityPill" class="pill">Priority</span>
+        <span id="locationText">Location</span>
+      </div>
+
+      <h2 id="issueTitle">Issue Title</h2>
+
+      <div class="panel">
+        <h3>Problem Area</h3>
+        <p id="problemArea"></p>
+      </div>
+
+      <div class="panel">
+        <h3>Current Text (or Summary)</h3>
+        <pre id="currentText"></pre>
+      </div>
+
+      <div class="panel">
+        <h3>Suggested Revision</h3>
+        <pre id="suggestedText"></pre>
+      </div>
+
+      <div class="actions">
+        <button id="acceptBtn" class="accept">Accept</button>
+        <button id="rejectBtn" class="reject">Reject</button>
+        <button id="reviseBtn" class="revise">Revise</button>
+      </div>
+    </section>
+
+    <section id="feedbackCard" class="card hidden">
+      <h3 id="feedbackTitle">Feedback</h3>
+      <p id="feedbackPrompt"></p>
+      <textarea id="feedbackInput" rows="5" placeholder="Type your note here..."></textarea>
+      <div class="feedback-actions">
+        <button id="cancelFeedbackBtn" class="ghost">Cancel</button>
+        <button id="saveFeedbackBtn" class="primary">Save and Continue</button>
+      </div>
+    </section>
+
+    <section class="navigation">
+      <button id="prevBtn" class="ghost">Previous</button>
+      <button id="nextBtn" class="ghost">Next</button>
+    </section>
+
+    <section class="card compact">
+      <h3>Decision Log (current issue)</h3>
+      <pre id="decisionView">No decision yet.</pre>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
