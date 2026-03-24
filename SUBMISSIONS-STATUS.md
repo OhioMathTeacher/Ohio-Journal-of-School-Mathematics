@@ -50,7 +50,7 @@
 | ID | Author | Title | Submitted | Review Status | Next Action |
 |----|--------|-------|-----------|---------------|-------------|
 | 6579 | Nurnberger-Haag | Big Ideas of Math: What They Are and How to Help Our Students Own Them | Jul 30, 2024 | Complex revision history | Check status, clarify next steps |
-| 6932 | Svoboda | Silent geometry, talkink roots | Nov 5, 2025 | Reviews complete | R&R due Feb 15 (OVERDUE) |
+| 6932 | Svoboda | Silent geometry, talkink roots | Nov 5, 2025 | Reviews complete | R&R due Feb 15 (OVERDUE), follow-up sent Mar 24 |
 | 6942 | Lesser | Redesigning for Increased Engagement in a Coordinated Multi-section Math-for-social-sciences Course | Nov 11, 2025 | Reviews complete | R&R flexible (aiming for Summer, extends to Aug) |
 | 6962 | Morelo | Mathematics Education Rooted in Culture: Contributions of Ethnomathematics to Classrooms from PK-12 to Higher Education | Nov 20, 2025 | Reviews complete | Send decision (review expected Mar 27) |
 | 7158 | Khadka | Multi-LLM Framework for Creative Mathematics Problem Generation | Jan 30, 2026 | Reviews complete | R&R due May 1 |
