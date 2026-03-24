@@ -41,10 +41,10 @@
 8. 7048 Joswick - "Recognizing and Celebrating the Life and Times of Raye Montague"
 
 ### 📍 Prepublication (Spring 2026)
-| ID | Author | Title | Accepted | Deadline | Notes |
-|----|--------|-------|----------|----------|-------|
-| 6622 | Lozano | Using AI to Make Definitions Personal | Mar 17 | [TBD] | Schedule typesetting |
-| 6649 | Druken | Practical Applications of AI in Teaching Mathematics for Elementary Teachers | Nov 26, 2025 | Apr 4 | Awaiting author corrections |
+| ID | Author | Title | Pages | Typeset | Deadline | Notes |
+|----|--------|-------|-------|---------|----------|-------|
+| 6622 | Lozano | Using AI to Make Definitions Personal | [TBD] | Mar 23 | [TBD] | Need to send acceptance email |
+| 6649 | Druken | Practical Applications of AI in Teaching Mathematics for Elementary Teachers | [TBD] | [prior] | Apr 4 | Awaiting author corrections |
 
 ### 📝 In Review / Pending Decision
 | ID | Author | Title | Submitted | Review Status | Next Action |
@@ -64,10 +64,11 @@
 
 ---
 
-## Typesetting Schedule (Week of March 24-28)
+## Typesetting Schedule (Week of March 23-28)
 
+- [x] **Sun 3/23:** 6622 Lozano (Spring) ✅ COMPLETED
 - [x] **Mon 3/24:** 6624 Guerrero (Summer) ✅ COMPLETED
-- [ ] **Tue 3/25:** 7296 Smith (Summer)
+- [ ] **Tue 3/25:** 7296 Smith (Summer) ⬅️ **NEXT UP**
 - [ ] **Wed 3/26:** 7188 Imaninezhad (Summer)
 - [ ] **Thu 3/27:** 7236 Moreno Cabeza (Summer)
 - [ ] **Fri 3/28:** 6628 Cho (Summer)
