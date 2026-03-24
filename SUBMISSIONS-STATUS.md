@@ -22,7 +22,7 @@
 ### 📝 In Review / Pending Decision
 | ID | Author | Title | Submitted | Review Status | Next Action |
 |----|--------|-------|-----------|---------------|-------------|
-| 6776 | Mix | The First One to the Origin Wins | Sep 18, 2025 | Reviews complete | R&R due June 30 |
+| 6776 | Mix | The First One to the Origin Wins | Sep 18, 2025 | Reviews complete | R&R due June 30 (extension granted Mar 24) |
 | 6915 | Mahmood | Proof Without Words: a^2 - b^2 = (a + b)(a - b) via isosceles triangle and right trapezoid | Oct 26, 2025 | Accepted Mar 23 | Move to Prepublication |
 | 7112 | Hastings | How Preservice Teachers' Confidence is Impacted by a Geometry Course | Jan 25, 2026 | Reviews pending | Status update sent Mar 23, awaiting external reviews |
 
@@ -44,7 +44,7 @@
 | ID | Author | Title | Pages | Typeset | Deadline | Notes |
 |----|--------|-------|-------|---------|----------|-------|
 | 6622 | Lozano | Using AI to Make Definitions Personal | [TBD] | Mar 23 | Apr 6 proof approval | Proof sent Mar 24 |
-| 6649 | Druken | Practical Applications of AI in Teaching Mathematics for Elementary Teachers | [TBD] | [prior] | Apr 4 | Awaiting author corrections |
+| 6649 | Druken | Practical Applications of AI in Teaching Mathematics for Elementary Teachers | [TBD] | [prior] | Apr 4 | Corrections on track (confirmed Mar 24) |
 
 ### 📝 In Review / Pending Decision
 | ID | Author | Title | Submitted | Review Status | Next Action |
@@ -52,15 +52,20 @@
 | 6579 | Nurnberger-Haag | Big Ideas of Math: What They Are and How to Help Our Students Own Them | Jul 30, 2024 | Complex revision history | Check status, clarify next steps |
 | 6932 | Svoboda | Silent geometry, talkink roots | Nov 5, 2025 | Reviews complete | R&R due Feb 15 (OVERDUE), follow-up sent Mar 24 |
 | 6942 | Lesser | Redesigning for Increased Engagement in a Coordinated Multi-section Math-for-social-sciences Course | Nov 11, 2025 | Reviews complete | R&R flexible (aiming for Summer, extends to Aug) |
-| 6962 | Morelo | Mathematics Education Rooted in Culture: Contributions of Ethnomathematics to Classrooms from PK-12 to Higher Education | Nov 20, 2025 | Reviews complete | Send decision (review expected Mar 27) |
-| 7158 | Khadka | Multi-LLM Framework for Creative Mathematics Problem Generation | Jan 30, 2026 | Reviews complete | R&R due May 1 |
+| 6962 | Morelo | Mathematics Education Rooted in Culture: Contributions of Ethnomathematics to Classrooms from PK-12 to Higher Education | Nov 20, 2025 | Reviews pending | Review expected Mar 27, status update sent Mar 24 |
+| 7158 | Khadka | Multi-LLM Framework for Creative Mathematics Problem Generation | Jan 30, 2026 | Reviews complete | R&R due May 1, editorial support provided, writing consultation offered |
+
+### ❌ Rejected (Spring 2026)
+| ID | Author | Title | Decision Date | Notes |
+|----|--------|-------|---------------|-------|
+| 7116 | Bintz | Recognizing and Celebrating the Life and Times of Maryam Mirzakhani | Mar 24, 2026 | Rejected with collaboration invitation offered |
 
 ### ❓ Status Unclear
 | ID | Author | Notes |
 |----|--------|-------|
 | 6938 | Gandhi | Not visible in Janeway screenshots - verify status |
 | 7036 | Singh | Not visible in Janeway screenshots - verify status |
-| 7046 | Bintz | Not visible in Janeway screenshots - likely published |
+| 7046 | Bintz | Not visible in Janeway screenshots - likely published (different submission from 7116) |
 
 ---
 
@@ -99,4 +104,6 @@
 ---
 
 ## Update Log
-- **3/24/26:** Updated with Janeway screenshots; Guerrero typeset completed; Cho & Mahmood accepted Mar 23
+- **3/24/26 PM:** Major email day - Lozano proof sent (Apr 6), Guerrero proof sent (Apr 7), Mix extension (June 30), Svoboda follow-up, Bintz rejection (collab offered), Morelo review update (Mar 27), Khadka R&R with consultation, Druken on track, Lesser timeline flexible, Moreno companion piece discussion
+- **3/24/26 AM:** Updated with Janeway screenshots; Guerrero typeset completed; Cho & Mahmood accepted Mar 23
+- **3/24/26:** Created submissions tracker
