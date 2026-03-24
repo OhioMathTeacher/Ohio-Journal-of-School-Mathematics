@@ -24,7 +24,7 @@
 |----|--------|-------|-----------|---------------|-------------|
 | 6776 | Mix | The First One to the Origin Wins | Sep 18, 2025 | Reviews complete | R&R due June 30 |
 | 6915 | Mahmood | Proof Without Words: a^2 - b^2 = (a + b)(a - b) via isosceles triangle and right trapezoid | Oct 26, 2025 | Accepted Mar 23 | Move to Prepublication |
-| 7112 | Hastings | How Preservice Teachers' Confidence is Impacted by a Geometry Course | Jan 25, 2026 | Reviews complete | Send decision |
+| 7112 | Hastings | How Preservice Teachers' Confidence is Impacted by a Geometry Course | Jan 25, 2026 | Reviews pending | Status update sent Mar 23, awaiting external reviews |
 
 ---
 
@@ -43,7 +43,7 @@
 ### 📍 Prepublication (Spring 2026)
 | ID | Author | Title | Pages | Typeset | Deadline | Notes |
 |----|--------|-------|-------|---------|----------|-------|
-| 6622 | Lozano | Using AI to Make Definitions Personal | [TBD] | Mar 23 | [TBD] | Need to send acceptance email |
+| 6622 | Lozano | Using AI to Make Definitions Personal | [TBD] | Mar 23 | Apr 6 proof approval | Proof sent Mar 24 |
 | 6649 | Druken | Practical Applications of AI in Teaching Mathematics for Elementary Teachers | [TBD] | [prior] | Apr 4 | Awaiting author corrections |
 
 ### 📝 In Review / Pending Decision
@@ -51,7 +51,7 @@
 |----|--------|-------|-----------|---------------|-------------|
 | 6579 | Nurnberger-Haag | Big Ideas of Math: What They Are and How to Help Our Students Own Them | Jul 30, 2024 | Complex revision history | Check status, clarify next steps |
 | 6932 | Svoboda | Silent geometry, talkink roots | Nov 5, 2025 | Reviews complete | R&R due Feb 15 (OVERDUE) |
-| 6942 | Lesser | Redesigning for Increased Engagement in a Coordinated Multi-section Math-for-social-sciences Course | Nov 11, 2025 | Reviews complete | R&R due May 15 (send decision) |
+| 6942 | Lesser | Redesigning for Increased Engagement in a Coordinated Multi-section Math-for-social-sciences Course | Nov 11, 2025 | Reviews complete | R&R flexible (aiming for Summer, extends to Aug) |
 | 6962 | Morelo | Mathematics Education Rooted in Culture: Contributions of Ethnomathematics to Classrooms from PK-12 to Higher Education | Nov 20, 2025 | Reviews complete | Send decision (review expected Mar 27) |
 | 7158 | Khadka | Multi-LLM Framework for Creative Mathematics Problem Generation | Jan 30, 2026 | Reviews complete | R&R due May 1 |
 
