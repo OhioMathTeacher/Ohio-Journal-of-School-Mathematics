@@ -2,22 +2,36 @@
 **Last Updated:** March 27, 2026  
 **Purpose:** Single source of truth for all active submissions across all issues
 
+> **Page tracking note:** `PDF Pages` = total pages in compiled PDF. `Start Page` = `\startpage` value in `main.tex`. End page = Start + PDF Pages − 1. Start pages are provisional placeholders until article order is finalized.
+
 ---
 
 ## Summer 2026 Issue (Volume 103, Number 1)
 
+### 📄 Page Planning (Summer 2026)
+Article order TBD — start pages are provisional until ordering is finalized.
+
+| Order | ID | Author | PDF Pages | Start Page | End Page | Status |
+|-------|----|--------|-----------|------------|----------|--------|
+| 1 | 6624 | Guerrero | 24 | 1 | 24 | ✅ Confirmed |
+| TBD | 7188 | Imaninezhad | 10 or 12 | TBD | TBD | Awaiting author version choice |
+| TBD | 7236 | Moreno Cabeza | 16 | TBD | TBD | placeholder=25 in main.tex (conflicts w/ 7188) |
+| TBD | 7296 | Smith | 7 | TBD | TBD | startpage not yet set in main.tex |
+| TBD | 6628 | Cho | TBD | TBD | TBD | Not yet typeset |
+| TBD | 6915 | Mahmood | TBD | TBD | TBD | Accepted Mar 23, not yet typeset |
+
 ### ✅ Prepublication (Typeset & Accepted)
-| ID | Author | Title | Pages | Accepted | Deadline | Notes |
-|----|--------|-------|-------|----------|----------|-------|
-| 6624 | Guerrero | Engage, Reflect, Improve: Enhancing Statistical Consulting Courses with AI Simulations | 24 | Mar 24 | Apr 7 proof approval | Lead article (page 1), acceptance sent |
-| 7188 | Imaninezhad | The Art of Problem Posing: From Bouncing Balls to Infinite Series | 10/12 | Mar 17 | [TBD] | Two versions sent Mar 27: v1 (faithful, 10p) & v2 (enhanced w/ guidance, 12p). Awaiting author selection. |
+| ID | Author | Title | PDF Pages | Start Page | Accepted | Deadline | Notes |
+|----|--------|-------|-----------|------------|----------|----------|-------|
+| 6624 | Guerrero | Engage, Reflect, Improve: Enhancing Statistical Consulting Courses with AI Simulations | 24 | 1 | Mar 24 | Apr 7 proof approval | Lead article (pp. 1–24), acceptance sent |
+| 7188 | Imaninezhad | The Art of Problem Posing: From Bouncing Balls to Infinite Series | 10 or 12 | TBD | Mar 17 | [TBD] | Two versions sent Mar 27: v1 (10p) & v2 (12p). Awaiting author selection. |
+| 7236 | Moreno Cabeza | Thinking with Machines: Mediation, Joint Activity, and Embodiment in Mathematics Education through the Theory of Objectification | 16 | TBD | Mar 17 | [TBD] | Typeset Mar 27 (16pp incl. appendix). Companion pieces ready (v1: 3p, v2: 5p). startpage placeholder — reassign after ordering. |
+| 7296 | Smith | Fitting It All In: A Geometric Modeling Task | 7 | TBD | Mar 17 | Early May | Typeset Mar 25, proof sent, awaiting author review. startpage not yet set. |
 
 ### 📧 Copyediting (Accepted, Awaiting Typesetting)
 | ID | Author | Title | Accepted | Next Action |
 |----|--------|-------|----------|-------------|
 | 6628 | Cho | Preservice Teachers' Experiences with AI-Assisted Math and Science Integrated Lesson Planning | Mar 23 | Schedule typesetting |
-| 7236 | Moreno Cabeza | Thinking with Machines: Mediation, Joint Activity, and Embodiment in Mathematics Education through the Theory of Objectification | Mar 17 | Schedule typesetting |
-| 7296 | Smith | Fitting it All In: A Geometric Modeling Task | Mar 17 | Schedule typesetting |
 
 ### 📝 In Review / Pending Decision
 | ID | Author | Title | Submitted | Review Status | Next Action |
@@ -73,10 +87,10 @@
 
 - [x] **Sun 3/23:** 6622 Lozano (Spring) ✅ COMPLETED
 - [x] **Mon 3/24:** 6624 Guerrero (Summer) ✅ COMPLETED
+- [x] **Tue 3/25:** 7296 Smith (Summer) ✅ COMPLETED
 - [x] **Wed 3/26:** 7188 Imaninezhad (Summer) ✅ COMPLETED (awaiting version choice)
-- [ ] **Tue 3/25:** 7296 Smith (Summer) ⬅️ **NEXT UP**
-- [ ] **Thu 3/27:** 7236 Moreno Cabeza (Summer)
-- [ ] **Fri 3/28:** 6628 Cho (Summer)
+- [x] **Thu 3/27:** 7236 Moreno Cabeza (Summer) ✅ COMPLETED (16pp incl. appendix; companion pieces v1/v2 ready)
+- [ ] **Fri 3/28:** 6628 Cho (Summer) ⬅️ **NEXT UP**
 
 ---
 
@@ -97,13 +111,15 @@
 ---
 
 ## Quick Stats
-- **Summer 2026:** 2 typeset (prepublication), 3 in copyediting, 3 in review
+- **Summer 2026:** 4 typeset (prepublication), 1 in copyediting, 3 in review
 - **Spring 2026:** 8 published, 2 in prepublication, 5 in review
 - **Total Active Submissions:** 15 (plus 3 status unclear)
+- **⚠️ Page ordering needed:** 7188, 7236, 7296 all have TBD start pages — finalize order before sending proofs
 
 ---
 
 ## Update Log
+- **3/27/26:** 7236 Moreno Cabeza typeset (16pp incl. appendix, two companion pieces). Page planning section added to track PDF page counts and start pages. 7296 and 7236 moved to Prepublication. Article ordering for Summer 2026 still TBD.
 - **3/24/26 PM:** Major email day - Lozano proof sent (Apr 6), Guerrero proof sent (Apr 7), Mix extension (June 30), Svoboda follow-up, Bintz rejection (collab offered), Morelo review update (Mar 27), Khadka R&R with consultation, Druken on track, Lesser timeline flexible, Moreno companion piece discussion
 - **3/24/26 AM:** Updated with Janeway screenshots; Guerrero typeset completed; Cho & Mahmood accepted Mar 23
 - **3/24/26:** Created submissions tracker
