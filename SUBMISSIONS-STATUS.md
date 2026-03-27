@@ -1,5 +1,5 @@
 # OJSM Submissions Status
-**Last Updated:** March 24, 2026  
+**Last Updated:** March 27, 2026  
 **Purpose:** Single source of truth for all active submissions across all issues
 
 ---
@@ -10,12 +10,12 @@
 | ID | Author | Title | Pages | Accepted | Deadline | Notes |
 |----|--------|-------|-------|----------|----------|-------|
 | 6624 | Guerrero | Engage, Reflect, Improve: Enhancing Statistical Consulting Courses with AI Simulations | 24 | Mar 24 | Apr 7 proof approval | Lead article (page 1), acceptance sent |
+| 7188 | Imaninezhad | The Art of Problem Posing: From Bouncing Balls to Infinite Series | 10/12 | Mar 17 | [TBD] | Two versions sent Mar 27: v1 (faithful, 10p) & v2 (enhanced w/ guidance, 12p). Awaiting author selection. |
 
 ### 📧 Copyediting (Accepted, Awaiting Typesetting)
 | ID | Author | Title | Accepted | Next Action |
 |----|--------|-------|----------|-------------|
 | 6628 | Cho | Preservice Teachers' Experiences with AI-Assisted Math and Science Integrated Lesson Planning | Mar 23 | Schedule typesetting |
-| 7188 | Imaninezhad | The Art of Problem Posing: From Bouncing Balls to Infinite Series | Mar 17 | Schedule typesetting |
 | 7236 | Moreno Cabeza | Thinking with Machines: Mediation, Joint Activity, and Embodiment in Mathematics Education through the Theory of Objectification | Mar 17 | Schedule typesetting |
 | 7296 | Smith | Fitting it All In: A Geometric Modeling Task | Mar 17 | Schedule typesetting |
 
@@ -73,8 +73,8 @@
 
 - [x] **Sun 3/23:** 6622 Lozano (Spring) ✅ COMPLETED
 - [x] **Mon 3/24:** 6624 Guerrero (Summer) ✅ COMPLETED
+- [x] **Wed 3/26:** 7188 Imaninezhad (Summer) ✅ COMPLETED (awaiting version choice)
 - [ ] **Tue 3/25:** 7296 Smith (Summer) ⬅️ **NEXT UP**
-- [ ] **Wed 3/26:** 7188 Imaninezhad (Summer)
 - [ ] **Thu 3/27:** 7236 Moreno Cabeza (Summer)
 - [ ] **Fri 3/28:** 6628 Cho (Summer)
 
@@ -97,7 +97,7 @@
 ---
 
 ## Quick Stats
-- **Summer 2026:** 1 typeset (prepublication), 4 in copyediting, 3 in review
+- **Summer 2026:** 2 typeset (prepublication), 3 in copyediting, 3 in review
 - **Spring 2026:** 8 published, 2 in prepublication, 5 in review
 - **Total Active Submissions:** 15 (plus 3 status unclear)
 
