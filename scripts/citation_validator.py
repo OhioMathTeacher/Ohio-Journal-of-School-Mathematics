@@ -6,11 +6,12 @@ Validates citations in BibTeX files to detect hallucinated or invalid references
 
 import re
 import sys
+import os
 import json
 import time
 from pathlib import Path
-from typing import Dict, List, Tuple
-from urllib.parse import quote
+from typing import Dict, List, Tuple, Optional
+from urllib.parse import quote, urlencode
 from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
 
@@ -18,11 +19,19 @@ from urllib.error import URLError, HTTPError
 class CitationValidator:
     """Validates academic citations against CrossRef and OpenAlex APIs."""
     
-    def __init__(self, verbose=False):
+    def __init__(self, verbose=False, use_ai=False, groq_api_key=None):
         self.verbose = verbose
+        self.use_ai = use_ai
+        self.groq_api_key = groq_api_key or os.environ.get('GROQ_API_KEY')
         self.crossref_api = "https://api.crossref.org/works/"
-        self.openalex_api = "https://api.openalex.org/works/"
+        self.openalex_api = "https://api.openalex.org/works"
+        self.groq_api = "https://api.groq.com/openai/v1/chat/completions"
         self.rate_limit_delay = 0.1  # Polite delay between API calls
+        
+        if self.use_ai and not self.groq_api_key:
+            print("Warning: AI analysis requested but no GROQ_API_KEY found")
+            print("Set GROQ_API_KEY environment variable or pass --groq-key")
+            self.use_ai = False
         
     def parse_bibtex(self, filepath: Path) -> List[Dict]:
         """Parse a BibTeX file and extract citation entries."""
@@ -80,6 +89,105 @@ class CitationValidator:
         except Exception as e:
             return False, {'error': f'Unexpected error: {str(e)}'}
     
+    def search_openalex(self, title: str, author: str = None) -> Tuple[bool, Dict]:
+        """Search OpenAlex for a publication by title and optional author."""
+        if not title:
+            return False, {'error': 'No title provided'}
+        
+        # Build search query
+        query_parts = [f'title.search:"{title}"']
+        if author:
+            query_parts.append(f'author.search:"{author}"')
+        
+        params = {
+            'filter': ','.join(query_parts),
+            'per_page': 1,
+            'mailto': 'editor@ohiomathjournal.org'  # Polite pool
+        }
+        
+        url = f"{self.openalex_api}?{urlencode(params)}"
+        
+        try:
+            time.sleep(self.rate_limit_delay)
+            req = Request(url, headers={'User-Agent': 'OJSM-CitationValidator/1.0'})
+            response = urlopen(req, timeout=10)
+            data = json.loads(response.read().decode('utf-8'))
+            
+            results = data.get('results', [])
+            if results:
+                return True, results[0]
+            else:
+                return False, {'error': 'No matching publication found'}
+                
+        except (URLError, HTTPError) as e:
+            return False, {'error': f'API error: {str(e)}'}
+        except Exception as e:
+            return False, {'error': f'Unexpected error: {str(e)}'}
+    
+    def analyze_with_ai(self, entry: Dict, metadata: Dict) -> Optional[Dict]:
+        """Use Groq AI to analyze if citation looks like a Frankenstein citation."""
+        if not self.use_ai or not self.groq_api_key:
+            return None
+        
+        # Build prompt
+        fields = entry['fields']
+        prompt = f"""Analyze this academic citation for signs of being AI-hallucinated or a "Frankenstein citation" (combining fragments from multiple real papers).
+
+BibTeX Entry:
+- Type: {entry['type']}
+- Title: {fields.get('title', 'N/A')}
+- Author(s): {fields.get('author', 'N/A')}
+- Year: {fields.get('year', 'N/A')}
+- Journal: {fields.get('journal', 'N/A')}
+- DOI: {fields.get('doi', 'N/A')}
+
+Verified Metadata (if found):
+{json.dumps(metadata, indent=2) if metadata else 'None found'}
+
+Does this citation show signs of being fabricated or assembled from fragments? Consider:
+1. Are the components (title, author, journal, year) internally consistent?
+2. Do they match any verified publication data?
+3. Are there unusual patterns (generic titles, mismatched metadata)?
+
+Respond with JSON: {{"is_suspicious": true/false, "confidence": 0-100, "reason": "brief explanation"}}"""
+
+        payload = {
+            "model": "llama-3.1-8b-instant",  # Fast, cheap Groq model
+            "messages": [
+                {"role": "system", "content": "You are an expert at detecting fabricated academic citations. Respond only with valid JSON."},
+                {"role": "user", "content": prompt}
+            ],
+            "temperature": 0.1,
+            "max_tokens": 200
+        }
+        
+        try:
+            time.sleep(self.rate_limit_delay)
+            req = Request(
+                self.groq_api,
+                data=json.dumps(payload).encode('utf-8'),
+                headers={
+                    'Authorization': f'Bearer {self.groq_api_key}',
+                    'Content-Type': 'application/json'
+                }
+            )
+            response = urlopen(req, timeout=30)
+            data = json.loads(response.read().decode('utf-8'))
+            
+            # Extract AI response
+            content = data['choices'][0]['message']['content']
+            # Try to parse JSON from response
+            json_match = re.search(r'\{.*\}', content, re.DOTALL)
+            if json_match:
+                return json.loads(json_match.group())
+            else:
+                return None
+                
+        except Exception as e:
+            if self.verbose:
+                print(f"  AI analysis failed: {str(e)}")
+            return None
+    
     def check_citation(self, entry: Dict) -> Dict:
         """Check a single citation entry for issues."""
         result = {
@@ -87,45 +195,79 @@ class CitationValidator:
             'type': entry['type'],
             'status': 'valid',
             'issues': [],
-            'warnings': []
+            'warnings': [],
+            'ai_analysis': None
         }
         
         fields = entry['fields']
         doi = fields.get('doi', '')
+        verified_metadata = None
         
-        # Check for DOI
-        if not doi:
-            result['warnings'].append('No DOI found')
-            result['status'] = 'warning'
-            return result
-        
-        # Validate DOI
-        is_valid, doi_data = self.validate_doi(doi)
-        
-        if not is_valid:
-            result['status'] = 'invalid'
-            result['issues'].append(f"Invalid DOI: {doi_data.get('error', 'Unknown error')}")
-            return result
-        
-        # Compare metadata
-        if 'title' in fields and 'title' in doi_data:
-            bib_title = fields['title'].lower().strip()
-            doi_title = ' '.join(doi_data['title']).lower().strip() if isinstance(doi_data['title'], list) else doi_data['title'].lower().strip()
+        # Try DOI validation first
+        if doi:
+            is_valid, doi_data = self.validate_doi(doi)
             
-            # Simple similarity check
-            if bib_title not in doi_title and doi_title not in bib_title:
-                result['warnings'].append(f"Title mismatch: BibTeX='{fields['title'][:50]}...' vs DOI='{doi_data.get('title', [''])[0][:50]}...'")
-                result['status'] = 'suspicious'
-        
-        # Check year
-        if 'year' in fields and 'published' in doi_data:
-            bib_year = fields['year']
-            doi_year = str(doi_data['published'].get('date-parts', [[None]])[0][0])
+            if not is_valid:
+                result['status'] = 'invalid'
+                result['issues'].append(f"Invalid DOI: {doi_data.get('error', 'Unknown error')}")
+                
+                # AI analysis for invalid DOI
+                if self.use_ai:
+                    result['ai_analysis'] = self.analyze_with_ai(entry, None)
+                
+                return result
             
-            if bib_year != doi_year:
-                result['warnings'].append(f"Year mismatch: BibTeX={bib_year} vs DOI={doi_year}")
-                if result['status'] == 'valid':
+            verified_metadata = doi_data
+            
+            # Compare metadata
+            if 'title' in fields and 'title' in doi_data:
+                bib_title = fields['title'].lower().strip()
+                doi_title = ' '.join(doi_data['title']).lower().strip() if isinstance(doi_data['title'], list) else doi_data['title'].lower().strip()
+                
+                # Simple similarity check
+                if bib_title not in doi_title and doi_title not in bib_title:
+                    result['warnings'].append(f"Title mismatch: BibTeX='{fields['title'][:50]}...' vs DOI='{doi_data.get('title', [''])[0][:50]}...'")
+                    result['status'] = 'suspicious'
+            
+            # Check year
+            if 'year' in fields and 'published' in doi_data:
+                bib_year = fields['year']
+                doi_year = str(doi_data['published'].get('date-parts', [[None]])[0][0])
+                
+                if bib_year != doi_year:
+                    result['warnings'].append(f"Year mismatch: BibTeX={bib_year} vs DOI={doi_year}")
+                    if result['status'] == 'valid':
+                        result['status'] = 'warning'
+        
+        else:
+            # No DOI - try OpenAlex search
+            title = fields.get('title', '')
+            author = fields.get('author', '')
+            
+            if title:
+                found, openalex_data = self.search_openalex(title, author)
+                
+                if found:
+                    verified_metadata = openalex_data
+                    result['warnings'].append('No DOI, but found in OpenAlex')
+                    
+                    # Compare with OpenAlex data
+                    oa_title = openalex_data.get('title', '').lower().strip()
+                    bib_title = title.lower().strip()
+                    
+                    if oa_title and bib_title not in oa_title and oa_title not in bib_title:
+                        result['warnings'].append(f"Title mismatch with OpenAlex")
+                        result['status'] = 'suspicious'
+                else:
+                    result['warnings'].append('No DOI found and not in OpenAlex')
                     result['status'] = 'warning'
+            else:
+                result['warnings'].append('No DOI and no title for OpenAlex search')
+                result['status'] = 'warning'
+        
+        # AI analysis for suspicious/invalid citations
+        if self.use_ai and result['status'] in ['suspicious', 'invalid']:
+            result['ai_analysis'] = self.analyze_with_ai(entry, verified_metadata)
         
         return result
     
@@ -192,6 +334,19 @@ class CitationValidator:
                     print(f"  ✗ {issue}")
                 for warning in detail['warnings']:
                     print(f"  ⚠ {warning}")
+                
+                # Show AI analysis if available
+                if detail.get('ai_analysis'):
+                    ai = detail['ai_analysis']
+                    confidence = ai.get('confidence', 0)
+                    is_suspicious = ai.get('is_suspicious', False)
+                    reason = ai.get('reason', 'No reason provided')
+                    
+                    if is_suspicious:
+                        print(f"  🤖 AI Analysis: LIKELY HALLUCINATED ({confidence}% confidence)")
+                    else:
+                        print(f"  🤖 AI Analysis: Appears legitimate ({confidence}% confidence)")
+                    print(f"     Reason: {reason}")
         else:
             print("\n✓ No issues found! All citations appear valid.")
         
@@ -200,20 +355,41 @@ class CitationValidator:
 
 def main():
     """Main entry point."""
-    if len(sys.argv) < 2:
-        print("Usage: python citation_validator.py <path_to_bib_file> [--verbose]")
-        print("\nExample:")
-        print("  python citation_validator.py ../Ohio-Journal-Spring-2026/6622\\ Lozano/bibliography.bib")
-        sys.exit(1)
+    if len(sys.argv) < 2 or '--help' in sys.argv or '-h' in sys.argv:
+        print("OJSM Citation Validator - Detect hallucinated academic references")
+        print("\nUsage: python3 citation_validator.py <path_to_bib_file> [options]")
+        print("\nOptions:")
+        print("  --verbose, -v       Show detailed progress")
+        print("  --ai                Enable AI-powered Frankenstein citation detection")
+        print("  --groq-key KEY      Groq API key (or set GROQ_API_KEY env var)")
+        print("\nExamples:")
+        print("  Basic validation:")
+        print("    python3 citation_validator.py bibliography.bib")
+        print("\n  With OpenAlex fallback for non-DOI citations:")
+        print("    python3 citation_validator.py bibliography.bib --verbose")
+        print("\n  With AI analysis (requires Groq API key):")
+        print("    export GROQ_API_KEY='your-key-here'")
+        print("    python3 citation_validator.py bibliography.bib --ai")
+        print("\nGet free Groq API key at: https://console.groq.com/")
+        sys.exit(0)
     
+    # Parse arguments
     bib_file = Path(sys.argv[1])
     verbose = '--verbose' in sys.argv or '-v' in sys.argv
+    use_ai = '--ai' in sys.argv
+    
+    # Get Groq API key if provided
+    groq_key = None
+    for i, arg in enumerate(sys.argv):
+        if arg == '--groq-key' and i + 1 < len(sys.argv):
+            groq_key = sys.argv[i + 1]
+            break
     
     if not bib_file.exists():
         print(f"Error: File not found: {bib_file}")
         sys.exit(1)
     
-    validator = CitationValidator(verbose=verbose)
+    validator = CitationValidator(verbose=verbose, use_ai=use_ai, groq_api_key=groq_key)
     results = validator.validate_file(bib_file)
     validator.print_report(results)
     

@@ -1,0 +1,34 @@
+# Ignore cloned issue repositories (managed independently)
+Ohio-Journal-Fall-2025/
+Ohio-Journal-Spring-2026/
+Ohio-Journal-Summer-2026/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+
+# LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
