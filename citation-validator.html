@@ -925,13 +925,11 @@ Example:
             <h2>AI Provider Settings</h2>
             
             <div class="ai-provider-cards">
-                <!-- Claude disabled due to CORS issues - enable when proxy server is set up
                 <div class="ai-provider-card" id="card-anthropic" onclick="selectProvider('anthropic')">
                     <div class="ai-card-title">Anthropic Claude</div>
                     <div class="ai-card-desc">Claude Sonnet 4 — Most powerful for nuanced analysis</div>
                     <div class="ai-card-badge ai-badge-paid">Paid Key</div>
                 </div>
-                -->
                 
                 <div class="ai-provider-card" id="card-gemini" onclick="selectProvider('gemini')">
                     <div class="ai-card-title">Google Gemini</div>
@@ -1448,8 +1446,10 @@ Example:
             const label = document.getElementById('aiBtnLabel');
             const p = getProvider();
             
-            // Claude disabled due to CORS - fall through to Configure AI
-            if (p === 'gemini' && getStoredKey('gemini')) {
+            if (p === 'anthropic' && getStoredKey('anthropic')) {
+                btn.classList.add('ai-active');
+                label.textContent = 'AI: Claude ✓';
+            } else if (p === 'gemini' && getStoredKey('gemini')) {
                 btn.classList.add('ai-active');
                 label.textContent = 'AI: Gemini ✓';
             } else if (p === 'groq' && getStoredKey('groq')) {
@@ -1484,8 +1484,7 @@ Example:
         }
         
         function _refreshModalCards() {
-            // Skip 'anthropic' - commented out due to CORS
-            ['gemini', 'groq', 'openai'].forEach(p => {
+            ['anthropic', 'gemini', 'groq', 'openai'].forEach(p => {
                 document.getElementById('card-' + p).classList.toggle('selected', p === _modalProvider);
             });
         }
@@ -1578,99 +1577,27 @@ IMPORTANT INSTRUCTIONS:
 Respond with JSON only:
 {"is_suspicious": true/false, "confidence": 0-100, "reason": "brief explanation"}`;
 
-                if (provider === 'anthropic') {
-                    const res = await fetch('https://api.anthropic.com/v1/messages', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'x-api-key': apiKey,
-                            'anthropic-version': '2023-06-01',
-                            'anthropic-dangerous-allow-browser': 'true'
-                        },
-                        body: JSON.stringify({
-                            model: 'claude-sonnet-4-20250514',
-                            max_tokens: 300,
-                            messages: [{ role: 'user', content: prompt }]
-                        })
-                    });
-                    if (!res.ok) {
-                        const errBody = await res.text();
-                        console.error(`Anthropic API error (${res.status}):`, errBody);
-                        return null;
-                    }
-                    const data = await res.json();
-                    const content = data.content?.map(b => b.text || '').join('') || '';
-                    console.log('Claude response:', content);
-                    const jsonMatch = content.match(/\{.*\}/s);
-                    return jsonMatch ? JSON.parse(jsonMatch[0]) : null;
+                // Call Flask proxy server to bypass CORS
+                const res = await fetch('http://localhost:5000/analyze', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        provider: provider,
+                        apiKey: apiKey,
+                        prompt: prompt
+                    })
+                });
+                
+                if (!res.ok) {
+                    const errBody = await res.text();
+                    console.error(`Proxy server error (${res.status}):`, errBody);
+                    return null;
                 }
                 
-                if (provider === 'gemini') {
-                    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`;
-                    const res = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{ parts: [{ text: prompt }] }],
-                            generationConfig: { maxOutputTokens: 300, temperature: 0.1 }
-                        })
-                    });
-                    if (!res.ok) return null;
-                    const data = await res.json();
-                    const content = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-                    const jsonMatch = content.match(/\{.*\}/s);
-                    return jsonMatch ? JSON.parse(jsonMatch[0]) : null;
-                }
+                const data = await res.json();
+                console.log(`${provider} response:`, data);
+                return data;
                 
-                if (provider === 'groq') {
-                    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-                        method: 'POST',
-                        headers: {
-                            'Authorization': `Bearer ${apiKey}`,
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            model: 'llama-3.3-70b-versatile',
-                            messages: [
-                                { role: 'system', content: 'You are an expert at detecting fabricated academic citations. Respond only with valid JSON.' },
-                                { role: 'user', content: prompt }
-                            ],
-                            temperature: 0.1,
-                            max_tokens: 300
-                        })
-                    });
-                    if (!res.ok) return null;
-                    const data = await res.json();
-                    const content = data.choices?.[0]?.message?.content || '';
-                    const jsonMatch = content.match(/\{.*\}/s);
-                    return jsonMatch ? JSON.parse(jsonMatch[0]) : null;
-                }
-                
-                if (provider === 'openai') {
-                    const res = await fetch('https://api.openai.com/v1/chat/completions', {
-                        method: 'POST',
-                        headers: {
-                            'Authorization': `Bearer ${apiKey}`,
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            model: 'gpt-4o',
-                            messages: [
-                                { role: 'system', content: 'You are an expert at detecting fabricated academic citations. Respond only with valid JSON.' },
-                                { role: 'user', content: prompt }
-                            ],
-                            temperature: 0.1,
-                            max_tokens: 300
-                        })
-                    });
-                    if (!res.ok) return null;
-                    const data = await res.json();
-                    const content = data.choices?.[0]?.message?.content || '';
-                    const jsonMatch = content.match(/\{.*\}/s);
-                    return jsonMatch ? JSON.parse(jsonMatch[0]) : null;
-                }
-                
-                return null;
             } catch (error) {
                 console.error('AI analysis failed:', error);
                 return null;

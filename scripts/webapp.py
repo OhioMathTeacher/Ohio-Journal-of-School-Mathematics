@@ -6,11 +6,14 @@ Simple Flask app for detecting hallucinated citations via web interface
 
 import os
 import json
+import requests
 from pathlib import Path
 from flask import Flask, request, jsonify, Response
+from flask_cors import CORS
 from citation_validator import CitationValidator
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # HTML Template
 HTML_TEMPLATE = r'''
@@ -1274,6 +1277,142 @@ def validate():
         
         return jsonify(results)
         
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/analyze', methods=['POST', 'OPTIONS'])
+def analyze():
+    """Proxy AI analysis requests to bypass CORS restrictions."""
+    # Handle preflight requests
+    if request.method == 'OPTIONS':
+        return '', 204
+    
+    try:
+        data = request.json
+        provider = data.get('provider')
+        api_key = data.get('apiKey')
+        prompt = data.get('prompt')
+        
+        if not all([provider, api_key, prompt]):
+            return jsonify({'error': 'Missing required fields: provider, apiKey, prompt'}), 400
+        
+        # Route to appropriate AI provider
+        if provider == 'anthropic':
+            response = requests.post(
+                'https://api.anthropic.com/v1/messages',
+                headers={
+                    'Content-Type': 'application/json',
+                    'x-api-key': api_key,
+                    'anthropic-version': '2023-06-01'
+                },
+                json={
+                    'model': 'claude-sonnet-4-20250514',
+                    'max_tokens': 300,
+                    'messages': [{'role': 'user', 'content': prompt}]
+                },
+                timeout=30
+            )
+            if not response.ok:
+                return jsonify({'error': f'Anthropic API error: {response.text}'}), response.status_code
+            
+            result = response.json()
+            content = ''.join(block.get('text', '') for block in result.get('content', []))
+            
+            # Extract JSON from response
+            import re
+            json_match = re.search(r'\{.*\}', content, re.DOTALL)
+            if json_match:
+                return jsonify(json.loads(json_match.group(0)))
+            return jsonify({'error': 'No JSON found in response'}), 500
+        
+        elif provider == 'gemini':
+            url = f'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}'
+            response = requests.post(
+                url,
+                headers={'Content-Type': 'application/json'},
+                json={
+                    'contents': [{'parts': [{'text': prompt}]}],
+                    'generationConfig': {'maxOutputTokens': 300, 'temperature': 0.1}
+                },
+                timeout=30
+            )
+            if not response.ok:
+                return jsonify({'error': f'Gemini API error: {response.text}'}), response.status_code
+            
+            result = response.json()
+            content = result.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '')
+            
+            import re
+            json_match = re.search(r'\{.*\}', content, re.DOTALL)
+            if json_match:
+                return jsonify(json.loads(json_match.group(0)))
+            return jsonify({'error': 'No JSON found in response'}), 500
+        
+        elif provider == 'groq':
+            response = requests.post(
+                'https://api.groq.com/openai/v1/chat/completions',
+                headers={
+                    'Authorization': f'Bearer {api_key}',
+                    'Content-Type': 'application/json'
+                },
+                json={
+                    'model': 'llama-3.3-70b-versatile',
+                    'messages': [
+                        {'role': 'system', 'content': 'You are an expert at detecting fabricated academic citations. Respond only with valid JSON.'},
+                        {'role': 'user', 'content': prompt}
+                    ],
+                    'temperature': 0.1,
+                    'max_tokens': 300
+                },
+                timeout=30
+            )
+            if not response.ok:
+                return jsonify({'error': f'Groq API error: {response.text}'}), response.status_code
+            
+            result = response.json()
+            content = result.get('choices', [{}])[0].get('message', {}).get('content', '')
+            
+            import re
+            json_match = re.search(r'\{.*\}', content, re.DOTALL)
+            if json_match:
+                return jsonify(json.loads(json_match.group(0)))
+            return jsonify({'error': 'No JSON found in response'}), 500
+        
+        elif provider == 'openai':
+            response = requests.post(
+                'https://api.openai.com/v1/chat/completions',
+                headers={
+                    'Authorization': f'Bearer {api_key}',
+                    'Content-Type': 'application/json'
+                },
+                json={
+                    'model': 'gpt-4o',
+                    'messages': [
+                        {'role': 'system', 'content': 'You are an expert at detecting fabricated academic citations. Respond only with valid JSON.'},
+                        {'role': 'user', 'content': prompt}
+                    ],
+                    'temperature': 0.1,
+                    'max_tokens': 300
+                },
+                timeout=30
+            )
+            if not response.ok:
+                return jsonify({'error': f'OpenAI API error: {response.text}'}), response.status_code
+            
+            result = response.json()
+            content = result.get('choices', [{}])[0].get('message', {}).get('content', '')
+            
+            import re
+            json_match = re.search(r'\{.*\}', content, re.DOTALL)
+            if json_match:
+                return jsonify(json.loads(json_match.group(0)))
+            return jsonify({'error': 'No JSON found in response'}), 500
+        
+        else:
+            return jsonify({'error': f'Unsupported provider: {provider}'}), 400
+    
+    except requests.exceptions.Timeout:
+        return jsonify({'error': 'AI API request timed out'}), 504
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
