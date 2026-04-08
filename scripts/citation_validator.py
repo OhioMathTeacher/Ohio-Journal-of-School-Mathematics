@@ -71,12 +71,17 @@ class CitationValidator:
         return entries
     
     def validate_doi(self, doi: str) -> Tuple[bool, Dict]:
-        """Validate a DOI using CrossRef API."""
+        """Validate a DOI using CrossRef API, with DataCite/arXiv fallback."""
         if not doi:
             return False, {'error': 'No DOI provided'}
         
         # Clean DOI
         doi = doi.strip().replace('https://doi.org/', '').replace('http://dx.doi.org/', '')
+        
+        # arXiv DOIs use DataCite, not CrossRef - check arXiv API directly
+        arxiv_match = re.match(r'10\.48550/arXiv\.(\d+\.\d+)', doi)
+        if arxiv_match:
+            return self._validate_arxiv(arxiv_match.group(1))
         
         url = f"{self.crossref_api}{quote(doi)}"
         
@@ -92,7 +97,67 @@ class CitationValidator:
                 return False, {'error': 'DOI not found'}
                 
         except (URLError, HTTPError) as e:
-            return False, {'error': f'API error: {str(e)}'}
+            # CrossRef returned 404 - try DOI resolver as fallback
+            # This catches DataCite DOIs (Zenodo, Figshare, Dryad, etc.)
+            return self._validate_doi_resolver(doi)
+        except Exception as e:
+            return False, {'error': f'Unexpected error: {str(e)}'}
+    
+    def _validate_arxiv(self, arxiv_id: str) -> Tuple[bool, Dict]:
+        """Validate an arXiv paper using the arXiv API."""
+        url = f"http://export.arxiv.org/api/query?id_list={arxiv_id}"
+        
+        try:
+            time.sleep(self.rate_limit_delay)
+            req = Request(url, headers={'User-Agent': 'OJSM-CitationValidator/1.0'})
+            response = urlopen(req, timeout=10)
+            data = response.read().decode('utf-8')
+            
+            # Check for valid entry (arXiv API returns XML)
+            if '<title>' in data and 'Error' not in data.split('<title>')[1].split('</title>')[0]:
+                # Extract title from XML
+                title_match = re.search(r'<title[^>]*>(.*?)</title>', data, re.DOTALL)
+                title = ''
+                if title_match:
+                    # Skip the feed title, get the entry title
+                    titles = re.findall(r'<title[^>]*>(.*?)</title>', data, re.DOTALL)
+                    title = titles[-1].strip() if len(titles) > 1 else titles[0].strip()
+                
+                # Extract authors
+                authors = re.findall(r'<name>(.*?)</name>', data)
+                
+                return True, {
+                    'title': [title],
+                    'author': [{'given': a.split()[-1], 'family': ' '.join(a.split()[:-1])} for a in authors] if authors else [],
+                    'source': 'arxiv',
+                    'arxiv_id': arxiv_id
+                }
+            else:
+                return False, {'error': f'arXiv paper {arxiv_id} not found'}
+                
+        except (URLError, HTTPError) as e:
+            return False, {'error': f'arXiv API error: {str(e)}'}
+        except Exception as e:
+            return False, {'error': f'Unexpected error: {str(e)}'}
+    
+    def _validate_doi_resolver(self, doi: str) -> Tuple[bool, Dict]:
+        """Fallback: check if a DOI resolves via doi.org (catches DataCite, Zenodo, Figshare, etc.)."""
+        url = f"https://doi.org/api/handles/{doi}"
+        
+        try:
+            time.sleep(self.rate_limit_delay)
+            req = Request(url, headers={'User-Agent': 'OJSM-CitationValidator/1.0'})
+            response = urlopen(req, timeout=10)
+            data = json.loads(response.read().decode('utf-8'))
+            
+            # DOI handle API returns responseCode 1 for valid DOIs
+            if data.get('responseCode') == 1:
+                return True, {'source': 'doi_resolver', 'doi': doi}
+            else:
+                return False, {'error': 'DOI not found in any registry'}
+                
+        except (URLError, HTTPError):
+            return False, {'error': f'DOI {doi} not found in CrossRef or DOI resolver'}
         except Exception as e:
             return False, {'error': f'Unexpected error: {str(e)}'}
     
@@ -204,6 +269,7 @@ Respond with JSON: {{"is_suspicious": true/false, "confidence": 0-100, "reason":
         result = {
             'key': entry['key'],
             'type': entry['type'],
+            'fields': entry['fields'],
             'status': 'valid',
             'issues': [],
             'warnings': [],

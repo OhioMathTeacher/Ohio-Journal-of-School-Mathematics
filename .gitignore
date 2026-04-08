@@ -8,6 +8,7 @@ env/
 venv/
 .venv/
 *.egg-info/
+.env
 
 # LaTeX
 *.aux
