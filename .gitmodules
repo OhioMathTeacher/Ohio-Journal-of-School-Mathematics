@@ -1,6 +1,3 @@
 [submodule "Spring-2026"]
 	path = Spring-2026
 	url = https://github.com/OhioMathTeacher/Ohio-Journal-Spring-2026.git
-[submodule "Summer-2026"]
-	path = Summer-2026
-	url = https://github.com/OhioMathTeacher/Ohio-Journal-Summer-2026
