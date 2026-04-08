@@ -1,214 +1,123 @@
-# ✓ Scientific Testing Framework Complete
-
-## What We Built (in ~30 minutes)
-
-### 📁 Organized Test Structure
-```
-test_citations/
-├── real_citations/                    # 385 VALID citations
-│   ├── arxiv_cs_2024/                # From existing arXiv papers
-│   │   ├── arxiv_2604.05875.bib     # 205 citations
-│   │   └── arxiv_2604.05952.bib     # 80 citations
-│   ├── crossref_random/              # From CrossRef API
-│   │   ├── crossref_sample_0001.bib # 50 citations
-│   │   └── crossref_sample_0002.bib # 50 citations
-│   └── [6 empty folders for future expansion]
-│
-├── false_negative_tests/              # 400 INVALID citations
-│   ├── frankenstein/                 # Real components, wrong combo
-│   ├── stolen_doi/                   # Real DOIs, fake metadata
-│   ├── plausible/                    # Completely fake, looks real
-│   └── nonsense/                     # Obviously wrong
-│
-├── false_positive_tests/             # For edge cases (future)
-│   ├── datacite_dois/
-│   ├── old_formats/
-│   ├── edge_cases/
-│   ├── non_standard_venues/
-│   └── sparse_metadata/
-│
-└── Scripts & Documentation:
-    ├── TEST_DESIGN.md               # Scientific methodology
-    ├── README_TESTING.md            # Scaling roadmap
-    ├── COMMANDS.md                  # Quick reference
-    ├── extract_citations_from_arxiv.py
-    ├── download_crossref_sample.py
-    ├── download_scholar_citations.py
-    ├── generate_fake_citations.py
-    ├── run_all_tests.py
-    └── quick_start.sh
-```
-
-**Current Total: 785 test citations**
-- ✓ Scientifically organized into folders
-- ✓ Balanced (49% real, 51% fake)
-- ✓ Ground truth labels embedded in directory structure
-- ✓ Ready to scale to 10,000+
+# Citation Validator — Project Status & Roadmap
+**Last updated:** April 2026
 
 ---
 
-## 🚀 What Each Script Does
+## What This Tool Does
 
-### 1. **extract_citations_from_arxiv.py**
-Extracts BibTeX from `.bib` and `.tex` files in arXiv papers
-```bash
-python3 extract_citations_from_arxiv.py --all
-# → Processed 3 folders, extracted 285 citations
-```
+The OJSM Citation Validator checks academic BibTeX references for signs of AI hallucination — fabricated citations that look real but don't exist. It uses a three-layer pipeline:
 
-### 2. **download_crossref_sample.py**  
-Downloads random citations from CrossRef's 150M+ paper database
-```bash
-python3 download_crossref_sample.py 100
-# → Downloaded 100 random papers, converted to BibTeX
-```
+1. **CrossRef / arXiv / DOI resolver** — verifies a DOI actually exists and that the metadata matches
+2. **OpenAlex title search** — fallback for citations without DOIs
+3. **Heuristic pattern detection** — catches suspicious patterns (generic titles, future years, metadata mismatches)
+4. **Optional AI analysis** — deeper Frankenstein citation detection via Claude, Gemini, Groq, or OpenAI
 
-### 3. **generate_fake_citations.py**
-Creates synthetic fake citations for testing
-- **Frankenstein:** Real author + real journal + fake title
-- **Stolen DOI:** Real DOI with completely wrong metadata
-- **Plausible:** Completely fake but believable
-- **Nonsense:** Obviously wrong (future years, etc.)
-```bash
-python3 generate_fake_citations.py --type all --count 400
-# → Generated 400 fake citations across 4 categories
-```
-
-### 4. **run_all_tests.py**
-Runs validator on all test files, calculates metrics
-```bash
-python3 run_all_tests.py
-# → Tests validator, outputs precision/recall/F1/false positive rate
-```
-
-### 5. **download_scholar_citations.py**
-Google Scholar interface (manual or automated)
-```bash
-python3 download_scholar_citations.py --auto "deep learning" output.bib
-# → Downloads citations from Google Scholar search
-```
+The tool runs entirely in the browser (static HTML + JS) or from the command line (Python). No server, no installation required for users.
 
 ---
 
-## 📊 Scientific Rigor Achieved
+## Current State (April 2026)
 
-✓ **Stratified Sampling**
-- Multiple sources (arXiv, CrossRef, synthetic)
-- Multiple fields (CS, random selection)
-- Multiple time periods (2024, random years)
+### What works
+- Full BibTeX parsing with proper brace-depth handling (browser and CLI)
+- DOI validation via CrossRef with arXiv and DataCite fallbacks
+- Title similarity scoring (Jaccard) for metadata matching
+- OpenAlex fallback with similarity gating (threshold ≥ 0.5 to prevent false validation)
+- Multi-provider AI analysis (Claude, Gemini, Groq, OpenAI)
+- File upload, drag-and-drop, and direct paste input
+- Export to HTML, JSON, and CSV
 
-✓ **Ground Truth Labels**
-- Every citation has expected result (`VALID` or `INVALID`)
-- Embedded in directory structure (`real_citations/` vs `false_negative_tests/`)
-- JSON files document provenance
+### Validator bug fixes completed (April 2026)
+Nine accuracy bugs were identified and fixed. Prior to these fixes, false positives and false negatives were occurring due to:
 
-✓ **Balanced Test Set**
-- 49% real citations
-- 51% fake citations
-- Avoids bias toward one class
+| Bug | Impact | Fix |
+|-----|--------|-----|
+| Python BibTeX parser used regex | Silently dropped entries with nested braces | Rewrote with brace-depth tracking |
+| OpenAlex accepted any top result | Fabricated titles validated by unrelated papers | Added Jaccard similarity gate (≥ 0.5) |
+| JS default status was `'invalid'` | Network failures caused false positives | Changed to `'unknown'` |
+| Heuristic warnings overrode confirmed DOIs | Real papers with minor quirks marked suspicious | DOI confirmation now protects against downgrade |
+| DOI resolver returned no metadata | Stolen DOIs on DataCite passed unchecked | Added content-negotiation metadata fetch |
+| Title comparison was substring-based | Short shared phrases caused false matches | Replaced with Jaccard similarity (threshold 0.4) |
+| arXiv check scanned all fields | Any fake with "arxiv" in notes bypassed checks | Now checks DOI field only |
+| JS and Python used different OpenAlex endpoints | Inconsistent results between browser and CLI | Both now use structured `filter` endpoint |
+| Jaccard tokenization differed JS vs Python | Same citation scored differently by each | Both now use `\w+` word tokenization |
 
-✓ **Reproducible**
-- All scripts available
-- Commands documented
-- Can regenerate entire test suite
-
-✓ **Scalable**
-- Easy to add more citations
-- Clear path to 10,000+ citations
-- Parallel execution supported
-
-✓ **Comprehensive Evaluation**
-- Confusion matrix
-- Precision, Recall, F1 Score
-- False Positive/Negative Rates
-- Statistical significance at scale
-
----
-
-## 🎯 Next Steps
-
-### Option 1: Test What You Have Now (10 minutes)
-```bash
-cd test_citations/
-python3 run_all_tests.py --limit 50
-```
-
-### Option 2: Scale to 1,000 Citations (30 minutes)
-```bash
-# Get 300 more real citations
-python3 download_crossref_sample.py 300 real_citations/crossref_random/
-
-# Generate 300 more fakes
-python3 generate_fake_citations.py --type all --count 300 --output false_negative_tests/
-
-# Test all
-python3 run_all_tests.py
-```
-
-### Option 3: Scale to 10,000 Citations (3-4 hours)
-See [README_TESTING.md](README_TESTING.md) for full roadmap
+### Test suite
+785 citations organized for scientific evaluation:
+- **385 real citations** (arXiv CS papers, CrossRef random sample)
+- **400 synthetic fakes** (Frankenstein, stolen DOI, plausible, nonsense)
+- Per-citation ground truth, not per-file (fixed in the test runner)
 
 ---
 
-## 💡 Key Design Decisions
+## Published Research Landscape
 
-### Why Folders Instead of One Big File?
-- Easy to add/remove test categories
-- Clear organization by type
-- Ground truth encoded in structure
-- Parallel processing friendly
-- Easy to sample subsets
+In researching the Nature article that inspired this tool, we found five major published datasets and tools from other researchers working on the same problem. These represent the best available external ground truth for benchmarking.
 
-### Why 50 Citations Per File?
-- Readable file size
-- Git-friendly
-- Easy to review individual files
-- Parallel processing granularity
+| Paper | Dataset Size | What They Found |
+|-------|-------------|-----------------|
+| **HalluCitation** — Sakai et al. (arXiv:2601.18724) | ~300 hallucinated papers at ACL/NAACL/EMNLP 2024-2025 | 20 hallucinated papers in 2024 → 275 in 2025; Appendix B lists them |
+| **Compound Deception** — Ansari (arXiv:2602.05930) | 100 fabricated citations in 53 NeurIPS 2025 papers | 5-category taxonomy: Total Fabrication 66%, Partial Corruption 27%, Identifier Hijacking 4% |
+| **BibTeX Citation Hallucinations** — Rao & Callison-Burch (arXiv:2604.03159) | 931-paper benchmark, ~23K field observations | Only 50.9% of LLM-generated BibTeX fully correct; released benchmark + `clibib` tool |
+| **GhostCite** — CiteVerifier (arXiv:2602.06718) | 375K citations from 13 LLMs; 2.2M real citations 2020-2025 | 14–95% hallucination rates depending on LLM; 1.07% of real papers had invalid citations |
+| **CheckIfExist** — Abbonato (arXiv:2602.15871) | Open-source tool; CrossRef + Semantic Scholar + OpenAlex | Published code at github.com/zabbonat/References-Validation |
+| **Mysterious Citations** — Bienz et al. (arXiv:2602.05867) | 4 HPC conferences 2021 vs 2025 | 0% in 2021 → 2-6% in 2025; source of Nature's headline figure |
 
-### Why Synthetic Fakes?
-- Complete control over test cases
-- Can target specific edge cases
-- Unlimited supply
-- No ethical issues (vs. using real hallucinated citations from papers)
+These datasets use the same types of hallucinations we already test, and their taxonomies map directly onto ours:
 
-### Why Multiple Sources?
-- Avoid overfitting to one data source
-- Real-world applications see mixed inputs
-- Different sources have different patterns
-- More generalizable validator
+| Our category | Ansari taxonomy equivalent |
+|---|---|
+| Frankenstein | Partial Attribute Corruption |
+| Stolen DOI | Identifier Hijacking |
+| Plausible | Total Fabrication (believable) |
+| Nonsense | Total Fabrication (obvious) |
 
 ---
 
-## 📈 Scaling Strategy Summary
+## Where We're Heading
 
-| Current | Target | How |
-|---------|--------|-----|
-| 385 real citations | 8,000 | CrossRef API (5000) + arXiv bulk (3000) |
-| 400 fake citations | 2,000 | Generate 500 of each type |
-| 0 edge cases | 1,000 | Manual curation (Zenodo, Figshare, etc.) |
-| **785 total** | **11,000** | 3-4 hours of automated downloading |
+### Tier 1: Benchmark Library in the HTML App (next priority)
+Add a third data source to the validator alongside "paste" and "file upload":
+
+- A **Benchmark Library panel** with dataset cards (name, author, year, citation count, type breakdown)
+- **Load** any dataset into the validator with one click
+- **Combine** multiple datasets (e.g., "mix 100 real from HalluCitation + 100 fakes from Compound Deception")
+- **Filter** across datasets by ground truth label, fabrication type, domain
+
+Data architecture: standard `.bib` files + sidecar `.json` metadata per dataset, organized under `datasets/` with a `manifest.json` index.
+
+### Tier 2: Comparison & Accuracy Dashboard (soon after)
+Once we have published ground truth:
+- After validation, show a confusion matrix against ground truth labels
+- "How did we do?" — TP/TN/FP/FN vs. the published results from each study
+- Compare our detection rates to CheckIfExist's published numbers
+
+### Tier 3: Challenge Mode (stretch goal)
+- Load a mixed real+fake set with labels hidden
+- User flags suspicious citations manually before running the validator
+- Side-by-side reveal: human intuition vs. machine results
+- Useful for teaching and editorial training
+
+### Test suite expansion
+Priority order for dataset integration:
+1. **Rao & Callison-Burch 931-paper benchmark** — most rigorous, has field-level ground truth
+2. **Compound Deception 100 NeurIPS fakes** — categorized by fabrication type
+3. **HalluCitation Appendix B** — real ACL/NAACL/EMNLP data
+4. **Bienz et al. HPC conference data** — the source of Nature's 2-6% figure
+5. **GhostCite 2.2M real citation corpus** — large-scale real-world baseline
 
 ---
 
-## 🎓 Scientific Method Applied
+## Quick Links
 
-1. **Hypothesis:** Citation validator can distinguish real from fake citations
-2. **Null Hypothesis:** Validator performs no better than random chance
-3. **Test Design:** Balanced dataset with ground truth labels
-4. **Metrics:** Precision, Recall, F1, FPR, FNR
-5. **Statistical Power:** Target 10,000+ citations for significance
-6. **Reproducibility:** All scripts and data documented
-7. **Generalizability:** Multiple sources and fields
-
----
-
-**You now have a professional-grade testing framework!**
-
-All that remains is running the tests and analyzing results. The framework is scientifically sound and scales to industry-standard test suite sizes.
-
-**Commands to run right now:**
-```bash
-cd test_citations/
-python3 run_all_tests.py --limit 20  # Quick test
-python3 run_all_tests.py              # Full 785 citations
-```
+| Resource | Location |
+|----------|----------|
+| Validator (browser) | `citation-validator.html` |
+| Validator (CLI) | `scripts/citation_validator.py` |
+| Heuristic enhancements | `scripts/citation_enhancements.py` |
+| Test runner | `test_citations/run_all_tests.py` |
+| Test data | `test_citations/` |
+| Testing methodology | `test_citations/TEST_DESIGN.md` |
+| Test infrastructure guide | `test_citations/README_TESTING.md` |
+| Historical results | `test_citations/TESTING_SUMMARY.md` |
+| Quick commands | `test_citations/COMMANDS.md` |

@@ -1,254 +1,252 @@
-# Citation Validator - Scientific Testing Strategy
-**Date:** April 8, 2026  
-**Goal:** Test 10,000+ citations systematically with scientific rigor
+# Citation Validator — Scientific Testing Methodology
+**Last updated:** April 2026
+
+This document describes the scientific principles behind how we test the validator, our fabrication taxonomy, how our categories map to published research, and our plan for integrating external benchmark datasets.
 
 ---
 
 ## Testing Philosophy
 
-We need to test **ALL** the ways citations can fail:
-1. **True Positives** - Real citations correctly validated ✓
-2. **True Negatives** - Fake citations correctly flagged ✗
-3. **False Positives** - Real citations incorrectly flagged ✗ (BAD!)
-4. **False Negatives** - Fake citations that slip through ✓ (BAD!)
+A citation validator has four types of outcomes, and all four matter:
+
+| Outcome | Meaning | Priority |
+|---------|---------|----------|
+| **True Positive (TP)** | Real citation correctly validated | — |
+| **True Negative (TN)** | Fake citation correctly flagged | — |
+| **False Positive (FP)** | Real citation incorrectly flagged | High concern — creates friction for honest authors |
+| **False Negative (FN)** | Fake citation passes undetected | High concern — the whole point of the tool |
+
+We optimize for **low FPR** (don't harass real authors) while maintaining **low FNR** (catch actual hallucinations). An F1 score > 0.92 is our target, but we care more about the individual rates than the aggregate.
+
+**Critical evaluation principle:** We evaluate per-citation, not per-file. A file with 50 fakes where 1 gets flagged is not a "caught" file — it's 49 false negatives. Our test runner (updated April 2026) now correctly attributes every individual citation.
 
 ---
 
-## Sampling Strategy
+## Our Fabrication Taxonomy
 
-### 1. Real Citations (Ground Truth Positives) - Target: 8,000
+We use four categories of synthetic fake citations, each targeting a different failure mode of the validator:
 
-#### Source A: arXiv Papers (Bulk Download)
-**How:** arXiv provides bulk access to source files including `.bib` files
-- **CS papers (2024-2026):** 1,000 citations
-- **Physics papers (2020-2023):** 1,000 citations  
-- **Biology/q-bio (2022-2025):** 1,000 citations
-- **Math papers (2015-2020):** 500 citations
+### Category 1: Frankenstein Citations
+**Definition:** Real components from multiple papers combined incorrectly.
+Examples:
+- Real author name + fabricated title + real journal
+- Real title + wrong author + wrong year
+- Metadata from Paper A mixed with DOI from Paper B
 
-**Why arXiv?**
-- Free bulk access via AWS S3: `s3://arxiv/`
-- Contains original `.bib` files from authors
-- Mix of old and new citations
-- Real-world messy data (typos, incomplete metadata)
+**Why they're hard to catch:** Each individual component may check out. The DOI may resolve; the author may exist; the journal may be real. The validator must compare the full set of metadata against verified data to spot the inconsistency.
 
-#### Source B: Semantic Scholar Open Corpus
-**How:** Download citation graphs via Semantic Scholar API
-- **Top-cited CS papers (2010-2020):** 1,000 citations
-- **Cross-disciplinary papers:** 500 citations
+**Corresponds to:** Ansari's "Partial Attribute Corruption" (27% of real-world NeurIPS hallucinations)
 
-#### Source C: Papers with Code
-**How:** API access to ML papers + their citations
-- **Machine learning papers (2017-2024):** 1,000 citations
+### Category 2: Stolen DOI
+**Definition:** A real, valid DOI paired with completely fabricated metadata.
+Examples:
+- Real DOI resolves to Paper A, but title/author/year are from Paper B or entirely invented
+- Designed to exploit validators that stop at "DOI resolves → valid"
 
-#### Source D: CrossRef Random Sample
-**How:** CrossRef REST API supports random sampling
-- **Random journal articles (all fields):** 2,000 citations
-- Ensures we test papers we've never seen before
+**Why they're hard to catch:** The DOI check passes. Only a metadata comparison catches it. Our fix (April 2026) ensures title Jaccard similarity is checked after DOI resolution.
 
-### 2. False Positive Tests (Real but Problematic) - Target: 1,000
+**Corresponds to:** Ansari's "Identifier Hijacking" (4% of NeurIPS hallucinations) — though likely underrepresented in the wild since it requires knowing a real DOI
 
-These are REAL citations that might be incorrectly flagged:
+### Category 3: Plausible Fakes
+**Definition:** Completely fabricated citations that look entirely plausible — realistic author names, realistic journal names, realistic titles, realistic years. No real component.
 
-**Category A: Non-CrossRef DOIs (200)**
-- Zenodo (DataCite): 50
-- Figshare (DataCite): 50
-- OSF Preprints: 25
-- Dryad datasets: 25
-- Others (ORCID, ResearchGate): 50
+**Why they're hard to catch:** Nothing is technically wrong with the format. Detection relies on the DOI not resolving and no OpenAlex match being found — which also applies to legitimate papers not yet indexed.
 
-**Category B: Old/Unusual Formats (200)**
-- Pre-DOI era papers (1990s-2000): 50
-- Non-English characters (umlauts, accents): 50
-- Very long author lists (>20 authors): 50
-- Minimal metadata (author + year only): 50
+**Corresponds to:** Ansari's "Total Fabrication" (66% of NeurIPS hallucinations) — the most common real-world type
 
-**Category C: Edge Cases (200)**
-- arXiv versions (v1, v2 ambiguity): 50
-- Retracted papers (real but problematic): 50
-- Errata/corrections: 50
-- Conference papers later published as journal: 50
+### Category 4: Nonsense
+**Definition:** Citations with obvious anomalies — future publication years, invalid DOI formats, journal names that don't exist, impossibly old dates.
 
-**Category D: Non-Standard Venues (200)**
-- Workshop papers: 50
-- Technical reports: 50
-- Dissertations/theses: 50
-- Government publications: 50
+**Why they exist in the test suite:** A baseline sanity check. If the validator can't catch these, something is seriously wrong.
 
-**Category E: Sparse Metadata (200)**
-- Missing DOI (but real paper): 100
-- Missing journal name: 50
-- Missing page numbers: 50
-
-### 3. False Negative Tests (Fake Citations) - Target: 1,000
-
-These are FABRICATED and should be caught:
-
-**Category A: Frankenstein Citations (400)**
-- Real author + fake title + real journal: 100
-- Real title + fake author + real journal: 100
-- Real author + real title + wrong year: 100
-- Mix-and-match from 3 different papers: 100
-
-**Category B: Stolen DOIs (200)**
-- Real DOI + completely wrong metadata: 200
-
-**Category C: Plausible Fakes (200)**
-- Fake but plausible DOI format: 100
-- Fake but plausible journal names: 100
-
-**Category D: Nonsense (200)**
-- Generic titles ("A Study of X"): 50
-- Future years (2027+): 50
-- Impossible dates (before journal founded): 50
-- Random string DOIs: 50
+**Corresponds to:** Ansari's "Placeholder Hallucination" (2%) and some of "Total Fabrication"
 
 ---
 
-## Folder Structure
+## Published Research Benchmarks
 
-```
-test_citations/
-├── TEST_DESIGN.md (this file)
-├── RESULTS_SUMMARY.md (generated after testing)
-├── download_scholar_citations.py
-├── bulk_download_arxiv.py (NEW)
-├── generate_fake_citations.py (NEW)
-├── run_all_tests.py (NEW)
-│
-├── real_citations/ (8,000 files)
-│   ├── arxiv_cs_2024/
-│   │   ├── paper001.bib
-│   │   ├── paper002.bib
-│   │   └── ...
-│   ├── arxiv_physics_2020/
-│   ├── arxiv_bio_2022/
-│   ├── semantic_scholar/
-│   ├── papers_with_code/
-│   └── crossref_random/
-│
-├── false_positive_tests/ (1,000 files)
-│   ├── datacite_dois/
-│   ├── old_formats/
-│   ├── edge_cases/
-│   ├── non_standard_venues/
-│   └── sparse_metadata/
-│
-├── false_negative_tests/ (1,000 files)
-│   ├── frankenstein/
-│   ├── stolen_dois/
-│   ├── plausible_fakes/
-│   └── nonsense/
-│
-└── ground_truth.json (maps each file to expected result)
-```
+Five major research groups have published benchmark data on citation hallucinations. These provide external ground truth independent of our synthetic test data.
 
----
+### 1. HalluCitation — Sakai, Kamigaito & Watanabe (arXiv:2601.18724)
+**What they did:** Analyzed all papers at ACL, NAACL, and EMNLP 2024 and 2025 — main conference, Findings, and workshops. Manually verified hallucinated references.
 
-## Data Collection Scripts
+**Key finding:** 20 papers with hallucinated citations in 2024 → 275 in 2025 (13× increase in one year).
 
-### Script 1: `bulk_download_arxiv.py`
-```bash
-# Downloads .bib files from arXiv papers
-python bulk_download_arxiv.py --category cs.AI --year 2024 --limit 500 --output real_citations/arxiv_cs_2024/
-```
+**Data available:** Appendix B lists the specific hallucinated papers with their hallucinated references.
 
-### Script 2: `download_crossref_sample.py`
-```bash
-# Random sample from CrossRef
-python download_crossref_sample.py --count 2000 --output real_citations/crossref_random/
-```
+**Methodology:** Exploited the assumption that "the majority of citations are correct" to identify outliers, then manually verified each candidate.
 
-### Script 3: `generate_fake_citations.py`
-```bash
-# Generates Frankenstein citations from real components
-python generate_fake_citations.py --type frankenstein --count 400 --source real_citations/ --output false_negative_tests/frankenstein/
-```
+**Value for us:** Real-world confirmed hallucinations from NLP conferences with known ground truth. The hardest type to detect — they're plausible fakes written by researchers, not our synthetic generators.
 
-### Script 4: `run_all_tests.py`
-```bash
-# Runs validator on all 10,000 citations and compares to ground truth
-python run_all_tests.py --validator ../scripts/citation_validator.py --ground-truth ground_truth.json
-```
+### 2. Compound Deception — Ansari (arXiv:2602.05930)
+**What they did:** Analyzed 100 AI-generated hallucinated citations in 53 accepted NeurIPS 2025 papers.
+
+**Key finding:** Taxonomy of 5 failure modes; these citations evaded detection by 3-5 expert reviewers per paper.
+
+**Data available:** The 100 citations are described in the paper with their taxonomy classifications.
+
+**Taxonomy breakdown:**
+- Total Fabrication: 66%
+- Partial Attribute Corruption: 27%
+- Identifier Hijacking: 4%
+- Placeholder Hallucination: 2%
+- Semantic Hallucination: 1%
+
+**Value for us:** The most detailed taxonomy of real-world hallucination types. Our four categories map directly onto these five. Perfect for calibrating our detector against real cases that fooled expert humans.
+
+### 3. BibTeX Citation Hallucinations — Rao & Callison-Burch (arXiv:2604.03159)
+**What they did:** Built a 931-paper benchmark across 4 scientific domains and 3 citation tiers (popular, low-citation, recent post-cutoff). Tested GPT-5, Claude Sonnet 4.6, and Gemini-3 Flash on generating BibTeX entries, scoring 9 fields each with a 6-way error taxonomy.
+
+**Key findings:**
+- Only 50.9% of LLM-generated BibTeX entries fully correct overall
+- Accuracy drops 27.7pp from popular to recent papers (LLMs rely on memorized training data)
+- Their `clibib` tool (deterministic BibTeX retrieval via Zotero + CrossRef) improved accuracy to 78.3% fully correct
+
+**Data available:** Full benchmark and error taxonomy released publicly. ~23,000 field-level observations.
+
+**Value for us:** The most rigorous existing benchmark. Has field-level ground truth (not just "valid/invalid" but which specific fields are wrong). Lets us test our metadata comparison logic specifically.
+
+### 4. GhostCite / CiteVerifier (arXiv:2602.06718)
+**What they did:** Two analyses: (1) evaluated 13 LLMs on 375,440 citations across 40 domains; (2) analyzed 2.2M real citations from 56,381 papers published 2020-2025.
+
+**Key findings:**
+- LLM hallucination rates: 14%–95% depending on the model
+- In real published papers: 604/56,381 papers (1.07%) had invalid citations, with 80.9% increase in 2025
+- Evidence of hallucination propagation — fabricated citations get re-cited by other LLMs
+
+**Data available:** CiteVerifier open-source framework.
+
+**Value for us:** The 2.2M real citation corpus is a massive real-world baseline for false-positive testing. The LLM evaluation data shows how different models hallucinate differently.
+
+### 5. CheckIfExist — Abbonato (arXiv:2602.15871)
+**What they did:** Built an open-source citation validator using CrossRef, Semantic Scholar, and OpenAlex — structurally very similar to our tool.
+
+**Data available:** Full source code at github.com/zabbonat/References-Validation (MIT license).
+
+**Value for us:** An apples-to-apples comparison target. We can run the same inputs through both tools and compare detection rates. Also: Semantic Scholar is a third database we could add as a fallback.
+
+### 6. The Case of the Mysterious Citations — Bienz, Pearson & Garcia de Gonzalo (arXiv:2602.05867)
+**What they did:** Examined proceedings of 4 major HPC conferences comparing 2021 vs. 2025 papers.
+
+**Key finding:** 0% of 2021 papers had hallucinated citations; 2-6% of 2025 papers did. This is the source of Nature's headline figure.
+
+**Value for us:** Longitudinal data showing the problem emerging. Good for context and for testing against domain-specific (HPC/supercomputing) citations.
 
 ---
 
 ## Evaluation Metrics
 
-After testing, calculate:
+### Primary metrics
+- **False Positive Rate (FPR)** — real citations incorrectly flagged. Target: < 5%
+- **False Negative Rate (FNR)** — fake citations that pass. Target: < 10%
+- **F1 Score** — harmonic mean of precision and recall. Target: > 0.92
 
-1. **Accuracy:** (TP + TN) / Total
-2. **Precision:** TP / (TP + FP) - "When we say it's real, how often are we right?"
-3. **Recall:** TP / (TP + FN) - "Of all real citations, how many did we catch?"
-4. **F1 Score:** Harmonic mean of precision and recall
-5. **False Positive Rate:** FP / (FP + TN) - "How often do we incorrectly flag real papers?"
-6. **False Negative Rate:** FN / (FN + TP) - "How often do fake citations slip through?"
+### Why FPR matters as much as FNR
+A tool with 0% FNR but 30% FPR is useless — editors will ignore it after being burned by false alarms too many times. We need both to be low. The right tradeoff: we accept slightly higher FNR to keep FPR low, because false positives destroy trust.
 
-**Target Performance:**
-- Precision: >95% (few false alarms)
-- Recall: >90% (catch most fakes)
-- FPR: <5% (don't annoy users with false flags)
+### Evaluation granularity
+All metrics are computed **per citation**, not per file. A batch file with 50 fake citations where only 1 is caught contributes 1 TN and 49 FNs to the metrics — not 1 TN.
+
+### Confusion matrix shape
+For each citation, we classify:
+- Is the ground truth **VALID** or **INVALID**?
+- Did the validator say **flagged** (suspicious/invalid) or **not flagged** (valid/warning)?
+
+"Warning" status is considered **not flagged** — it's informational, not an accusation of fabrication.
 
 ---
 
-## Quick Start (Get 1,000 Citations in 10 Minutes)
+## Ground Truth Methodology
 
-Can't wait for 10,000? Start with a quick 1,000:
+### Our synthetic test data
+Ground truth is encoded in the directory structure:
+- `real_citations/` → VALID (real papers from CrossRef and arXiv)
+- `false_negative_tests/` → INVALID (synthetically generated fakes)
 
-```bash
-# 1. Download from existing arXiv papers in test_citations/
-cd test_citations/
-python extract_citations_from_arxiv.py 2604.05875/ real_citations/sample_001.bib
+Every synthetic fake was generated with a documented process and checked to confirm the DOI/title/author combination does not actually exist.
 
-# 2. Get random CrossRef samples
-python download_crossref_sample.py --count 500 --output real_citations/
+### External benchmark data
+For published benchmarks, ground truth comes from the original researchers' manual verification. We store it in per-dataset sidecar JSON files (see `datasets/` directory structure below).
 
-# 3. Generate 100 fake citations
-python generate_fake_citations.py --count 100 --output false_negative_tests/
-
-# 4. Run tests
-python run_all_tests.py --subset --count 1000
+### Sidecar metadata format
+```json
+{
+  "cite_key_here": {
+    "ground_truth": "INVALID",
+    "fabrication_type": "frankenstein",
+    "source_paper": "Ansari 2602.05930",
+    "confidence": "confirmed",
+    "notes": "Real author (LeCun) + fabricated title + real journal (JMLR)"
+  }
+}
 ```
 
 ---
 
-## Timeline
+## Dataset Directory Structure (Target)
 
-- **Phase 1 (Today):** Build scripts + collect 1,000 citations → Test basic functionality
-- **Phase 2 (This Week):** Scale to 10,000 citations → Full evaluation
-- **Phase 3 (Next Week):** Analyze results → Tune heuristics → Retest
+```
+datasets/
+├── manifest.json                        ← master index of all datasets
+├── our-synthetic/
+│   ├── real/
+│   │   ├── arxiv_cs_2024.bib
+│   │   ├── crossref_random.bib
+│   │   └── metadata.json
+│   └── fake/
+│       ├── frankenstein.bib
+│       ├── stolen_doi.bib
+│       ├── plausible.bib
+│       ├── nonsense.bib
+│       └── metadata.json
+├── hallucitation-sakai-2026/
+│   ├── hallucinated.bib                 ← from Appendix B
+│   └── metadata.json
+├── compound-deception-ansari-2026/
+│   ├── fabricated_neurips.bib
+│   └── metadata.json                    ← includes taxonomy labels
+├── bibtex-hallucinations-rao-2026/
+│   ├── benchmark_931.bib
+│   └── metadata.json                    ← field-level error annotations
+├── ghostcite-2026/
+│   ├── real_papers_sample.bib
+│   └── metadata.json
+└── nature-article-refs/
+    ├── refs.bib
+    └── metadata.json
+```
+
+The `manifest.json` describes each dataset:
+```json
+[
+  {
+    "id": "compound-deception-ansari-2026",
+    "name": "Compound Deception at NeurIPS 2025",
+    "authors": "Ansari (2026)",
+    "arxiv": "2602.05930",
+    "description": "100 AI-fabricated citations found in 53 accepted NeurIPS 2025 papers",
+    "citation_count": 100,
+    "ground_truth_available": true,
+    "breakdown": {
+      "real": 0,
+      "fake": 100,
+      "fabrication_types": ["total_fabrication", "partial_corruption", "identifier_hijacking"]
+    }
+  }
+]
+```
 
 ---
 
 ## Scientific Rigor Checklist
 
-- [ ] Stratified sampling (multiple sources, fields, years)
-- [ ] Ground truth labels for every citation
-- [ ] Balanced test set (not all real or all fake)
-- [ ] Reproducible (scripts + data available)
-- [ ] Version controlled (track what we tested when)
-- [ ] Statistical significance (confidence intervals)
-- [ ] Documented methodology (this file)
-- [ ] Blinded testing (validator doesn't "know" ground truth)
-
----
-
-## Notes on Data Sources
-
-### arXiv Bulk Access
-- Docs: https://info.arxiv.org/help/bulk_data_s3.html
-- S3 bucket: `s3://arxiv/src/`
-- No API key needed (public)
-
-### Semantic Scholar
-- API: https://api.semanticscholar.org/
-- Free tier: 100 requests/5 minutes
-- Returns BibTeX via `/paper/{id}/citations`
-
-### CrossRef
-- API: https://api.crossref.org/works?sample=1000
-- No auth required
-- Returns metadata in JSON (convert to BibTeX)
-
-### Papers with Code
-- API: https://paperswithcode.com/api/v1/
-- Free, no key required
+- [x] Per-citation evaluation (not per-file)
+- [x] Ground truth labels for all synthetic data
+- [x] Balanced test set (49% real, 51% fake)
+- [x] Reproducible (scripts + data in version control)
+- [x] Documented methodology (this file)
+- [x] Multiple fabrication types tested independently
+- [ ] Integration with published external benchmarks
+- [ ] Cross-domain testing (CS, biology, medicine, HPC)
+- [ ] Statistical confidence intervals on metrics
+- [ ] Cross-tool comparison (vs. CheckIfExist)

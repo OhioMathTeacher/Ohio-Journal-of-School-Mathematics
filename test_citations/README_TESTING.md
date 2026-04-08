@@ -1,264 +1,179 @@
-# Citation Validator Testing - Current Status
-**Updated:** April 8, 2026  
-**Test Data Generated:** 785+ citations organized scientifically
+# Citation Validator — Testing Infrastructure Guide
+**Last updated:** April 2026
+
+This document covers what test data we have, how the test runner works, and how to expand the test suite.
 
 ---
 
-## ✓ What We Have Now
+## Current Test Inventory
 
-### Real Citations (Ground Truth: VALID) - 385 citations
+### Synthetic test data (785 citations)
+
 ```
-real_citations/
-├── arxiv_cs_2024/
-│   ├── arxiv_2604.05875.bib (205 citations)
-│   └── arxiv_2604.05952.bib (80 citations)
-└── crossref_random/
-    ├── crossref_sample_0001.bib (50 citations)
-    └── crossref_sample_0002.bib (50 citations)
+test_citations/
+├── real_citations/                       # Ground truth: VALID
+│   ├── arxiv_cs_2024/
+│   │   ├── arxiv_2604.05875.bib         # 205 citations from arXiv paper
+│   │   └── arxiv_2604.05952.bib         # 80 citations from arXiv paper
+│   └── crossref_random/
+│       ├── crossref_sample_0001.bib     # 50 random CrossRef papers
+│       └── crossref_sample_0002.bib     # 50 random CrossRef papers
+│
+├── false_negative_tests/                 # Ground truth: INVALID
+│   ├── frankenstein/                    # Real parts, wrong combinations
+│   │   ├── frankenstein_0001.bib        # 50 citations
+│   │   ├── frankenstein_0002.bib        # 50 citations
+│   │   └── ground_truth_frankenstein.json
+│   ├── stolen_doi/                      # Real DOIs, fake metadata
+│   │   ├── stolen_doi_0001.bib          # 50 citations
+│   │   ├── stolen_doi_0002.bib          # 50 citations
+│   │   └── ground_truth_stolen_doi.json
+│   ├── plausible/                       # Completely fake, looks real
+│   │   ├── plausible_0001.bib           # 50 citations
+│   │   ├── plausible_0002.bib           # 50 citations
+│   │   └── ground_truth_plausible.json
+│   └── nonsense/                        # Obvious anomalies
+│       ├── nonsense_0001.bib            # 50 citations
+│       ├── nonsense_0002.bib            # 50 citations
+│       └── ground_truth_nonsense.json
+│
+├── false_positive_tests/                 # Ground truth: VALID (edge cases)
+│   └── (empty — see roadmap below)
+│
+└── nature_article_refs.bib              # 10 refs from the Nature article
 ```
 
-### Fake Citations (Ground Truth: INVALID) - 400 citations
-```
-false_negative_tests/
-├── frankenstein/ (100 citations - real components mixed wrong)
-│   ├── frankenstein_0001.bib (50)
-│   ├── frankenstein_0002.bib (50)
-│   └── ground_truth_frankenstein.json
-├── stolen_doi/ (100 citations - real DOIs, fake metadata)
-│   ├── stolen_doi_0001.bib (50)
-│   ├── stolen_doi_0002.bib (50)
-│   └── ground_truth_stolen_doi.json
-├── plausible/ (100 citations - completely fake but looks real)
-│   ├── plausible_0001.bib (50)
-│   ├── plausible_0002.bib (50)
-│   └── ground_truth_plausible.json
-└── nonsense/ (100 citations - obviously fake)
-    ├── nonsense_0001.bib (50)
-    ├── nonsense_0002.bib (50)
-    └── ground_truth_nonsense.json
-```
+**Total: 785 citations | 385 real (49%) | 400 fake (51%)**
 
-**Total Test Citations: 785**
-- Real citations: 385 (49%)
-- Fake citations: 400 (51%)
-- Balanced test set ✓
+### Published benchmark data (incoming)
+See `datasets/` directory (being populated). These are external ground-truth datasets from published research — see `TEST_DESIGN.md` for full descriptions of each source.
 
 ---
 
-## 🚀 Quick Start
+## Running the Test Suite
 
-Run the first test batch:
+### Quick sanity check
 ```bash
 cd test_citations/
 python3 run_all_tests.py --limit 20
 ```
 
----
-
-## 📈 Scaling to 10,000 Citations
-
-### Phase 1: More Real Citations (Target: 8,000)
-
-#### From CrossRef (Easy - Just API Calls)
-```bash
-# Download 2,000 recent papers
-python3 download_crossref_sample.py 2000 real_citations/crossref_recent/ 'from-pub-date:2023'
-
-# Download 2,000 older papers
-python3 download_crossref_sample.py 2000 real_citations/crossref_2010s/ 'from-pub-date:2010,until-pub-date:2020'
-
-# Download 1,000 with ORCID (high quality)
-python3 download_crossref_sample.py 1000 real_citations/crossref_orcid/ 'has-orcid:true'
-```
-
-*Time: ~30 minutes (API rate limits)*
-*Cost: $0 (free API)*
-
-#### From arXiv (Bulk Download)
-```bash
-# Use arXiv bulk data access
-# Download .tar files from: https://info.arxiv.org/help/bulk_data_s3.html
-wget https://arxiv.org/src/2604/2604.tar
-tar -xf 2604.tar
-python3 extract_citations_from_arxiv.py --all
-```
-
-*Time: ~1-2 hours (download + extraction)*
-*Cost: $0*
-*Result: ~2,000-5,000 citations from hundreds of papers*
-
-#### From Semantic Scholar (API)
-```bash
-# Coming soon - semantic_scholar_downloader.py
-# Uses: https://api.semanticscholar.org/
-```
-
-### Phase 2: More Fake Citations (Target: 2,000)
-
-```bash
-# Generate 500 of each type
-python3 generate_fake_citations.py --type frankenstein --count 500 --output false_negative_tests/frankenstein/
-python3 generate_fake_citations.py --type stolen_doi --count 500 --output false_negative_tests/stolen_doi/
-python3 generate_fake_citations.py --type plausible --count 500 --output false_negative_tests/plausible/
-python3 generate_fake_citations.py --type nonsense --count 500 --output false_negative_tests/nonsense/
-```
-
-*Time: ~5 minutes*
-*Cost: $0*
-
-### Phase 3: False Positive Test Cases
-
-Create edge cases that are REAL but might be flagged:
-
-```bash
-# Manual curation needed for these
-# - Zenodo DOIs (DataCite registry)
-# - Figshare datasets
-# - Old papers (pre-2000, no DOI)
-# - Non-English papers
-# - Retracted papers
-```
-
----
-
-## 🧪 Running Tests at Scale
-
-### Quick Test (100 citations)
-```bash
-python3 run_all_tests.py --limit 100
-```
-
-### Full Test (All citations)
+### Full synthetic test suite (785 citations, ~10 min)
 ```bash
 python3 run_all_tests.py --output test_results_full.json
 ```
 
-### Parallel Testing (10x faster)
+### Target specific categories
 ```bash
-# Coming soon - parallel test runner
-./run_tests_parallel.sh --workers 10
+# Only real citations (false positive testing)
+python3 run_all_tests.py --test-dirs real_citations/
+
+# Only fake citations (false negative testing)
+python3 run_all_tests.py --test-dirs false_negative_tests/
+
+# Specific fabrication type
+python3 run_all_tests.py --test-dirs false_negative_tests/frankenstein/
+```
+
+### How the test runner works
+The test runner (`run_all_tests.py`) imports the validator as a Python library to get per-citation results. For each `.bib` file:
+1. Determines expected ground truth from directory structure (`real_citations/` → VALID, `false_negative_tests/` → INVALID)
+2. Runs the validator on every citation in the file
+3. Classifies each citation individually as TP/TN/FP/FN
+4. Aggregates into precision, recall, F1, FPR, FNR
+
+Results are printed to stdout and saved as JSON.
+
+---
+
+## Generating More Synthetic Test Data
+
+### More real citations (CrossRef API)
+```bash
+# Random sample across all disciplines
+python3 download_crossref_sample.py 500 real_citations/crossref_random/
+
+# Filter by date or type
+python3 download_crossref_sample.py 1000 real_citations/crossref_recent/ 'from-pub-date:2023'
+python3 download_crossref_sample.py 1000 real_citations/crossref_older/ 'from-pub-date:2010,until-pub-date:2020'
+```
+
+### More fake citations (synthetic generator)
+```bash
+# One type at a time
+python3 generate_fake_citations.py --type frankenstein --count 100 --output false_negative_tests/frankenstein/
+python3 generate_fake_citations.py --type stolen_doi   --count 100 --output false_negative_tests/stolen_doi/
+python3 generate_fake_citations.py --type plausible    --count 100 --output false_negative_tests/plausible/
+python3 generate_fake_citations.py --type nonsense     --count 100 --output false_negative_tests/nonsense/
+
+# All types at once (splits count evenly)
+python3 generate_fake_citations.py --type all --count 400 --output false_negative_tests/
+```
+
+### From arXiv papers
+```bash
+python3 extract_citations_from_arxiv.py 2604.05875/   # specific paper folder
+python3 extract_citations_from_arxiv.py --all          # all paper folders in directory
 ```
 
 ---
 
-## 📊 Expected Timeline
+## Adding Published Benchmark Datasets
 
-| Phase | Task | Time | Result |
-|-------|------|------|--------|
-| ✓ Done | Initial setup | 1 hour | 785 citations |
-| Today | CrossRef bulk download | 1 hour | +5,000 citations |
-| Today | Generate more fakes | 10 min | +1,600 fakes |
-| This week | arXiv bulk extract | 2 hours | +3,000 citations |
-| This week | Manual edge cases | 1 hour | +200 edge cases |
-| **Total** | | **~5 hours** | **10,585 citations** |
+These need to be populated from the source papers (network access required). Each goes under `datasets/` with a `.bib` file and a sidecar `metadata.json` containing per-citation ground truth labels.
 
----
+See `TEST_DESIGN.md` for full descriptions and data availability for each source.
 
-## 🎯 Target Metrics
+| Dataset | Source | Status |
+|---------|--------|--------|
+| Compound Deception (Ansari) | arXiv:2602.05930 | Pending |
+| HalluCitation (Sakai et al.) | arXiv:2601.18724 Appendix B | Pending |
+| BibTeX Hallucinations benchmark (Rao & Callison-Burch) | arXiv:2604.03159 | Pending |
+| GhostCite real citation corpus | arXiv:2602.06718 | Pending |
+| Nature article refs | `nature_article_refs.bib` | Partial (needs full titles/DOIs) |
 
-After running full test suite, we want:
-- **Precision > 95%** - Don't flag real papers incorrectly
-- **Recall > 90%** - Catch most fake citations
-- **F1 Score > 92%** - Balanced performance
-- **False Positive Rate < 5%** - Low false alarms
-- **Tested on 10,000+ papers** - Statistical significance
-
----
-
-## 📝 Test Categories
-
-### Real Citations (Ground Truth: VALID)
-- [x] arXiv CS papers (2024) - 285 citations
-- [x] CrossRef random sample - 100 citations
-- [ ] CrossRef recent (2023-2026) - Target: 2,000
-- [ ] CrossRef older (2010-2020) - Target: 2,000
-- [ ] Physics papers - Target: 1,000
-- [ ] Biology papers - Target: 1,000
-- [ ] Math papers - Target: 500
-
-### Fake Citations (Ground Truth: INVALID)
-- [x] Frankenstein (mixed real components) - 100
-- [x] Stolen DOIs - 100
-- [x] Plausible fakes - 100
-- [x] Nonsense (future years, etc.) - 100
-- [ ] Scale each category to 500 citations
-
-### Edge Cases (Real but Tricky)
-- [ ] Zenodo DOIs (DataCite)
-- [ ] Figshare datasets
-- [ ] Pre-2000 papers (no DOI)
-- [ ] Retracted papers
-- [ ] Non-English papers
-- [ ] Very long author lists
-- [ ] Workshop papers
-- [ ] arXiv version ambiguity
-
----
-
-## 🔧 Scripts Available
-
-1. **extract_citations_from_arxiv.py** - Extract from arXiv papers
-2. **download_crossref_sample.py** - Download random samples from CrossRef
-3. **download_scholar_citations.py** - Get citations from Google Scholar
-4. **generate_fake_citations.py** - Create synthetic fake citations
-5. **run_all_tests.py** - Run validator and calculate metrics
-6. **quick_start.sh** - One-command demo
-
----
-
-## 💡 Tips for Scaling
-
-### Efficient CrossRef Downloads
+To run tests against a published benchmark once populated:
 ```bash
-# Download in background, check later
-nohup python3 download_crossref_sample.py 5000 real_citations/bulk/ &
-tail -f nohup.out
-```
-
-### Parallel Fake Citation Generation
-```bash
-# Generate 4 batches in parallel
-python3 generate_fake_citations.py --type frankenstein --count 500 --output false_negative_tests/frankenstein/ &
-python3 generate_fake_citations.py --type stolen_doi --count 500 --output false_negative_tests/stolen_doi/ &
-python3 generate_fake_citations.py --type plausible --count 500 --output false_negative_tests/plausible/ &
-python3 generate_fake_citations.py --type nonsense --count 500 --output false_negative_tests/nonsense/ &
-wait
-```
-
-### Testing Workflow
-```bash
-# 1. Generate test data
-./quick_start.sh
-
-# 2. Run initial validation
-python3 run_all_tests.py --limit 50
-
-# 3. Scale up gradually
-python3 download_crossref_sample.py 1000
-python3 generate_fake_citations.py --type all --count 1000
-
-# 4. Full validation
-python3 run_all_tests.py
-
-# 5. Analyze results
-python3 analyze_results.py test_results.json
+python3 run_all_tests.py --test-dirs ../datasets/compound-deception-ansari-2026/
 ```
 
 ---
 
-## 📚 Data Sources
+## False Positive Edge Cases (Planned)
 
-### ✓ Currently Using
-- **CrossRef API**: https://api.crossref.org/ (free, no key)
-- **arXiv Papers**: Local extraction from downloaded papers
-- **Synthetic Generation**: Python random generation
+The `false_positive_tests/` directory is currently empty. High priority categories to populate:
 
-### 🔜 Coming Soon
-- **arXiv Bulk Data**: https://info.arxiv.org/help/bulk_data_s3.html
-- **Semantic Scholar**: https://api.semanticscholar.org/
-- **OpenAlex**: https://openalex.org/
-- **Papers with Code**: https://paperswithcode.com/api/v1/
+| Category | Why it's tricky | How to get it |
+|----------|-----------------|---------------|
+| DataCite DOIs (Zenodo, Figshare) | Not in CrossRef; our DOI resolver fallback handles these, but it's worth verifying | Search Zenodo for any dataset with a DOI |
+| Pre-2000 papers | No DOIs, OpenAlex coverage patchy | Manual BibTeX from old literature |
+| Non-English papers | Unicode in titles/authors can trip up tokenization | Search OpenAlex with `language:fr` etc. |
+| Very long author lists | ≥20 authors; some heuristics misbehave | CERN physics papers commonly have these |
+| Retracted papers | Exist in CrossRef but are scientifically invalid | CrossRef marks them; test that we handle gracefully |
+| arXiv version ambiguity | v1 DOI vs v2 DOI of same paper | Any frequently revised arXiv preprint |
 
 ---
 
-**Next Action:** Run `python3 run_all_tests.py --limit 50` to validate your first 50 citations!
+## Performance Targets
+
+| Metric | Target | Current Status |
+|--------|--------|----------------|
+| False Positive Rate | < 5% | Not yet measured post-bugfix |
+| False Negative Rate | < 10% | Not yet measured post-bugfix |
+| F1 Score | > 0.92 | Not yet measured post-bugfix |
+| Test corpus size | 10,000+ | 785 synthetic (expanding) |
+
+The 9 bug fixes in April 2026 are expected to significantly improve all metrics, particularly FNR (the OpenAlex and title comparison fixes target the biggest false negative sources) and FPR (the JS status logic fix and DOI confirmation protection reduce false flags). A full re-evaluation against the test suite is the next priority.
+
+---
+
+## Scripts Reference
+
+| Script | Purpose |
+|--------|---------|
+| `run_all_tests.py` | Main test runner — evaluates validator against ground truth |
+| `generate_fake_citations.py` | Creates synthetic fake citations (4 types) |
+| `download_crossref_sample.py` | Downloads random real citations from CrossRef |
+| `extract_citations_from_arxiv.py` | Extracts citations from downloaded arXiv source files |
+| `download_scholar_citations.py` | Google Scholar interface (limited by rate limits) |
+| `generate_false_positive_tests.py` | Generates tricky real citations (DataCite, pre-DOI era, etc.) |
