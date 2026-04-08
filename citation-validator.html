@@ -703,28 +703,112 @@ Example:
         
         function parseBibTeX(bibtexString) {
             const entries = [];
-            const entryRegex = /@(\w+)\s*\{\s*([^,]+)\s*,([^@]*?)\}/gs;
-            let match;
-            
-            while ((match = entryRegex.exec(bibtexString)) !== null) {
-                const type = match[1];
-                const key = match[2].trim();
-                const fieldsString = match[3];
-                
-                const fields = {};
-                const fieldRegex = /(\w+)\s*=\s*\{([^}]*)\}|(\w+)\s*=\s*"([^"]*)"/g;
-                let fieldMatch;
-                
-                while ((fieldMatch = fieldRegex.exec(fieldsString)) !== null) {
-                    const fieldName = (fieldMatch[1] || fieldMatch[3]).toLowerCase();
-                    const fieldValue = (fieldMatch[2] || fieldMatch[4]).trim();
-                    fields[fieldName] = fieldValue;
-                }
-                
+            const rawEntries = splitBibTeXEntries(bibtexString);
+
+            rawEntries.forEach(rawEntry => {
+                const headerMatch = rawEntry.match(/^@(\w+)\s*\{\s*([^,]+)\s*,/s);
+                if (!headerMatch) return;
+
+                const type = headerMatch[1];
+                const key = headerMatch[2].trim();
+                const fieldsString = rawEntry.slice(headerMatch[0].length, -1);
+                const fields = parseBibTeXFields(fieldsString);
+
                 entries.push({ type, key, fields });
-            }
-            
+            });
+
             return entries;
+        }
+
+        function splitBibTeXEntries(bibtexString) {
+            const entries = [];
+            let i = 0;
+
+            while (i < bibtexString.length) {
+                const atIndex = bibtexString.indexOf('@', i);
+                if (atIndex === -1) break;
+
+                const openBraceIndex = bibtexString.indexOf('{', atIndex);
+                if (openBraceIndex === -1) break;
+
+                let depth = 0;
+                let endIndex = -1;
+
+                for (let j = openBraceIndex; j < bibtexString.length; j++) {
+                    const ch = bibtexString[j];
+                    if (ch === '{') depth++;
+                    if (ch === '}') {
+                        depth--;
+                        if (depth === 0) {
+                            endIndex = j;
+                            break;
+                        }
+                    }
+                }
+
+                if (endIndex === -1) break;
+                entries.push(bibtexString.slice(atIndex, endIndex + 1));
+                i = endIndex + 1;
+            }
+
+            return entries;
+        }
+
+        function parseBibTeXFields(fieldsString) {
+            const fields = {};
+            let i = 0;
+
+            function skipDelimiters() {
+                while (i < fieldsString.length && /[\s,]/.test(fieldsString[i])) i++;
+            }
+
+            while (i < fieldsString.length) {
+                skipDelimiters();
+                if (i >= fieldsString.length) break;
+
+                const keyMatch = fieldsString.slice(i).match(/^([a-zA-Z][\w-]*)\s*=/);
+                if (!keyMatch) {
+                    i++;
+                    continue;
+                }
+
+                const fieldName = keyMatch[1].toLowerCase();
+                i += keyMatch[0].length;
+
+                while (i < fieldsString.length && /\s/.test(fieldsString[i])) i++;
+                if (i >= fieldsString.length) break;
+
+                let value = '';
+
+                if (fieldsString[i] === '{') {
+                    i++;
+                    let depth = 1;
+                    const start = i;
+                    while (i < fieldsString.length && depth > 0) {
+                        if (fieldsString[i] === '{') depth++;
+                        else if (fieldsString[i] === '}') depth--;
+                        i++;
+                    }
+                    value = fieldsString.slice(start, i - 1).trim();
+                } else if (fieldsString[i] === '"') {
+                    i++;
+                    const start = i;
+                    while (i < fieldsString.length) {
+                        if (fieldsString[i] === '"' && fieldsString[i - 1] !== '\\') break;
+                        i++;
+                    }
+                    value = fieldsString.slice(start, i).trim();
+                    i++;
+                } else {
+                    const start = i;
+                    while (i < fieldsString.length && fieldsString[i] !== ',') i++;
+                    value = fieldsString.slice(start, i).trim();
+                }
+
+                fields[fieldName] = value;
+            }
+
+            return fields;
         }
         
         // ═══════════════════════════════════════════════════════════════════════════
