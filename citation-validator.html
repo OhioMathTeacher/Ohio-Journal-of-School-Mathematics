@@ -545,6 +545,250 @@
             background: rgba(31,111,235,0.05);
         }
         
+        /* ═══════════════════════════════════════════════════════════════════ */
+        /* BENCHMARK LIBRARY                                                 */
+        /* ═══════════════════════════════════════════════════════════════════ */
+
+        .bench-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: border-color 0.2s;
+            user-select: none;
+        }
+
+        .bench-toggle:hover { border-color: var(--primary); }
+
+        .bench-toggle .bench-label {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .bench-toggle .bench-hint {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .bench-toggle .bench-arrow {
+            font-size: 18px;
+            transition: transform 0.2s;
+            color: var(--muted);
+        }
+
+        .bench-toggle.open .bench-arrow { transform: rotate(180deg); }
+
+        .bench-panel {
+            display: none;
+            border: 1px solid var(--line);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            background: var(--card);
+            padding: 16px;
+        }
+
+        .bench-panel.open { display: block; }
+
+        .bench-filters {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .bench-chip {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            background: var(--card);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .bench-chip:hover { border-color: var(--primary); }
+
+        .bench-chip.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .bench-datasets {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 360px;
+            overflow-y: auto;
+        }
+
+        .bench-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            transition: border-color 0.15s;
+        }
+
+        .bench-card:hover { border-color: var(--primary); }
+
+        .bench-card.pending { opacity: 0.55; }
+
+        .bench-card input[type="checkbox"] {
+            margin-top: 3px;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .bench-card-body { flex: 1; min-width: 0; }
+
+        .bench-card-title {
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .bench-card-meta {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .bench-card-desc {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        .bench-card-tags {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+
+        .bench-tag {
+            font-size: 10px;
+            padding: 1px 6px;
+            border-radius: 4px;
+            background: #eef2f9;
+            color: var(--muted);
+        }
+
+        .bench-tag.tag-fake { background: #fde8e8; color: #be2f2f; }
+        .bench-tag.tag-real { background: #e6f4ea; color: #138a42; }
+        .bench-tag.tag-pending { background: #fff3e0; color: #8a5b00; }
+
+        .bench-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            align-items: center;
+        }
+
+        .bench-actions .button { font-size: 13px; padding: 8px 20px; }
+
+        .bench-selection-info {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════ */
+        /* ACCURACY DASHBOARD                                                */
+        /* ═══════════════════════════════════════════════════════════════════ */
+
+        .accuracy-dashboard {
+            display: none;
+            margin-top: 18px;
+            padding: 16px;
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+        }
+
+        .accuracy-dashboard.open { display: block; }
+
+        .accuracy-dashboard h3 {
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+
+        .confusion-matrix {
+            display: grid;
+            grid-template-columns: auto 1fr 1fr;
+            grid-template-rows: auto 1fr 1fr;
+            gap: 2px;
+            max-width: 360px;
+            margin: 0 auto 16px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .cm-corner { background: transparent; }
+
+        .cm-header {
+            padding: 6px 10px;
+            font-weight: 600;
+            background: #eef2f9;
+            border-radius: 4px;
+        }
+
+        .cm-cell {
+            padding: 12px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .cm-cell small {
+            display: block;
+            font-weight: 400;
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .cm-tp { background: #e6f4ea; color: #138a42; }
+        .cm-fp { background: #fde8e8; color: #be2f2f; }
+        .cm-fn { background: #fde8e8; color: #be2f2f; }
+        .cm-tn { background: #e6f4ea; color: #138a42; }
+
+        .accuracy-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .acc-metric {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+        }
+
+        .acc-metric .acc-value {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .acc-metric .acc-label {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .acc-value.good { color: #138a42; }
+        .acc-value.ok { color: #8a5b00; }
+        .acc-value.bad { color: #be2f2f; }
+
         footer {
             margin-top: 32px;
             padding: 18px;
@@ -596,6 +840,25 @@ Example:
 }"></textarea>
             </div>
             
+            <!-- ══════════ BENCHMARK LIBRARY ══════════ -->
+            <div class="section">
+                <div class="bench-toggle" id="benchToggle" onclick="toggleBenchPanel()">
+                    <div>
+                        <div class="bench-label">Benchmark Library</div>
+                        <div class="bench-hint">Load curated datasets from published citation hallucination research</div>
+                    </div>
+                    <span class="bench-arrow">&#9660;</span>
+                </div>
+                <div class="bench-panel" id="benchPanel">
+                    <div class="bench-filters" id="benchFilters"></div>
+                    <div class="bench-datasets" id="benchDatasets"></div>
+                    <div class="bench-actions">
+                        <button class="button" onclick="loadSelectedDatasets()">Load Selected</button>
+                        <span class="bench-selection-info" id="benchSelectionInfo">No datasets selected</span>
+                    </div>
+                </div>
+            </div>
+
             <div class="section" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--card); border: 1px solid var(--line); border-radius: 8px;">
                 <div>
                     <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px;">
@@ -635,6 +898,13 @@ Example:
                         <button class="button" onclick="exportHTML()">Export HTML</button>
                         <button class="button" onclick="exportJSON()">Export JSON</button>
                         <button class="button" onclick="exportCSV()">Export CSV</button>
+                    </div>
+
+                    <!-- Accuracy Dashboard (shown when ground truth is available) -->
+                    <div class="accuracy-dashboard" id="accuracyDashboard">
+                        <h3>Accuracy vs. Ground Truth</h3>
+                        <div id="confusionMatrix"></div>
+                        <div class="accuracy-metrics" id="accuracyMetrics"></div>
                     </div>
                 </div>
             </div>
@@ -1421,6 +1691,7 @@ Respond with JSON only:
                 
                 validationResults = { ...stats, details: results };
                 displayResults(validationResults);
+                renderAccuracyDashboard(results);
                 
             } catch (error) {
                 alert('Validation failed: ' + error.message);
@@ -1556,6 +1827,414 @@ Respond with JSON only:
             URL.revokeObjectURL(url);
         }
         
+        // ═══════════════════════════════════════════════════════════════════════════
+        // BENCHMARK LIBRARY
+        // ═══════════════════════════════════════════════════════════════════════════
+
+        let benchManifest = [];
+        let benchSelectedIds = new Set();
+        let benchActiveFilter = 'all';
+        // Ground truth metadata keyed by dataset id → { citeKey: { ground_truth: ... } }
+        let benchGroundTruth = {};
+
+        function toggleBenchPanel() {
+            const toggle = document.getElementById('benchToggle');
+            const panel = document.getElementById('benchPanel');
+            toggle.classList.toggle('open');
+            panel.classList.toggle('open');
+
+            // Load manifest on first open
+            if (panel.classList.contains('open') && benchManifest.length === 0) {
+                loadBenchManifest();
+            }
+        }
+
+        async function loadBenchManifest() {
+            try {
+                // Try relative path (works on GitHub Pages and local file:// with same structure)
+                const response = await fetch('datasets/manifest.json');
+                if (!response.ok) throw new Error('manifest not found');
+                benchManifest = await response.json();
+            } catch (e) {
+                // Fallback: embed the manifest inline if fetch fails (e.g., strict CORS on file://)
+                benchManifest = getEmbeddedManifest();
+            }
+            renderBenchFilters();
+            renderBenchDatasets();
+        }
+
+        function getEmbeddedManifest() {
+            // Fallback manifest for when fetch isn't available (file:// protocol)
+            return [
+                { id: "nature-article-refs", name: "Nature Article References", authors: "Nature (April 2026)", description: "10 references cited by the Nature article that inspired this tool.", citation_count: 10, ground_truth: "valid", tags: ["real", "nature", "sparse"], status: "available" },
+                { id: "ojsm-fake-frankenstein", name: "Frankenstein Citations", authors: "OJSM Test Suite", description: "100 synthetic fakes: real author + real journal + fabricated title.", citation_count: 100, ground_truth: "invalid", fabrication_type: "frankenstein", tags: ["fake", "frankenstein", "synthetic"], status: "available" },
+                { id: "ojsm-fake-stolen-doi", name: "Stolen DOI Citations", authors: "OJSM Test Suite", description: "100 synthetic fakes: real DOI paired with completely wrong metadata.", citation_count: 100, ground_truth: "invalid", fabrication_type: "stolen_doi", tags: ["fake", "stolen_doi", "synthetic"], status: "available" },
+                { id: "ojsm-fake-plausible", name: "Plausible Fake Citations", authors: "OJSM Test Suite", description: "100 synthetic fakes: entirely fabricated but realistic-looking.", citation_count: 100, ground_truth: "invalid", fabrication_type: "plausible", tags: ["fake", "plausible", "synthetic"], status: "available" },
+                { id: "ojsm-fake-nonsense", name: "Nonsense Citations", authors: "OJSM Test Suite", description: "100 synthetic fakes: obviously wrong (future years, fake DOIs).", citation_count: 100, ground_truth: "invalid", fabrication_type: "nonsense", tags: ["fake", "nonsense", "synthetic"], status: "available" },
+                { id: "ojsm-real-arxiv", name: "Real arXiv CS Citations (2024)", authors: "OJSM Test Suite", description: "285 real citations from two 2024 arXiv CS papers.", citation_count: 285, ground_truth: "valid", tags: ["real", "arxiv", "cs"], status: "available" },
+                { id: "ojsm-real-crossref", name: "Real CrossRef Random Sample", authors: "OJSM Test Suite", description: "100 real citations from CrossRef random API sample.", citation_count: 100, ground_truth: "valid", tags: ["real", "crossref"], status: "available" },
+                { id: "compound-deception-ansari", name: "Compound Deception — NeurIPS 2025", authors: "Ansari (2026)", arxiv: "2602.05930", description: "100 AI-fabricated citations from 53 accepted NeurIPS papers.", citation_count: 100, ground_truth: "invalid", tags: ["fake", "neurips", "real-world"], status: "pending", source_url: "https://arxiv.org/abs/2602.05930" },
+                { id: "hallucitation-sakai", name: "HalluCitation — ACL/NAACL/EMNLP", authors: "Sakai et al. (2026)", arxiv: "2601.18724", description: "~300 papers with hallucinated references from NLP conferences.", citation_count: 300, ground_truth: "invalid", tags: ["fake", "nlp", "real-world"], status: "pending", source_url: "https://arxiv.org/abs/2601.18724" },
+                { id: "bibtex-hallucinations-rao", name: "BibTeX Hallucinations Benchmark", authors: "Rao & Callison-Burch (2026)", arxiv: "2604.03159", description: "931-paper benchmark with ~23K field-level observations.", citation_count: 931, ground_truth: "mixed", tags: ["benchmark", "field-level", "multi-domain"], status: "pending", source_url: "https://arxiv.org/abs/2604.03159" },
+                { id: "ghostcite-real-corpus", name: "GhostCite — Real Paper Citations", authors: "CiteVerifier team (2026)", arxiv: "2602.06718", description: "Sample from 2.2M real citations (2020-2025).", citation_count: 500, ground_truth: "valid", tags: ["real", "large-scale"], status: "pending", source_url: "https://arxiv.org/abs/2602.06718" },
+                { id: "mysterious-citations-bienz", name: "Mysterious Citations — HPC", authors: "Bienz et al. (2026)", arxiv: "2602.05867", description: "HPC conference citations 2021 vs 2025. Source of Nature's 2-6%.", citation_count: null, ground_truth: "mixed", tags: ["real-world", "hpc"], status: "pending", source_url: "https://arxiv.org/abs/2602.05867" }
+            ];
+        }
+
+        function renderBenchFilters() {
+            const filters = [
+                { key: 'all', label: 'All' },
+                { key: 'real', label: 'Real Citations' },
+                { key: 'fake', label: 'Fake Citations' },
+                { key: 'benchmark', label: 'Benchmarks' },
+                { key: 'available', label: 'Available Now' },
+                { key: 'pending', label: 'Coming Soon' }
+            ];
+
+            const container = document.getElementById('benchFilters');
+            container.innerHTML = filters.map(f =>
+                `<span class="bench-chip ${benchActiveFilter === f.key ? 'active' : ''}" onclick="setBenchFilter('${f.key}')">${f.label}</span>`
+            ).join('');
+        }
+
+        function setBenchFilter(key) {
+            benchActiveFilter = key;
+            renderBenchFilters();
+            renderBenchDatasets();
+        }
+
+        function filterDatasets() {
+            return benchManifest.filter(ds => {
+                if (benchActiveFilter === 'all') return true;
+                if (benchActiveFilter === 'available') return ds.status !== 'pending';
+                if (benchActiveFilter === 'pending') return ds.status === 'pending';
+                if (benchActiveFilter === 'real') return ds.ground_truth === 'valid';
+                if (benchActiveFilter === 'fake') return ds.ground_truth === 'invalid';
+                if (benchActiveFilter === 'benchmark') return (ds.tags || []).includes('benchmark') || ds.ground_truth === 'mixed';
+                return true;
+            });
+        }
+
+        function renderBenchDatasets() {
+            const container = document.getElementById('benchDatasets');
+            const datasets = filterDatasets();
+
+            if (datasets.length === 0) {
+                container.innerHTML = '<p style="color:var(--muted);font-size:13px;padding:12px;">No datasets match this filter.</p>';
+                return;
+            }
+
+            container.innerHTML = datasets.map(ds => {
+                const isPending = ds.status === 'pending';
+                const checked = benchSelectedIds.has(ds.id) ? 'checked' : '';
+                const tags = (ds.tags || []).map(t => {
+                    const cls = t === 'fake' || t === 'frankenstein' || t === 'stolen_doi' || t === 'plausible' || t === 'nonsense' ? 'tag-fake'
+                              : t === 'real' ? 'tag-real'
+                              : isPending ? 'tag-pending' : '';
+                    return `<span class="bench-tag ${cls}">${t}</span>`;
+                }).join('');
+
+                const countLabel = ds.citation_count ? `${ds.citation_count} citations` : 'TBD';
+                const pendingTag = isPending ? '<span class="bench-tag tag-pending">data pending</span>' : '';
+                const arxivLink = ds.arxiv ? ` &middot; <a href="https://arxiv.org/abs/${ds.arxiv}" target="_blank" style="font-size:11px;color:var(--primary);">arXiv:${ds.arxiv}</a>` : '';
+
+                return `
+                    <div class="bench-card ${isPending ? 'pending' : ''}">
+                        <input type="checkbox" ${checked} ${isPending ? 'disabled' : ''} onchange="toggleBenchDataset('${ds.id}', this.checked)">
+                        <div class="bench-card-body">
+                            <div class="bench-card-title">${ds.name}</div>
+                            <div class="bench-card-meta">${ds.authors} &middot; ${countLabel}${arxivLink}</div>
+                            <div class="bench-card-desc">${ds.description}</div>
+                            <div class="bench-card-tags">${tags}${pendingTag}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            updateBenchSelectionInfo();
+        }
+
+        function toggleBenchDataset(id, checked) {
+            if (checked) benchSelectedIds.add(id);
+            else benchSelectedIds.delete(id);
+            updateBenchSelectionInfo();
+        }
+
+        function updateBenchSelectionInfo() {
+            const info = document.getElementById('benchSelectionInfo');
+            if (benchSelectedIds.size === 0) {
+                info.textContent = 'No datasets selected';
+                return;
+            }
+
+            let totalCitations = 0;
+            let realCount = 0;
+            let fakeCount = 0;
+            benchSelectedIds.forEach(id => {
+                const ds = benchManifest.find(d => d.id === id);
+                if (!ds) return;
+                totalCitations += ds.citation_count || 0;
+                if (ds.ground_truth === 'valid') realCount += ds.citation_count || 0;
+                else if (ds.ground_truth === 'invalid') fakeCount += ds.citation_count || 0;
+            });
+
+            const parts = [`${benchSelectedIds.size} dataset${benchSelectedIds.size > 1 ? 's' : ''}`, `${totalCitations} citations`];
+            if (realCount > 0 && fakeCount > 0) parts.push(`${realCount} real + ${fakeCount} fake`);
+            else if (realCount > 0) parts.push(`all real`);
+            else if (fakeCount > 0) parts.push(`all fake`);
+            info.textContent = parts.join(' · ');
+        }
+
+        async function loadSelectedDatasets() {
+            if (benchSelectedIds.size === 0) {
+                alert('Select at least one dataset to load.');
+                return;
+            }
+
+            let combinedBib = '';
+            benchGroundTruth = {};
+
+            for (const id of benchSelectedIds) {
+                const ds = benchManifest.find(d => d.id === id);
+                if (!ds || ds.status === 'pending') continue;
+
+                // Try to load the .bib file
+                const bibContent = await fetchDatasetBib(ds);
+                if (bibContent) {
+                    combinedBib += `% === Dataset: ${ds.name} ===\n${bibContent}\n\n`;
+                }
+
+                // Try to load the metadata (ground truth)
+                const meta = await fetchDatasetMetadata(ds);
+                if (meta) {
+                    // Store ground truth keyed by cite key, tagged with dataset-level ground truth
+                    for (const [key, value] of Object.entries(meta)) {
+                        benchGroundTruth[key] = {
+                            ground_truth: value.ground_truth || ds.ground_truth,
+                            dataset_id: id,
+                            dataset_name: ds.name,
+                            ...value
+                        };
+                    }
+                } else if (ds.ground_truth === 'valid' || ds.ground_truth === 'invalid') {
+                    // No per-citation metadata; apply dataset-level ground truth to all
+                    benchGroundTruth['__dataset_default__' + id] = {
+                        ground_truth: ds.ground_truth,
+                        dataset_id: id,
+                        dataset_name: ds.name,
+                        is_default: true
+                    };
+                }
+            }
+
+            if (!combinedBib.trim()) {
+                alert('Could not load BibTeX data. The selected datasets may not have .bib files available yet.');
+                return;
+            }
+
+            // Insert into the textarea
+            const textarea = document.getElementById('bibInput');
+            if (textarea.value.trim()) {
+                // Ask whether to append or replace
+                const append = confirm('There is already BibTeX content in the editor.\n\nOK = Append benchmark data\nCancel = Replace with benchmark data');
+                if (append) {
+                    textarea.value += '\n\n' + combinedBib;
+                } else {
+                    textarea.value = combinedBib;
+                }
+            } else {
+                textarea.value = combinedBib;
+            }
+
+            document.getElementById('fileStatus').textContent = `Loaded ${benchSelectedIds.size} benchmark dataset(s)`;
+            textarea.focus();
+
+            // Scroll to textarea
+            textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        async function fetchDatasetBib(ds) {
+            // Determine the .bib file path
+            const bibPath = ds.bib_file;
+            if (!bibPath) return null;
+
+            // Try fetching from datasets/ directory
+            const paths = [
+                `datasets/${bibPath}`,
+                bibPath
+            ];
+
+            for (const path of paths) {
+                try {
+                    const resp = await fetch(path);
+                    if (resp.ok) return await resp.text();
+                } catch (e) { /* try next */ }
+            }
+            return null;
+        }
+
+        async function fetchDatasetMetadata(ds) {
+            const metaPath = ds.metadata_file;
+            if (!metaPath) return null;
+
+            const paths = [
+                `datasets/${metaPath}`,
+                metaPath
+            ];
+
+            for (const path of paths) {
+                try {
+                    const resp = await fetch(path);
+                    if (resp.ok) return await resp.json();
+                } catch (e) { /* try next */ }
+            }
+            return null;
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // ACCURACY DASHBOARD (Tier 2)
+        // ═══════════════════════════════════════════════════════════════════════════
+
+        function computeAccuracy(validationDetails) {
+            // Check if we have any ground truth data loaded
+            const hasPerCitation = Object.keys(benchGroundTruth).some(k => !k.startsWith('__dataset_default__'));
+            const hasDefaults = Object.keys(benchGroundTruth).some(k => k.startsWith('__dataset_default__'));
+
+            if (!hasPerCitation && !hasDefaults) return null;
+
+            // Build a lookup: cite key → expected ground truth
+            const expectations = {};
+
+            // First, apply dataset-level defaults (for datasets without per-citation metadata)
+            // We need to figure out which citations came from which dataset.
+            // Since we tagged the textarea with dataset comments, parse the cite keys against defaults.
+            for (const [metaKey, metaVal] of Object.entries(benchGroundTruth)) {
+                if (metaKey.startsWith('__dataset_default__')) {
+                    // This dataset uses dataset-level ground truth for all its citations.
+                    // All citations without a per-citation entry get this default.
+                    // We'll handle this below as a fallback.
+                } else {
+                    expectations[metaKey] = metaVal.ground_truth;
+                }
+            }
+
+            // Collect dataset-level defaults
+            const datasetDefaults = {};
+            for (const [metaKey, metaVal] of Object.entries(benchGroundTruth)) {
+                if (metaKey.startsWith('__dataset_default__')) {
+                    datasetDefaults[metaVal.dataset_id] = metaVal.ground_truth;
+                }
+            }
+
+            let tp = 0, tn = 0, fp = 0, fn = 0, skipped = 0;
+
+            for (const citation of validationDetails) {
+                let expected = expectations[citation.key];
+
+                // Fallback to dataset-level defaults if no per-citation ground truth
+                if (!expected) {
+                    // Try all dataset defaults (if there's only one active, all citations get it)
+                    const defaults = Object.values(datasetDefaults);
+                    if (defaults.length === 1) {
+                        expected = defaults[0];
+                    } else {
+                        skipped++;
+                        continue;
+                    }
+                }
+
+                const isFlagged = citation.status === 'suspicious' || citation.status === 'invalid';
+
+                if (expected === 'valid') {
+                    if (!isFlagged) tp++;
+                    else fp++;
+                } else if (expected === 'invalid') {
+                    if (isFlagged) tn++;
+                    else fn++;
+                } else {
+                    skipped++;
+                }
+            }
+
+            const total = tp + tn + fp + fn;
+            if (total === 0) return null;
+
+            const accuracy = (tp + tn) / total;
+            const precision = (tp + fp) > 0 ? tp / (tp + fp) : 0;
+            const recall = (tp + fn) > 0 ? tp / (tp + fn) : 0;
+            const f1 = (precision + recall) > 0 ? 2 * precision * recall / (precision + recall) : 0;
+            const fpr = (fp + tn) > 0 ? fp / (fp + tn) : 0;
+            const fnr = (fn + tp) > 0 ? fn / (fn + tp) : 0;
+
+            return { tp, tn, fp, fn, total, skipped, accuracy, precision, recall, f1, fpr, fnr };
+        }
+
+        function renderAccuracyDashboard(validationDetails) {
+            const acc = computeAccuracy(validationDetails);
+            const dashboard = document.getElementById('accuracyDashboard');
+
+            if (!acc) {
+                dashboard.classList.remove('open');
+                return;
+            }
+
+            dashboard.classList.add('open');
+
+            // Confusion matrix
+            document.getElementById('confusionMatrix').innerHTML = `
+                <div class="confusion-matrix">
+                    <div class="cm-corner"></div>
+                    <div class="cm-header">Predicted Valid</div>
+                    <div class="cm-header">Predicted Flagged</div>
+
+                    <div class="cm-header">Actually Valid</div>
+                    <div class="cm-cell cm-tp">${acc.tp}<small>True Positive</small></div>
+                    <div class="cm-cell cm-fp">${acc.fp}<small>False Positive</small></div>
+
+                    <div class="cm-header">Actually Fake</div>
+                    <div class="cm-cell cm-fn">${acc.fn}<small>False Negative</small></div>
+                    <div class="cm-cell cm-tn">${acc.tn}<small>True Negative</small></div>
+                </div>
+                ${acc.skipped > 0 ? `<p style="text-align:center;font-size:12px;color:var(--muted);">${acc.skipped} citation(s) skipped (no ground truth available)</p>` : ''}
+            `;
+
+            // Metrics
+            function rateClass(value, goodBelow, badAbove) {
+                if (value <= goodBelow) return 'good';
+                if (value >= badAbove) return 'bad';
+                return 'ok';
+            }
+
+            function pct(v) { return (v * 100).toFixed(1) + '%'; }
+
+            document.getElementById('accuracyMetrics').innerHTML = `
+                <div class="acc-metric">
+                    <div class="acc-value ${rateClass(1 - acc.accuracy, 0.08, 0.2)}">${pct(acc.accuracy)}</div>
+                    <div class="acc-label">Accuracy</div>
+                </div>
+                <div class="acc-metric">
+                    <div class="acc-value ${rateClass(1 - acc.f1, 0.08, 0.2)}">${pct(acc.f1)}</div>
+                    <div class="acc-label">F1 Score</div>
+                </div>
+                <div class="acc-metric">
+                    <div class="acc-value ${rateClass(1 - acc.precision, 0.05, 0.15)}">${pct(acc.precision)}</div>
+                    <div class="acc-label">Precision</div>
+                </div>
+                <div class="acc-metric">
+                    <div class="acc-value ${rateClass(1 - acc.recall, 0.1, 0.25)}">${pct(acc.recall)}</div>
+                    <div class="acc-label">Recall</div>
+                </div>
+                <div class="acc-metric">
+                    <div class="acc-value ${rateClass(acc.fpr, 0.05, 0.15)}">${pct(acc.fpr)}</div>
+                    <div class="acc-label">False Positive Rate</div>
+                </div>
+                <div class="acc-metric">
+                    <div class="acc-value ${rateClass(acc.fnr, 0.1, 0.25)}">${pct(acc.fnr)}</div>
+                    <div class="acc-label">False Negative Rate</div>
+                </div>
+            `;
+        }
+
         // Initialize on page load
         window.addEventListener('DOMContentLoaded', function() {
             updateAIBtn();
