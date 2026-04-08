@@ -1381,8 +1381,15 @@ Example:
                 }
             }
 
-            // If we still know nothing, it's a warning, not invalid
+            // If we still know nothing after checking all databases...
             if (status === 'unknown') status = 'warning';
+
+            // Zero database matches + no DOI = escalate to suspicious
+            // Real papers almost always appear in at least one of CrossRef, OpenAlex, or Semantic Scholar
+            if (!metadata && !doi && status === 'warning') {
+                status = 'suspicious';
+                warnings.push('Not found in any database (CrossRef, OpenAlex, Semantic Scholar)');
+            }
 
             // Run heuristics
             const patterns = detectPatterns(entry, metadata);
@@ -1562,9 +1569,10 @@ IMPORTANT INSTRUCTIONS:
 - If our database checks found the paper (status=valid), it IS real. Confirm it.
 - If the DOI resolved but there's a year mismatch of 1-2 years, that's normal (online vs print publication dates).
 - If status=invalid because a DOI didn't resolve, that IS suspicious — real papers have working DOIs.
-- If status=warning because we couldn't find it in databases, that does NOT mean it's fake. Very new papers (2026), old papers (pre-2000), or niche journals may not be indexed yet.
-- "Not found" means UNVERIFIABLE, not FABRICATED. Only say "likely hallucinated" if there are genuine red flags: impossible author+journal combinations, non-existent journals, or self-contradictory metadata.
-- When in doubt between "unable to verify" and "likely hallucinated", choose "unable to verify."
+- If status=warning because we couldn't find it in databases, that does NOT automatically mean it's fake. Very new papers (2026), old papers (pre-2000), or niche journals may not be indexed yet.
+- HOWEVER: If a citation has NO DOI and was NOT found in ANY database (CrossRef, OpenAlex, Semantic Scholar), treat that as a significant red flag. Most real published papers appear in at least one database. Increase your suspicion.
+- "Not found" in one database means UNVERIFIABLE. "Not found" in ALL databases means LIKELY FABRICATED unless the paper is very new, very old, or from a non-English journal.
+- When in doubt between "unable to verify" and "likely hallucinated": if zero databases matched, lean toward suspicious. If at least one partial match exists, lean toward legitimate.
 
 Respond with JSON only:
 {"is_suspicious": true/false, "confidence": 0-100, "reason": "brief explanation"}`;
