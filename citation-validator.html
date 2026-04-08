@@ -925,11 +925,13 @@ Example:
             <h2>AI Provider Settings</h2>
             
             <div class="ai-provider-cards">
+                <!-- Claude disabled due to CORS issues - enable when proxy server is set up
                 <div class="ai-provider-card" id="card-anthropic" onclick="selectProvider('anthropic')">
                     <div class="ai-card-title">Anthropic Claude</div>
                     <div class="ai-card-desc">Claude Sonnet 4 — Most powerful for nuanced analysis</div>
                     <div class="ai-card-badge ai-badge-paid">Paid Key</div>
                 </div>
+                -->
                 
                 <div class="ai-provider-card" id="card-gemini" onclick="selectProvider('gemini')">
                     <div class="ai-card-title">Google Gemini</div>
@@ -1446,10 +1448,8 @@ Example:
             const label = document.getElementById('aiBtnLabel');
             const p = getProvider();
             
-            if (p === 'anthropic' && getStoredKey('anthropic')) {
-                btn.classList.add('ai-active');
-                label.textContent = 'AI: Claude ✓';
-            } else if (p === 'gemini' && getStoredKey('gemini')) {
+            // Claude disabled due to CORS - fall through to Configure AI
+            if (p === 'gemini' && getStoredKey('gemini')) {
                 btn.classList.add('ai-active');
                 label.textContent = 'AI: Gemini ✓';
             } else if (p === 'groq' && getStoredKey('groq')) {
@@ -1484,7 +1484,8 @@ Example:
         }
         
         function _refreshModalCards() {
-            ['anthropic', 'gemini', 'groq', 'openai'].forEach(p => {
+            // Skip 'anthropic' - commented out due to CORS
+            ['gemini', 'groq', 'openai'].forEach(p => {
                 document.getElementById('card-' + p).classList.toggle('selected', p === _modalProvider);
             });
         }
