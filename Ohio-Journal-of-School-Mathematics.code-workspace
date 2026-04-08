@@ -1,7 +1,20 @@
 {
 	"folders": [
 		{
+			"name": "Policy - OJSM",
 			"path": "."
+		},
+		{
+			"name": "Factory - Fall 2025",
+			"path": "../Ohio-Journal-Fall-2025"
+		},
+		{
+			"name": "Factory - Spring 2026",
+			"path": "../Ohio-Journal-Spring-2026"
+		},
+		{
+			"name": "Factory - Summer 2026",
+			"path": "../Ohio-Journal-Summer-2026"
 		}
 	],
 	"settings": {}
