@@ -1307,6 +1307,18 @@ Example:
                             status = 'suspicious';
                         }
                     }
+
+                    // Check year — 1-2 year gaps are normal (online vs print)
+                    const entryYear = parseInt(entry.fields.year);
+                    const metaYear = metadata.year;
+                    if (entryYear && metaYear) {
+                        const gap = Math.abs(entryYear - metaYear);
+                        if (gap > 2) {
+                            warnings.push(`Year mismatch: BibTeX says ${entryYear}, DOI metadata says ${metaYear}`);
+                            status = 'suspicious';
+                        }
+                        // 1-2 year gap: don't warn, this is normal pre-print/print lag
+                    }
                 } else {
                     issues.push('DOI not found in CrossRef or DataCite');
                     status = 'invalid';
@@ -1520,27 +1532,39 @@ Example:
                     ...(citation.issues || []),
                     ...(citation.warnings || [])
                 ].join('; ');
-                
+
                 const fields = citation.fields || {};
                 const fieldLines = Object.entries(fields)
                     .filter(([k,v]) => v && v.trim())
                     .map(([k,v]) => `  ${k}: ${v}`)
                     .join('\n');
 
+                // Tell the AI what our database checks actually found
+                const dbStatus = citation.status || 'unknown';
+                const metaFound = citation.metadata ? 'Yes' : 'No';
+                const metaTitle = citation.metadata?.title || '(none)';
+                const metaSource = citation.metadata?.source || 'CrossRef/OpenAlex';
+
                 const prompt = `Analyze this academic citation and determine if it is REAL or FABRICATED.
 
 BibTeX fields:
 ${fieldLines || '  (very sparse - only key and type available)'}
 
+DATABASE VERIFICATION RESULTS:
+  Status: ${dbStatus}
+  Metadata found in databases: ${metaFound}
+  ${metaFound === 'Yes' ? `Database title: ${metaTitle}\n  Source: ${metaSource}` : '  Checked: CrossRef, OpenAlex, Semantic Scholar — not found in any.'}
+
 Our automated checks found these notes:
 ${suspicionReasons || '(none)'}
 
 IMPORTANT INSTRUCTIONS:
-- A citation is NOT hallucinated just because it lacks a title or DOI in the BibTeX entry. Many real references are entered with sparse metadata.
-- Low metadata similarity warnings occur when our BibTeX entry is incomplete - this does NOT mean the paper is fake.
-- No DOI and no title for OpenAlex search means we could not LOOK IT UP, not that it does not exist.
-- Only flag as suspicious if there are genuine red flags: impossible combinations of author + journal + year, non-existent journals, or implausible metadata.
-- When in doubt, assume the citation is REAL.
+- If our database checks found the paper (status=valid), it IS real. Confirm it.
+- If the DOI resolved but there's a year mismatch of 1-2 years, that's normal (online vs print publication dates).
+- If status=invalid because a DOI didn't resolve, that IS suspicious — real papers have working DOIs.
+- If status=warning because we couldn't find it in databases, that does NOT mean it's fake. Very new papers (2026), old papers (pre-2000), or niche journals may not be indexed yet.
+- "Not found" means UNVERIFIABLE, not FABRICATED. Only say "likely hallucinated" if there are genuine red flags: impossible author+journal combinations, non-existent journals, or self-contradictory metadata.
+- When in doubt between "unable to verify" and "likely hallucinated", choose "unable to verify."
 
 Respond with JSON only:
 {"is_suspicious": true/false, "confidence": 0-100, "reason": "brief explanation"}`;
