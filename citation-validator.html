@@ -815,6 +815,9 @@
             <div class="nature-badge">
                 In response to Nature article (April 8, 2026)
             </div>
+            <p style="font-size: 0.85em; color: var(--muted); margin-top: 8px;">
+                <strong>Best for:</strong> Journal articles (@article) • <strong>Also supports:</strong> Books, conference papers, theses, and other BibTeX entry types
+            </p>
         </header>
         
         <div class="main-content">
@@ -866,7 +869,7 @@ Example:
                         <span>Enable AI-powered analysis</span>
                     </label>
                     <p style="font-size: 12px; color: var(--muted); margin-top: 4px; margin-left: 24px;">
-                        Detect Frankenstein citations using AI
+                        Analyze suspicious citations that can't be verified in databases
                     </p>
                 </div>
                 <button class="ai-settings-btn" id="aiBtn" onclick="openAIModal()">
@@ -1384,9 +1387,14 @@ Example:
             // If we still know nothing after checking all databases...
             if (status === 'unknown') status = 'warning';
 
-            // Zero database matches + no DOI = escalate to suspicious
-            // Real papers almost always appear in at least one of CrossRef, OpenAlex, or Semantic Scholar
-            if (!metadata && !doi && status === 'warning') {
+            // ESCALATION LOGIC: Zero database matches + no DOI = suspicious
+            // BUT ONLY for @article entries (journal articles)
+            // Books, theses, tech reports, conference proceedings often aren't in article databases
+            // Real journal ARTICLES almost always appear in CrossRef, OpenAlex, or Semantic Scholar
+            const entryType = (entry.type || '').toLowerCase();
+            const isArticle = entryType === 'article';
+            
+            if (!metadata && !doi && status === 'warning' && isArticle) {
                 status = 'suspicious';
                 warnings.push('Not found in any database (CrossRef, OpenAlex, Semantic Scholar)');
             }
