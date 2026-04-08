@@ -15,6 +15,13 @@ from urllib.parse import quote, urlencode
 from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
 
+# Import enhanced validation heuristics
+try:
+    from citation_enhancements import EnhancedValidator
+    HAS_ENHANCEMENTS = True
+except ImportError:
+    HAS_ENHANCEMENTS = False
+
 
 class CitationValidator:
     """Validates academic citations against CrossRef and OpenAlex APIs."""
@@ -124,14 +131,18 @@ class CitationValidator:
         except Exception as e:
             return False, {'error': f'Unexpected error: {str(e)}'}
     
-    def analyze_with_ai(self, entry: Dict, metadata: Dict) -> Optional[Dict]:
+    def analyze_with_ai(self, entry: Dict, metadata: Dict, suspicion_reasons: List[str] = None) -> Optional[Dict]:
         """Use Groq AI to analyze if citation looks like a Frankenstein citation."""
         if not self.use_ai or not self.groq_api_key:
             return None
         
-        # Build prompt
-        fields = entry['fields']
-        prompt = f"""Analyze this academic citation for signs of being AI-hallucinated or a "Frankenstein citation" (combining fragments from multiple real papers).
+        # Build enhanced prompt with more context
+        if HAS_ENHANCEMENTS and suspicion_reasons:
+            prompt = EnhancedValidator.improved_ai_prompt(entry, metadata, suspicion_reasons)
+        else:
+            # Fallback to original prompt
+            fields = entry['fields']
+            prompt = f"""Analyze this academic citation for signs of being AI-hallucinated or a "Frankenstein citation" (combining fragments from multiple real papers).
 
 BibTeX Entry:
 - Type: {entry['type']}
@@ -196,12 +207,22 @@ Respond with JSON: {{"is_suspicious": true/false, "confidence": 0-100, "reason":
             'status': 'valid',
             'issues': [],
             'warnings': [],
-            'ai_analysis': None
+            'ai_analysis': None,
+            'suspicion_reasons': []
         }
         
         fields = entry['fields']
         doi = fields.get('doi', '')
         verified_metadata = None
+        
+        # ENHANCEMENT: Check for suspicious patterns first
+        if HAS_ENHANCEMENTS:
+            suspicion_warnings = EnhancedValidator.check_suspicious_patterns(entry)
+            result['suspicion_reasons'].extend(suspicion_warnings)
+            if suspicion_warnings:
+                result['warnings'].extend(suspicion_warnings)
+                if result['status'] == 'valid':
+                    result['status'] = 'warning'
         
         # Try DOI validation first
         if doi:
@@ -210,10 +231,11 @@ Respond with JSON: {{"is_suspicious": true/false, "confidence": 0-100, "reason":
             if not is_valid:
                 result['status'] = 'invalid'
                 result['issues'].append(f"Invalid DOI: {doi_data.get('error', 'Unknown error')}")
+                result['suspicion_reasons'].append("DOI validation failed")
                 
                 # AI analysis for invalid DOI
                 if self.use_ai:
-                    result['ai_analysis'] = self.analyze_with_ai(entry, None)
+                    result['ai_analysis'] = self.analyze_with_ai(entry, None, result['suspicion_reasons'])
                 
                 return result
             
@@ -265,9 +287,18 @@ Respond with JSON: {{"is_suspicious": true/false, "confidence": 0-100, "reason":
                 result['warnings'].append('No DOI and no title for OpenAlex search')
                 result['status'] = 'warning'
         
+        # ENHANCEMENT: Calculate similarity score if we have verified metadata
+        if HAS_ENHANCEMENTS and verified_metadata:
+            similarity = EnhancedValidator.calculate_metadata_similarity(fields, verified_metadata)
+            if similarity < 0.5:  # Low similarity threshold
+                result['warnings'].append(f"Low metadata similarity score: {similarity:.2f}")
+                result['suspicion_reasons'].append(f"Metadata similarity only {similarity:.2f}")
+                if result['status'] == 'valid':
+                    result['status'] = 'warning'
+        
         # AI analysis for suspicious/invalid citations
-        if self.use_ai and result['status'] in ['suspicious', 'invalid']:
-            result['ai_analysis'] = self.analyze_with_ai(entry, verified_metadata)
+        if self.use_ai and result['status'] in ['suspicious', 'invalid', 'warning']:
+            result['ai_analysis'] = self.analyze_with_ai(entry, verified_metadata, result['suspicion_reasons'])
         
         return result
     
@@ -335,18 +366,30 @@ Respond with JSON: {{"is_suspicious": true/false, "confidence": 0-100, "reason":
                 for warning in detail['warnings']:
                     print(f"  ⚠ {warning}")
                 
+                # Show enhanced suspicion reasons if available
+                if detail.get('suspicion_reasons'):
+                    print(f"  🔍 Suspicion flags:")
+                    for reason in detail['suspicion_reasons']:
+                        print(f"     - {reason}")
+                
                 # Show AI analysis if available
                 if detail.get('ai_analysis'):
                     ai = detail['ai_analysis']
                     confidence = ai.get('confidence', 0)
                     is_suspicious = ai.get('is_suspicious', False)
                     reason = ai.get('reason', 'No reason provided')
+                    hallucination_type = ai.get('hallucination_type', 'unknown')
+                    red_flags = ai.get('red_flags', [])
                     
                     if is_suspicious:
                         print(f"  🤖 AI Analysis: LIKELY HALLUCINATED ({confidence}% confidence)")
+                        if hallucination_type != 'none':
+                            print(f"     Type: {hallucination_type}")
                     else:
                         print(f"  🤖 AI Analysis: Appears legitimate ({confidence}% confidence)")
                     print(f"     Reason: {reason}")
+                    if red_flags:
+                        print(f"     Red flags: {', '.join(red_flags)}")
         else:
             print("\n✓ No issues found! All citations appear valid.")
         
