@@ -280,6 +280,7 @@ Respond with JSON: {{"is_suspicious": true/false, "confidence": 0-100, "reason":
         fields = entry['fields']
         doi = fields.get('doi', '')
         verified_metadata = None
+        is_arxiv_doi = doi.lower().startswith('10.48550/arxiv.') if doi else False
         
         # ENHANCEMENT: Check for suspicious patterns first
         if HAS_ENHANCEMENTS:
@@ -337,7 +338,11 @@ Respond with JSON: {{"is_suspicious": true/false, "confidence": 0-100, "reason":
                 
                 if found:
                     verified_metadata = openalex_data
-                    result['warnings'].append('No DOI, but found in OpenAlex')
+                    # OpenAlex match is acceptable evidence for sparse/no-DOI references.
+                    if result['status'] == 'invalid':
+                        result['status'] = 'warning'
+                    elif result['status'] == 'valid':
+                        result['status'] = 'valid'
                     
                     # Compare with OpenAlex data
                     oa_title = openalex_data.get('title', '').lower().strip()
@@ -350,17 +355,23 @@ Respond with JSON: {{"is_suspicious": true/false, "confidence": 0-100, "reason":
                     result['warnings'].append('No DOI found and not in OpenAlex')
                     result['status'] = 'warning'
             else:
-                result['warnings'].append('No DOI and no title for OpenAlex search')
-                result['status'] = 'warning'
+                # Only warn if metadata is too sparse to perform any meaningful lookup.
+                has_author_or_venue = bool(fields.get('author') or fields.get('journal') or fields.get('booktitle'))
+                if not has_author_or_venue:
+                    result['warnings'].append('Insufficient metadata to validate (missing DOI/title/author/venue)')
+                    result['status'] = 'warning'
         
         # ENHANCEMENT: Calculate similarity score if we have verified metadata
         if HAS_ENHANCEMENTS and verified_metadata:
-            similarity = EnhancedValidator.calculate_metadata_similarity(fields, verified_metadata)
-            if similarity < 0.5:  # Low similarity threshold
-                result['warnings'].append(f"Low metadata similarity score: {similarity:.2f}")
-                result['suspicion_reasons'].append(f"Metadata similarity only {similarity:.2f}")
-                if result['status'] == 'valid':
-                    result['status'] = 'warning'
+            has_rich_metadata = bool(fields.get('title')) and bool(fields.get('author'))
+            title_word_count = len(re.findall(r'\w+', fields.get('title', '')))
+            if has_rich_metadata and not is_arxiv_doi and title_word_count >= 4:
+                similarity = EnhancedValidator.calculate_metadata_similarity(fields, verified_metadata)
+                if similarity < 0.30:  # More conservative threshold to reduce false positives.
+                    result['warnings'].append(f"Low metadata similarity score: {similarity:.2f}")
+                    result['suspicion_reasons'].append(f"Metadata similarity only {similarity:.2f}")
+                    if result['status'] == 'valid':
+                        result['status'] = 'warning'
         
         # AI analysis for suspicious/invalid citations
         if self.use_ai and result['status'] in ['suspicious', 'invalid', 'warning']:

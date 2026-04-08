@@ -111,6 +111,13 @@
         .file-upload input {
             display: none;
         }
+
+        .file-status {
+            margin: -6px 0 10px;
+            font-size: 12px;
+            color: var(--muted);
+            min-height: 16px;
+        }
         
         .button {
             background: var(--primary);
@@ -575,6 +582,7 @@
                     <p>📁 Click to upload .bib file or drag and drop</p>
                     <p style="font-size: 0.9em; opacity: 0.7;">Supports BibTeX (.bib) files</p>
                 </div>
+                <p class="file-status" id="fileStatus">No file loaded yet.</p>
                 
                 <textarea id="bibInput" placeholder="Or paste your BibTeX entries here...
 
@@ -842,13 +850,17 @@ Example:
             
             // Pattern 4: Missing critical fields
             if (!entry.fields.title && !entry.fields.doi) {
-                warnings.push('No DOI and no title for OpenAlex search');
+                const hasAuthorOrVenue = !!(entry.fields.author || entry.fields.journal || entry.fields.booktitle);
+                if (!hasAuthorOrVenue) {
+                    warnings.push('Insufficient metadata to validate (missing DOI/title/author/venue)');
+                }
             }
             
             // Pattern 5: Metadata similarity (Jaccard)
-            if (metadata && entry.fields.title && metadata.title) {
+            const isArxivDoi = (entry.fields.doi || '').toLowerCase().startsWith('10.48550/arxiv.');
+            if (metadata && entry.fields.title && entry.fields.author && metadata.title && !isArxivDoi) {
                 const similarity = jaccardSimilarity(entry.fields.title, metadata.title);
-                if (similarity < 0.4) {
+                if (similarity < 0.3) {
                     warnings.push(`Low metadata similarity score: ${similarity.toFixed(2)}`);
                 }
             }
@@ -903,8 +915,7 @@ Example:
                 if (title || author) {
                     metadata = await validateWithOpenAlex(title, author);
                     if (metadata) {
-                        status = 'warning';
-                        warnings.push('Found via OpenAlex search (not direct DOI match)');
+                        status = 'valid';
                     }
                 }
             }
@@ -1177,15 +1188,29 @@ Respond with JSON only:
         // FILE UPLOAD HANDLING
         // ═══════════════════════════════════════════════════════════════════════════
         
-        document.getElementById('fileInput').addEventListener('change', function(event) {
+        const fileInput = document.getElementById('fileInput');
+        const bibInput = document.getElementById('bibInput');
+        const fileStatus = document.getElementById('fileStatus');
+
+        function loadBibFile(file) {
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                bibInput.value = e.target.result || '';
+                bibInput.focus();
+                fileStatus.textContent = `Loaded: ${file.name}`;
+            };
+            reader.onerror = function() {
+                fileStatus.textContent = 'Unable to read that file. Please try another .bib file.';
+            };
+            reader.readAsText(file);
+        }
+
+        fileInput.addEventListener('change', function(event) {
             const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('bibInput').value = e.target.result;
-                };
-                reader.readAsText(file);
-            }
+            loadBibFile(file);
+            // Allow re-selecting the same file and still trigger change.
+            event.target.value = '';
         });
         
         const fileUpload = document.getElementById('fileUpload');
@@ -1202,17 +1227,11 @@ Respond with JSON only:
             e.preventDefault();
             fileUpload.style.background = '';
             const file = e.dataTransfer.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('bibInput').value = e.target.result;
-                };
-                reader.readAsText(file);
-            }
+            loadBibFile(file);
         });
         
         fileUpload.addEventListener('click', () => {
-            document.getElementById('fileInput').click();
+            fileInput.click();
         });
         
         // ═══════════════════════════════════════════════════════════════════════════

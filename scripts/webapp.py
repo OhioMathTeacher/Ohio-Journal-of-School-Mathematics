@@ -13,7 +13,7 @@ from citation_validator import CitationValidator
 app = Flask(__name__)
 
 # HTML Template
-HTML_TEMPLATE = '''
+HTML_TEMPLATE = r'''
 <!DOCTYPE html>
 <html lang="en">
 <head>

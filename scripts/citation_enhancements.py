@@ -66,7 +66,7 @@ class EnhancedValidator:
             warnings.append("Conference paper missing booktitle")
         
         # 7. Check for suspiciously short or long field values
-        if title and len(title) < 10:
+        if title and len(title) < 5:
             warnings.append("Suspiciously short title")
         if author and len(author) < 5:
             warnings.append("Suspiciously short author")
