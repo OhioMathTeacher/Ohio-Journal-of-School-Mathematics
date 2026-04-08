@@ -1,0 +1,183 @@
+:root {
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --text: #142033;
+  --muted: #58657a;
+  --line: #d7deea;
+  --primary: #1f6feb;
+  --accept: #138a42;
+  --reject: #be2f2f;
+  --revise: #8a5b00;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(180deg, #eef2f9 0%, #f8fafc 100%);
+  color: var(--text);
+}
+
+.app {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.app-header h1 {
+  margin: 0 0 4px;
+  font-size: 28px;
+}
+
+.app-header p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.toolbar,
+.status-row,
+.navigation,
+.actions,
+.feedback-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.toolbar {
+  margin-top: 18px;
+}
+
+.file-label {
+  display: inline-block;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  cursor: pointer;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.status-row {
+  margin: 14px 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(20, 32, 51, 0.06);
+  margin-bottom: 14px;
+}
+
+.compact {
+  padding: 12px 16px;
+}
+
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.pill {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.panel {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-top: 10px;
+}
+
+.panel h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+
+.panel p,
+.panel pre {
+  margin: 0;
+  white-space: pre-wrap;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+pre {
+  overflow: auto;
+}
+
+button {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button:hover {
+  opacity: 0.92;
+}
+
+.primary {
+  background: var(--primary);
+  color: white;
+}
+
+.ghost {
+  border-color: var(--line);
+  background: white;
+  color: var(--text);
+}
+
+.accept {
+  background: var(--accept);
+  color: white;
+}
+
+.reject {
+  background: var(--reject);
+  color: white;
+}
+
+.revise {
+  background: var(--revise);
+  color: white;
+}
+
+textarea {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  padding: 10px;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .app {
+    padding: 14px;
+  }
+}
