@@ -276,6 +276,232 @@ HTML_TEMPLATE = '''
             line-height: 1.5;
         }
         
+        /* AI Settings Button */
+        .ai-settings-btn {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95em;
+            font-weight: 500;
+            padding: 12px 24px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 8px;
+            background: white;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .ai-settings-btn:hover {
+            border-color: rgba(102, 126, 234, 0.6);
+            color: #667eea;
+            transform: translateY(-1px);
+        }
+        
+        .ai-settings-btn.ai-active {
+            border-color: rgba(80,160,80,0.5);
+            color: #50a050;
+            background: rgba(80,160,80,0.05);
+        }
+        
+        .ai-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            display: inline-block;
+        }
+        
+        /* AI Settings Modal */
+        .ai-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.65);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .ai-modal-overlay.open {
+            display: flex;
+        }
+        
+        .ai-modal {
+            background: #1e2738;
+            border: 1px solid rgba(212,168,67,0.2);
+            border-radius: 16px;
+            padding: 32px;
+            width: 600px;
+            max-width: calc(100vw - 40px);
+            box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+            animation: modalSlideIn 0.3s ease;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .ai-modal h2 {
+            font-family: 'Crimson Pro', serif;
+            font-weight: 400;
+            color: #e8dcc8;
+            font-size: 1.8em;
+            margin-bottom: 24px;
+        }
+        
+        .ai-provider-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .ai-provider-card {
+            background: rgba(255,255,255,0.04);
+            border: 2px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        
+        .ai-provider-card:hover {
+            background: rgba(255,255,255,0.07);
+            border-color: rgba(212,168,67,0.3);
+            transform: translateY(-2px);
+        }
+        
+        .ai-provider-card.selected {
+            border-color: #d4a843;
+            background: rgba(212,168,67,0.1);
+        }
+        
+        .ai-card-title {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+            font-size: 0.95em;
+            color: #e8dcc8;
+            margin-bottom: 6px;
+        }
+        
+        .ai-card-desc {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.8em;
+            color: #8a8a7a;
+            line-height: 1.5;
+        }
+        
+        .ai-card-badge {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.7em;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        
+        .ai-badge-paid {
+            background: rgba(122,59,16,0.35);
+            color: #d4956a;
+        }
+        
+        .ai-badge-free {
+            background: rgba(40,120,60,0.35);
+            color: #7ec88a;
+        }
+        
+        .ai-badge-none {
+            background: rgba(90,90,90,0.35);
+            color: #999;
+        }
+        
+        .ai-key-section {
+            margin-bottom: 24px;
+            display: none;
+        }
+        
+        .ai-key-section input {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(255,255,255,0.06);
+            border: 2px solid rgba(212,168,67,0.2);
+            border-radius: 8px;
+            color: #e8dcc8;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            outline: none;
+            margin-bottom: 8px;
+        }
+        
+        .ai-key-section input:focus {
+            border-color: rgba(212,168,67,0.5);
+        }
+        
+        .ai-key-hint {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.8em;
+            color: #6a6a5a;
+            line-height: 1.6;
+        }
+        
+        .ai-key-hint a {
+            color: #d4a843;
+            text-decoration: none;
+        }
+        
+        .ai-key-hint a:hover {
+            text-decoration: underline;
+        }
+        
+        .ai-modal-actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .ai-modal-actions button {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9em;
+            font-weight: 500;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .am-save {
+            background: #d4a843;
+            color: #1e2738;
+            flex: 1;
+        }
+        
+        .am-save:hover {
+            background: #e0b84e;
+            transform: translateY(-1px);
+        }
+        
+        .am-cancel {
+            background: rgba(255,255,255,0.08);
+            color: #9a9083;
+        }
+        
+        .am-cancel:hover {
+            background: rgba(255,255,255,0.14);
+        }
+        
         #results {
             margin-top: 30px;
             display: none;
@@ -499,28 +725,20 @@ Example:
 }"></textarea>
             </div>
             
-            <div class="section options-section">
-                <div class="checkbox-group">
-                    <label class="ai-toggle">
-                        <input type="checkbox" id="useAI">
+            <div class="section" style="display: flex; align-items: center; justify-content: space-between; padding: 20px; background: #fafbfc; border-radius: 10px;">
+                <div>
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 1em;">
+                        <input type="checkbox" id="useAI" style="width: 20px; height: 20px; cursor: pointer;">
                         <span>🤖 Enable AI-powered analysis</span>
-                        <span class="help-icon" title="Uses Llama 3.1 via free Groq API to detect 'Frankenstein citations'">ⓘ</span>
                     </label>
-                </div>
-                
-                <div id="apiKeySection" class="api-key-section">
-                    <div class="security-notice">
-                        🔒 <strong>Privacy:</strong> Your API key never leaves your browser. AI analysis happens client-side.
-                    </div>
-                    <div class="api-key-input-group">
-                        <input type="password" id="apiKey" placeholder="Groq API key (gsk_...)" class="api-key-input">
-                        <button class="clear-key-btn" onclick="clearApiKey()" title="Clear saved key">✕</button>
-                        <a href="https://console.groq.com/" target="_blank" class="get-key-link">Get free key →</a>
-                    </div>
-                    <p class="api-help-text">
-                        🔒 Key saved locally in browser • Free tier: 30 req/min, 7,000/day
+                    <p style="font-size: 0.85em; color: #666; margin-top: 8px; margin-left: 30px;">
+                        Detect "Frankenstein citations" using AI
                     </p>
                 </div>
+                <button class="ai-settings-btn" id="aiBtn" onclick="openAIModal()">
+                    <span class="ai-dot"></span>
+                    <span id="aiBtnLabel">Configure AI</span>
+                </button>
             </div>
             
             <div class="section" style="text-align: center;">
@@ -560,39 +778,171 @@ Example:
         </footer>
     </div>
     
+    <!-- AI Settings Modal -->
+    <div class="ai-modal-overlay" id="aiModalOverlay" onclick="if(event.target===this)closeAIModal()">
+        <div class="ai-modal">
+            <h2>🤖 AI Provider Settings</h2>
+            
+            <div class="ai-provider-cards">
+                <div class="ai-provider-card" id="card-anthropic" onclick="selectProvider('anthropic')">
+                    <div class="ai-card-title">Anthropic Claude</div>
+                    <div class="ai-card-desc">Claude Sonnet 4 — Most powerful for nuanced analysis</div>
+                    <div class="ai-card-badge ai-badge-paid">Paid Key</div>
+                </div>
+                
+                <div class="ai-provider-card" id="card-gemini" onclick="selectProvider('gemini')">
+                    <div class="ai-card-title">Google Gemini</div>
+                    <div class="ai-card-desc">Gemini 2.5 Flash — Free tier (use personal Gmail)</div>
+                    <div class="ai-card-badge ai-badge-free">Free</div>
+                </div>
+                
+                <div class="ai-provider-card" id="card-groq" onclick="selectProvider('groq')">
+                    <div class="ai-card-title">Groq (Llama 3.3)</div>
+                    <div class="ai-card-desc">Fast & free — No Google account needed</div>
+                    <div class="ai-card-badge ai-badge-free">Free</div>
+                </div>
+                
+                <div class="ai-provider-card" id="card-openai" onclick="selectProvider('openai')">
+                    <div class="ai-card-title">OpenAI GPT-4</div>
+                    <div class="ai-card-desc">GPT-4o — Fast, accurate, widely used</div>
+                    <div class="ai-card-badge ai-badge-paid">Paid Key</div>
+                </div>
+            </div>
+            
+            <div class="ai-key-section" id="aiKeySection">
+                <input type="password" id="aiKeyInput" placeholder="Paste your API key here…" 
+                       autocomplete="off" spellcheck="false"
+                       onkeydown="if(event.key==='Enter')saveAISettings();if(event.key==='Escape')closeAIModal()">
+                <div class="ai-key-hint" id="aiKeyHint">
+                    🔒 Stored only in your browser • Never sent to our server • Never in source code
+                </div>
+            </div>
+            
+            <div class="ai-modal-actions">
+                <button class="am-save" onclick="saveAISettings()">Save</button>
+                <button class="am-cancel" onclick="closeAIModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
     <script>
         let validationResults = null;
         
-        // Load saved API key from localStorage
-        window.addEventListener('DOMContentLoaded', function() {
-            const savedKey = localStorage.getItem('groqApiKey');
-            if (savedKey) {
-                document.getElementById('apiKey').value = savedKey;
-            }
-        });
+        // ═══ AI PROVIDER MANAGEMENT (pattern from close-reader) ═══
+        const PROVIDER_KEY    = 'cv_provider';
+        const ANTHROPIC_KEY   = 'cv_anthropic_key';
+        const GEMINI_KEY      = 'cv_gemini_key';
+        const GROQ_KEY        = 'cv_groq_key';
+        const OPENAI_KEY      = 'cv_openai_key';
         
-        // Save API key to localStorage when changed
-        document.getElementById('apiKey').addEventListener('input', function() {
-            if (this.value) {
-                localStorage.setItem('groqApiKey', this.value);
-            }
-        });
+        let _modalProvider = '';
         
-        // Toggle AI section with smooth animation
-        document.getElementById('useAI').addEventListener('change', function() {
-            const apiSection = document.getElementById('apiKeySection');
-            apiSection.style.display = this.checked ? 'block' : 'none';
-        });
+        function getProvider() {
+            return localStorage.getItem(PROVIDER_KEY) || '';
+        }
         
-        // Clear API key
-        function clearApiKey() {
-            if (confirm('Clear saved API key from browser?')) {
-                localStorage.removeItem('groqApiKey');
-                document.getElementById('apiKey').value = '';
+        function getStoredKey(provider) {
+            if (provider === 'anthropic') return localStorage.getItem(ANTHROPIC_KEY) || '';
+            if (provider === 'gemini')    return localStorage.getItem(GEMINI_KEY) || '';
+            if (provider === 'groq')      return localStorage.getItem(GROQ_KEY) || '';
+            if (provider === 'openai')    return localStorage.getItem(OPENAI_KEY) || '';
+            return '';
+        }
+        
+        function updateAIBtn() {
+            const btn   = document.getElementById('aiBtn');
+            const label = document.getElementById('aiBtnLabel');
+            const p = getProvider();
+            
+            if (p === 'anthropic' && getStoredKey('anthropic')) {
+                btn.classList.add('ai-active');
+                label.textContent = 'AI: Claude ✓';
+            } else if (p === 'gemini' && getStoredKey('gemini')) {
+                btn.classList.add('ai-active');
+                label.textContent = 'AI: Gemini ✓';
+            } else if (p === 'groq' && getStoredKey('groq')) {
+                btn.classList.add('ai-active');
+                label.textContent = 'AI: Groq ✓';
+            } else if (p === 'openai' && getStoredKey('openai')) {
+                btn.classList.add('ai-active');
+                label.textContent = 'AI: OpenAI ✓';
+            } else {
+                btn.classList.remove('ai-active');
+                label.textContent = 'Configure AI';
             }
         }
         
-        // File upload handling
+        function openAIModal() {
+            _modalProvider = getProvider() || 'groq'; // Default to Groq (free)
+            _refreshModalCards();
+            _refreshKeySection();
+            document.getElementById('aiModalOverlay').classList.add('open');
+            setTimeout(() => document.getElementById('aiKeyInput').focus(), 100);
+        }
+        
+        function closeAIModal() {
+            document.getElementById('aiModalOverlay').classList.remove('open');
+        }
+        
+        function selectProvider(p) {
+            _modalProvider = p;
+            _refreshModalCards();
+            _refreshKeySection();
+            setTimeout(() => document.getElementById('aiKeyInput').focus(), 50);
+        }
+        
+        function _refreshModalCards() {
+            ['anthropic', 'gemini', 'groq', 'openai'].forEach(p => {
+                document.getElementById('card-' + p).classList.toggle('selected', p === _modalProvider);
+            });
+        }
+        
+        function _refreshKeySection() {
+            const section = document.getElementById('aiKeySection');
+            const input   = document.getElementById('aiKeyInput');
+            const hint    = document.getElementById('aiKeyHint');
+            
+            section.style.display = 'block';
+            const stored = getStoredKey(_modalProvider);
+            input.value = stored ? '••••••••••••••••' : '';
+            
+            if (_modalProvider === 'anthropic') {
+                input.placeholder = 'sk-ant-…';
+                hint.innerHTML = '🔒 Stored only in your browser • Never shared • Get key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>';
+            } else if (_modalProvider === 'gemini') {
+                input.placeholder = 'AIza…';
+                hint.innerHTML = '🔒 Get free key at <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com</a> — <strong style="color:#d4a843">use personal Gmail, not school account</strong>';
+            } else if (_modalProvider === 'groq') {
+                input.placeholder = 'gsk_…';
+                hint.innerHTML = '🔒 Get free key at <a href="https://console.groq.com/keys" target="_blank">console.groq.com</a> — any email works, no Google account needed';
+            } else if (_modalProvider === 'openai') {
+                input.placeholder = 'sk-…';
+                hint.innerHTML = '🔒 Get key at <a href="https://platform.openai.com/api-keys" target="_blank">platform.openai.com</a> — Stored only in your browser';
+            }
+        }
+        
+        function saveAISettings() {
+            const val = document.getElementById('aiKeyInput').value.trim();
+            localStorage.setItem(PROVIDER_KEY, _modalProvider);
+            
+            if (val && !val.startsWith('•')) {
+                const storageKey = _modalProvider === 'anthropic' ? ANTHROPIC_KEY
+                                 : _modalProvider === 'gemini'    ? GEMINI_KEY
+                                 : _modalProvider === 'groq'      ? GROQ_KEY
+                                 :                                  OPENAI_KEY;
+                localStorage.setItem(storageKey, val);
+            }
+            
+            closeAIModal();
+            updateAIBtn();
+        }
+        
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            updateAIBtn();
+        });
+        
+        // ═══ FILE UPLOAD HANDLING ═══
         function handleFileUpload(event) {
             const file = event.target.files[0];
             if (file) {
@@ -641,10 +991,12 @@ Example:
             }
             
             const useAI = document.getElementById('useAI').checked;
-            const apiKey = document.getElementById('apiKey').value;
+            const provider = getProvider();
+            const apiKey = getStoredKey(provider);
             
-            if (useAI && !apiKey) {
-                alert('Please provide a Groq API key for AI analysis');
+            if (useAI && (!provider || !apiKey)) {
+                openAIModal();
+                alert('Please configure an AI provider first');
                 return;
             }
             
@@ -673,9 +1025,9 @@ Example:
                 }
                 
                 // Step 2: Client-side AI analysis (if enabled)
-                // ✅ Groq API called directly from browser with user's key!
+                // ✅ AI API called directly from browser with user's key!
                 if (useAI) {
-                    await addAIAnalysis(data.details, apiKey);
+                    await addAIAnalysis(data.details, provider, apiKey);
                 }
                 
                 validationResults = data;
@@ -689,17 +1041,17 @@ Example:
         }
         
         // Client-side AI analysis - API key stays in browser!
-        async function addAIAnalysis(citations, apiKey) {
+        async function addAIAnalysis(citations, provider, apiKey) {
             for (const citation of citations) {
                 // Only analyze suspicious/invalid/warning citations
                 if (['suspicious', 'invalid', 'warning'].includes(citation.status)) {
-                    citation.ai_analysis = await analyzeWithGroq(citation, apiKey);
+                    citation.ai_analysis = await analyzeWithAI(citation, provider, apiKey);
                 }
             }
         }
         
-        // Call Groq API directly from browser
-        async function analyzeWithGroq(citation, apiKey) {
+        // Call AI API directly from browser (supports 4 providers)
+        async function analyzeWithAI(citation, provider, apiKey) {
             try {
                 const suspicionReasons = [
                     ...(citation.issues || []),
@@ -722,42 +1074,105 @@ Respond with JSON only:
   "reason": "brief explanation"
 }`;
 
-                const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${apiKey}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        model: 'llama-3.1-8b-instant',
-                        messages: [
-                            {
-                                role: 'system',
-                                content: 'You are an expert at detecting fabricated academic citations. Respond only with valid JSON.'
-                            },
-                            {
-                                role: 'user',
-                                content: prompt
-                            }
-                        ],
-                        temperature: 0.1,
-                        max_tokens: 200
-                    })
-                });
-                
-                if (!response.ok) {
-                    console.error('Groq API error:', response.status);
-                    return null;
+                if (provider === 'anthropic') {
+                    const res = await fetch('https://api.anthropic.com/v1/messages', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-api-key': apiKey,
+                            'anthropic-version': '2023-06-01',
+                            'anthropic-dangerous-allow-browser': 'true'
+                        },
+                        body: JSON.stringify({
+                            model: 'claude-sonnet-4-20250514',
+                            max_tokens: 300,
+                            messages: [{ role: 'user', content: prompt }]
+                        })
+                    });
+                    if (!res.ok) return null;
+                    const data = await res.json();
+                    const content = data.content?.map(b => b.text || '').join('') || '';
+                    const jsonMatch = content.match(/\{.*\}/s);
+                    return jsonMatch ? JSON.parse(jsonMatch[0]) : null;
                 }
                 
-                const data = await response.json();
-                const content = data.choices[0].message.content;
-                
-                // Parse JSON from response
-                const jsonMatch = content.match(/\{.*\}/s);
-                if (jsonMatch) {
-                    return JSON.parse(jsonMatch[0]);
+                if (provider === 'gemini') {
+                    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`;
+                    const res = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: prompt }] }],
+                            generationConfig: { maxOutputTokens: 300, temperature: 0.1 }
+                        })
+                    });
+                    if (!res.ok) return null;
+                    const data = await res.json();
+                    const content = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+                    const jsonMatch = content.match(/\{.*\}/s);
+                    return jsonMatch ? JSON.parse(jsonMatch[0]) : null;
                 }
+                
+                if (provider === 'groq') {
+                    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${apiKey}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            model: 'llama-3.3-70b-versatile',
+                            messages: [
+                                {
+                                    role: 'system',
+                                    content: 'You are an expert at detecting fabricated academic citations. Respond only with valid JSON.'
+                                },
+                                {
+                                    role: 'user',
+                                    content: prompt
+                                }
+                            ],
+                            temperature: 0.1,
+                            max_tokens: 300
+                        })
+                    });
+                    if (!res.ok) return null;
+                    const data = await res.json();
+                    const content = data.choices?.[0]?.message?.content || '';
+                    const jsonMatch = content.match(/\{.*\}/s);
+                    return jsonMatch ? JSON.parse(jsonMatch[0]) : null;
+                }
+                
+                if (provider === 'openai') {
+                    const res = await fetch('https://api.openai.com/v1/chat/completions', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${apiKey}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            model: 'gpt-4o',
+                            messages: [
+                                {
+                                    role: 'system',
+                                    content: 'You are an expert at detecting fabricated academic citations. Respond only with valid JSON.'
+                                },
+                                {
+                                    role: 'user',
+                                    content: prompt
+                                }
+                            ],
+                            temperature: 0.1,
+                            max_tokens: 300
+                        })
+                    });
+                    if (!res.ok) return null;
+                    const data = await res.json();
+                    const content = data.choices?.[0]?.message?.content || '';
+                    const jsonMatch = content.match(/\{.*\}/s);
+                    return jsonMatch ? JSON.parse(jsonMatch[0]) : null;
+                }
+                
                 return null;
                 
             } catch (error) {
