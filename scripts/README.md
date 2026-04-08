@@ -105,35 +105,46 @@ python3 webapp.py
 - PythonAnywhere: Free tier available
 - After deployment, anyone can visit the URL - no installation needed!
 
-### 📄 How to Provide Articles for Testing
+### 📄 How to Get BibTeX Citations for Testing
 
-**Option 1: BibTeX Files (.bib)**
-Most straightforward - if you have LaTeX source:
+**Option 1: Google Scholar (Easiest for Quick Tests!)**
+Perfect for testing specific papers or building a sample .bib file:
+1. Search for any paper on [Google Scholar](https://scholar.google.com)
+2. Click the "Cite" button (quotation mark icon)
+3. Click "BibTeX" at the bottom
+4. Copy the BibTeX entry
+5. Paste into the web app or save as a `.bib` file
+
+**Example:** Try searching "Nature hallucinated citations 2026" to test the very article that inspired this tool!
+
+**Option 2: Your LaTeX Bibliography**
+If you're writing in LaTeX, you already have a `.bib` file:
 ```bash
 python3 citation_validator.py yourpaper/bibliography.bib
 ```
 
-**Option 2: Extract from PDF**
-Many academic PDFs contain embedded BibTeX:
-1. Get LaTeX source from arXiv, journal supplementary materials
-2. Or use tools like [GROBID](https://github.com/kermitt2/grobid) to extract citations from PDF
+**Option 3: Reference Manager Export**
+Export from Zotero, Mendeley, EndNote, JabRef:
+- File → Export → BibTeX format
+- Save as `.bib` file
+- Upload to web app or run via command line
 
-**Option 3: Manual BibTeX Creation**
-From reference list in paper:
+**Option 4: Manual BibTeX Entry**
+Create entries by hand for specific citations you want to verify:
 ```bibtex
 @article{AuthorYear,
   title={Paper Title},
   author={Last, First and Last2, First2},
   journal={Journal Name},
   year={2025},
+  volume={123},
+  pages={45-67},
   doi={10.1234/example}
 }
 ```
 
-**Option 4: Use the GUI** (easiest!)
-- Copy/paste reference list into text box
-- GUI converts to BibTeX automatically
-- Validates immediately
+**Testing with Known Fake Citations:**
+We provide [test_citations/test_suspicious.bib](../test_citations/test_suspicious.bib) with 5 known problematic citations for testing the detection system.
 
 ### 🎯 Command Line Usage
 
