@@ -1999,32 +1999,34 @@ Respond with JSON only:
                 const ds = benchManifest.find(d => d.id === id);
                 if (!ds || ds.status === 'pending' || (!ds.bib_files && !ds.bib_file)) continue;
 
-                // Try to load the .bib file
+                // Load the .bib content
                 const bibContent = await fetchDatasetBib(ds);
-                if (bibContent) {
-                    combinedBib += `% === Dataset: ${ds.name} ===\n${bibContent}\n\n`;
-                }
+                if (!bibContent) continue;
 
-                // Try to load the metadata (ground truth)
+                combinedBib += `% === Dataset: ${ds.name} ===\n${bibContent}\n\n`;
+
+                // Load per-citation metadata if available
                 const meta = await fetchDatasetMetadata(ds);
-                if (meta) {
-                    // Store ground truth keyed by cite key, tagged with dataset-level ground truth
-                    for (const [key, value] of Object.entries(meta)) {
-                        benchGroundTruth[key] = {
-                            ground_truth: value.ground_truth || ds.ground_truth,
+
+                // Parse the BibTeX to extract cite keys, then assign ground truth
+                const entries = parseBibTeX(bibContent);
+                for (const entry of entries) {
+                    if (meta && meta[entry.key]) {
+                        // Per-citation ground truth from metadata file
+                        benchGroundTruth[entry.key] = {
+                            ground_truth: meta[entry.key].ground_truth || ds.ground_truth,
                             dataset_id: id,
                             dataset_name: ds.name,
-                            ...value
+                            ...meta[entry.key]
+                        };
+                    } else {
+                        // Dataset-level ground truth applied to each citation
+                        benchGroundTruth[entry.key] = {
+                            ground_truth: ds.ground_truth,
+                            dataset_id: id,
+                            dataset_name: ds.name
                         };
                     }
-                } else if (ds.ground_truth === 'valid' || ds.ground_truth === 'invalid') {
-                    // No per-citation metadata; apply dataset-level ground truth to all
-                    benchGroundTruth['__dataset_default__' + id] = {
-                        ground_truth: ds.ground_truth,
-                        dataset_id: id,
-                        dataset_name: ds.name,
-                        is_default: true
-                    };
                 }
             }
 
@@ -2033,10 +2035,13 @@ Respond with JSON only:
                 return;
             }
 
+            const gtCount = Object.keys(benchGroundTruth).length;
+            const validCount = Object.values(benchGroundTruth).filter(g => g.ground_truth === 'valid').length;
+            const invalidCount = Object.values(benchGroundTruth).filter(g => g.ground_truth === 'invalid').length;
+
             // Insert into the textarea
             const textarea = document.getElementById('bibInput');
             if (textarea.value.trim()) {
-                // Ask whether to append or replace
                 const append = confirm('There is already BibTeX content in the editor.\n\nOK = Append benchmark data\nCancel = Replace with benchmark data');
                 if (append) {
                     textarea.value += '\n\n' + combinedBib;
@@ -2047,10 +2052,9 @@ Respond with JSON only:
                 textarea.value = combinedBib;
             }
 
-            document.getElementById('fileStatus').textContent = `Loaded ${benchSelectedIds.size} benchmark dataset(s)`;
+            const gtSummary = gtCount > 0 ? ` (ground truth: ${validCount} real, ${invalidCount} fake)` : '';
+            document.getElementById('fileStatus').textContent = `Loaded ${benchSelectedIds.size} dataset(s)${gtSummary}`;
             textarea.focus();
-
-            // Scroll to textarea
             textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
@@ -2099,53 +2103,18 @@ Respond with JSON only:
         // ═══════════════════════════════════════════════════════════════════════════
 
         function computeAccuracy(validationDetails) {
-            // Check if we have any ground truth data loaded
-            const hasPerCitation = Object.keys(benchGroundTruth).some(k => !k.startsWith('__dataset_default__'));
-            const hasDefaults = Object.keys(benchGroundTruth).some(k => k.startsWith('__dataset_default__'));
-
-            if (!hasPerCitation && !hasDefaults) return null;
-
-            // Build a lookup: cite key → expected ground truth
-            const expectations = {};
-
-            // First, apply dataset-level defaults (for datasets without per-citation metadata)
-            // We need to figure out which citations came from which dataset.
-            // Since we tagged the textarea with dataset comments, parse the cite keys against defaults.
-            for (const [metaKey, metaVal] of Object.entries(benchGroundTruth)) {
-                if (metaKey.startsWith('__dataset_default__')) {
-                    // This dataset uses dataset-level ground truth for all its citations.
-                    // All citations without a per-citation entry get this default.
-                    // We'll handle this below as a fallback.
-                } else {
-                    expectations[metaKey] = metaVal.ground_truth;
-                }
-            }
-
-            // Collect dataset-level defaults
-            const datasetDefaults = {};
-            for (const [metaKey, metaVal] of Object.entries(benchGroundTruth)) {
-                if (metaKey.startsWith('__dataset_default__')) {
-                    datasetDefaults[metaVal.dataset_id] = metaVal.ground_truth;
-                }
-            }
+            if (Object.keys(benchGroundTruth).length === 0) return null;
 
             let tp = 0, tn = 0, fp = 0, fn = 0, skipped = 0;
 
             for (const citation of validationDetails) {
-                let expected = expectations[citation.key];
-
-                // Fallback to dataset-level defaults if no per-citation ground truth
-                if (!expected) {
-                    // Try all dataset defaults (if there's only one active, all citations get it)
-                    const defaults = Object.values(datasetDefaults);
-                    if (defaults.length === 1) {
-                        expected = defaults[0];
-                    } else {
-                        skipped++;
-                        continue;
-                    }
+                const gt = benchGroundTruth[citation.key];
+                if (!gt || !gt.ground_truth || gt.ground_truth === 'mixed') {
+                    skipped++;
+                    continue;
                 }
 
+                const expected = gt.ground_truth;  // 'valid' or 'invalid'
                 const isFlagged = citation.status === 'suspicious' || citation.status === 'invalid';
 
                 if (expected === 'valid') {
