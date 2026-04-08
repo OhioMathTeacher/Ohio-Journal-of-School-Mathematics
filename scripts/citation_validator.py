@@ -24,7 +24,7 @@ except ImportError:
 
 
 class CitationValidator:
-    """Validates academic citations against CrossRef and OpenAlex APIs."""
+    """Validates academic citations against CrossRef, OpenAlex, and Semantic Scholar APIs."""
     
     def __init__(self, verbose=False, use_ai=False, groq_api_key=None):
         self.verbose = verbose
@@ -340,6 +340,44 @@ class CitationValidator:
         except Exception as e:
             return False, {'error': f'Unexpected error: {str(e)}'}
     
+    def search_semantic_scholar(self, title: str) -> Tuple[bool, Dict]:
+        """Scholar Agent fallback: search Semantic Scholar for a publication by title."""
+        if not title:
+            return False, {'error': 'No title provided'}
+
+        params = urlencode({
+            'query': title,
+            'fields': 'title,authors,year,venue,externalIds',
+            'limit': 1
+        })
+        url = f"https://api.semanticscholar.org/graph/v1/paper/search?{params}"
+
+        try:
+            time.sleep(self.rate_limit_delay)
+            req = Request(url, headers={'User-Agent': 'OJSM-CitationValidator/1.0'})
+            response = urlopen(req, timeout=10)
+            data = json.loads(response.read().decode('utf-8'))
+
+            papers = data.get('data', [])
+            if papers:
+                paper = papers[0]
+                ext_ids = paper.get('externalIds', {}) or {}
+                return True, {
+                    'title': paper.get('title'),
+                    'authors': ', '.join(a.get('name', '') for a in (paper.get('authors') or [])),
+                    'venue': paper.get('venue'),
+                    'year': paper.get('year'),
+                    'doi': ext_ids.get('DOI'),
+                    'source': 'semantic_scholar'
+                }
+            else:
+                return False, {'error': 'No matching publication found'}
+
+        except (URLError, HTTPError) as e:
+            return False, {'error': f'API error: {str(e)}'}
+        except Exception as e:
+            return False, {'error': f'Unexpected error: {str(e)}'}
+
     def analyze_with_ai(self, entry: Dict, metadata: Dict, suspicion_reasons: List[str] = None) -> Optional[Dict]:
         """Use Groq AI to analyze if citation looks like a Frankenstein citation."""
         if not self.use_ai or not self.groq_api_key:
@@ -511,6 +549,23 @@ Respond with JSON: {{"is_suspicious": true/false, "confidence": 0-100, "reason":
                     result['warnings'].append('Insufficient metadata to validate (missing DOI/title/author/venue)')
                     result['status'] = 'warning'
         
+        # Scholar Agent fallback: try Semantic Scholar if still unresolved
+        # (We only reach here when DOI path didn't return early, so DOI is unconfirmed)
+        if not verified_metadata or result['status'] not in ('valid',):
+            title = fields.get('title', '')
+            if title:
+                ss_found, ss_data = self.search_semantic_scholar(title)
+                if ss_found and ss_data.get('title'):
+                    sim = self._jaccard_words(title, ss_data['title'])
+                    if sim >= 0.5:
+                        if not verified_metadata:
+                            verified_metadata = ss_data
+                        if result['status'] in ('warning', 'invalid'):
+                            result['status'] = 'valid'
+                    elif sim >= 0.3 and not verified_metadata:
+                        verified_metadata = ss_data
+                        result['warnings'].append(f"Weak Semantic Scholar match (similarity {sim:.2f})")
+
         # ENHANCEMENT: Calculate similarity score if we have verified metadata
         if HAS_ENHANCEMENTS and verified_metadata:
             has_rich_metadata = bool(fields.get('title')) and bool(fields.get('author'))

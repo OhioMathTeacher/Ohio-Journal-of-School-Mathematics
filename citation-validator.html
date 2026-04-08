@@ -1177,6 +1177,37 @@ Example:
             }
         }
         
+        async function validateWithSemanticScholar(title) {
+            if (!title) return null;
+
+            try {
+                const params = new URLSearchParams({
+                    query: title,
+                    fields: 'title,authors,year,venue,externalIds',
+                    limit: '1'
+                });
+
+                const response = await fetch(`https://api.semanticscholar.org/graph/v1/paper/search?${params}`);
+                if (!response.ok) return null;
+
+                const data = await response.json();
+                if (!data.data || data.data.length === 0) return null;
+
+                const paper = data.data[0];
+                const extIds = paper.externalIds || {};
+                return {
+                    title: paper.title,
+                    authors: paper.authors ? paper.authors.map(a => a.name).join(', ') : null,
+                    journal: paper.venue || null,
+                    year: paper.year,
+                    doi: extIds.DOI || null,
+                    source: 'semantic_scholar'
+                };
+            } catch (error) {
+                return null;
+            }
+        }
+
         // ═══════════════════════════════════════════════════════════════════════════
         // HEURISTIC PATTERN DETECTION
         // ═══════════════════════════════════════════════════════════════════════════
@@ -1312,6 +1343,28 @@ Example:
                     } else {
                         warnings.push('No DOI found and not in OpenAlex');
                         if (status === 'unknown') status = 'warning';
+                    }
+                }
+            }
+
+            // Scholar Agent fallback: try Semantic Scholar if still unresolved
+            if (!metadata || (status !== 'valid' && !doiConfirmed)) {
+                const title = entry.fields.title;
+                if (title) {
+                    const ssResult = await validateWithSemanticScholar(title);
+                    if (ssResult && ssResult.title) {
+                        const sim = jaccardSimilarity(title, ssResult.title);
+                        if (sim >= 0.5) {
+                            metadata = metadata || ssResult;
+                            if (status !== 'valid' && status !== 'suspicious') {
+                                status = 'valid';
+                            }
+                        } else if (sim >= 0.3 && !metadata) {
+                            metadata = ssResult;
+                            warnings.push(`Weak Semantic Scholar match (similarity ${sim.toFixed(2)})`);
+                            if (status === 'unknown') status = 'warning';
+                        }
+                        // sim < 0.3 = unrelated, ignore silently
                     }
                 }
             }
