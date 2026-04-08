@@ -7,7 +7,7 @@ Simple Flask app for detecting hallucinated citations via web interface
 import os
 import json
 from pathlib import Path
-from flask import Flask, request, jsonify, render_template_string
+from flask import Flask, request, jsonify, Response
 from citation_validator import CitationValidator
 
 app = Flask(__name__)
@@ -21,6 +21,19 @@ HTML_TEMPLATE = '''
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Citation Validator - Detect AI-Hallucinated References</title>
     <style>
+        :root {
+            --bg: #f5f7fb;
+            --card: #ffffff;
+            --text: #142033;
+            --muted: #58657a;
+            --line: #d7deea;
+            --primary: #1f6feb;
+            --valid: #138a42;
+            --warning: #8a5b00;
+            --suspicious: #be2f2f;
+            --invalid: #be2f2f;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -28,91 +41,91 @@ HTML_TEMPLATE = '''
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(180deg, #eef2f9 0%, #f8fafc 100%);
+            color: var(--text);
             min-height: 100vh;
             padding: 20px;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 980px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
+            padding: 24px;
         }
         
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px;
-            text-align: center;
+            margin-bottom: 24px;
         }
         
         header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 28px;
+            margin-bottom: 4px;
+            color: var(--text);
         }
         
         header p {
-            font-size: 1.2em;
-            opacity: 0.9;
+            color: var(--muted);
+            font-size: 1em;
         }
         
         .nature-badge {
             display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 5px 15px;
-            border-radius: 20px;
-            margin-top: 10px;
-            font-size: 0.9em;
+            background: var(--card);
+            border: 1px solid var(--line);
+            padding: 4px 12px;
+            border-radius: 6px;
+            margin-top: 8px;
+            font-size: 0.85em;
+            color: var(--muted);
         }
         
         .main-content {
-            padding: 40px;
+            /* no extra padding needed */
         }
         
         .section {
-            margin-bottom: 30px;
+            margin-bottom: 18px;
         }
         
         .section h2 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.5em;
+            color: var(--text);
+            margin-bottom: 10px;
+            font-size: 18px;
         }
         
         textarea {
             width: 100%;
-            min-height: 300px;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
+            min-height: 250px;
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
             font-family: 'Courier New', monospace;
-            font-size: 14px;
+            font-size: 13px;
             resize: vertical;
-            transition: border-color 0.3s;
+            transition: border-color 0.2s;
+            background: var(--card);
         }
         
         textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: var(--primary);
         }
         
         .file-upload {
-            border: 2px dashed #667eea;
-            border-radius: 10px;
-            padding: 30px;
+            border: 2px dashed var(--line);
+            border-radius: 8px;
+            padding: 24px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s;
-            margin-bottom: 20px;
+            transition: all 0.2s;
+            margin-bottom: 14px;
+            background: var(--card);
         }
         
         .file-upload:hover {
-            background: #f8f9ff;
-            border-color: #764ba2;
+            border-color: var(--primary);
+            background: #f0f4ff;
         }
         
         .file-upload input {
@@ -120,24 +133,23 @@ HTML_TEMPLATE = '''
         }
         
         .button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--primary);
             color: white;
             border: none;
-            padding: 15px 40px;
-            border-radius: 10px;
-            font-size: 1.1em;
-            font-weight: bold;
+            padding: 10px 28px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: background 0.2s;
         }
         
         .button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            background: #1a5cc7;
         }
         
         .button:active {
-            transform: translateY(0);
+            background: #174ea6;
         }
         
         .button:disabled {
@@ -146,168 +158,66 @@ HTML_TEMPLATE = '''
         }
         
         .checkbox-group {
-            margin: 15px 0;
+            margin: 10px 0;
         }
         
         .checkbox-group label.ai-toggle {
             display: flex;
             align-items: center;
             cursor: pointer;
-            font-size: 0.95em;
-            color: #555;
-            padding: 8px 12px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            transition: background 0.2s;
-        }
-        
-        .checkbox-group label.ai-toggle:hover {
-            background: #e9ecef;
+            font-size: 14px;
+            color: var(--text);
+            padding: 0;
         }
         
         .checkbox-group input[type="checkbox"] {
-            margin-right: 10px;
-            width: 18px;
-            height: 18px;
+            margin-right: 8px;
+            width: 16px;
+            height: 16px;
             cursor: pointer;
-        }
-        
-        .help-icon {
-            margin-left: 8px;
-            color: #667eea;
-            font-size: 1.1em;
-            cursor: help;
-        }
-        
-        .options-section {
-            background: #fafbfc;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .api-key-section {
-            display: none;
-            margin-top: 15px;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            border: 1px solid #e0e0e0;
-            animation: slideDown 0.3s ease;
-        }
-        
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .api-key-input-group {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        
-        .api-key-input {
-            flex: 1;
-            padding: 10px;
-            border: 2px solid #e0e0e0;
-            border-radius: 5px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-            transition: border-color 0.3s;
-        }
-        
-        .api-key-input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-        
-        .clear-key-btn {
-            background: #dc3545;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background 0.2s;
-        }
-        
-        .clear-key-btn:hover {
-            background: #c82333;
-        }
-        
-        .get-key-link {
-            padding: 10px 15px;
-            background: #667eea;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 0.85em;
-            white-space: nowrap;
-            transition: background 0.2s;
-        }
-        
-        .get-key-link:hover {
-            background: #5568d3;
-        }
-        
-        .api-help-text {
-            font-size: 0.85em;
-            color: #666;
-            margin-top: 8px;
-            margin-bottom: 0;
         }
         
         .security-notice {
-            background: rgba(40,120,60,0.12);
-            border: 1px solid rgba(40,120,60,0.25);
-            padding: 10px 12px;
+            background: rgba(40,120,60,0.08);
+            border: 1px solid rgba(40,120,60,0.2);
+            padding: 8px 12px;
             border-radius: 6px;
-            font-size: 0.85em;
+            font-size: 13px;
             color: #2d5a2d;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             line-height: 1.5;
         }
         
         /* AI Settings Button */
         .ai-settings-btn {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.95em;
-            font-weight: 500;
-            padding: 12px 24px;
-            border: 2px solid rgba(102, 126, 234, 0.3);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border: 1px solid var(--line);
             border-radius: 8px;
-            background: white;
-            color: #555;
+            background: var(--card);
+            color: var(--muted);
             cursor: pointer;
             transition: all 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
         
         .ai-settings-btn:hover {
-            border-color: rgba(102, 126, 234, 0.6);
-            color: #667eea;
-            transform: translateY(-1px);
+            border-color: var(--primary);
+            color: var(--primary);
         }
         
         .ai-settings-btn.ai-active {
-            border-color: rgba(80,160,80,0.5);
-            color: #50a050;
-            background: rgba(80,160,80,0.05);
+            border-color: var(--valid);
+            color: var(--valid);
+            background: rgba(19,138,66,0.04);
         }
         
         .ai-dot {
-            width: 8px;
-            height: 8px;
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
             background: currentColor;
             display: inline-block;
@@ -503,159 +413,166 @@ HTML_TEMPLATE = '''
         }
         
         #results {
-            margin-top: 30px;
+            margin-top: 18px;
             display: none;
         }
         
         .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            display: flex;
+            gap: 12px;
+            margin-bottom: 18px;
         }
         
         .stat-card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 20px;
-            border-radius: 10px;
+            flex: 1;
+            background: var(--card);
+            border: 1px solid var(--line);
+            padding: 14px;
+            border-radius: 8px;
             text-align: center;
         }
         
         .stat-card.valid {
-            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            border-left: 3px solid var(--valid);
         }
         
         .stat-card.warning {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-left: 3px solid #c09000;
         }
         
         .stat-card.suspicious {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            border-left: 3px solid #d46a00;
         }
         
         .stat-card.invalid {
-            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            border-left: 3px solid var(--invalid);
         }
         
         .stat-value {
-            font-size: 3em;
+            font-size: 2em;
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 2px;
+            color: var(--text);
         }
         
         .stat-label {
-            font-size: 1em;
-            opacity: 0.8;
+            font-size: 13px;
+            color: var(--muted);
         }
         
         .citation-list {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
+            /* no wrapper background needed */
         }
         
         .citation-item {
-            background: white;
-            border-left: 4px solid #e0e0e0;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 5px;
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-left: 3px solid var(--line);
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(20,32,51,0.04);
         }
         
         .citation-item.valid {
-            border-left-color: #28a745;
+            border-left-color: var(--valid);
         }
         
         .citation-item.warning {
-            border-left-color: #ffc107;
+            border-left-color: #c09000;
         }
         
         .citation-item.suspicious {
-            border-left-color: #ff6b6b;
+            border-left-color: #d46a00;
         }
         
         .citation-item.invalid {
-            border-left-color: #dc3545;
+            border-left-color: var(--invalid);
         }
         
         .citation-key {
-            font-weight: bold;
-            font-size: 1.1em;
-            margin-bottom: 10px;
-            color: #333;
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 6px;
+            color: var(--text);
         }
         
         .citation-status {
             display: inline-block;
-            padding: 3px 10px;
-            border-radius: 5px;
-            font-size: 0.8em;
-            margin-left: 10px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            margin-left: 8px;
         }
         
         .citation-status.valid {
-            background: #28a745;
-            color: white;
+            background: rgba(19,138,66,0.1);
+            color: var(--valid);
         }
         
         .citation-status.warning {
-            background: #ffc107;
-            color: #333;
+            background: rgba(138,91,0,0.1);
+            color: var(--warning);
         }
         
         .citation-status.suspicious {
-            background: #ff6b6b;
-            color: white;
+            background: rgba(190,47,47,0.1);
+            color: var(--suspicious);
         }
         
         .citation-status.invalid {
-            background: #dc3545;
-            color: white;
+            background: rgba(190,47,47,0.12);
+            color: var(--invalid);
         }
         
         .issue-list {
-            margin-top: 10px;
+            margin-top: 8px;
         }
         
         .issue-item {
-            padding: 5px 0;
-            font-size: 0.9em;
+            padding: 3px 0;
+            font-size: 13px;
+            color: var(--muted);
         }
         
         .issue-item.error {
-            color: #dc3545;
+            color: var(--invalid);
         }
         
         .issue-item.warning {
-            color: #ff6b6b;
+            color: var(--warning);
         }
         
         .ai-analysis {
-            background: #f0f4ff;
-            border: 1px solid #667eea;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 10px;
+            background: rgba(31,111,235,0.04);
+            border: 1px solid rgba(31,111,235,0.15);
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-top: 8px;
+            font-size: 13px;
         }
         
         .ai-analysis strong {
-            color: #667eea;
+            color: var(--primary);
         }
         
         #loading {
             display: none;
             text-align: center;
-            padding: 40px;
+            padding: 30px;
         }
         
         .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
+            border: 3px solid var(--line);
+            border-top: 3px solid var(--primary);
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 36px;
+            height: 36px;
             animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+            margin: 0 auto 14px;
         }
         
         @keyframes spin {
@@ -664,27 +581,34 @@ HTML_TEMPLATE = '''
         }
         
         .export-buttons {
-            margin-top: 20px;
+            margin-top: 14px;
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
         
         .export-buttons button {
             flex: 1;
-            background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
+            background: var(--card);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            font-size: 13px;
+            padding: 8px 14px;
+        }
+        
+        .export-buttons button:hover {
+            background: rgba(31,111,235,0.05);
         }
         
         footer {
-            background: #f8f9fa;
-            padding: 30px;
+            margin-top: 32px;
+            padding: 18px;
             text-align: center;
-            color: #666;
+            color: var(--muted);
+            font-size: 13px;
         }
         
         footer a {
-            color: #667eea;
+            color: var(--primary);
             text-decoration: none;
         }
         
@@ -696,10 +620,10 @@ HTML_TEMPLATE = '''
 <body>
     <div class="container">
         <header>
-            <h1>🔍 Citation Validator</h1>
-            <p>Detect AI-Hallucinated References in Scientific Literature</p>
+            <h1>Citation Validator</h1>
+            <p>Detect AI-hallucinated references in scientific literature</p>
             <div class="nature-badge">
-                📄 In response to Nature article (April 8, 2026)
+                In response to Nature article (April 8, 2026)
             </div>
         </header>
         
@@ -725,14 +649,14 @@ Example:
 }"></textarea>
             </div>
             
-            <div class="section" style="display: flex; align-items: center; justify-content: space-between; padding: 20px; background: #fafbfc; border-radius: 10px;">
+            <div class="section" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--card); border: 1px solid var(--line); border-radius: 8px;">
                 <div>
-                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 1em;">
-                        <input type="checkbox" id="useAI" style="width: 20px; height: 20px; cursor: pointer;">
-                        <span>🤖 Enable AI-powered analysis</span>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px;">
+                        <input type="checkbox" id="useAI" style="width: 16px; height: 16px; cursor: pointer;">
+                        <span>Enable AI-powered analysis</span>
                     </label>
-                    <p style="font-size: 0.85em; color: #666; margin-top: 8px; margin-left: 30px;">
-                        Detect "Frankenstein citations" using AI
+                    <p style="font-size: 12px; color: var(--muted); margin-top: 4px; margin-left: 24px;">
+                        Detect Frankenstein citations using AI
                     </p>
                 </div>
                 <button class="ai-settings-btn" id="aiBtn" onclick="openAIModal()">
@@ -743,7 +667,7 @@ Example:
             
             <div class="section" style="text-align: center;">
                 <button class="button" onclick="validateCitations()">
-                    🔍 Validate Citations
+                    Validate Citations
                 </button>
             </div>
             
@@ -761,9 +685,9 @@ Example:
                     <div class="citation-list" id="citationList"></div>
                     
                     <div class="export-buttons">
-                        <button class="button" onclick="exportHTML()">📄 Export HTML Report</button>
-                        <button class="button" onclick="exportJSON()">📊 Export JSON</button>
-                        <button class="button" onclick="exportCSV()">📈 Export CSV</button>
+                        <button class="button" onclick="exportHTML()">Export HTML</button>
+                        <button class="button" onclick="exportJSON()">Export JSON</button>
+                        <button class="button" onclick="exportCSV()">Export CSV</button>
                     </div>
                 </div>
             </div>
@@ -771,9 +695,9 @@ Example:
         
         <footer>
             <p><strong>Built to protect academic integrity</strong></p>
-            <p>Free, open-source tool | <a href="https://github.com/OhioMathTeacher/Ohio-Journal-of-School-Mathematics" target="_blank">View on GitHub</a></p>
-            <p style="margin-top: 10px; font-size: 0.9em;">
-                Developed in response to Nature's report that 2-6% of 2025 papers contain hallucinated citations
+            <p>Free, open-source | <a href="https://github.com/OhioMathTeacher/Ohio-Journal-of-School-Mathematics" target="_blank">View on GitHub</a></p>
+            <p style="margin-top: 6px;">
+                Developed in response to Nature's report that 2–6% of 2025 papers contain hallucinated citations
             </p>
         </footer>
     </div>
@@ -781,7 +705,7 @@ Example:
     <!-- AI Settings Modal -->
     <div class="ai-modal-overlay" id="aiModalOverlay" onclick="if(event.target===this)closeAIModal()">
         <div class="ai-modal">
-            <h2>🤖 AI Provider Settings</h2>
+            <h2>AI Provider Settings</h2>
             
             <div class="ai-provider-cards">
                 <div class="ai-provider-card" id="card-anthropic" onclick="selectProvider('anthropic')">
@@ -1058,21 +982,26 @@ Example:
                     ...(citation.warnings || [])
                 ].join('; ');
                 
-                const prompt = `You are analyzing a potentially hallucinated academic citation.
+                // Build citation details from BibTeX fields
+                const fields = citation.fields || {};
+                const fieldLines = Object.entries(fields)
+                    .filter(([k,v]) => v && v.trim())
+                    .map(([k,v]) => '  ' + k + ': ' + v)
+                    .join('\\n');
 
-Citation details:
-- Type: ${citation.type}
-- Key: ${citation.key}
-- Suspicious because: ${suspicionReasons}
-
-Is this likely a "Frankenstein citation" (AI-hallucinated, mixing real authors/titles/journals into non-existent papers)?
-
-Respond with JSON only:
-{
-  "is_suspicious": true/false,
-  "confidence": 0-100,
-  "reason": "brief explanation"
-}`;
+                const prompt = 'Analyze this academic citation and determine if it is REAL or FABRICATED.\\n\\n'
+                    + 'BibTeX fields:\\n'
+                    + (fieldLines || '  (very sparse - only key and type available)') + '\\n\\n'
+                    + 'Our automated checks found these notes:\\n'
+                    + (suspicionReasons || '(none)') + '\\n\\n'
+                    + 'IMPORTANT INSTRUCTIONS:\\n'
+                    + '- A citation is NOT hallucinated just because it lacks a title or DOI in the BibTeX entry. Many real references are entered with sparse metadata.\\n'
+                    + '- Low metadata similarity warnings occur when our BibTeX entry is incomplete - this does NOT mean the paper is fake.\\n'
+                    + '- No DOI and no title for OpenAlex search means we could not LOOK IT UP, not that it does not exist.\\n'
+                    + '- Only flag as suspicious if there are genuine red flags: impossible combinations of author + journal + year, non-existent journals, or implausible metadata.\\n'
+                    + '- When in doubt, assume the citation is REAL.\\n\\n'
+                    + 'Respond with JSON only:\\n'
+                    + '{"is_suspicious": true/false, "confidence": 0-100, "reason": "brief explanation"}';
 
                 if (provider === 'anthropic') {
                     const res = await fetch('https://api.anthropic.com/v1/messages', {
@@ -1315,7 +1244,7 @@ Respond with JSON only:
 @app.route('/')
 def index():
     """Serve the main page."""
-    return render_template_string(HTML_TEMPLATE)
+    return Response(HTML_TEMPLATE, mimetype='text/html')
 
 @app.route('/validate', methods=['POST'])
 def validate():
