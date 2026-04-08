@@ -71,11 +71,12 @@ class EnhancedValidator:
         if author and len(author) < 5:
             warnings.append("Suspiciously short author")
         
-        # 8. Check for common arXiv patterns (not suspicious, just informative)
-        if 'arxiv' in str(fields).lower():
-            # arXiv papers are legitimate but often don't have DOIs
-            return warnings  # Don't flag this as suspicious
-        
+        # 8. arXiv papers with a proper arXiv DOI are legitimate — skip
+        #    Only check the DOI field, not all fields (a fake citation
+        #    mentioning "arxiv" in a note/url shouldn't get a free pass).
+        if fields.get('doi', '').lower().startswith('10.48550/arxiv.'):
+            return warnings
+
         return warnings
     
     @staticmethod

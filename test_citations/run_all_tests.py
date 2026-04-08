@@ -14,7 +14,50 @@ from collections import defaultdict
 import argparse
 
 def run_validator(bib_file, validator_script='../scripts/citation_validator.py'):
-    """Run citation validator on a BibTeX file"""
+    """Run citation validator on a BibTeX file and return per-citation results."""
+    # Import the validator as a library for per-citation granularity.
+    # This avoids the old approach of parsing summary counts from stdout,
+    # which collapsed per-file metrics and hid individual misses.
+    scripts_dir = str(Path(validator_script).resolve().parent)
+    if scripts_dir not in sys.path:
+        sys.path.insert(0, scripts_dir)
+
+    try:
+        from citation_validator import CitationValidator
+    except ImportError:
+        # Fallback: run as subprocess if import fails
+        return _run_validator_subprocess(bib_file, validator_script)
+
+    try:
+        validator = CitationValidator(verbose=False)
+        results = validator.validate_file(Path(bib_file))
+
+        # Build per-citation detail list
+        citation_results = []
+        for detail in results.get('details', []):
+            citation_results.append({
+                'key': detail['key'],
+                'status': detail['status'],  # valid / warning / suspicious / invalid
+            })
+
+        return {
+            'file': str(bib_file),
+            'total': results['total'],
+            'valid': results['valid'],
+            'warnings': results['warnings'],
+            'suspicious': results['suspicious'],
+            'invalid': results['invalid'],
+            'problematic': results['suspicious'] + results['invalid'],
+            'citations': citation_results,
+            'output': '',
+        }
+
+    except Exception as e:
+        return {'file': str(bib_file), 'error': str(e)}
+
+
+def _run_validator_subprocess(bib_file, validator_script):
+    """Legacy fallback: run validator as subprocess and parse stdout."""
     try:
         result = subprocess.run(
             ['python3', validator_script, str(bib_file)],
@@ -22,28 +65,24 @@ def run_validator(bib_file, validator_script='../scripts/citation_validator.py')
             text=True,
             timeout=60
         )
-        
-        # Parse output to identify invalid/warning citations
+
         output = result.stdout + result.stderr
-        
-        # Parse the summary section
+
         import re
         total_match = re.search(r'Total citations:\s*(\d+)', output)
         valid_match = re.search(r'✓ Valid:\s*(\d+)', output)
         warnings_match = re.search(r'⚠ Warnings:\s*(\d+)', output)
         suspicious_match = re.search(r'⚠⚠ Suspicious:\s*(\d+)', output)
         invalid_match = re.search(r'✗ Invalid:\s*(\d+)', output)
-        
+
         total = int(total_match.group(1)) if total_match else 0
         valid = int(valid_match.group(1)) if valid_match else 0
         warnings = int(warnings_match.group(1)) if warnings_match else 0
         suspicious = int(suspicious_match.group(1)) if suspicious_match else 0
         invalid = int(invalid_match.group(1)) if invalid_match else 0
-        
-        # Only suspicious and invalid are truly "problematic"
-        # Warnings are FYI only (e.g., missing DOI is normal for arXiv)
+
         problematic = suspicious + invalid
-        
+
         return {
             'file': str(bib_file),
             'total': total,
@@ -52,9 +91,10 @@ def run_validator(bib_file, validator_script='../scripts/citation_validator.py')
             'suspicious': suspicious,
             'invalid': invalid,
             'problematic': problematic,
+            'citations': [],  # Not available in subprocess mode
             'output': output
         }
-    
+
     except subprocess.TimeoutExpired:
         return {'file': str(bib_file), 'error': 'timeout'}
     except Exception as e:
@@ -85,55 +125,86 @@ def load_ground_truth(test_dirs):
     return ground_truth
 
 def evaluate_results(results, ground_truth):
-    """Calculate precision, recall, F1, etc."""
-    
+    """Calculate precision, recall, F1, etc.
+
+    Uses PER-CITATION granularity when available (library mode).
+    Falls back to per-file evaluation for legacy subprocess results.
+    """
+
     # Confusion matrix
     tp = 0  # True positive: Correctly identified as VALID
     tn = 0  # True negative: Correctly identified as INVALID
     fp = 0  # False positive: Real citation flagged as INVALID
     fn = 0  # False negative: Fake citation marked as VALID
-    
+
+    per_citation_count = 0  # Track how many citations we evaluated individually
+    per_file_count = 0
+
     for result in results:
         file_path = result['file']
         expected = ground_truth.get(file_path, 'UNKNOWN')
-        
+
         if expected == 'UNKNOWN':
             continue
-        
-        # Determine what validator said
-        # If any citations have warnings/suspicious/invalid, consider file as problematic
-        has_issues = result.get('problematic', 0) > 0
-        
-        if expected == 'VALID':
-            if not has_issues:
-                tp += 1  # Correctly said it's valid
-            else:
-                fp += 1  # Incorrectly flagged valid citation
-        
-        elif expected == 'INVALID':
-            if has_issues:
-                tn += 1  # Correctly caught fake
-            else:
-                fn += 1  # Fake slipped through
-    
+
+        citations = result.get('citations', [])
+
+        if citations:
+            # Per-citation evaluation — the accurate path
+            for cit in citations:
+                status = cit['status']
+                # 'suspicious' and 'invalid' are flagged; 'valid' and 'warning' are not
+                is_flagged = status in ('suspicious', 'invalid')
+
+                if expected == 'VALID':
+                    if not is_flagged:
+                        tp += 1
+                    else:
+                        fp += 1
+                elif expected == 'INVALID':
+                    if is_flagged:
+                        tn += 1
+                    else:
+                        fn += 1
+
+                per_citation_count += 1
+        else:
+            # Fallback: per-file evaluation (subprocess mode)
+            has_issues = result.get('problematic', 0) > 0
+            total_in_file = result.get('total', 1) or 1
+
+            if expected == 'VALID':
+                # Approximate: distribute valid/flagged across citations
+                flagged = result.get('suspicious', 0) + result.get('invalid', 0)
+                tp += total_in_file - flagged
+                fp += flagged
+            elif expected == 'INVALID':
+                flagged = result.get('suspicious', 0) + result.get('invalid', 0)
+                tn += flagged
+                fn += total_in_file - flagged
+
+            per_file_count += 1
+
     # Calculate metrics
     total = tp + tn + fp + fn
-    
+
     accuracy = (tp + tn) / total if total > 0 else 0
     precision = tp / (tp + fp) if (tp + fp) > 0 else 0
     recall = tp / (tp + fn) if (tp + fn) > 0 else 0
     f1 = 2 * (precision * recall) / (precision + recall) if (precision + recall) > 0 else 0
-    
+
     fpr = fp / (fp + tn) if (fp + tn) > 0 else 0  # False positive rate
     fnr = fn / (fn + tp) if (fn + tp) > 0 else 0  # False negative rate
-    
+
     return {
         'confusion_matrix': {
             'true_positive': tp,
             'true_negative': tn,
             'false_positive': fp,
             'false_negative': fn,
-            'total': total
+            'total': total,
+            'evaluated_per_citation': per_citation_count,
+            'evaluated_per_file_fallback': per_file_count,
         },
         'metrics': {
             'accuracy': accuracy,
@@ -155,6 +226,11 @@ def print_report(evaluation, results):
     print("CITATION VALIDATOR TEST RESULTS")
     print("="*70)
     
+    per_cit = cm.get('evaluated_per_citation', 0)
+    per_file = cm.get('evaluated_per_file_fallback', 0)
+    print(f"\nEvaluation granularity: {per_cit} citations evaluated individually"
+          + (f", {per_file} files via fallback" if per_file else ""))
+
     print("\nConfusion Matrix:")
     print(f"  True Positives (TP):   {cm['true_positive']:4d}  (Real citations correctly validated)")
     print(f"  True Negatives (TN):   {cm['true_negative']:4d}  (Fake citations correctly caught)")

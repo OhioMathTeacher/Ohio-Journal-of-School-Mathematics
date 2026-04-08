@@ -44,31 +44,137 @@ class CitationValidator:
         """Parse a BibTeX file and extract citation entries."""
         with open(filepath, 'r', encoding='utf-8') as f:
             content = f.read()
-        
-        # Pattern to match BibTeX entries
-        entry_pattern = r'@(\w+)\{([^,]+),\s*(.*?)\n\}'
+        return self._parse_bibtex_string(content)
+
+    def _parse_bibtex_string(self, content: str) -> List[Dict]:
+        """Parse a BibTeX string using brace-depth tracking (matches JS parser)."""
         entries = []
-        
-        for match in re.finditer(entry_pattern, content, re.DOTALL):
-            entry_type = match.group(1)
-            cite_key = match.group(2)
-            fields_str = match.group(3)
-            
-            # Parse fields
-            fields = {}
-            field_pattern = r'(\w+)\s*=\s*[{"](.*?)[}"]'
-            for field_match in re.finditer(field_pattern, fields_str, re.DOTALL):
-                field_name = field_match.group(1).lower()
-                field_value = field_match.group(2).strip()
-                fields[field_name] = field_value
-            
+        i = 0
+
+        while i < len(content):
+            # Find next @
+            at_idx = content.find('@', i)
+            if at_idx == -1:
+                break
+
+            # Find opening brace
+            open_brace = content.find('{', at_idx)
+            if open_brace == -1:
+                break
+
+            # Extract entry type
+            entry_type = content[at_idx + 1:open_brace].strip()
+            if not entry_type or not entry_type.isalpha():
+                i = at_idx + 1
+                continue
+
+            # Walk forward tracking brace depth to find matching close
+            depth = 0
+            end_idx = -1
+            for j in range(open_brace, len(content)):
+                if content[j] == '{':
+                    depth += 1
+                elif content[j] == '}':
+                    depth -= 1
+                    if depth == 0:
+                        end_idx = j
+                        break
+
+            if end_idx == -1:
+                break
+
+            # Interior is everything between the outer braces
+            interior = content[open_brace + 1:end_idx]
+
+            # Split cite key from fields at first comma
+            comma_idx = interior.find(',')
+            if comma_idx == -1:
+                i = end_idx + 1
+                continue
+
+            cite_key = interior[:comma_idx].strip()
+            fields_str = interior[comma_idx + 1:]
+
+            # Parse fields using brace-depth-aware parser
+            fields = self._parse_bibtex_fields(fields_str)
+
             entries.append({
                 'type': entry_type,
                 'key': cite_key,
                 'fields': fields
             })
-        
+
+            i = end_idx + 1
+
         return entries
+
+    @staticmethod
+    def _parse_bibtex_fields(fields_str: str) -> Dict:
+        """Parse BibTeX fields with proper brace-depth tracking."""
+        fields = {}
+        i = 0
+
+        def skip_delimiters():
+            nonlocal i
+            while i < len(fields_str) and fields_str[i] in ' \t\n\r,':
+                i += 1
+
+        while i < len(fields_str):
+            skip_delimiters()
+            if i >= len(fields_str):
+                break
+
+            # Match field name = ...
+            m = re.match(r'([a-zA-Z][\w-]*)\s*=', fields_str[i:])
+            if not m:
+                i += 1
+                continue
+
+            field_name = m.group(1).lower()
+            i += m.end()
+
+            # Skip whitespace after =
+            while i < len(fields_str) and fields_str[i] in ' \t\n\r':
+                i += 1
+            if i >= len(fields_str):
+                break
+
+            value = ''
+
+            if fields_str[i] == '{':
+                # Brace-delimited value — track depth
+                i += 1
+                depth = 1
+                start = i
+                while i < len(fields_str) and depth > 0:
+                    if fields_str[i] == '{':
+                        depth += 1
+                    elif fields_str[i] == '}':
+                        depth -= 1
+                    i += 1
+                value = fields_str[start:i - 1].strip()
+
+            elif fields_str[i] == '"':
+                # Quote-delimited value
+                i += 1
+                start = i
+                while i < len(fields_str):
+                    if fields_str[i] == '"' and fields_str[i - 1:i] != '\\':
+                        break
+                    i += 1
+                value = fields_str[start:i].strip()
+                i += 1  # skip closing quote
+
+            else:
+                # Bare value (number or string constant)
+                start = i
+                while i < len(fields_str) and fields_str[i] not in ',\n}':
+                    i += 1
+                value = fields_str[start:i].strip()
+
+            fields[field_name] = value
+
+        return fields
     
     def validate_doi(self, doi: str) -> Tuple[bool, Dict]:
         """Validate a DOI using CrossRef API, with DataCite/arXiv fallback."""
@@ -143,23 +249,61 @@ class CitationValidator:
     def _validate_doi_resolver(self, doi: str) -> Tuple[bool, Dict]:
         """Fallback: check if a DOI resolves via doi.org (catches DataCite, Zenodo, Figshare, etc.)."""
         url = f"https://doi.org/api/handles/{doi}"
-        
+
         try:
             time.sleep(self.rate_limit_delay)
             req = Request(url, headers={'User-Agent': 'OJSM-CitationValidator/1.0'})
             response = urlopen(req, timeout=10)
             data = json.loads(response.read().decode('utf-8'))
-            
+
             # DOI handle API returns responseCode 1 for valid DOIs
             if data.get('responseCode') == 1:
-                return True, {'source': 'doi_resolver', 'doi': doi}
+                # Try to get metadata via content negotiation so we can
+                # actually compare title/author/year downstream.
+                metadata = self._fetch_doi_metadata(doi)
+                metadata['source'] = 'doi_resolver'
+                metadata['doi'] = doi
+                return True, metadata
             else:
                 return False, {'error': 'DOI not found in any registry'}
-                
+
         except (URLError, HTTPError):
             return False, {'error': f'DOI {doi} not found in CrossRef or DOI resolver'}
         except Exception as e:
             return False, {'error': f'Unexpected error: {str(e)}'}
+
+    def _fetch_doi_metadata(self, doi: str) -> Dict:
+        """Fetch structured metadata for a DOI via content negotiation (JSON-LD)."""
+        url = f"https://doi.org/{quote(doi)}"
+        try:
+            req = Request(url, headers={
+                'Accept': 'application/vnd.citationstyles.csl+json',
+                'User-Agent': 'OJSM-CitationValidator/1.0'
+            })
+            response = urlopen(req, timeout=10)
+            data = json.loads(response.read().decode('utf-8'))
+            # Normalise into the same shape check_citation expects
+            result = {}
+            if 'title' in data:
+                result['title'] = [data['title']] if isinstance(data['title'], str) else data['title']
+            if 'author' in data:
+                result['author'] = data['author']  # already list-of-dicts in CSL-JSON
+            if 'issued' in data:
+                result['published'] = {'date-parts': data['issued'].get('date-parts', [[None]])}
+            elif 'published' in data:
+                result['published'] = data['published']
+            return result
+        except Exception:
+            return {}
+
+    @staticmethod
+    def _jaccard_words(a: str, b: str) -> float:
+        """Word-level Jaccard similarity using \\w+ tokenisation."""
+        words_a = set(re.findall(r'\w+', a.lower()))
+        words_b = set(re.findall(r'\w+', b.lower()))
+        if not words_a or not words_b:
+            return 0.0
+        return len(words_a & words_b) / len(words_a | words_b)
     
     def search_openalex(self, title: str, author: str = None) -> Tuple[bool, Dict]:
         """Search OpenAlex for a publication by title and optional author."""
@@ -307,16 +451,17 @@ Respond with JSON: {{"is_suspicious": true/false, "confidence": 0-100, "reason":
                 return result
             
             verified_metadata = doi_data
-            
-            # Compare metadata
+
+            # Compare metadata using Jaccard similarity
             if 'title' in fields and 'title' in doi_data:
-                bib_title = fields['title'].lower().strip()
-                doi_title = ' '.join(doi_data['title']).lower().strip() if isinstance(doi_data['title'], list) else doi_data['title'].lower().strip()
-                
-                # Simple similarity check
-                if bib_title not in doi_title and doi_title not in bib_title:
-                    result['warnings'].append(f"Title mismatch: BibTeX='{fields['title'][:50]}...' vs DOI='{doi_data.get('title', [''])[0][:50]}...'")
+                bib_title = fields['title']
+                doi_title = ' '.join(doi_data['title']) if isinstance(doi_data['title'], list) else doi_data['title']
+
+                sim = self._jaccard_words(bib_title, doi_title)
+                if sim < 0.4:
+                    result['warnings'].append(f"Title mismatch (similarity {sim:.2f}): BibTeX='{fields['title'][:50]}...' vs DOI='{doi_title[:50]}...'")
                     result['status'] = 'suspicious'
+                    result['suspicion_reasons'].append(f"DOI title similarity only {sim:.2f}")
             
             # Check year
             if 'year' in fields and 'published' in doi_data:
@@ -335,22 +480,27 @@ Respond with JSON: {{"is_suspicious": true/false, "confidence": 0-100, "reason":
             
             if title:
                 found, openalex_data = self.search_openalex(title, author)
-                
+
                 if found:
-                    verified_metadata = openalex_data
-                    # OpenAlex match is acceptable evidence for sparse/no-DOI references.
-                    if result['status'] == 'invalid':
+                    oa_title = openalex_data.get('title', '')
+                    sim = self._jaccard_words(title, oa_title) if oa_title else 0.0
+
+                    if sim >= 0.5:
+                        # Strong title match — treat as genuine validation
+                        verified_metadata = openalex_data
+                        if result['status'] in ('invalid', 'warning'):
+                            result['status'] = 'warning'
+                        # keep 'valid' as-is
+                    elif sim >= 0.3:
+                        # Weak match — not enough to validate, just note it
+                        verified_metadata = openalex_data
+                        result['warnings'].append(f"Weak OpenAlex title match (similarity {sim:.2f})")
+                        if result['status'] == 'valid':
+                            result['status'] = 'warning'
+                    else:
+                        # OpenAlex returned something unrelated
+                        result['warnings'].append(f"OpenAlex top result doesn't match (similarity {sim:.2f})")
                         result['status'] = 'warning'
-                    elif result['status'] == 'valid':
-                        result['status'] = 'valid'
-                    
-                    # Compare with OpenAlex data
-                    oa_title = openalex_data.get('title', '').lower().strip()
-                    bib_title = title.lower().strip()
-                    
-                    if oa_title and bib_title not in oa_title and oa_title not in bib_title:
-                        result['warnings'].append(f"Title mismatch with OpenAlex")
-                        result['status'] = 'suspicious'
                 else:
                     result['warnings'].append('No DOI found and not in OpenAlex')
                     result['status'] = 'warning'
