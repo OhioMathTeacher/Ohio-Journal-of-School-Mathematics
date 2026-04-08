@@ -1864,15 +1864,16 @@ Respond with JSON only:
         }
 
         function getEmbeddedManifest() {
-            // Fallback manifest for when fetch isn't available (file:// protocol)
+            // Fallback manifest for when fetch isn't available (file:// protocol).
+            // Mirrors datasets/manifest.json — keep in sync.
             return [
-                { id: "nature-article-refs", name: "Nature Article References", authors: "Nature (April 2026)", description: "10 references cited by the Nature article that inspired this tool.", citation_count: 10, ground_truth: "valid", tags: ["real", "nature", "sparse"], status: "available" },
-                { id: "ojsm-fake-frankenstein", name: "Frankenstein Citations", authors: "OJSM Test Suite", description: "100 synthetic fakes: real author + real journal + fabricated title.", citation_count: 100, ground_truth: "invalid", fabrication_type: "frankenstein", tags: ["fake", "frankenstein", "synthetic"], status: "available" },
-                { id: "ojsm-fake-stolen-doi", name: "Stolen DOI Citations", authors: "OJSM Test Suite", description: "100 synthetic fakes: real DOI paired with completely wrong metadata.", citation_count: 100, ground_truth: "invalid", fabrication_type: "stolen_doi", tags: ["fake", "stolen_doi", "synthetic"], status: "available" },
-                { id: "ojsm-fake-plausible", name: "Plausible Fake Citations", authors: "OJSM Test Suite", description: "100 synthetic fakes: entirely fabricated but realistic-looking.", citation_count: 100, ground_truth: "invalid", fabrication_type: "plausible", tags: ["fake", "plausible", "synthetic"], status: "available" },
-                { id: "ojsm-fake-nonsense", name: "Nonsense Citations", authors: "OJSM Test Suite", description: "100 synthetic fakes: obviously wrong (future years, fake DOIs).", citation_count: 100, ground_truth: "invalid", fabrication_type: "nonsense", tags: ["fake", "nonsense", "synthetic"], status: "available" },
-                { id: "ojsm-real-arxiv", name: "Real arXiv CS Citations (2024)", authors: "OJSM Test Suite", description: "285 real citations from two 2024 arXiv CS papers.", citation_count: 285, ground_truth: "valid", tags: ["real", "arxiv", "cs"], status: "available" },
-                { id: "ojsm-real-crossref", name: "Real CrossRef Random Sample", authors: "OJSM Test Suite", description: "100 real citations from CrossRef random API sample.", citation_count: 100, ground_truth: "valid", tags: ["real", "crossref"], status: "available" },
+                { id: "ojsm-real-arxiv", name: "Real arXiv CS Citations (2024)", authors: "OJSM Test Suite", description: "285 real citations from two 2024 arXiv CS papers.", citation_count: 285, ground_truth: "valid", tags: ["real", "arxiv", "cs"], bib_files: ["test_citations/real_citations/arxiv_cs_2024/arxiv_2604.05875.bib", "test_citations/real_citations/arxiv_cs_2024/arxiv_2604.05952.bib"] },
+                { id: "ojsm-real-crossref", name: "Real CrossRef Random Sample", authors: "OJSM Test Suite", description: "100 real citations from CrossRef random API sample.", citation_count: 100, ground_truth: "valid", tags: ["real", "crossref", "multidisciplinary"], bib_files: ["test_citations/real_citations/crossref_random/crossref_sample_0001.bib", "test_citations/real_citations/crossref_random/crossref_sample_0002.bib"] },
+                { id: "ojsm-fake-frankenstein", name: "Frankenstein Citations", authors: "OJSM Test Suite", description: "100 synthetic fakes: real author + real journal + fabricated title.", citation_count: 100, ground_truth: "invalid", fabrication_type: "frankenstein", tags: ["fake", "frankenstein", "synthetic"], bib_files: ["test_citations/false_negative_tests/frankenstein/frankenstein_0001.bib", "test_citations/false_negative_tests/frankenstein/frankenstein_0002.bib"] },
+                { id: "ojsm-fake-stolen-doi", name: "Stolen DOI Citations", authors: "OJSM Test Suite", description: "100 synthetic fakes: real DOI + completely wrong metadata.", citation_count: 100, ground_truth: "invalid", fabrication_type: "stolen_doi", tags: ["fake", "stolen_doi", "synthetic"], bib_files: ["test_citations/false_negative_tests/stolen_doi/stolen_doi_0001.bib", "test_citations/false_negative_tests/stolen_doi/stolen_doi_0002.bib"] },
+                { id: "ojsm-fake-plausible", name: "Plausible Fake Citations", authors: "OJSM Test Suite", description: "100 synthetic fakes: entirely fabricated but realistic-looking.", citation_count: 100, ground_truth: "invalid", fabrication_type: "plausible", tags: ["fake", "plausible", "synthetic"], bib_files: ["test_citations/false_negative_tests/plausible/plausible_0001.bib", "test_citations/false_negative_tests/plausible/plausible_0002.bib"] },
+                { id: "ojsm-fake-nonsense", name: "Nonsense Citations", authors: "OJSM Test Suite", description: "100 synthetic fakes: obviously wrong (future years, fake DOIs).", citation_count: 100, ground_truth: "invalid", fabrication_type: "nonsense", tags: ["fake", "nonsense", "synthetic"], bib_files: ["test_citations/false_negative_tests/nonsense/nonsense_0001.bib", "test_citations/false_negative_tests/nonsense/nonsense_0002.bib"] },
+                { id: "nature-article-refs", name: "Nature Article References", authors: "Nature (April 2026)", description: "10 references cited by the Nature article. Tests sparse metadata handling.", citation_count: 10, ground_truth: "valid", tags: ["real", "nature", "sparse"], bib_files: ["datasets/nature-article/refs.bib"], metadata_file: "datasets/nature-article/metadata.json" },
                 { id: "compound-deception-ansari", name: "Compound Deception — NeurIPS 2025", authors: "Ansari (2026)", arxiv: "2602.05930", description: "100 AI-fabricated citations from 53 accepted NeurIPS papers.", citation_count: 100, ground_truth: "invalid", tags: ["fake", "neurips", "real-world"], status: "pending", source_url: "https://arxiv.org/abs/2602.05930" },
                 { id: "hallucitation-sakai", name: "HalluCitation — ACL/NAACL/EMNLP", authors: "Sakai et al. (2026)", arxiv: "2601.18724", description: "~300 papers with hallucinated references from NLP conferences.", citation_count: 300, ground_truth: "invalid", tags: ["fake", "nlp", "real-world"], status: "pending", source_url: "https://arxiv.org/abs/2601.18724" },
                 { id: "bibtex-hallucinations-rao", name: "BibTeX Hallucinations Benchmark", authors: "Rao & Callison-Burch (2026)", arxiv: "2604.03159", description: "931-paper benchmark with ~23K field-level observations.", citation_count: 931, ground_truth: "mixed", tags: ["benchmark", "field-level", "multi-domain"], status: "pending", source_url: "https://arxiv.org/abs/2604.03159" },
@@ -1925,18 +1926,18 @@ Respond with JSON only:
             }
 
             container.innerHTML = datasets.map(ds => {
-                const isPending = ds.status === 'pending';
+                const isPending = ds.status === 'pending' || (!ds.bib_files && !ds.bib_file);
                 const checked = benchSelectedIds.has(ds.id) ? 'checked' : '';
                 const tags = (ds.tags || []).map(t => {
-                    const cls = t === 'fake' || t === 'frankenstein' || t === 'stolen_doi' || t === 'plausible' || t === 'nonsense' ? 'tag-fake'
+                    const cls = ['fake','frankenstein','stolen_doi','plausible','nonsense'].includes(t) ? 'tag-fake'
                               : t === 'real' ? 'tag-real'
                               : isPending ? 'tag-pending' : '';
                     return `<span class="bench-tag ${cls}">${t}</span>`;
                 }).join('');
 
                 const countLabel = ds.citation_count ? `${ds.citation_count} citations` : 'TBD';
-                const pendingTag = isPending ? '<span class="bench-tag tag-pending">data pending</span>' : '';
-                const arxivLink = ds.arxiv ? ` &middot; <a href="https://arxiv.org/abs/${ds.arxiv}" target="_blank" style="font-size:11px;color:var(--primary);">arXiv:${ds.arxiv}</a>` : '';
+                const pendingTag = isPending ? '<span class="bench-tag tag-pending">data not yet available</span>' : '';
+                const arxivLink = ds.arxiv ? ` &middot; <a href="https://arxiv.org/abs/${ds.arxiv}" target="_blank" style="font-size:11px;color:var(--primary);" onclick="event.stopPropagation()">arXiv:${ds.arxiv}</a>` : '';
 
                 return `
                     <div class="bench-card ${isPending ? 'pending' : ''}">
@@ -1996,7 +1997,7 @@ Respond with JSON only:
 
             for (const id of benchSelectedIds) {
                 const ds = benchManifest.find(d => d.id === id);
-                if (!ds || ds.status === 'pending') continue;
+                if (!ds || ds.status === 'pending' || (!ds.bib_files && !ds.bib_file)) continue;
 
                 // Try to load the .bib file
                 const bibContent = await fetchDatasetBib(ds);
@@ -2054,23 +2055,25 @@ Respond with JSON only:
         }
 
         async function fetchDatasetBib(ds) {
-            // Determine the .bib file path
-            const bibPath = ds.bib_file;
-            if (!bibPath) return null;
+            // Support both single bib_file (legacy) and bib_files array
+            const files = ds.bib_files || (ds.bib_file ? [ds.bib_file] : []);
+            if (files.length === 0) return null;
 
-            // Try fetching from datasets/ directory
-            const paths = [
-                `datasets/${bibPath}`,
-                bibPath
-            ];
-
-            for (const path of paths) {
-                try {
-                    const resp = await fetch(path);
-                    if (resp.ok) return await resp.text();
-                } catch (e) { /* try next */ }
+            let combined = '';
+            for (const bibPath of files) {
+                // Try the path directly (relative to HTML file), then under datasets/
+                const candidates = [bibPath, `datasets/${bibPath}`];
+                for (const path of candidates) {
+                    try {
+                        const resp = await fetch(path);
+                        if (resp.ok) {
+                            combined += (await resp.text()) + '\n\n';
+                            break;
+                        }
+                    } catch (e) { /* try next */ }
+                }
             }
-            return null;
+            return combined || null;
         }
 
         async function fetchDatasetMetadata(ds) {
