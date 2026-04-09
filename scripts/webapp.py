@@ -1283,6 +1283,8 @@ def validate():
 @app.route('/analyze', methods=['POST', 'OPTIONS'])
 def analyze():
     """Proxy AI analysis requests to bypass CORS restrictions."""
+    import re, sys, traceback
+    
     # Handle preflight requests
     if request.method == 'OPTIONS':
         return '', 204
@@ -1293,11 +1295,14 @@ def analyze():
         api_key = data.get('apiKey')
         prompt = data.get('prompt')
         
+        print(f"[ANALYZE] Provider: {provider}, Key length: {len(api_key) if api_key else 0}", flush=True)
+        
         if not all([provider, api_key, prompt]):
             return jsonify({'error': 'Missing required fields: provider, apiKey, prompt'}), 400
         
         # Route to appropriate AI provider
         if provider == 'anthropic':
+            print("[ANALYZE] Calling Anthropic API...", flush=True)
             response = requests.post(
                 'https://api.anthropic.com/v1/messages',
                 headers={
@@ -1312,18 +1317,21 @@ def analyze():
                 },
                 timeout=30
             )
+            print(f"[ANALYZE] Claude status: {response.status_code}", flush=True)
+            
             if not response.ok:
+                print(f"[ANALYZE] Claude error: {response.text[:500]}", flush=True)
                 return jsonify({'error': f'Anthropic API error: {response.text}'}), response.status_code
             
             result = response.json()
             content = ''.join(block.get('text', '') for block in result.get('content', []))
+            print(f"[ANALYZE] Claude content: {content[:500]}", flush=True)
             
-            # Extract JSON from response
-            import re
             json_match = re.search(r'\{.*\}', content, re.DOTALL)
             if json_match:
-                return jsonify(json.loads(json_match.group(0)))
-            return jsonify({'error': 'No JSON found in response'}), 500
+                parsed = json.loads(json_match.group(0))
+                return jsonify(parsed)
+            return jsonify({'error': 'No JSON in Claude response', 'raw': content}), 500
         
         elif provider == 'gemini':
             url = f'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}'
@@ -1332,21 +1340,36 @@ def analyze():
                 headers={'Content-Type': 'application/json'},
                 json={
                     'contents': [{'parts': [{'text': prompt}]}],
-                    'generationConfig': {'maxOutputTokens': 300, 'temperature': 0.1}
+                    'generationConfig': {
+                        'maxOutputTokens': 2048,
+                        'temperature': 0.1,
+                        'responseMimeType': 'application/json',
+                        'thinkingConfig': {'thinkingBudget': 0}
+                    }
                 },
-                timeout=30
+                timeout=60
             )
+            print(f"[ANALYZE] Gemini status: {response.status_code}", flush=True)
+            
             if not response.ok:
+                print(f"[ANALYZE] Gemini error: {response.text[:500]}", flush=True)
                 return jsonify({'error': f'Gemini API error: {response.text}'}), response.status_code
             
             result = response.json()
-            content = result.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '')
+            candidates = result.get('candidates', [])
+            finish_reason = candidates[0].get('finishReason', 'unknown') if candidates else 'none'
+            content = candidates[0].get('content', {}).get('parts', [{}])[0].get('text', '') if candidates else ''
+            print(f"[ANALYZE] Gemini finishReason: {finish_reason}", flush=True)
+            print(f"[ANALYZE] Gemini content: {content[:500]}", flush=True)
             
-            import re
+            # Strip markdown code fences if present (```json ... ```)
+            content = re.sub(r'^```(?:json)?\s*', '', content.strip())
+            content = re.sub(r'\s*```$', '', content.strip())
+            
             json_match = re.search(r'\{.*\}', content, re.DOTALL)
             if json_match:
                 return jsonify(json.loads(json_match.group(0)))
-            return jsonify({'error': 'No JSON found in response'}), 500
+            return jsonify({'error': 'No JSON found in Gemini response', 'raw': content[:300]}), 500
         
         elif provider == 'groq':
             response = requests.post(
