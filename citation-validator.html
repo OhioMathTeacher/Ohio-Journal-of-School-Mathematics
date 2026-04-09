@@ -1391,10 +1391,14 @@ Example:
             // BUT ONLY for @article entries (journal articles)
             // Books, theses, tech reports, conference proceedings often aren't in article databases
             // Real journal ARTICLES almost always appear in CrossRef, OpenAlex, or Semantic Scholar
+            // EXCEPTION: Very recent publications (current year) may not be indexed yet
             const entryType = (entry.type || '').toLowerCase();
             const isArticle = entryType === 'article';
-            
-            if (!metadata && !doi && status === 'warning' && isArticle) {
+            const pubYear = parseInt(entry.fields.year);
+            const currentYear = new Date().getFullYear();
+            const isTooNewToIndex = pubYear && pubYear >= currentYear;
+
+            if (!metadata && !doi && status === 'warning' && isArticle && !isTooNewToIndex) {
                 status = 'suspicious';
                 warnings.push('Not found in any database (CrossRef, OpenAlex, Semantic Scholar)');
             }
