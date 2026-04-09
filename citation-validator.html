@@ -1090,9 +1090,8 @@ Example:
         
         async function validateWithCrossRef(doi) {
             try {
-                const response = await fetch(`https://api.crossref.org/works/${encodeURIComponent(doi)}`, {
-                    headers: { 'User-Agent': 'CitationValidator/1.0 (mailto:research@example.com)' }
-                });
+                // Use mailto param instead of User-Agent header (custom headers trigger CORS preflight)
+                const response = await fetch(`https://api.crossref.org/works/${encodeURIComponent(doi)}?mailto=editor@ohiomathjournal.org`);
                 
                 if (!response.ok) return null;
                 
@@ -1146,14 +1145,29 @@ Example:
             }
         }
         
+        function extractFirstAuthorLastName(authorField) {
+            // BibTeX authors: "Schleider, Jessica L. and Abel, Mallory R. and Weisz, John R."
+            // Extract first author's last name for database search
+            if (!authorField) return null;
+            const firstAuthor = authorField.split(/\s+and\s+/i)[0].trim();
+            // Handle "Last, First" format
+            const commaIdx = firstAuthor.indexOf(',');
+            if (commaIdx > 0) return firstAuthor.substring(0, commaIdx).trim();
+            // Handle "First Last" format — take last word
+            const parts = firstAuthor.split(/\s+/);
+            return parts[parts.length - 1];
+        }
+
         async function validateWithOpenAlex(title, author) {
             if (!title && !author) return null;
 
             try {
-                // Use structured filter endpoint (matches Python behaviour)
+                // Use structured filter endpoint
+                // Extract first author's last name (full BibTeX author strings cause 400 errors)
+                const authorName = extractFirstAuthorLastName(author);
                 const filters = [];
                 if (title) filters.push(`title.search:"${title}"`);
-                if (author) filters.push(`author.search:"${author}"`);
+                if (authorName) filters.push(`author.search:"${authorName}"`);
 
                 const params = new URLSearchParams({
                     filter: filters.join(','),
