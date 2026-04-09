@@ -812,37 +812,12 @@
         <header>
             <h1>Citation Validator</h1>
             <p>Detect AI-hallucinated references in scientific literature</p>
-            <div class="nature-badge">
-                In response to Nature article (April 8, 2026)
-            </div>
             <p style="font-size: 0.85em; color: var(--muted); margin-top: 8px;">
                 <strong>Best for:</strong> Journal articles (@article) • <strong>Also supports:</strong> Books, conference papers, theses, and other BibTeX entry types
             </p>
         </header>
         
         <div class="main-content">
-            <div class="section">
-                <h2>Upload or Paste BibTeX</h2>
-                
-                <div class="file-upload" id="fileUpload">
-                    <input type="file" id="fileInput" accept=".bib,.txt">
-                    <p>📁 Click to upload .bib file or drag and drop</p>
-                    <p style="font-size: 0.9em; opacity: 0.7;">Supports BibTeX (.bib) files</p>
-                </div>
-                <p class="file-status" id="fileStatus">No file loaded yet.</p>
-                
-                <textarea id="bibInput" placeholder="Or paste your BibTeX entries here...
-
-Example:
-@article{AuthorYear,
-  title={Paper Title},
-  author={Author, First and Author, Second},
-  journal={Journal Name},
-  year={2025},
-  doi={10.1234/example}
-}"></textarea>
-            </div>
-            
             <!-- ══════════ BENCHMARK LIBRARY ══════════ -->
             <div class="section">
                 <div class="bench-toggle" id="benchToggle" onclick="toggleBenchPanel()">
@@ -860,6 +835,30 @@ Example:
                         <span class="bench-selection-info" id="benchSelectionInfo">No datasets selected</span>
                     </div>
                 </div>
+            </div>
+
+            <div class="section">
+                <h2>Input BibTeX References</h2>
+                
+                <div class="file-upload" id="fileUpload">
+                    <input type="file" id="fileInput" accept=".bib,.txt">
+                    <p>📁 Click to upload .bib file or drag and drop</p>
+                    <p style="font-size: 0.9em; opacity: 0.7;">Supports BibTeX (.bib) files</p>
+                </div>
+                <p class="file-status" id="fileStatus"></p>
+
+                <h2>Entered References (BibTeX)</h2>
+                
+                <textarea id="bibInput" placeholder="Or paste your BibTeX entries here...
+
+Example:
+@article{AuthorYear,
+  title={Paper Title},
+  author={Author, First and Author, Second},
+  journal={Journal Name},
+  year={2025},
+  doi={10.1234/example}
+}"></textarea>
             </div>
 
             <div class="section" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--card); border: 1px solid var(--line); border-radius: 8px;">
@@ -886,7 +885,7 @@ Example:
             
             <div id="loading">
                 <div class="spinner"></div>
-                <p>Validating citations... This may take a moment.</p>
+                <p id="loadingMessage">Validating citations... This may take a moment.</p>
             </div>
             
             <div id="results">
@@ -1452,6 +1451,78 @@ Example:
         const OPENAI_KEY = 'cv_openai_key';
         
         let _modalProvider = '';
+        let validationRunMeta = null;
+
+        function getProviderModelLabel(provider) {
+            if (provider === 'gemini') return 'Gemini 2.5 Flash';
+            if (provider === 'groq') return 'Groq Llama 3.3 70B';
+            if (provider === 'openai') return 'OpenAI GPT-4o';
+            if (provider === 'anthropic') return 'Anthropic Claude Sonnet 4';
+            return 'None';
+        }
+
+        function formatDuration(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.max(1, Math.round(seconds % 60));
+            if (mins <= 0) return `~${secs}s`;
+            return `~${mins}m ${secs}s`;
+        }
+
+        function estimateValidationSeconds(citationCount, useAI, provider) {
+            // Deterministic validation dominates at scale; AI is applied only to flagged citations.
+            const deterministicPerCitation = 0.22;
+            const estimatedAiFraction = 0.18;
+            const aiPerCitation = {
+                gemini: 1.8,
+                groq: 1.1,
+                openai: 1.3,
+                anthropic: 1.6
+            };
+
+            let total = citationCount * deterministicPerCitation;
+            if (useAI) {
+                total += citationCount * estimatedAiFraction * (aiPerCitation[provider] || 1.4);
+            }
+            return total;
+        }
+
+        function preflightValidationRequest(citationCount, useAI, provider) {
+            // Hard stop for extreme requests in browser mode.
+            const hardMaxBrowserCitations = 5000;
+            if (citationCount > hardMaxBrowserCitations) {
+                alert(`This request has ${citationCount} citations. For very large jobs, use the Python batch runner instead of the browser app.`);
+                return false;
+            }
+
+            if (!useAI) return true;
+
+            const softLimits = {
+                gemini: 250,
+                groq: 300,
+                anthropic: 800,
+                openai: 1000
+            };
+            const limit = softLimits[provider] || 300;
+            const eta = formatDuration(estimateValidationSeconds(citationCount, true, provider));
+            const model = getProviderModelLabel(provider);
+
+            if (citationCount > limit) {
+                const proceed = confirm(
+                    `Large AI request: ${citationCount} citations with ${model}.\n\n`
+                    + `Estimated runtime: ${eta}.\n`
+                    + `Free-tier models may rate-limit or fail on long runs.\n\n`
+                    + `Click OK to continue, or Cancel to run deterministic validation only.`
+                );
+                return proceed;
+            }
+
+            return true;
+        }
+
+        function updateLoadingMessage(text) {
+            const el = document.getElementById('loadingMessage');
+            if (el) el.textContent = text;
+        }
         let validationResults = null;
         
         function getProvider() {
@@ -1603,7 +1674,7 @@ Respond with JSON only:
 {"is_suspicious": true/false, "confidence": 0-100, "reason": "brief explanation"}`;
 
                 // Call Flask proxy server to bypass CORS
-                const res = await fetch('http://localhost:5000/analyze', {
+                const res = await fetch('/analyze', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -1699,48 +1770,132 @@ Respond with JSON only:
                 alert('Please configure an AI provider first');
                 return;
             }
+
+            const citationCount = parseBibTeX(bibText).length;
+            if (citationCount === 0) {
+                alert('No BibTeX entries were detected.');
+                return;
+            }
+
+            if (!preflightValidationRequest(citationCount, useAI, provider)) {
+                return;
+            }
+
+            const estimatedSeconds = estimateValidationSeconds(citationCount, useAI, provider);
+            validationRunMeta = {
+                started_at: new Date().toISOString(),
+                citation_count: citationCount,
+                ai_enabled: useAI,
+                ai_provider: useAI ? provider : null,
+                ai_model: useAI ? getProviderModelLabel(provider) : 'None',
+                estimated_duration_seconds: Math.round(estimatedSeconds)
+            };
             
             // Show loading
             document.getElementById('loading').style.display = 'block';
             document.getElementById('results').style.display = 'none';
+            updateLoadingMessage(`Validating ${citationCount} citations (${formatDuration(estimatedSeconds)} estimated)...`);
             
             try {
-                // Parse BibTeX
-                const entries = parseBibTeX(bibText);
-                
-                // Validate each entry
-                const results = [];
-                for (const entry of entries) {
-                    const result = await validateEntry(entry);
-                    results.push(result);
+                const response = await fetch('/validate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ bibtex: bibText })
+                });
+
+                const data = await response.json();
+                if (!response.ok || data.error) {
+                    throw new Error(data.error || `Validation request failed (${response.status})`);
                 }
+
+                updateLoadingMessage('Deterministic validation finished.');
+                validationResults = {
+                    ...data,
+                    run_info: {
+                        ...validationRunMeta,
+                        deterministic_completed_at: new Date().toISOString()
+                    }
+                };
+                displayResults(validationResults);
+                renderAccuracyDashboard(validationResults.details);
                 
                 // AI analysis if enabled
                 if (useAI) {
-                    for (const result of results) {
-                        if (['suspicious', 'invalid', 'warning'].includes(result.status)) {
-                            result.ai_analysis = await analyzeWithAI(result, provider, apiKey);
+                    const aiTargets = data.details.filter(r => ['suspicious', 'invalid', 'warning'].includes(r.status));
+                    const total = aiTargets.length;
+                    let done = 0;
+
+                    for (const result of aiTargets) {
+                        updateLoadingMessage(`Running AI analysis ${done + 1}/${total}...`);
+                        result.ai_analysis = await analyzeWithAI(result, provider, apiKey);
+                        done++;
+
+                        // Let results trickle in while AI runs.
+                        if (done === total || done % 3 === 0) {
+                            displayResults(validationResults);
                         }
                     }
+
+                    if (validationResults.run_info) {
+                        validationResults.run_info.ai_completed_at = new Date().toISOString();
+                    }
                 }
-                
-                // Calculate stats
-                const stats = {
-                    valid: results.filter(r => r.status === 'valid').length,
-                    warnings: results.filter(r => r.status === 'warning').length,
-                    suspicious: results.filter(r => r.status === 'suspicious').length,
-                    invalid: results.filter(r => r.status === 'invalid').length
-                };
-                
-                validationResults = { ...stats, details: results };
+
+                if (validationResults.run_info) {
+                    validationResults.run_info.completed_at = new Date().toISOString();
+                }
+
+                validationResults = validationResults || data;
                 displayResults(validationResults);
-                renderAccuracyDashboard(results);
-                
+                renderAccuracyDashboard(validationResults.details);
+
             } catch (error) {
                 alert('Validation failed: ' + error.message);
             } finally {
                 document.getElementById('loading').style.display = 'none';
             }
+        }
+
+        function buildReportMetadataRows() {
+            const info = validationResults?.run_info || {};
+            const generatedAt = new Date().toISOString();
+            const model = info.ai_model || 'None';
+            const provider = info.ai_provider || 'None';
+            const aiEnabled = info.ai_enabled ? 'Yes' : 'No';
+            const count = info.citation_count || (validationResults?.details?.length || 0);
+
+            return {
+                generatedAt,
+                model,
+                provider,
+                aiEnabled,
+                count
+            };
+        }
+
+        function slugifyForFilename(value) {
+            return String(value || 'none')
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '')
+                .slice(0, 40) || 'none';
+        }
+
+        function compactTimestamp(isoString) {
+            const d = isoString ? new Date(isoString) : new Date();
+            if (Number.isNaN(d.getTime())) {
+                return new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+            }
+            return d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+        }
+
+        function buildExportFilename(ext) {
+            const meta = buildReportMetadataRows();
+            const ts = compactTimestamp(meta.generatedAt);
+            const provider = slugifyForFilename(meta.provider);
+            const model = slugifyForFilename(meta.model);
+            const count = Number(meta.count || 0);
+            return `citation-report-${ts}-${provider}-${model}-${count}c.${ext}`;
         }
         
         function displayResults(data) {
@@ -1825,6 +1980,7 @@ Respond with JSON only:
         
         function exportHTML() {
             const html = document.getElementById('results').innerHTML;
+            const meta = buildReportMetadataRows();
             const blob = new Blob([`
                 <!DOCTYPE html>
                 <html>
@@ -1835,28 +1991,40 @@ Respond with JSON only:
                 <body>
                     <div class="container">
                         <header><h1>Citation Validation Report</h1></header>
+                        <p><strong>Generated:</strong> ${meta.generatedAt}</p>
+                        <p><strong>AI Enabled:</strong> ${meta.aiEnabled}</p>
+                        <p><strong>AI Provider:</strong> ${meta.provider}</p>
+                        <p><strong>AI Model:</strong> ${meta.model}</p>
+                        <p><strong>Citation Count:</strong> ${meta.count}</p>
                         <div class="main-content">${html}</div>
                     </div>
                 </body>
                 </html>
             `], { type: 'text/html' });
-            downloadFile(blob, 'citation-report.html');
+            downloadFile(blob, buildExportFilename('html'));
         }
         
         function exportJSON() {
-            const blob = new Blob([JSON.stringify(validationResults, null, 2)], { type: 'application/json' });
-            downloadFile(blob, 'citation-report.json');
+            const payload = {
+                ...(validationResults || {}),
+                export_metadata: buildReportMetadataRows()
+            };
+            const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+            downloadFile(blob, buildExportFilename('json'));
         }
         
         function exportCSV() {
-            let csv = 'Key,Status,Issues,Warnings\n';
+            const meta = buildReportMetadataRows();
+            let csv = 'ReportGeneratedAt,AIEnabled,AIProvider,AIModel,CitationCount\n';
+            csv += `"${meta.generatedAt}","${meta.aiEnabled}","${meta.provider}","${meta.model}","${meta.count}"\n\n`;
+            csv += 'Key,Status,Issues,Warnings\n';
             validationResults.details.forEach(citation => {
                 const issues = citation.issues ? citation.issues.join('; ') : '';
                 const warnings = citation.warnings ? citation.warnings.join('; ') : '';
                 csv += `"${citation.key}","${citation.status}","${issues}","${warnings}"\n`;
             });
             const blob = new Blob([csv], { type: 'text/csv' });
-            downloadFile(blob, 'citation-report.csv');
+            downloadFile(blob, buildExportFilename('csv'));
         }
         
         function downloadFile(blob, filename) {
@@ -1918,7 +2086,7 @@ Respond with JSON only:
                 { id: "ojsm-fake-nonsense", name: "Nonsense Citations", authors: "OJSM Test Suite", description: "100 synthetic fakes: obviously wrong (future years, fake DOIs).", citation_count: 100, ground_truth: "invalid", fabrication_type: "nonsense", tags: ["fake", "nonsense", "synthetic"], bib_files: ["test_citations/false_negative_tests/nonsense/nonsense_0001.bib", "test_citations/false_negative_tests/nonsense/nonsense_0002.bib"] },
                 { id: "nature-article-refs", name: "Nature Article References", authors: "Nature (April 2026)", description: "10 references cited by the Nature article. Tests sparse metadata handling.", citation_count: 10, ground_truth: "valid", tags: ["real", "nature", "sparse"], bib_files: ["datasets/nature-article/refs.bib"], metadata_file: "datasets/nature-article/metadata.json" },
                 { id: "nature-frankenstein-examples", name: "Nature — Frankenstein Examples", authors: "Linardon et al. (2025) via Nature", description: "GPT-4o fabricated citation from Nature article. Real author + real journal + fake paper.", citation_count: 1, ground_truth: "invalid", fabrication_type: "frankenstein", tags: ["fake", "frankenstein", "nature", "gpt4o"], bib_files: ["datasets/nature-article-examples/frankenstein_examples.bib"], metadata_file: "datasets/nature-article-examples/metadata.json" },
-                { id: "compound-deception-ansari", name: "Compound Deception — NeurIPS 2025", authors: "Ansari (2026)", arxiv: "2602.05930", description: "100 AI-fabricated citations from 53 accepted NeurIPS papers.", citation_count: 100, ground_truth: "invalid", tags: ["fake", "neurips", "real-world"], status: "pending", source_url: "https://arxiv.org/abs/2602.05930" },
+                { id: "compound-deception-ansari", name: "Compound Deception — NeurIPS 2025", authors: "Ansari (2026)", arxiv: "2602.05930", description: "ansari100 seed subset: 100 hallucination examples from the public GPTZero table referenced by Ansari (2026).", citation_count: 100, ground_truth: "invalid", tags: ["fake", "neurips", "real-world", "taxonomy"], bib_files: ["datasets/compound-deception-ansari/ansari100.bib"], metadata_file: "datasets/compound-deception-ansari/metadata.json", status: "seed", source_url: "https://arxiv.org/abs/2602.05930" },
                 { id: "hallucitation-sakai", name: "HalluCitation — ACL/NAACL/EMNLP", authors: "Sakai et al. (2026)", arxiv: "2601.18724", description: "~300 papers with hallucinated references from NLP conferences.", citation_count: 300, ground_truth: "invalid", tags: ["fake", "nlp", "real-world"], status: "pending", source_url: "https://arxiv.org/abs/2601.18724" },
                 { id: "bibtex-hallucinations-rao", name: "BibTeX Hallucinations Benchmark", authors: "Rao & Callison-Burch (2026)", arxiv: "2604.03159", description: "931-paper benchmark with ~23K field-level observations.", citation_count: 931, ground_truth: "mixed", tags: ["benchmark", "field-level", "multi-domain"], status: "pending", source_url: "https://arxiv.org/abs/2604.03159" },
                 { id: "ghostcite-real-corpus", name: "GhostCite — Real Paper Citations", authors: "CiteVerifier team (2026)", arxiv: "2602.06718", description: "Sample from 2.2M real citations (2020-2025).", citation_count: 500, ground_truth: "valid", tags: ["real", "large-scale"], status: "pending", source_url: "https://arxiv.org/abs/2602.06718" },
@@ -2052,17 +2220,18 @@ Respond with JSON only:
 
                 // Load per-citation metadata if available
                 const meta = await fetchDatasetMetadata(ds);
+                const metaMap = meta?.citations || meta;
 
                 // Parse the BibTeX to extract cite keys, then assign ground truth
                 const entries = parseBibTeX(bibContent);
                 for (const entry of entries) {
-                    if (meta && meta[entry.key]) {
+                    if (metaMap && metaMap[entry.key]) {
                         // Per-citation ground truth from metadata file
                         benchGroundTruth[entry.key] = {
-                            ground_truth: meta[entry.key].ground_truth || ds.ground_truth,
+                            ground_truth: metaMap[entry.key].ground_truth || ds.ground_truth,
                             dataset_id: id,
                             dataset_name: ds.name,
-                            ...meta[entry.key]
+                            ...metaMap[entry.key]
                         };
                     } else {
                         // Dataset-level ground truth applied to each citation

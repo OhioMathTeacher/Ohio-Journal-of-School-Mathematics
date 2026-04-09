@@ -8,12 +8,14 @@ import os
 import json
 import requests
 from pathlib import Path
-from flask import Flask, request, jsonify, Response
+from flask import Flask, request, jsonify, Response, send_file, abort
 from flask_cors import CORS
 from citation_validator import CitationValidator
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
 
 # HTML Template
 HTML_TEMPLATE = r'''
@@ -1247,7 +1249,30 @@ Example:
 @app.route('/')
 def index():
     """Serve the main page."""
+    page_path = REPO_ROOT / 'citation-validator.html'
+    if page_path.exists():
+        return send_file(page_path)
     return Response(HTML_TEMPLATE, mimetype='text/html')
+
+
+def _serve_repo_file(relative_path: str):
+    """Serve a file from the repository while preventing path traversal."""
+    target = (REPO_ROOT / relative_path).resolve()
+    if not (target == REPO_ROOT or REPO_ROOT in target.parents):
+        abort(404)
+    if not target.exists() or not target.is_file():
+        abort(404)
+    return send_file(target)
+
+
+@app.route('/datasets/<path:subpath>')
+def serve_dataset_file(subpath):
+    return _serve_repo_file(f'datasets/{subpath}')
+
+
+@app.route('/test_citations/<path:subpath>')
+def serve_test_citation_file(subpath):
+    return _serve_repo_file(f'test_citations/{subpath}')
 
 @app.route('/validate', methods=['POST'])
 def validate():
