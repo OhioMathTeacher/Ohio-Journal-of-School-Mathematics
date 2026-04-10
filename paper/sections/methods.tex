@@ -12,7 +12,24 @@ Validation proceeds through three tiers, each progressively more aggressive. Mos
 
 \subsubsection{Tier 1: DOI Resolution}
 
-If the BibTeX entry contains a DOI field, the tool resolves it through CrossRef (\texttt{api.crossref.org/works/\{doi\}}). If CrossRef returns a 404, two fallbacks are attempted in sequence: the DOI.org handle API (\texttt{doi.org/api/handles/\{doi\}}) and content negotiation via DOI.org with CSL-JSON format. ArXiv DOIs (prefix \texttt{10.48550/arXiv.*}) are routed to the arXiv API (\texttt{export.arxiv.org/api/query}) for metadata retrieval.
+If the BibTeX entry contains a DOI field, the tool resolves it through the CrossRef REST API. If CrossRef returns a~404, two fallbacks are attempted in sequence: the DOI.org handle API and content negotiation via DOI.org with CSL-JSON format. ArXiv DOIs (prefix \texttt{10.48550/arXiv.*}) are routed to the arXiv export API for metadata retrieval. All API endpoints are listed in Table~\ref{tab:apis}.
+
+\begin{table}[H]
+\centering
+\caption{Public APIs used by the \emph{Citation Validator}.}
+\label{tab:apis}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Service} & \textbf{Endpoint} & \textbf{Purpose} \\
+\midrule
+CrossRef    & \texttt{api.crossref.org/works/} & DOI resolution \\
+DOI.org     & \texttt{doi.org/api/handles/}    & DOI fallback \\
+arXiv       & \texttt{export.arxiv.org/api/query} & arXiv metadata \\
+OpenAlex    & \texttt{api.openalex.org/works}   & Title search \\
+Semantic Scholar & \texttt{api.semanticscholar.org/graph/v1/} & Title + author search \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 When a DOI resolves successfully, the returned metadata (title, author, year) is cross-checked against the BibTeX entry. Title similarity is computed using word-level Jaccard similarity \citep{jaccard1912}:
 %
@@ -31,8 +48,8 @@ Transient failures (HTTP~429 rate limits, 5xx server errors) trigger one automat
 Citations without DOIs are searched in two open databases:
 
 \begin{itemize}
-  \item \textbf{OpenAlex} \citep{openalex2026}: structured title filter query (\texttt{works?filter=title.search:\{title\}}), returning the top result. A Jaccard similarity $\geq 0.5$ between the query title and the returned title constitutes a strong match; $\geq 0.3$ is noted but not validating.
-  \item \textbf{Semantic Scholar} \citep{semanticscholar2026}: free-text title search (\texttt{paper/search?query=\{title\}}), returning title, authors, year, venue, and external identifiers. A strong match requires both title similarity $\geq 0.5$ \emph{and} author/year cross-validation.
+  \item \textbf{OpenAlex} \citep{openalex2026}: structured title filter query, returning the top result. A Jaccard similarity $\geq 0.5$ between the query title and the returned title constitutes a strong match; $\geq 0.3$ is noted but not validating.
+  \item \textbf{Semantic Scholar} \citep{semanticscholar2026}: free-text title search, returning title, authors, year, venue, and external identifiers. A strong match requires both title similarity $\geq 0.5$ \emph{and} author/year cross-validation.
 \end{itemize}
 
 If neither database returns a match, the citation is classified as \textit{warning} (unverifiable)---\textbf{not} \textit{suspicious}. This is the critical design decision. Many legitimate citations (arXiv preprints, non-English journals, older publications, books) are absent from these databases. Treating absence as evidence of fabrication would produce unacceptable false-positive rates, as our experiments confirm.
