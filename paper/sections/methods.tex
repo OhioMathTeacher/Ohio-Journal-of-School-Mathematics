@@ -1,0 +1,149 @@
+\section{Methods}
+
+\subsection{Design Goals}
+
+The tool was designed under three constraints: (1)~zero cost to the end user, (2)~no proprietary dependencies, and (3)~deterministic, auditable results by default, with AI analysis available as an optional second pass. These constraints reflect the intended audience: editors of small journals, independent reviewers, and educators at under-resourced institutions who lack budgets for commercial screening tools.
+
+\subsection{Validation Pipeline}
+
+The Citation Validator accepts a BibTeX bibliography (pasted into a web interface or passed to a command-line script) and classifies each citation into one of four statuses: \textit{valid} (verified against databases), \textit{warning} (unverifiable but not flagged), \textit{suspicious} (multiple red flags; flagged), or \textit{invalid} (confirmed fake or failed DOI; flagged). Only \textit{suspicious} and \textit{invalid} citations count as detections. The \textit{warning} status is deliberately not treated as a flag --- this distinction is central to the epistemological argument developed in the Discussion.
+
+Validation proceeds through three tiers, each progressively more aggressive. Most citations are resolved by Tier~1 alone.
+
+\subsubsection{Tier 1: DOI Resolution}
+
+If the BibTeX entry contains a DOI field, the tool resolves it through CrossRef (\texttt{api.crossref.org/works/\{doi\}}). If CrossRef returns a 404, two fallbacks are attempted in sequence: the DOI.org handle API (\texttt{doi.org/api/handles/\{doi\}}) and content negotiation via DOI.org with CSL-JSON format. ArXiv DOIs (prefix \texttt{10.48550/arXiv.*}) are routed to the arXiv API (\texttt{export.arxiv.org/api/query}) for metadata retrieval.
+
+When a DOI resolves successfully, the returned metadata (title, author, year) is cross-checked against the BibTeX entry. Title similarity is computed using word-level Jaccard similarity \citep{jaccard1912}:
+%
+\begin{equation}
+  J(A, B) \;=\; \frac{|A \cap B|}{|A \cup B|}
+\end{equation}
+%
+where $A$ and $B$ are the sets of lowercase alphanumeric tokens extracted from the BibTeX title and the resolved title, respectively. A Jaccard score below 0.4 triggers a title-mismatch warning and potential escalation to \textit{suspicious}. Author matching checks whether any last name from the BibTeX \texttt{author} field appears (case-insensitive substring match) in the resolved author list. Year matching requires an exact match.
+
+A DOI that does not resolve at all is strong evidence of fabrication: legitimate DOIs persist indefinitely. A DOI that resolves to a \emph{different} paper (low title similarity, mismatched authors) indicates either a metadata error in the BibTeX entry or a ``stolen DOI'' --- a real identifier paired with fabricated metadata.
+
+Transient failures (HTTP~429 rate limits, 5xx server errors) trigger one automatic retry after a 0.25-second delay. Only a definitive 404 from CrossRef skips the retry.
+
+\subsubsection{Tier 2: Database Search}
+
+Citations without DOIs are searched in two open databases:
+
+\begin{itemize}
+  \item \textbf{OpenAlex} \citep{openalex2026}: structured title filter query (\texttt{works?filter=title.search:\{title\}}), returning the top result. A Jaccard similarity $\geq 0.5$ between the query title and the returned title constitutes a strong match; $\geq 0.3$ is noted but not validating.
+  \item \textbf{Semantic Scholar} \citep{semanticscholar2026}: free-text title search (\texttt{paper/search?query=\{title\}}), returning title, authors, year, venue, and external identifiers. A strong match requires both title similarity $\geq 0.5$ \emph{and} author/year cross-validation.
+\end{itemize}
+
+If neither database returns a match, the citation is classified as \textit{warning} (unverifiable) --- \textbf{not} \textit{suspicious}. This is the critical design decision. Many legitimate citations (arXiv preprints, non-English journals, older publications, books) are absent from these databases. Treating absence as evidence of fabrication would produce unacceptable false-positive rates, as our experiments confirm.
+
+\subsubsection{Tier 3: AI Analysis (Optional)}
+
+For users who want a second opinion, citations with status \textit{warning} or \textit{suspicious} can be routed to a large language model for analysis. The tool supports four providers:
+
+\begin{itemize}
+  \item Gemini 2.5 Flash (free tier; 1 million tokens/day)
+  \item GPT-4o (paid; OpenAI API)
+  \item Claude Sonnet 4 (paid; Anthropic API)
+  \item Llama 3.3 70B via Groq (free tier; rate-limited)
+\end{itemize}
+
+The AI receives the BibTeX entry fields (type, title, author, year, journal/booktitle, DOI) along with any verified metadata retrieved in Tiers~1--2, and is prompted to assess whether the citation shows signs of fabrication, including internal inconsistency, Frankenstein assembly (fragments from multiple real papers), or metadata that conflicts with verified records. The model returns a structured JSON response: \texttt{\{is\_suspicious, confidence, reason\}}. A confidence score $\geq 70$ with \texttt{is\_suspicious: true} escalates the citation to \textit{suspicious}; $\geq 85$ escalates to \textit{invalid}.
+
+AI analysis is not enabled by default. The deterministic tiers (1--2) are the recommended pipeline for production use; the rationale for this recommendation is developed in the Results.
+
+\subsection{Heuristic Enhancement}
+
+In addition to the three-tier pipeline, eight heuristic detectors flag common hallucination patterns as supplementary warnings:
+
+\begin{enumerate}
+  \item Future publication years
+  \item Generic author names (e.g., ``Smith,'' ``et al,'' ``Unknown'')
+  \item Generic title patterns (e.g., ``A Study of\ldots'' with short titles)
+  \item Missing critical fields (articles without journal or DOI; proceedings without booktitle)
+  \item Conflicting venue metadata (both \texttt{journal} and \texttt{booktitle} present)
+  \item Sparse metadata (title or author under 5 characters)
+  \item Malformed URLs
+  \item Pre-1900 publication years
+\end{enumerate}
+
+These heuristics contribute warning signals but do not independently escalate a citation to \textit{suspicious}. They are designed to support the selective AI routing described in the Future Work section.
+
+\subsection{Evaluation Framework}
+
+\subsubsection{Confusion Matrix Convention}
+
+We adopt standard detection convention throughout:
+
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Label} & \textbf{Meaning} \\
+\midrule
+True Positive (TP)  & Fake citation correctly flagged \\
+False Positive (FP) & Real citation incorrectly flagged \\
+True Negative (TN)  & Real citation correctly not flagged \\
+False Negative (FN) & Fake citation that slips through \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Precision $= \text{TP}/(\text{TP}+\text{FP})$, Recall $= \text{TP}/(\text{TP}+\text{FN})$, FPR $= \text{FP}/(\text{FP}+\text{TN})$, and F1 is the harmonic mean of precision and recall. All metrics are computed \emph{per citation}, not per file.
+
+\subsubsection{Datasets}
+
+\paragraph{Real citations (391 total).} Three sources of known-real citations were used to measure the false-positive rate:
+
+\begin{center}
+\begin{tabular}{@{}llrl@{}}
+\toprule
+\textbf{Dataset} & \textbf{Source} & \textbf{Count} & \textbf{Characteristics} \\
+\midrule
+arXiv CS (2024) & Extracted from 2 published papers & 285 & Mostly no DOI \\
+CrossRef random  & CrossRef random-works API         &  96 & Mostly with DOI \\
+Nature article   & Manual entry                      &  10 & Mixed \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The arXiv dataset is intentionally adversarial for false-positive testing: most preprints lack DOIs and many are not indexed in OpenAlex or Semantic Scholar. If the validator can avoid flagging these, it can likely handle well-indexed citations.
+
+\paragraph{Fabricated citations (500 total).} Five categories of fakes, following the taxonomy of \citet{ansari2025}:
+
+\begin{center}
+\begin{tabular}{@{}llrl@{}}
+\toprule
+\textbf{Category} & \textbf{Description} & \textbf{Count} & \textbf{DOI?} \\
+\midrule
+Ansari 100    & Real NeurIPS 2025 hallucinations       & 100 & Mostly no \\
+Frankenstein  & Real author + fabricated title          & 100 & No \\
+Stolen DOI    & Real DOI + wrong metadata               & 100 & Yes \\
+Plausible     & Entirely fabricated with fake DOIs       & 100 & Yes (fake) \\
+Nonsense      & Future years, obvious errors             & 100 & No \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The Ansari~100 dataset consists of real hallucinated citations found in 53 accepted NeurIPS 2025 papers \citep{ansari2025}, providing ground truth from citations that evaded 3--5 expert human reviewers per paper. The remaining four categories are synthetic, generated with documented scripts included in the repository.
+
+\subsubsection{Statistical Methods}
+
+Confidence intervals on proportions (e.g., false-positive rate) are computed using the Wilson score interval \citep{wilson1927}, which provides reliable coverage even for proportions near 0 or 1 with small sample sizes. For $k$ successes in $n$ trials, the $1-\alpha$ Wilson interval is:
+%
+\begin{equation}
+  \frac{1}{1 + z^2/n}\left(\hat{p} + \frac{z^2}{2n} \pm z\sqrt{\frac{\hat{p}(1-\hat{p})}{n} + \frac{z^2}{4n^2}}\right)
+\end{equation}
+%
+where $\hat{p} = k/n$ and $z = z_{1-\alpha/2}$. All intervals reported use $\alpha = 0.05$.
+
+\subsection{Code Audit}
+
+Before any experiments were run, a thorough code review of the approximately 6{,}000-line codebase identified six issues, three of them critical:
+
+\begin{enumerate}
+  \item \textbf{Inverted confusion matrix.} True positives and true negatives were swapped from standard detection convention. All previously computed accuracy metrics used non-standard definitions.
+  \item \textbf{1{,}500+ lines of dead code.} An abandoned browser-side validation pipeline remained in production, including a contradictory AI prompt that instructed the model to ``assume citations are REAL'' --- the opposite of the active server-side prompt.
+  \item \textbf{Escalation error.} The original logic treated ``not found in any database'' as evidence of fabrication, producing 100\% false-positive rates on legitimate citations. The validator was committing the same epistemological error it was designed to catch.
+\end{enumerate}
+
+After fixes, the codebase shrank by 1{,}604 lines while gaining a 19-test suite and the evaluation framework described above. The code audit was performed by Claude Opus 4.6 (Anthropic), a large language model --- an irony we address in the Discussion.
