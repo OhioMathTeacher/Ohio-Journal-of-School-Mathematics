@@ -196,6 +196,38 @@ ISSUES FOUND:
      Reason: DOI resolves to 404, title structure unusual
 ```
 
+### 🧪 Systematic Benchmarking
+
+**Built-in Testing Framework** (added April 10, 2026)
+
+Run reproducible experiments on curated datasets:
+
+```bash
+# Test on NeurIPS 2025 fake citation dataset (100 fabricated citations)
+python3 run_benchmark.py --dataset compound-deception-ansari --ai gemini
+
+# Compare AI providers
+python3 run_benchmark.py --dataset compound-deception-ansari --ai groq
+python3 run_benchmark.py --dataset compound-deception-ansari --ai openai
+```
+
+**What gets tracked:**
+- True/false positive/negative rates
+- Token usage (input/output/total per citation)
+- API errors and rate limits
+- Timing per validation pass
+- Cost projections
+
+**Results stored as JSON:**
+- `Test Results/experiments/experiment_log.jsonl` - All runs with timestamps
+- Includes full citation metadata, validation results, token counts
+- Publication-ready data for academic papers
+
+**Current Benchmark Dataset:**
+- `compound-deception-ansari`: 100 fabricated citations from NeurIPS 2025 study
+- Result: **100% detection rate** (0% false negatives)
+- Need to test on real citations to measure false positive rate
+
 ### 🧪 Example Test Results
 
 **Test on 6622 Guerrero bibliography (40 citations):**
@@ -229,13 +261,53 @@ Beyond simple DOI validation, the tool uses **sophisticated heuristics**:
 - Confidence scoring (0-100%)
 - Specific red flag identification
 
+### 💰 Cost-Effective Research at Scale
+
+**Token Usage & Economics** (added April 10, 2026)
+
+Our tool tracks token usage for every AI-analyzed citation, making large-scale research affordable:
+
+**Typical Usage:**
+- ~400 input tokens per citation (prompt + metadata)
+- ~250 output tokens per citation (analysis)
+- ~650 total tokens per citation
+
+**Cost Comparison for Different Scales:**
+
+| Scale | Gemini 2.5 Flash | Groq Llama 3.3 | OpenAI GPT-4o | Anthropic Claude |
+|-------|------------------|----------------|---------------|------------------|
+| 100 citations | **FREE** | $0.04 | $0.35 | $0.50 |
+| 1,000 citations | **FREE** | $0.43 | $3.50 | $4.95 |
+| 10,000 citations | **FREE** (7 days) | $4.33 | $35.00 | $49.50 |
+
+**Gemini Free Tier:**
+- 1,000,000 tokens/day limit
+- 1,500 requests/day limit  
+- Can process ~1,500 citations/day at zero cost
+- 10,000 citations = ~7 days of processing for **$0**
+
+**This is research "for the rest of us"!** Run publication-quality studies without grants or institutional AI budgets.
+
+**Track Your Costs:**
+```bash
+# Estimate costs for your planned study
+python3 cost_analysis.py --table
+
+# Analyze actual token usage from past runs
+python3 cost_analysis.py --analyze-logs
+```
+
+See [TOKEN_TRACKING.md](TOKEN_TRACKING.md) for technical details on how token tracking works.
+
 ### 🆚 Comparison to Nature Study
 
 | Feature | Nature (2025) | Our Tool |
 |---------|---------------|----------|
-| **Cost** | Unknown | $0 |
+| **Cost** | Unknown | **$0** (Gemini free tier) |
 | **Data Shared** | No | Yes (GitHub) |
 | **Methods** | Undisclosed | Open source |
+| **Token Tracking** | No | Yes (publication-ready) |
+| **Scalability** | Unknown | 10K citations in 7 days |
 | **Hallucination Rate** | 2-6% | 5% (matches!) |
 | **Accessibility** | Paywalled article | Free tool |
 | **Real-time** | No | Yes (~0.2s/citation) |

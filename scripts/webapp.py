@@ -1352,9 +1352,24 @@ def analyze():
             content = ''.join(block.get('text', '') for block in result.get('content', []))
             print(f"[ANALYZE] Claude content: {content[:500]}", flush=True)
             
+            # Extract token usage
+            usage = result.get('usage', {})
+            tokens = {
+                'input_tokens': usage.get('input_tokens', 0),
+                'output_tokens': usage.get('output_tokens', 0),
+                'total_tokens': usage.get('input_tokens', 0) + usage.get('output_tokens', 0),
+            }
+            stop_reason = result.get('stop_reason', 'unknown')
+            
             json_match = re.search(r'\{.*\}', content, re.DOTALL)
             if json_match:
                 parsed = json.loads(json_match.group(0))
+                parsed['_metadata'] = {
+                    'provider': 'anthropic',
+                    'model': 'claude-sonnet-4-20250514',
+                    'finish_reason': stop_reason,
+                    'tokens': tokens
+                }
                 return jsonify(parsed)
             return jsonify({'error': 'No JSON in Claude response', 'raw': content}), 500
         
@@ -1387,13 +1402,29 @@ def analyze():
             print(f"[ANALYZE] Gemini finishReason: {finish_reason}", flush=True)
             print(f"[ANALYZE] Gemini content: {content[:500]}", flush=True)
             
+            # Extract token usage
+            usage_meta = result.get('usageMetadata', {})
+            tokens = {
+                'input_tokens': usage_meta.get('promptTokenCount', 0),
+                'output_tokens': usage_meta.get('candidatesTokenCount', 0),
+                'total_tokens': usage_meta.get('totalTokenCount', 0),
+            }
+            print(f"[ANALYZE] Gemini tokens: {tokens}", flush=True)
+            
             # Strip markdown code fences if present (```json ... ```)
             content = re.sub(r'^```(?:json)?\s*', '', content.strip())
             content = re.sub(r'\s*```$', '', content.strip())
             
             json_match = re.search(r'\{.*\}', content, re.DOTALL)
             if json_match:
-                return jsonify(json.loads(json_match.group(0)))
+                parsed = json.loads(json_match.group(0))
+                parsed['_metadata'] = {
+                    'provider': 'gemini',
+                    'model': 'gemini-2.5-flash',
+                    'finish_reason': finish_reason,
+                    'tokens': tokens
+                }
+                return jsonify(parsed)
             return jsonify({'error': 'No JSON found in Gemini response', 'raw': content[:300]}), 500
         
         elif provider == 'groq':
@@ -1419,11 +1450,25 @@ def analyze():
             
             result = response.json()
             content = result.get('choices', [{}])[0].get('message', {}).get('content', '')
+            finish_reason = result.get('choices', [{}])[0].get('finish_reason', 'unknown')
+            usage = result.get('usage', {})
+            tokens = {
+                'input_tokens': usage.get('prompt_tokens', 0),
+                'output_tokens': usage.get('completion_tokens', 0),
+                'total_tokens': usage.get('total_tokens', 0),
+            }
             
             import re
             json_match = re.search(r'\{.*\}', content, re.DOTALL)
             if json_match:
-                return jsonify(json.loads(json_match.group(0)))
+                parsed = json.loads(json_match.group(0))
+                parsed['_metadata'] = {
+                    'provider': 'groq',
+                    'model': 'llama-3.3-70b-versatile',
+                    'finish_reason': finish_reason,
+                    'tokens': tokens
+                }
+                return jsonify(parsed)
             return jsonify({'error': 'No JSON found in response'}), 500
         
         elif provider == 'openai':
@@ -1449,11 +1494,25 @@ def analyze():
             
             result = response.json()
             content = result.get('choices', [{}])[0].get('message', {}).get('content', '')
+            finish_reason = result.get('choices', [{}])[0].get('finish_reason', 'unknown')
+            usage = result.get('usage', {})
+            tokens = {
+                'input_tokens': usage.get('prompt_tokens', 0),
+                'output_tokens': usage.get('completion_tokens', 0),
+                'total_tokens': usage.get('total_tokens', 0),
+            }
             
             import re
             json_match = re.search(r'\{.*\}', content, re.DOTALL)
             if json_match:
-                return jsonify(json.loads(json_match.group(0)))
+                parsed = json.loads(json_match.group(0))
+                parsed['_metadata'] = {
+                    'provider': 'openai',
+                    'model': 'gpt-4o',
+                    'finish_reason': finish_reason,
+                    'tokens': tokens
+                }
+                return jsonify(parsed)
             return jsonify({'error': 'No JSON found in response'}), 500
         
         else:

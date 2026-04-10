@@ -296,6 +296,11 @@ def run_benchmark(dataset_name, provider, api_key, use_ai, output_dir):
     # 5. AI analysis (if enabled)
     ai_time = 0
     ai_calls = 0
+    ai_errors = 0
+    total_input_tokens = 0
+    total_output_tokens = 0
+    total_tokens = 0
+    
     if use_ai:
         targets = [c for c in results["details"]
                    if c["status"] in ("suspicious", "invalid", "warning")]
@@ -313,6 +318,15 @@ def run_benchmark(dataset_name, provider, api_key, use_ai, output_dir):
                 )
                 if ai_resp.ok:
                     ai_data = ai_resp.json()
+                    
+                    # Extract token usage metadata
+                    metadata = ai_data.get('_metadata', {})
+                    if metadata:
+                        tokens = metadata.get('tokens', {})
+                        total_input_tokens += tokens.get('input_tokens', 0)
+                        total_output_tokens += tokens.get('output_tokens', 0)
+                        total_tokens += tokens.get('total_tokens', 0)
+                    
                     citation["ai_analysis"] = ai_data
 
                     # Apply AI escalation (mirrors citation_validator.py logic)
@@ -327,15 +341,27 @@ def run_benchmark(dataset_name, provider, api_key, use_ai, output_dir):
 
                     ai_calls += 1
                 else:
-                    print(f"  AI error on {citation['key']}: {ai_resp.status_code}")
+                    ai_errors += 1
+                    error_code = ai_resp.status_code
+                    citation["ai_error"] = {"status_code": error_code, "message": ai_resp.text[:200]}
+                    print(f"  AI error on {citation['key']}: {error_code}")
             except requests.exceptions.Timeout:
+                ai_errors += 1
+                citation["ai_error"] = {"status_code": "timeout", "message": "Request timed out"}
                 print(f"  AI timeout on {citation['key']}")
+            except Exception as e:
+                ai_errors += 1
+                citation["ai_error"] = {"status_code": "exception", "message": str(e)[:200]}
+                print(f"  AI exception on {citation['key']}: {e}")
 
             if i % 10 == 0 or i == total:
                 print(f"  {i}/{total} complete...")
 
         ai_time = time.time() - t1
-        print(f"  AI pass done in {ai_time:.1f}s ({ai_calls} calls)")
+        print(f"  AI pass done in {ai_time:.1f}s ({ai_calls} successful calls, {ai_errors} errors)")
+        if ai_calls > 0:
+            print(f"  Tokens: {total_input_tokens} in, {total_output_tokens} out, {total_tokens} total")
+            print(f"  Avg per call: {total_tokens/ai_calls:.0f} tokens")
 
         # Recount after AI escalation
         results["valid"] = sum(1 for c in results["details"] if c["status"] == "valid")
@@ -357,6 +383,7 @@ def run_benchmark(dataset_name, provider, api_key, use_ai, output_dir):
         "ai_provider": provider if use_ai else None,
         "ai_model": PROVIDER_MODELS.get(provider) if use_ai else None,
         "ai_calls": ai_calls,
+        "ai_errors": ai_errors if use_ai else 0,
         "deterministic_seconds": round(det_time, 1),
         "ai_seconds": round(ai_time, 1),
         "total_seconds": round(det_time + ai_time, 1),
@@ -368,6 +395,15 @@ def run_benchmark(dataset_name, provider, api_key, use_ai, output_dir):
         },
         "accuracy": acc,
     }
+    
+    # Add token usage if AI was used
+    if use_ai and ai_calls > 0:
+        run_record["tokens"] = {
+            "input_tokens": total_input_tokens,
+            "output_tokens": total_output_tokens,
+            "total_tokens": total_tokens,
+            "avg_per_call": round(total_tokens / ai_calls, 1) if ai_calls > 0 else 0,
+        }
 
     # 8. Print summary
     print(f"\n{'='*70}")

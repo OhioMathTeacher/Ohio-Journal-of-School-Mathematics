@@ -106,25 +106,72 @@ print(f'INVALID: {list(gt.values()).count(\"INVALID\")} files')
 
 ---
 
-## Dataset Explorer (Incoming)
+## Run Benchmarks (NEW - April 10, 2026)
 
-The `datasets/` directory will hold external benchmark datasets from published research. Once populated:
+The new benchmark framework (`scripts/run_benchmark.py`) provides systematic testing with token tracking and experiment logging.
 
 ```bash
+cd scripts/
+
 # List available datasets
-cat datasets/manifest.json | python3 -m json.tool
+python3 run_benchmark.py --list-datasets
 
-# Run test against a specific published benchmark
-python3 run_all_tests.py --test-dirs ../datasets/compound-deception-ansari-2026/
-python3 run_all_tests.py --test-dirs ../datasets/bibtex-hallucinations-rao-2026/
+# Run benchmark on specific dataset (with AI analysis)
+export GEMINI_API_KEY='your-key-here'
+python3 run_benchmark.py --dataset compound-deception-ansari --provider gemini
 
-# Compare our results against published numbers
-python3 run_all_tests.py \
-  --test-dirs ../datasets/compound-deception-ansari-2026/ \
-  --output results_ansari_comparison.json
+# Run without AI (deterministic validation only - FAST)
+python3 run_benchmark.py --dataset compound-deception-ansari --no-ai
+
+# Test on real citations (false positive testing)
+python3 run_benchmark.py --dataset ojsm-real-arxiv --provider gemini
+python3 run_benchmark.py --dataset nature-article --no-ai
+
+# Different AI providers
+export GROQ_API_KEY='gsk_...'
+python3 run_benchmark.py --dataset ansari100 --provider groq
+
+export OPENAI_API_KEY='sk-...'
+python3 run_benchmark.py --dataset ansari100 --provider openai
+
+export ANTHROPIC_API_KEY='sk-ant-...'
+python3 run_benchmark.py --dataset ansari100 --provider anthropic
+
+# Analyze token costs from experiment logs
+python3 cost_analysis.py --table
+python3 cost_analysis.py --analyze-logs
+
+# Compare two experimental runs
+python3 compare_runs.py \
+  Test\ Results/experiments/compound-deception-ansari_gemini_*.json \
+  Test\ Results/experiments/compound-deception-ansari_groq_*.json
 ```
 
-The browser app's **Benchmark Library** panel (coming soon) lets you load and combine these datasets without any command line.
+**Results stored in:**
+- `Test Results/experiments/experiment_log.jsonl` (all runs)
+- `Test Results/experiments/{dataset}_{provider}_{timestamp}.json` (individual runs)
+
+**Available datasets:** (see `datasets/manifest.json`)
+- `compound-deception-ansari` — 100 NeurIPS 2025 fake citations
+- `nature-article` — 10 real citations from Nature article
+- `ojsm-real-arxiv` — 285 real arXiv CS citations (coming soon)
+- `ojsm-real-crossref` — 100 real CrossRef random sample (coming soon)
+
+---
+
+## Dataset Explorer (Legacy Test Suite)
+
+The older test suite (`test_citations/run_all_tests.py`) still works for local synthetic tests:
+
+```bash
+cd test_citations/
+
+# List available datasets
+cat ../datasets/manifest.json | python3 -m json.tool
+
+# Run legacy test suite
+python3 run_all_tests.py --limit 20
+python3 run_all_tests.py --output test_results_full.json
 
 ---
 
