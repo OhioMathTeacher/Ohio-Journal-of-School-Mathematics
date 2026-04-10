@@ -541,7 +541,8 @@ Respond with JSON: {{"is_suspicious": true/false, "confidence": 0-100, "reason":
                         result['status'] = 'warning'
                 else:
                     result['warnings'].append('No DOI found and not in OpenAlex')
-                    result['status'] = 'warning'
+                    result['status'] = 'suspicious'
+                    result['suspicion_reasons'].append('Citation not found in major databases (no DOI, not in OpenAlex)')
             else:
                 # Only warn if metadata is too sparse to perform any meaningful lookup.
                 has_author_or_venue = bool(fields.get('author') or fields.get('journal') or fields.get('booktitle'))
@@ -560,8 +561,37 @@ Respond with JSON: {{"is_suspicious": true/false, "confidence": 0-100, "reason":
                     if sim >= 0.5:
                         if not verified_metadata:
                             verified_metadata = ss_data
-                        if result['status'] in ('warning', 'invalid'):
-                            result['status'] = 'valid'
+                        
+                        # Check author/year cross-validation before promoting to valid
+                        author_match = False
+                        year_match = False
+                        
+                        if fields.get('author') and ss_data.get('authors'):
+                            # BibTeX: "Last, First and Last2, First2" → extract last names
+                            bib_lastnames = re.findall(r'([A-Z][a-z]+)', fields['author'])
+                            # Semantic Scholar: "Full Name, Full Name" comma-separated string
+                            ss_authors = [a.strip() for a in ss_data['authors'].split(',')]
+                            
+                            # Check if any last name overlaps
+                            for bib_ln in bib_lastnames:
+                                for ss_auth in ss_authors:
+                                    if bib_ln.lower() in ss_auth.lower():
+                                        author_match = True
+                                        break
+                                if author_match:
+                                    break
+                        
+                        if fields.get('year') and ss_data.get('year'):
+                            year_match = str(fields['year']) == str(ss_data['year'])
+                        
+                        # Only promote to valid if we have author OR year confirmation
+                        if result['status'] in ('warning', 'suspicious', 'invalid'):
+                            if author_match or year_match:
+                                result['status'] = 'valid'
+                            else:
+                                result['warnings'].append('Semantic Scholar title match but no author/year confirmation')
+                                # Keep existing suspicious/warning status
+                    
                     elif sim >= 0.3 and not verified_metadata:
                         verified_metadata = ss_data
                         result['warnings'].append(f"Weak Semantic Scholar match (similarity {sim:.2f})")
@@ -580,7 +610,21 @@ Respond with JSON: {{"is_suspicious": true/false, "confidence": 0-100, "reason":
         
         # AI analysis for suspicious/invalid citations
         if self.use_ai and result['status'] in ['suspicious', 'invalid', 'warning']:
-            result['ai_analysis'] = self.analyze_with_ai(entry, verified_metadata, result['suspicion_reasons'])
+            ai_result = self.analyze_with_ai(entry, verified_metadata, result['suspicion_reasons'])
+            result['ai_analysis'] = ai_result
+            
+            # Allow AI to escalate status if high confidence
+            if ai_result and isinstance(ai_result, dict):
+                is_suspicious = ai_result.get('is_suspicious', False)
+                confidence = ai_result.get('confidence', 0)
+                
+                if is_suspicious and confidence >= 70:
+                    if result['status'] == 'warning':
+                        result['status'] = 'suspicious'
+                        result['suspicion_reasons'].append(f"AI flagged as suspicious (confidence: {confidence}%)")
+                    elif result['status'] == 'suspicious' and confidence >= 85:
+                        result['status'] = 'invalid'
+                        result['issues'].append(f"AI high-confidence fabrication detection (confidence: {confidence}%)")
         
         return result
     
