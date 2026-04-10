@@ -1,53 +1,168 @@
-# Citation Validator — AI Hallucination Detection for Academic References
+# Citation Validator
 
-**Detect fabricated citations in academic papers before publication**
+**Free, open-source detection of hallucinated citations in academic papers**
 
-> Inspired by a Nature article reporting that 2-6% of 2025 papers contain AI-hallucinated citations, this tool provides a free, open-source solution for journals, reviewers, and researchers.
-
-[![Status](https://img.shields.io/badge/status-beta-yellow)]()
 [![Cost](https://img.shields.io/badge/cost-%240-green)]()
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
+[![FPR](https://img.shields.io/badge/false_positive_rate-0%25_(n%3D391)-brightgreen)]()
+
+---
+
+## The Problem
+
+In April 2026, [Nature reported](https://www.nature.com/articles/d41586-026-00969-z)
+that 2–6% of recently published papers contain hallucinated citations —
+references that look plausible but point to papers that do not exist.
+Extrapolated across the literature, that's over 110,000 publications
+from 2025 alone.
+
+The proposed solutions — commercial screening tools, institutional AI
+pipelines, publisher-side integrity teams — all require money or
+institutional backing.  But the journals most vulnerable to this
+problem are the small ones: the ones without budgets, without integrity
+departments, without enterprise subscriptions.
+
+This project was started the same week by the editor of one of those
+small journals.  The question was simple: **what can you build, right
+now, with what's freely available?**
+
+## The Answer
+
+Quite a lot, it turns out.
+
+The databases that index legitimate scholarship — CrossRef (150M+
+DOIs), OpenAlex (250M+ works), Semantic Scholar, arXiv — are all
+**free and public**.  The logic to query them is straightforward.  No
+AI required.
+
+| Metric | Result |
+|--------|--------|
+| **False positive rate** | 0/391 real citations incorrectly flagged = **0.0%** (95% CI: <1%) |
+| **Detection rate** | 100/100 fabricated citations caught = **100%** (deterministic only, no AI) |
+| **Cost** | **$0** — free APIs, no keys needed for core validation |
+| **AI budget (optional)** | Gemini free tier: 1M tokens/day = ~1,500 citations at **$0** |
+
+---
+
+## How It Works
+
+Three-tier validation pipeline — each tier is stronger than the last,
+and most citations are resolved by Tier 1 alone:
+
+**Tier 1 — DOI Resolution.**  If the citation has a DOI, resolve it
+through CrossRef (with DataCite and DOI.org fallbacks).  Cross-check
+the returned title, author, and year against the BibTeX entry.  A DOI
+that resolves to a different paper — or doesn't resolve at all — is
+strong evidence of fabrication.
+
+**Tier 2 — Database Search.**  Citations without DOIs are searched in
+OpenAlex (structured title filter) and Semantic Scholar (title search
+with author/year cross-validation).  If no match is found, the citation
+is marked *warning* (unverifiable) — **not** *suspicious*.  This
+distinction matters: many legitimate citations (arXiv preprints,
+non-English journals, older works) simply aren't indexed.  Absence of
+evidence is not evidence of fabrication.
+
+**Tier 3 — AI Analysis (optional).**  For a second opinion, route
+citations through Gemini, GPT-4o, Claude, or Groq.  But the
+deterministic tiers handle the vast majority of cases without AI.
+
+### Status Taxonomy
+
+| Status | Meaning | Flagged? |
+|--------|---------|----------|
+| `valid` | Verified against databases | No |
+| `warning` | Unverifiable or minor concern | No |
+| `suspicious` | Multiple red flags or AI escalation | **Yes** |
+| `invalid` | DOI failed or confirmed fake | **Yes** |
 
 ---
 
 ## Quick Start
 
-### Web App (Recommended)
+### Web App
 ```bash
-# Start the Flask server
-cd scripts/
-python3 webapp.py
-
-# Open http://localhost:5000 in your browser
-# Drag-and-drop your .bib file or paste BibTeX entries
+pip install -r scripts/requirements.txt
+python3 scripts/webapp.py
+# Open http://localhost:5000
+# Paste BibTeX or drag-and-drop a .bib file
 ```
 
 ### Command Line
 ```bash
-# Install dependencies
-pip install -r scripts/requirements.txt
-
-# Validate citations
+# Validate a bibliography
 python3 scripts/citation_validator.py path/to/bibliography.bib
-```
 
-### Browser Interface
-The web app at `localhost:5000` serves `citation-validator.html` with full validation.
-The Flask server handles all API calls (CrossRef, OpenAlex, Semantic Scholar) server-side.
+# Run the false-positive baseline (no server needed)
+python3 scripts/run_fp_baseline.py --step 1
+```
 
 ---
 
-## What This Tool Does
+## Why This Matters
 
-**Three-tier validation pipeline:**
-1. **Deterministic checks** — CrossRef, OpenAlex, arXiv APIs verify DOIs and metadata
-2. **Heuristic analysis** — 8 pattern detectors catch generic titles, temporal anomalies, etc.
-3. **AI deep inspection** (optional) — Gemini, Groq, OpenAI, or Anthropic analyze suspicious patterns
+### The ironies are the point
 
-**Cost-effective research:**
-- Gemini free tier: 1M tokens/day = ~1,500 citations at **$0 cost**
-- 10,000 citation study: **$0** over 7 days with Gemini
-- "Research for the rest of us" — no grants or institutional AI budgets required
+**The Nature article about scientific integrity isn't reproducible.**
+Nature partnered with Grounded AI to analyze 4,000+ publications, but
+neither the tool, the dataset, the risk-scoring model, nor the
+calibration data were made public.
+
+**The proposed solutions are gated behind the barriers the problem
+exploits.**  Commercial tools, institutional pipelines, publisher
+partnerships — all require money or affiliation.  The researchers most
+vulnerable to hallucinated citations are the ones who can least afford
+protection.
+
+**The infrastructure to solve this already exists, for free.**
+CrossRef, OpenAlex, Semantic Scholar, arXiv — all free, all public.
+Our 0% false-positive rate on 391 citations used no AI at all.
+
+**AI is both the disease and part of the cure.**  The hallucinated
+citations are generated by LLMs.  The code audit that found three
+critical bugs in this tool was performed by an LLM (Claude Opus 4.6).
+We don't pretend this tension is resolved — but we insist the
+involvement be transparent, auditable, and reproducible.  Ours is.
+
+### Research for the rest of us
+
+If hallucinated citations are a public problem, the detection tools
+should be public goods.  Every dataset, every line of code, and every
+test result in this project is freely available.  We believe that is
+not incidental to the research — it is the research.
+
+---
+
+## Current Results
+
+### False-Positive Baseline (391 Real Citations)
+
+| Dataset | Citations | Source | FPR |
+|---------|-----------|--------|-----|
+| arXiv CS preprints (2024) | 285 | Extracted from 2 published papers | 0.0% |
+| CrossRef random sample | 96 | CrossRef random-works API | 0.0% |
+| Nature article bibliography | 10 | Manual entry | 0.0% |
+| **Total** | **391** | | **0.0%** |
+
+Wilson 95% CI: [0.0%, 0.96%].  We can claim <1% FPR with 95%
+confidence — not exactly zero.  The test set is small, heavily weighted
+toward CS, and does not yet include books, dissertations, non-English
+works, or very old publications.  The 10,000-citation study will
+address these gaps.
+
+### Fake-Citation Detection (100 Fabricated Citations)
+
+- **100% detection** via deterministic checks alone (no AI)
+- All 100 flagged as `suspicious` or `invalid`
+- Source: Ansari compound-deception benchmark (NeurIPS 2025 fakes)
+
+### Limitations
+
+- 391 citations is a small sample — scale validation required
+- Code changes fixed general design flaws, not specific test cases,
+  but the same team wrote both the code and the tests
+- 94% of arXiv citations land at `warning` (unverifiable), which is
+  correct but means the tool can't *confirm* most preprints
 
 ---
 
@@ -55,97 +170,53 @@ The Flask server handles all API calls (CrossRef, OpenAlex, Semantic Scholar) se
 
 | Document | Purpose |
 |----------|---------|
-| **[PROJECT_STATUS.md](PROJECT_STATUS.md)** | Current state, completed features, production readiness |
-| **[ROADMAP.md](ROADMAP.md)** | What's next, timeline to publication, success metrics |
-| **[scripts/README.md](scripts/README.md)** | User guide, installation, cost analysis |
-| **[scripts/TOKEN_TRACKING.md](scripts/TOKEN_TRACKING.md)** | Token usage tracking, cost projections |
-| **[test_citations/TEST_DESIGN.md](test_citations/TEST_DESIGN.md)** | Scientific methodology, evaluation metrics |
-| **[test_citations/COMMANDS.md](test_citations/COMMANDS.md)** | Quick command reference |
-
----
-
-## Features
-
-### ✅ Completed
-- Full BibTeX parser with proper brace-depth handling
-- Multi-provider AI integration (Gemini, Groq, OpenAI, Anthropic)
-- Token usage tracking with cost analysis
-- Benchmark framework with experiment logging
-- Dataset registry with manifest-based loading
-- Web interface with drag-and-drop
-
-### 🟡 In Progress
-- False positive testing on real citation datasets
-- Checkpoint/resume capability for large-scale runs
-
-### 📋 Planned
-- Comparison dashboard (before/after fixes, provider comparisons)
-- Browser extension for inline validation
-- Integration with Zotero/Mendeley
-
----
-
-## Test Results
-
-### Compound Deception Benchmark (100 NeurIPS 2025 Fakes)
-- **100% detection** via deterministic checks alone
-- All 100 flagged as suspicious or invalid
-- Runtime: ~58 seconds (no AI)
-
-### Real-World Testing
-- **5% hallucination rate** in OJSM submissions (2/40 citations)
-- Matches Nature's 2-6% finding
-- No false positives on 100 arXiv citations
-
----
-
-## Cost Analysis
-
-| Scale | Gemini 2.5 Flash | Groq Llama 3.3 | OpenAI GPT-4o | Anthropic Claude |
-|-------|------------------|----------------|---------------|------------------|
-| 100 citations | **FREE** | $0.04 | $0.35 | $0.50 |
-| 1,000 citations | **FREE** | $0.43 | $3.50 | $4.95 |
-| 10,000 citations | **FREE** (7 days) | $4.33 | $35.00 | $49.50 |
-
-**Typical usage:** ~650 tokens per citation (400 input + 250 output)
-
----
-
-## Published Research Context
-
-This tool builds on five major studies from early 2026:
-
-| Study | Key Finding |
-|-------|-------------|
-| Bienz et al. | 2-6% hallucination rate in HPC papers (source of Nature's headline) |
-| Ansari | 100 fakes in NeurIPS 2025, 5-category taxonomy |
-| Sakai et al. | 275 hallucinated papers in ACL/NAACL/EMNLP 2025 |
-| Rao & Callison-Burch | 931-paper benchmark, field-level ground truth |
-| Abbonato (CheckIfExist) | Open-source tool, direct competitor |
+| [ABSTRACT.md](ABSTRACT.md) | Project summary, motivation, and ironies |
+| [RESEARCH_LOG.md](RESEARCH_LOG.md) | Chronological decisions, experiments, and results |
+| [PROJECT_STATUS.md](PROJECT_STATUS.md) | Current state and production readiness |
+| [scripts/README.md](scripts/README.md) | User guide, installation, cost analysis |
+| [test_citations/TEST_DESIGN.md](test_citations/TEST_DESIGN.md) | Scientific methodology and evaluation metrics |
 
 ---
 
 ## Contributing
 
-We welcome contributions! Areas of interest:
-- **Dataset curation**: Add published benchmarks to `datasets/`
-- **False positive analysis**: Test on edge cases (DataCite, pre-DOI era, non-English)
-- **Provider comparison**: Run identical datasets through different AI models
-- **UI enhancements**: Benchmark library panel, comparison dashboard
+This is an open invitation.  Take the ideas here, make the code better,
+be a part of the solution.
+
+Areas where contributions would have the most impact:
+
+- **Dataset diversity**: Non-English citations, books, dissertations,
+  pre-DOI-era works, retracted papers
+- **Scale testing**: Run the validator against large, independently
+  sourced datasets
+- **False-positive edge cases**: DataCite-only DOIs, regional journals,
+  proceedings without DOIs
+- **Integration**: Zotero/Mendeley plugins, browser extensions,
+  journal submission workflows
+
+---
+
+## Published Research Context
+
+| Study | Key Finding |
+|-------|-------------|
+| [Naddaf & Quill (Nature, 2026)](https://www.nature.com/articles/d41586-026-00969-z) | 2–6% of 2025 papers contain hallucinated citations; ~110K publications affected |
+| Bienz et al. (2026) | 2–6% hallucination rate in HPC conference papers |
+| Sakai et al. (2026) | 275 hallucinated papers across ACL/NAACL/EMNLP 2025 |
+| Ansari (2025) | 100-fake NeurIPS benchmark with 5-category deception taxonomy |
+| Abbonato (2026) | CheckIfExist — open-source tool, closest comparable work |
+| Resnik & Hosseini (2026) | Hallucinated citations as research misconduct when citations serve as data |
 
 ---
 
 ## Citation
 
-If you use this tool in your research, please cite:
-
 ```bibtex
 @software{edwards2026citationvalidator,
   author = {Edwards, Todd},
-  title = {Citation Validator: AI Hallucination Detection for Academic References},
+  title = {Citation Validator: Open-Source Hallucinated Citation Detection},
   year = {2026},
-  url = {https://github.com/toddgr/Ohio-Journal-of-School-Mathematics},
-  note = {Version 1.0}
+  url = {https://github.com/OhioMathTeacher/Ohio-Journal-of-School-Mathematics}
 }
 ```
 
@@ -159,6 +230,8 @@ MIT License — [LICENSE](LICENSE)
 
 ## Contact
 
-**Todd Edwards**  
-*Ohio Journal of School Mathematics*  
-**Goal:** Publish Nature-quality paper on affordable hallucination detection
+**Todd Edwards**
+*Ohio Journal of School Mathematics*
+
+*"Every fake citation is a problem in the literature that someone would
+have to deal with."* — Mohammad Hosseini, quoted in Nature
