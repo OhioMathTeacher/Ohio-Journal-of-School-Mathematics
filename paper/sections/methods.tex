@@ -6,7 +6,7 @@ The tool was designed under three constraints: (1)~zero cost to the end user, (2
 
 \subsection{Validation Pipeline}
 
-The Citation Validator accepts a BibTeX bibliography (pasted into a web interface or passed to a command-line script) and classifies each citation into one of four statuses: \textit{valid} (verified against databases), \textit{warning} (unverifiable but not flagged), \textit{suspicious} (multiple red flags; flagged), or \textit{invalid} (confirmed fake or failed DOI; flagged). Only \textit{suspicious} and \textit{invalid} citations count as detections. The \textit{warning} status is deliberately not treated as a flag --- this distinction is central to the epistemological argument developed in the Discussion.
+The Citation Validator accepts a BibTeX bibliography (pasted into a web interface or passed to a command-line script) and classifies each citation into one of four statuses: \textit{valid} (verified against databases), \textit{warning} (unverifiable but not flagged), \textit{suspicious} (multiple red flags; flagged), or \textit{invalid} (confirmed fake or failed DOI; flagged). Only \textit{suspicious} and \textit{invalid} citations count as detections. The \textit{warning} status is deliberately not treated as a flag---this distinction is central to the epistemological argument developed in the Discussion.
 
 Validation proceeds through three tiers, each progressively more aggressive. Most citations are resolved by Tier~1 alone.
 
@@ -22,7 +22,7 @@ When a DOI resolves successfully, the returned metadata (title, author, year) is
 %
 where $A$ and $B$ are the sets of lowercase alphanumeric tokens extracted from the BibTeX title and the resolved title, respectively. A Jaccard score below 0.4 triggers a title-mismatch warning and potential escalation to \textit{suspicious}. Author matching checks whether any last name from the BibTeX \texttt{author} field appears (case-insensitive substring match) in the resolved author list. Year matching requires an exact match.
 
-A DOI that does not resolve at all is strong evidence of fabrication: legitimate DOIs persist indefinitely. A DOI that resolves to a \emph{different} paper (low title similarity, mismatched authors) indicates either a metadata error in the BibTeX entry or a ``stolen DOI'' --- a real identifier paired with fabricated metadata.
+A DOI that does not resolve at all is strong evidence of fabrication: legitimate DOIs persist indefinitely. A DOI that resolves to a \emph{different} paper (low title similarity, mismatched authors) indicates either a metadata error in the BibTeX entry or a ``stolen DOI''---a real identifier paired with fabricated metadata.
 
 Transient failures (HTTP~429 rate limits, 5xx server errors) trigger one automatic retry after a 0.25-second delay. Only a definitive 404 from CrossRef skips the retry.
 
@@ -35,7 +35,7 @@ Citations without DOIs are searched in two open databases:
   \item \textbf{Semantic Scholar} \citep{semanticscholar2026}: free-text title search (\texttt{paper/search?query=\{title\}}), returning title, authors, year, venue, and external identifiers. A strong match requires both title similarity $\geq 0.5$ \emph{and} author/year cross-validation.
 \end{itemize}
 
-If neither database returns a match, the citation is classified as \textit{warning} (unverifiable) --- \textbf{not} \textit{suspicious}. This is the critical design decision. Many legitimate citations (arXiv preprints, non-English journals, older publications, books) are absent from these databases. Treating absence as evidence of fabrication would produce unacceptable false-positive rates, as our experiments confirm.
+If neither database returns a match, the citation is classified as \textit{warning} (unverifiable)---\textbf{not} \textit{suspicious}. This is the critical design decision. Many legitimate citations (arXiv preprints, non-English journals, older publications, books) are absent from these databases. Treating absence as evidence of fabrication would produce unacceptable false-positive rates, as our experiments confirm.
 
 \subsubsection{Tier 3: AI Analysis (Optional)}
 
@@ -142,8 +142,8 @@ Before any experiments were run, a thorough code review of the approximately 6{,
 
 \begin{enumerate}
   \item \textbf{Inverted confusion matrix.} True positives and true negatives were swapped from standard detection convention. All previously computed accuracy metrics used non-standard definitions.
-  \item \textbf{1{,}500+ lines of dead code.} An abandoned browser-side validation pipeline remained in production, including a contradictory AI prompt that instructed the model to ``assume citations are REAL'' --- the opposite of the active server-side prompt.
+  \item \textbf{1{,}500+ lines of dead code.} An abandoned browser-side validation pipeline remained in production, including a contradictory AI prompt that instructed the model to ``assume citations are REAL''---the opposite of the active server-side prompt.
   \item \textbf{Escalation error.} The original logic treated ``not found in any database'' as evidence of fabrication, producing 100\% false-positive rates on legitimate citations. The validator was committing the same epistemological error it was designed to catch.
 \end{enumerate}
 
-After fixes, the codebase shrank by 1{,}604 lines while gaining a 19-test suite and the evaluation framework described above. The code audit was performed by Claude Opus 4.6 (Anthropic), a large language model --- an irony we address in the Discussion.
+After fixes, the codebase shrank by 1{,}604 lines while gaining a 19-test suite and the evaluation framework described above. The code audit was performed by Claude Opus 4.6 (Anthropic), a large language model---an irony we address in the Discussion.
