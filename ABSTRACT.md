@@ -1,9 +1,35 @@
-# Affordable Citation-Hallucination Detection: A Deterministic-First Approach
+# Absence of Evidence Is Not Evidence of Fabrication: Lessons from Building an Open-Source Citation Hallucination Detector
 
 **Todd Edwards**
 Ohio Journal of School Mathematics
 
 ---
+
+## Abstract
+
+We describe the development and evaluation of an open-source tool for
+detecting hallucinated citations in academic papers, built entirely on
+free public APIs (CrossRef, OpenAlex, Semantic Scholar).  Testing
+against 391 real citations and 500 fabricated ones, we find that
+deterministic validation achieves 0% false-positive rate and 100%
+detection on citations with DOIs — but is nearly blind to fabricated
+citations without DOIs (4% detection).  Adding AI analysis (Gemini 2.5
+Flash, free tier) raises detection to 94% on fakes, but introduces a
+72% false-positive rate on real arXiv preprints.
+
+The central finding is not about the tool.  It is about an
+epistemological error that recurs at every tier of detection: the
+conflation of *unverifiable* with *fabricated*.  We identified and
+fixed this error in our deterministic logic, only to discover that
+AI models reproduce it independently.  Grounded AI's analysis for
+Nature shows the same pattern — a 22% false-flag rate on their most
+suspicious publications.
+
+We argue that citation hallucination detection is fundamentally a
+problem of epistemology, not engineering, and that any system — whether
+rule-based, AI-powered, or human — must grapple with the distinction
+between absence and fabrication.  The tool, code, data, and all
+experimental results are freely available.
 
 ## Why This Work Exists
 
@@ -299,18 +325,32 @@ require an institutional budget or a computer science degree.
 
 The databases that index legitimate scholarship — CrossRef, OpenAlex,
 Semantic Scholar — are free and public.  The logic to query them is
-straightforward.  The hardest part turned out to be getting the
-epistemology right: understanding that a citation absent from databases
-is *unverifiable*, not *fake*.
+straightforward.  The hard part — the part that every detection system
+gets wrong at least once — is epistemological: understanding that a
+citation absent from databases is *unverifiable*, not *fake*.
 
-If these preliminary results hold at scale, they suggest that the
-academic community already has the infrastructure to detect most
-hallucinated citations — we just need to use it.  And we need to make
-that use accessible to educators, reviewers, and editors who are not
-software developers.
+We found this error in our own code (100% FPR before the fix).  We
+found it again in AI behavior (72% FPR when Gemini analyzes real
+preprints).  The Nature article reports that 22 of Grounded AI's 100
+most-flagged papers were genuine — the same error, at industrial scale.
+It recurs because it is intuitive: if you can't find something, it
+feels natural to conclude it doesn't exist.  But in a world where
+millions of legitimate publications lack DOIs, aren't indexed in major
+databases, or are published in languages that AI models under-represent,
+that intuition is wrong.
 
-This is not just a tool.  It is a demonstration that generative AI can
-be part of the solution — not only the problem.  It is an argument
-that detection tools built on public infrastructure should themselves
-be public goods.  And it is an invitation: take the code, make it
-better, help close the last mile, be a part of the solution.
+The practical consequence is clear.  **Deterministic validation using
+free APIs is the reliable foundation**: 0% false-positive rate, 100%
+detection on DOI-bearing citations, honest uncertainty on everything
+else.  AI can improve recall on the hardest cases, but only with
+careful routing — not applied unconditionally.  And the paid AI tier,
+in our preliminary comparison, performed worse than the free one.
+
+The broader consequence is also clear.  If hallucinated citations are
+a public problem, the detection tools should be public goods — open
+source, free to use, and accessible to the educators, reviewers, and
+small-journal editors who are on the front lines.  That is both the
+argument and the invitation of this work.
+
+The code, data, and results are at:
+https://github.com/OhioMathTeacher/Ohio-Journal-of-School-Mathematics
