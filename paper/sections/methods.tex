@@ -12,7 +12,11 @@ Validation proceeds through three tiers, each progressively more aggressive. Mos
 
 \subsubsection{Tier 1: DOI Resolution}
 
-If the BibTeX entry contains a DOI field, the tool resolves it through the CrossRef REST API. If CrossRef returns a~404, two fallbacks are attempted in sequence: the DOI.org handle API and content negotiation via DOI.org with CSL-JSON format. ArXiv DOIs (prefix \texttt{10.48550/arXiv.*}) are routed to the arXiv export API for metadata retrieval. All API endpoints are listed in Table~\ref{tab:apis}.
+A DOI---a Digital Object Identifier---is a permanent link assigned to a published work. When a citation includes one, it is the most reliable piece of metadata available: legitimate DOIs do not expire, and each one points to exactly one paper. Tier~1 exploits this by asking, in effect, \emph{does this DOI actually lead where the citation claims it does?}
+
+The tool first queries CrossRef, the largest DOI registry, which covers over 150 million publications. CrossRef returns the official metadata for that DOI: the real title, authors, and year on record. If CrossRef has no record of the DOI at all---the digital equivalent of a phone number that doesn't exist---that is strong evidence of fabrication. If CrossRef does find it but the metadata conflicts with the BibTeX entry (different title, different authors), that is evidence of a ``stolen DOI'': a real identifier attached to a fabricated citation.
+
+If CrossRef cannot be reached or returns an error, the tool tries two backup services in sequence---DOI.org and its handle API---before giving up. Citations from arXiv (a preprint server widely used in computer science and mathematics) are handled separately, since their DOIs follow a distinct format and arXiv maintains its own metadata database. All of the services queried are free and public; their addresses are listed in Table~\ref{tab:apis}.
 
 \begin{table}[H]
 \centering
