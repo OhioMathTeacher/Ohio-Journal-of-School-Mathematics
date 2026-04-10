@@ -43,7 +43,6 @@ When a DOI resolves successfully, the returned metadata (title, author, year) is
 %
 where $A$ and $B$ are the sets of lowercase alphanumeric tokens extracted from the BibTeX title and the resolved title, respectively. A Jaccard score below 0.4 triggers a title-mismatch warning and potential escalation to \textit{suspicious}. Author matching checks whether any last name from the BibTeX \texttt{author} field appears (case-insensitive substring match) in the resolved author list. Year matching requires an exact match.
 
-A DOI that does not resolve at all is strong evidence of fabrication: legitimate DOIs persist indefinitely. A DOI that resolves to a \emph{different} paper (low title similarity, mismatched authors) indicates either a metadata error in the BibTeX entry or a ``stolen DOI''---a real identifier paired with fabricated metadata.
 
 Transient failures (HTTP~429 rate limits, 5xx server errors) trigger one automatic retry after a 0.25-second delay. Only a definitive 404 from CrossRef skips the retry.
 
