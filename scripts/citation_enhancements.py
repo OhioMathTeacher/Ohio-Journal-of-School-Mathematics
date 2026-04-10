@@ -4,6 +4,7 @@ Improvements for detecting hallucinated citations
 """
 
 import re
+from datetime import datetime
 from typing import Dict, List, Tuple
 
 
@@ -38,7 +39,7 @@ class EnhancedValidator:
         if year:
             try:
                 year_int = int(year)
-                current_year = 2026  # Update as needed
+                current_year = datetime.now().year
                 if year_int > current_year:
                     warnings.append(f"Future year ({year}) - likely hallucinated")
                 elif year_int < 1900:

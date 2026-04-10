@@ -410,7 +410,7 @@ Does this citation show signs of being fabricated or assembled from fragments? C
 Respond with JSON: {{"is_suspicious": true/false, "confidence": 0-100, "reason": "brief explanation"}}"""
 
         payload = {
-            "model": "llama-3.1-8b-instant",  # Fast, cheap Groq model
+            "model": "llama-3.3-70b-versatile",  # Match webapp.py model
             "messages": [
                 {"role": "system", "content": "You are an expert at detecting fabricated academic citations. Respond only with valid JSON."},
                 {"role": "user", "content": prompt}

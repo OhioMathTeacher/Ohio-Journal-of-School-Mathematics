@@ -31,8 +31,9 @@ pip install -r scripts/requirements.txt
 python3 scripts/citation_validator.py path/to/bibliography.bib
 ```
 
-### Browser-Only (No Installation)
-Open `citation-validator.html` in any browser. Paste BibTeX or upload a `.bib` file.
+### Browser Interface
+The web app at `localhost:5000` serves `citation-validator.html` with full validation.
+The Flask server handles all API calls (CrossRef, OpenAlex, Semantic Scholar) server-side.
 
 ---
 

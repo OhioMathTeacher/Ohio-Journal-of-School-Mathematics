@@ -175,7 +175,14 @@ Respond with JSON only:
 
 
 def compute_accuracy(details, ground_truth):
-    """Compute confusion matrix metrics matching the frontend logic."""
+    """Compute confusion matrix metrics using standard detection convention.
+
+    Convention (''positive'' = detector flags a citation):
+      TP — fake citation correctly flagged       (detector fires, correct)
+      FP — real citation incorrectly flagged      (detector fires, wrong)
+      TN — real citation correctly NOT flagged     (detector silent, correct)
+      FN — fake citation that slips through        (detector silent, wrong)
+    """
     tp = tn = fp = fn = skipped = 0
     false_negatives = []
     false_positives = []
@@ -201,15 +208,15 @@ def compute_accuracy(details, ground_truth):
 
         if expected == "valid":
             if not is_flagged:
-                tp += 1
+                tn += 1   # Real citation correctly NOT flagged
             else:
-                fp += 1
+                fp += 1   # Real citation incorrectly flagged
                 false_positives.append(key)
         elif expected == "invalid":
             if is_flagged:
-                tn += 1
+                tp += 1   # Fake citation correctly flagged
             else:
-                fn += 1
+                fn += 1   # Fake citation slipped through
                 false_negatives.append(key)
         else:
             skipped += 1
