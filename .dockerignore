@@ -1,0 +1,7 @@
+.git
+__pycache__
+*.pyc
+Test Results/
+.venv
+.env
+*.egg-info
