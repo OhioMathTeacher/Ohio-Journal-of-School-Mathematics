@@ -14,6 +14,7 @@ Usage:
 import json
 import os
 import re
+import subprocess
 import sys
 import time
 from datetime import datetime, timezone
@@ -23,6 +24,19 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
 sys.path.insert(0, str(SCRIPT_DIR))
+
+
+def _git_version():
+    """Return short commit hash and date, e.g. '9146f23 (2026-04-10)'."""
+    try:
+        out = subprocess.check_output(
+            ["git", "log", "-1", "--format=%h (%ci)"],
+            cwd=REPO_ROOT, stderr=subprocess.DEVNULL, text=True,
+        ).strip()
+        # Trim timezone offset from commit date for readability
+        return re.sub(r"\s+[+-]\d{4}\)$", ")", out)
+    except Exception:
+        return "unknown"
 
 from citation_validator import CitationValidator
 
@@ -92,6 +106,7 @@ def run_step1():
     print("\n" + "=" * 70)
     print("  STEP 1: DETERMINISTIC FALSE-POSITIVE BASELINE")
     print("  Testing real citations — every flag is a false positive.")
+    print(f"  Version: {_git_version()}")
     print("=" * 70)
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -194,6 +209,7 @@ def run_step1():
     payload = {
         "step": 1,
         "description": "Deterministic false-positive baseline (no AI)",
+        "version": _git_version(),
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "overall_fpr": round(fpr_all, 4),
         "overall_fp": fp_all,
@@ -219,6 +235,7 @@ def run_step2():
 
     print("\n" + "=" * 70)
     print("  STEP 2: FALSE-POSITIVE ROOT CAUSE ANALYSIS")
+    print(f"  Version: {_git_version()}")
     print("=" * 70)
 
     all_fps = []
@@ -314,6 +331,7 @@ def run_step3():
     print("\n" + "=" * 70)
     print("  STEP 3: AI ANALYSIS ON FALSE POSITIVES (Gemini 2.5 Flash)")
     print("  Testing whether AI corrects or worsens false positive rate.")
+    print(f"  Version: {_git_version()}")
     print("=" * 70)
 
     # For step 3, we re-validate the datasets that had false positives

@@ -21,6 +21,7 @@ import argparse
 import json
 import os
 import re
+import subprocess
 import sys
 import time
 from datetime import datetime, timezone
@@ -29,6 +30,18 @@ from pathlib import Path
 import requests
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+
+
+def _git_version():
+    """Return short commit hash and date, e.g. '9146f23 (2026-04-10)'."""
+    try:
+        out = subprocess.check_output(
+            ["git", "log", "-1", "--format=%h (%ci)"],
+            cwd=REPO_ROOT, stderr=subprocess.DEVNULL, text=True,
+        ).strip()
+        return re.sub(r"\s+[+-]\d{4}\)$", ")", out)
+    except Exception:
+        return "unknown"
 SERVER = "http://localhost:5000"
 
 # ── Dataset registry ─────────────────────────────────────────────────────────
@@ -261,6 +274,7 @@ def run_benchmark(dataset_name, provider, api_key, use_ai, output_dir):
     print(f"  BENCHMARK: {entry['name']}")
     print(f"  Dataset:   {ds_id}")
     print(f"  AI:        {'OFF' if not use_ai else f'{provider} ({PROVIDER_MODELS.get(provider, provider)})'}")
+    print(f"  Version:   {_git_version()}")
     print(f"{'='*70}\n")
 
     # 1. Load BibTeX
