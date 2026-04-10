@@ -38,22 +38,23 @@ measured BEFORE the escalation fix.  We must re-verify.
 **What to do:**
 
 ```bash
-# Start the Flask server in one terminal
-cd Ohio-Journal-of-School-Mathematics
-python3 scripts/webapp.py
-
-# In another terminal, run the Ansari 100-fake benchmark (no AI)
-python3 scripts/run_benchmark.py --dataset ansari100 --no-ai
+# No Flask server needed — runs validator directly
+python3 scripts/run_fp_baseline.py --step 4
 ```
 
-**Expected result:** 100/100 detected.  The escalation fix only changed
-how *unverifiable* citations are classified (warning instead of
-suspicious).  Fabricated citations with non-existent DOIs or title
-mismatches should still be flagged.
+This runs 5 fake-citation datasets (Ansari 100, Frankenstein,
+Stolen DOI, Plausible, Nonsense) through the deterministic validator.
+Every fake that is NOT flagged is a false negative.
 
-**If detection drops below 100%:** Investigate which fakes slipped
-through and why.  This would mean the escalation fix was too aggressive
-and needs refinement.
+**Expected result:** Near 100% detection on Ansari and Stolen DOI.
+Plausible fakes (no DOI, no database match) may land at `warning`
+rather than `suspicious` — this is the trade-off from the escalation
+fix and is expected.
+
+**If Ansari detection drops below 100%:** Investigate which fakes
+slipped through and why.  The escalation fix only changed how
+*unverifiable* citations are classified.  Fakes with non-existent
+DOIs or title mismatches should still be flagged.
 
 **Save the output** — paste it into RESEARCH_LOG.md under a new
 section: "## 2026-04-XX — Fake-Citation Regression Test".

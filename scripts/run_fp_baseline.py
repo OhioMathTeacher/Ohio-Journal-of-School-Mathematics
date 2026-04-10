@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """
-False-Positive Baseline Runner
-===============================
+Citation Validation Baseline Runner
+====================================
 Runs the citation validator directly (no Flask server needed) against
-real-citation datasets to measure false positive rate.
+real and fake citation datasets.
 
 Usage:
-    python scripts/run_fp_baseline.py                  # Step 1: deterministic only
-    python scripts/run_fp_baseline.py --step 2         # Step 2: analyze FP causes
-    python scripts/run_fp_baseline.py --step 3         # Step 3: run with AI
+    python scripts/run_fp_baseline.py                  # Step 1: FP baseline (real citations)
+    python scripts/run_fp_baseline.py --step 2         # Step 2: FP root cause analysis
+    python scripts/run_fp_baseline.py --step 3         # Step 3: AI comparison (needs Flask)
+    python scripts/run_fp_baseline.py --step 4         # Step 4: fake detection (recall test)
 """
 
 import json
@@ -66,6 +67,51 @@ REAL_DATASETS = [
         "name": "Nature Article References",
         "ground_truth": "valid",
         "bib_files": ["datasets/nature-article/refs.bib"],
+    },
+]
+
+FAKE_DATASETS = [
+    {
+        "id": "compound-deception-ansari",
+        "name": "Ansari 100 — NeurIPS 2025 Fakes",
+        "ground_truth": "invalid",
+        "bib_files": ["datasets/compound-deception-ansari/ansari100.bib"],
+    },
+    {
+        "id": "ojsm-fake-frankenstein",
+        "name": "Frankenstein Citations (real author + real journal + fake title)",
+        "ground_truth": "invalid",
+        "bib_files": [
+            "test_citations/false_negative_tests/frankenstein/frankenstein_0001.bib",
+            "test_citations/false_negative_tests/frankenstein/frankenstein_0002.bib",
+        ],
+    },
+    {
+        "id": "ojsm-fake-stolen-doi",
+        "name": "Stolen DOI Citations (real DOI + wrong metadata)",
+        "ground_truth": "invalid",
+        "bib_files": [
+            "test_citations/false_negative_tests/stolen_doi/stolen_doi_0001.bib",
+            "test_citations/false_negative_tests/stolen_doi/stolen_doi_0002.bib",
+        ],
+    },
+    {
+        "id": "ojsm-fake-plausible",
+        "name": "Plausible Fakes (entirely fabricated but realistic)",
+        "ground_truth": "invalid",
+        "bib_files": [
+            "test_citations/false_negative_tests/plausible/plausible_0001.bib",
+            "test_citations/false_negative_tests/plausible/plausible_0002.bib",
+        ],
+    },
+    {
+        "id": "ojsm-fake-nonsense",
+        "name": "Nonsense Citations (obviously wrong, sanity check)",
+        "ground_truth": "invalid",
+        "bib_files": [
+            "test_citations/false_negative_tests/nonsense/nonsense_0001.bib",
+            "test_citations/false_negative_tests/nonsense/nonsense_0002.bib",
+        ],
     },
 ]
 
@@ -348,17 +394,154 @@ def run_step3():
     print()
 
 
+# ── Step 4: Fake Detection Regression Test ─────────────────────────────────
+
+def run_step4():
+    """Run fake-citation datasets to measure detection rate (recall).
+    Every fake that is NOT flagged is a false negative."""
+    print("\n" + "=" * 70)
+    print("  STEP 4: FAKE-CITATION DETECTION (RECALL TEST)")
+    print("  Testing fabricated citations — every miss is a false negative.")
+    print(f"  Version: {_git_version()}")
+    print("=" * 70)
+
+    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    all_results = {}
+
+    validator = CitationValidator(verbose=False, use_ai=False)
+
+    for ds in FAKE_DATASETS:
+        ds_id = ds["id"]
+        print(f"\n{'─' * 60}")
+        print(f"  Dataset: {ds['name']} ({ds_id})")
+        print(f"{'─' * 60}")
+
+        bibtex = load_bibtex(ds)
+        if not bibtex.strip():
+            print(f"  WARNING: No bib files found, skipping")
+            continue
+
+        entries = validator._parse_bibtex_string(bibtex)
+        print(f"  Loaded {len(entries)} citations")
+
+        if not entries:
+            print(f"  WARNING: 0 entries parsed, skipping")
+            continue
+
+        t0 = time.time()
+        details = []
+        for i, entry in enumerate(entries, 1):
+            result = validator.check_citation(entry)
+            details.append(result)
+            if i % 25 == 0 or i == len(entries):
+                elapsed = time.time() - t0
+                rate = i / elapsed if elapsed > 0 else 0
+                print(f"  [{i}/{len(entries)}] {rate:.1f} cit/s", end="\r")
+
+        elapsed = time.time() - t0
+        print(f"  Completed in {elapsed:.1f}s" + " " * 30)
+
+        # Tally — for fakes, flagged = correct (TP), not flagged = miss (FN)
+        counts = {"valid": 0, "warning": 0, "suspicious": 0, "invalid": 0}
+        fn_details = []
+        for d in details:
+            counts[d["status"]] = counts.get(d["status"], 0) + 1
+            if d["status"] not in ("suspicious", "invalid"):
+                fn_details.append(d)
+
+        total = len(details)
+        tp = counts["suspicious"] + counts["invalid"]  # correctly flagged
+        fn = counts["valid"] + counts["warning"]  # missed
+        detection_rate = tp / total if total > 0 else 0
+
+        print(f"\n  Results:")
+        print_bar("Valid", counts["valid"], total, "░")
+        print_bar("Warning", counts["warning"], total, "░")
+        print_bar("Suspicious", counts["suspicious"], total, "█")
+        print_bar("Invalid", counts["invalid"], total, "█")
+        print(f"\n  DETECTION RATE: {tp}/{total} = {detection_rate*100:.1f}%", end="")
+        if detection_rate >= 0.95:
+            print("  <<<  PASS (target >= 95%)")
+        else:
+            print("  <<<  FAIL (target >= 95%)")
+
+        # Show missed fakes
+        if fn_details:
+            print(f"\n  Missed fakes ({len(fn_details)}):")
+            for d in fn_details[:20]:  # Cap display at 20
+                print(f"    [{d['status'].upper():>10s}] {d['key']}")
+                for issue in d.get("issues", []):
+                    print(f"      issue:   {issue}")
+                for warning in d.get("warnings", []):
+                    print(f"      warning: {warning}")
+            if len(fn_details) > 20:
+                print(f"    ... and {len(fn_details) - 20} more")
+
+        all_results[ds_id] = {
+            "dataset": ds["name"],
+            "total": total,
+            "counts": counts,
+            "tp": tp,
+            "fn": fn,
+            "detection_rate": round(detection_rate, 4),
+            "elapsed_seconds": round(elapsed, 1),
+            "false_negatives": [
+                {
+                    "key": d["key"],
+                    "status": d["status"],
+                    "issues": d.get("issues", []),
+                    "warnings": d.get("warnings", []),
+                    "fields": {k: v[:80] for k, v in d.get("fields", {}).items()},
+                }
+                for d in fn_details
+            ],
+        }
+
+    # Summary
+    total_all = sum(r["total"] for r in all_results.values())
+    tp_all = sum(r["tp"] for r in all_results.values())
+    fn_all = sum(r["fn"] for r in all_results.values())
+    rate_all = tp_all / total_all if total_all > 0 else 0
+
+    print(f"\n{'=' * 70}")
+    print(f"  OVERALL DETECTION RATE: {tp_all}/{total_all} = {rate_all*100:.1f}%")
+    print(f"  FALSE NEGATIVES (missed fakes): {fn_all}")
+    if rate_all >= 0.95:
+        print(f"  STATUS: PASS (target >= 95%)")
+    else:
+        print(f"  STATUS: FAIL (target >= 95%)")
+    print(f"{'=' * 70}\n")
+
+    # Save
+    out_path = RESULTS_DIR / "step4_fake_detection.json"
+    payload = {
+        "step": 4,
+        "description": "Fake-citation detection regression test (no AI)",
+        "version": _git_version(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "overall_detection_rate": round(rate_all, 4),
+        "overall_tp": tp_all,
+        "overall_fn": fn_all,
+        "overall_total": total_all,
+        "datasets": all_results,
+    }
+    out_path.write_text(json.dumps(payload, indent=2))
+    print(f"Results saved to {out_path}")
+
+    return all_results
+
+
 # ── Main ───────────────────────────────────────────────────────────────────
 
 def main():
     import argparse
 
     parser = argparse.ArgumentParser(
-        description="False-positive baseline runner (no Flask server needed for steps 1-2)."
+        description="Citation validation baseline runner (no Flask server needed for steps 1, 2, 4)."
     )
     parser.add_argument(
-        "--step", type=int, default=1, choices=[1, 2, 3],
-        help="Which step to run (default: 1)"
+        "--step", type=int, default=1, choices=[1, 2, 3, 4],
+        help="Which step to run: 1=FP baseline, 2=FP root cause, 3=AI comparison, 4=fake detection (default: 1)"
     )
     args = parser.parse_args()
 
@@ -368,6 +551,8 @@ def main():
         run_step2()
     elif args.step == 3:
         run_step3()
+    elif args.step == 4:
+        run_step4()
 
 
 if __name__ == "__main__":
