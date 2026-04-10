@@ -115,7 +115,7 @@ FAKE_DATASETS = [
     },
 ]
 
-RESULTS_DIR = REPO_ROOT / "Test Results" / "fp-baseline"
+RESULTS_DIR = REPO_ROOT / "results" / "fp-baseline"
 
 
 # ── Helpers ─────────────────────────────────────────────────────────────────

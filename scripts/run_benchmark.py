@@ -522,8 +522,8 @@ Examples:
                         help="AI provider")
     parser.add_argument("--api-key", "-k", help="API key (default: from env var)")
     parser.add_argument("--no-ai", action="store_true", help="Skip AI analysis")
-    parser.add_argument("--output-dir", "-o", default="Test Results/experiments",
-                        help="Output directory (default: Test Results/experiments)")
+    parser.add_argument("--output-dir", "-o", default="results/experiments",
+                        help="Output directory (default: results/experiments)")
     parser.add_argument("--list-datasets", "-l", action="store_true",
                         help="List available datasets and exit")
     parser.add_argument("--server", "-s", default="http://localhost:5000",

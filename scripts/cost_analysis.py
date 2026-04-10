@@ -122,7 +122,7 @@ def estimate_cost(provider, citation_count, avg_input_tokens=400, avg_output_tok
 
 def analyze_experiment_logs():
     """Analyze token usage from experiment_log.jsonl."""
-    log_path = REPO_ROOT / "Test Results" / "experiments" / "experiment_log.jsonl"
+    log_path = REPO_ROOT / "results" / "experiments" / "experiment_log.jsonl"
     
     if not log_path.exists():
         print(f"No experiment log found at {log_path}")

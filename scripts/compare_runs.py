@@ -165,7 +165,7 @@ def print_dataset_summary(runs):
 
 def main():
     parser = argparse.ArgumentParser(description="Compare benchmark experiment runs.")
-    parser.add_argument("--log", default="Test Results/experiments/experiment_log.jsonl",
+    parser.add_argument("--log", default="results/experiments/experiment_log.jsonl",
                         help="Path to experiment log")
     parser.add_argument("--last", "-n", type=int, help="Show last N runs")
     parser.add_argument("--dataset", "-d", nargs="+", help="Filter by dataset ID(s)")
