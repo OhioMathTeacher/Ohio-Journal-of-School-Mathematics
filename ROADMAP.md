@@ -1,278 +1,217 @@
-# Citation Validator — Roadmap
+# Citation Validator — Research Roadmap
+
 **Last updated:** April 10, 2026
+**Status:** Phase 1 complete.  Phase 2 in progress.
 
 ---
 
-## Production Readiness Checklist
+## What's Done
 
-### Phase 1: False Positive Baseline (NEXT - 30 minutes)
+### Phase 1: Foundation (COMPLETE)
 
-**Goal:** Establish precision metrics on real citations
-
-- [ ] Run benchmark on 285 real arXiv citations
-  ```bash
-  python3 scripts/run_benchmark.py --dataset ojsm-real-arxiv --ai gemini
-  ```
-- [ ] Run benchmark on 100 real CrossRef citations
-  ```bash
-  python3 scripts/run_benchmark.py --dataset ojsm-real-crossref --ai gemini
-  ```
-- [ ] Analyze false positive rate (should be <5%)
-- [ ] Document confidence threshold recommendations
-- [ ] If FPR > 5%, investigate systematic patterns
-
-**Success criteria:** FPR < 5% on real citations, understand what causes false alarms
+- [x] Code audit: 6 issues found and fixed (3 critical)
+- [x] Confusion matrix corrected (TP/TN were swapped)
+- [x] 1,556 lines of dead code removed
+- [x] Escalation logic fixed ("not found" = warning, not suspicious)
+- [x] Test suite: 19 tests passing (`pytest tests/`)
+- [x] False-positive baseline: **0/391 = 0.0% FPR**
+  - 285 arXiv CS preprints: 0.0%
+  - 96 CrossRef random sample: 0.0%
+  - 10 Nature article refs: 0.0%
+- [x] RESEARCH_LOG.md with full methodology
+- [x] ABSTRACT.md with motivation, ironies, and preliminary results
+- [x] README.md rewritten for public audience
 
 ---
 
-### Phase 2: Large-Scale Robustness (2-3 hours dev time)
+## What's Next — Critical Path
 
-**Goal:** Enable 10K citation study without manual intervention
+These are the minimum steps required before the work can be
+scrutinized.  Each step includes the exact commands to run.  All steps
+can be done locally in VS Code with a terminal.
 
-- [ ] Add checkpoint/resume to `run_benchmark.py`
-  - Save progress every 100 citations
-  - Resume from last checkpoint on restart
-  - Store in `Test Results/checkpoints/`
-- [ ] Add smart rate limit handling
-  - Exponential backoff for 429 errors
-  - Log rate limit events to experiment metadata
-- [ ] Test checkpoint/resume on 1,000 citation run
-- [ ] Document recovery procedures
+### Step 2A: Fake-Citation Regression Test (URGENT)
 
-**Success criteria:** Can recover from API failures or interruptions without data loss
+**Why:** The README claims "100/100 fakes detected" but this was
+measured BEFORE the escalation fix.  We must re-verify.
 
----
+**What to do:**
 
-### Phase 3: 10,000 Citation Study (7 days wall time, $0 cost)
-
-**Goal:** Publication-quality dataset for Nature paper
-
-**Study design:**
-- 5,000 real citations (mix of disciplines, years)
-- 5,000 fabricated citations (using Ansari taxonomy)
-- Gemini free tier (1,500 citations/day)
-- Full token tracking and timing data
-
-**Execution:**
 ```bash
-# Day 1-7: Run mixed dataset
-python3 scripts/run_benchmark.py --dataset mixed-10k --ai gemini
+# Start the Flask server in one terminal
+cd Ohio-Journal-of-School-Mathematics
+python3 scripts/webapp.py
 
-# Analyze results
-python3 scripts/cost_analysis.py --analyze-logs
+# In another terminal, run the Ansari 100-fake benchmark (no AI)
+python3 scripts/run_benchmark.py --dataset ansari100 --no-ai
 ```
 
-**Data collection:**
-- True positive/negative rates
-- False positive/negative rates
-- Confusion matrix
-- Token usage (input/output per citation)
-- API error rates
-- Timing per validation pass
-- Confidence score distributions
+**Expected result:** 100/100 detected.  The escalation fix only changed
+how *unverifiable* citations are classified (warning instead of
+suspicious).  Fabricated citations with non-existent DOIs or title
+mismatches should still be flagged.
 
-**Success criteria:** 
-- 100% completion (all 10K citations processed)
-- <5% false positive rate
-- >95% true negative rate on fakes
-- Publication-ready JSON + CSV exports
+**If detection drops below 100%:** Investigate which fakes slipped
+through and why.  This would mean the escalation fix was too aggressive
+and needs refinement.
+
+**Save the output** — paste it into RESEARCH_LOG.md under a new
+section: "## 2026-04-XX — Fake-Citation Regression Test".
 
 ---
 
-### Phase 4: External Validation (1-2 weeks)
+### Step 2B: AI Comparison (Deterministic vs. Gemini)
 
-**Goal:** Compare our results to published research
+**Why:** The project's thesis is that deterministic checks are
+sufficient.  We need data to support or refute that claim.
 
-- [ ] Integrate Rao & Callison-Burch 931-paper benchmark
-  - Convert their data format to our manifest structure
-  - Run through our validator
-  - Compare field-level accuracy
-- [ ] Run CheckIfExist comparison
-  - Same 10K dataset through both tools
-  - Document differences in detection rates
-  - Analyze where approaches diverge
-- [ ] Test on HalluCitation dataset
-  - If Sakai et al. release their 275-paper list
-  - ACL/NAACL/EMNLP specific validation
+**Prerequisites:**
+- Free Gemini API key from https://aistudio.google.com/app/apikey
+- Set environment variable: `export GEMINI_API_KEY=your_key_here`
+- Flask server running (`python3 scripts/webapp.py`)
 
-**Success criteria:** Our tool performs comparably to or better than existing solutions
+**What to do:**
 
----
+```bash
+# Run the same datasets WITH AI (Gemini)
+python3 scripts/run_benchmark.py --dataset ojsm-real-arxiv --provider gemini
+python3 scripts/run_benchmark.py --dataset ojsm-real-crossref --provider gemini
+python3 scripts/run_benchmark.py --dataset ansari100 --provider gemini
+```
 
-## Nature Paper Outline
+**What to compare:**
+- Does AI change the FPR on real citations? (If it goes up, AI hurts.)
+- Does AI change the detection rate on fakes? (If it goes up, AI helps.)
+- How much time/cost does AI add per citation?
 
-### Abstract (200 words)
-- Problem: 2-6% of papers contain AI hallucinations
-- Gap: Existing tools expensive or closed-source
-- Solution: Free, open-source validator with $0 operating cost
-- Results: 10K citation study, X% detection rate, <Y% FPR
-- Impact: Accessible to researchers without institutional AI budgets
-
-### Introduction
-- Rise of LLM usage in academic writing
-- Recent studies documenting hallucination rates
-- Need for accessible validation tools
-- Our contribution: "research for the rest of us"
-
-### Methods
-**Three-tier validation pipeline:**
-1. Deterministic checks (DOI validation, database lookups)
-2. Heuristic pattern detection (8 categories)
-3. AI analysis (optional, provider-agnostic)
-
-**Cost economics:**
-- Token tracking methodology
-- Gemini free tier vs. paid providers
-- Cost projections for different scales
-
-**Test design:**
-- 5,000 real citations (description of sampling)
-- 5,000 fabricated citations (Ansari taxonomy)
-- Ground truth labeling methodology
-- Evaluation metrics (precision, recall, F1)
-
-### Results
-**Detection accuracy:**
-- True positive rate: X%
-- False positive rate: <5%
-- Confusion matrix
-- Comparison to published benchmarks
-
-**Cost analysis:**
-- Total tokens: X million
-- Cost: $0 (Gemini free tier)
-- Time: 7 days wall time
-- Cost comparison to alternatives
-
-**Provider comparison:**
-- Gemini vs. Groq vs. OpenAI vs. Anthropic
-- Token usage per citation
-- Accuracy differences
-- Rate limit experiences
-
-### Discussion
-- Implications for journal editors
-- Recommendations for pre-submission checks
-- Limitations of automated detection
-- False positive handling strategies
-- Future work: browser extensions, editorial integration
-
-### Conclusion
-- Free tools democratize academic quality control
-- Large-scale validation feasible without grants
-- Call for open-source solutions
-- Code, data, and results publicly available
+**Log results** in RESEARCH_LOG.md under: "## 2026-04-XX — AI
+Comparison (Deterministic vs. Gemini)".
 
 ---
 
-## Future Features (Post-Publication)
+### Step 2C: At Least One Non-CS Dataset
 
-### User Interface Enhancements
-- **Benchmark library panel** in web app
-  - Load datasets from manifest with one click
-  - Mix and combine datasets
-  - Filter by type, year, discipline
-- **Challenge mode**
-  - Load mixed real+fake set with labels hidden
-  - User flags suspicious citations before running validator
-  - Compare human vs. machine results
-- **Comparison dashboard**
-  - Side-by-side run comparisons
-  - Visualize accuracy improvements over time
-  - Provider performance charts
+**Why:** 285/391 of our real citations are CS preprints.  A reviewer
+will immediately ask: "does this generalize?"
 
-### Integration
-- **Browser extension**
-  - Right-click BibTeX → validate
-  - Inline results in Google Scholar
-  - Export to Zotero/Mendeley
-- **CI/CD hooks**
-  - GitHub Action for pull request checks
-  - Pre-commit hook for LaTeX repositories
-  - Overleaf integration (if possible)
+**Options (easiest first):**
 
-### Analysis Tools
-- **Confidence calibration study**
-  - Do high-confidence AI calls correlate with accuracy?
-  - Optimal threshold recommendations
-  - Provider-specific calibration
-- **Systematic FP analysis**
-  - What citation patterns trigger false positives?
-  - Edge case collection (DataCite, pre-DOI era, non-English)
-  - Heuristic refinement based on patterns
+1. **Expand CrossRef random sample** — our existing script pulls random
+   works from CrossRef.  Get 200–500 more from diverse fields.
+   ```bash
+   # The script that generated the original sample is in
+   # test_citations/real_citations/crossref_random/
+   # Expand it to 500 citations across disciplines.
+   ```
 
-### Scale-Up
-- **Million-citation study**
-  - Requires paid Gemini tier or distributed approach
-  - Random sample of all 2025 publications
-  - Estimate total hallucination count across academia
-- **Longitudinal tracking**
-  - Quarterly benchmarks on new conference proceedings
-  - Track hallucination rate trends over time
-  - Measure LLM improvement (if hallucinations decrease)
+2. **Add a social science / humanities dataset** — manually extract
+   references from a published paper in education, psychology, or
+   similar.
+
+3. **Add a biomedical dataset** — pull from PubMed/Europe PMC, which
+   have excellent DOI coverage.
+
+**Target:** At least 500 additional real citations from non-CS fields.
+Run through the FP baseline and confirm 0% FPR holds.
+
+---
+
+### Step 2D: Update Claims and Numbers
+
+**Why:** After Steps 2A–2C, update all documents to reflect verified
+results only.
+
+- [ ] RESEARCH_LOG.md: new sections for each experiment
+- [ ] ABSTRACT.md: update results table, add AI comparison findings
+- [ ] README.md: update metrics badges, results section
+- [ ] Commit and push everything
+
+---
+
+## Phase 3: Scale and External Validation
+
+These steps strengthen the paper but are not strictly required for an
+initial credible response.
+
+### 10,000-Citation Study
+
+**Design:**
+- 5,000 real citations (diverse fields, years, types)
+- 5,000 fabricated citations (multiple deception strategies)
+- Run deterministic + AI (Gemini free tier)
+- 7 days wall time at ~1,500 citations/day
+
+**Prerequisites:**
+- Checkpoint/resume capability (needs development)
+- Larger, curated dataset collection
+- Gemini API key
+
+### External Benchmark Comparison
+
+- Rao & Callison-Burch 931-paper benchmark (if dataset available)
+- CheckIfExist comparison (run same data through both tools)
+- HalluCitation dataset from Sakai et al. (if released)
+
+### Independent Validation
+
+- Have someone else run the tool on their own data
+- Ideally a journal editor testing on real submissions
+
+---
+
+## What You Can Say Now vs. After Each Step
+
+| Claim | Now | After 2A | After 2B | After 2C | After Phase 3 |
+|-------|-----|----------|----------|----------|----------------|
+| "0% FPR on 391 real citations" | YES | YES | YES | Update N | Update N |
+| "100% detection on 100 fakes" | NO (unverified) | YES or revised | YES or revised | Same | Update N |
+| "Deterministic is sufficient" | Hypothesis | Same | YES or NO | Same | Confirmed |
+| "Generalizes beyond CS" | NO | NO | NO | Preliminary | YES |
+| "Works at scale" | NO | NO | NO | NO | YES |
+
+---
+
+## Environment Notes for VS Code
+
+All experiments run locally.  Requirements:
+
+```bash
+# One-time setup
+pip install -r scripts/requirements.txt
+
+# For deterministic-only tests (Steps 2A, 2C)
+# No API keys needed, no Flask server needed for run_fp_baseline.py
+python3 scripts/run_fp_baseline.py --step 1
+
+# For AI tests (Step 2B) and run_benchmark.py
+# Need Flask server + API key
+python3 scripts/webapp.py  # Terminal 1
+export GEMINI_API_KEY=...  # Terminal 2
+python3 scripts/run_benchmark.py --dataset ansari100 --provider gemini
+```
+
+VS Code with Claude can:
+- Run terminal commands
+- Edit files
+- Read output and analyze results
+- Update documentation
+
+Limitation: VS Code Claude has a smaller context window than this
+session.  If you need to brief it on the project, point it to
+RESEARCH_LOG.md and this ROADMAP.md — they contain everything it needs.
 
 ---
 
 ## Timeline Estimate
 
-| Phase | Duration | Dependencies |
-|-------|----------|--------------|
-| False positive testing | 30 min | None |
-| Checkpoint/resume dev | 2-3 hours | None |
-| 10K study execution | 7 days | Gemini API key |
-| External validation | 1-2 weeks | Benchmark datasets |
-| Nature paper draft | 2-3 weeks | All data collected |
-| Revisions & submission | 1-2 months | Review feedback |
+| Step | Time | Priority |
+|------|------|----------|
+| 2A: Fake regression test | 15 minutes | **Do first** |
+| 2B: AI comparison | 1–2 hours | High |
+| 2C: Non-CS dataset | 1–2 hours | High |
+| 2D: Update docs | 30 minutes | After 2A–2C |
+| Phase 3: 10K study | 7+ days | After Phase 2 |
 
-**Total to submission:** 2-3 months from today (early-mid June 2026)
-
----
-
-## Open Questions
-
-1. **Optimal confidence threshold?**
-   - What AI confidence score should trigger human review?
-   - Does this vary by provider or fabrication type?
-
-2. **How to handle edge cases?**
-   - DataCite DOIs for datasets
-   - Pre-1990s papers (before DOIs existed)
-   - Non-English citations
-   - Grey literature (theses, reports, preprints)
-
-3. **What's the right mix for 10K study?**
-   - 50/50 real/fake?
-   - Match Nature's 2-6% ratio (940 fakes, 9060 real)?
-   - Stratify by discipline?
-
-4. **How to validate OpenAlex matches?**
-   - Current threshold = 0.5 Jaccard similarity
-   - Should this vary by field length?
-   - How often does this cause FPs?
-
-5. **Which external benchmark first?**
-   - Rao (most rigorous, field-level ground truth)
-   - Ansari (already integrated, easy comparison)
-   - HalluCitation (real-world ACL/NAACL/EMNLP data)
-
----
-
-## Success Metrics
-
-### Technical
-- [ ] <5% false positive rate on real citations
-- [ ] >95% true negative rate on fabricated citations
-- [ ] 100% of 10K study completed without manual intervention
-- [ ] All experiment data reproducible from JSONL logs
-
-### Academic
-- [ ] Nature submission accepted
-- [ ] Tool cited by other hallucination researchers
-- [ ] Adopted by at least one journal for pre-publication checks
-- [ ] GitHub repo gets 100+ stars
-
-### Impact
-- [ ] "Research for the rest of us" philosophy validated
-- [ ] Other researchers publish cost-effective replication studies
-- [ ] Tool used in graduate seminars for teaching research ethics
-- [ ] Extension to non-academic fact-checking (journalism, policy)
+**Minimum credible result:** Steps 2A + 2B + 2D = ~2 hours of work.
+After that, you have two verified numbers (FPR and detection rate), a
+tested thesis (deterministic vs. AI), and honest documentation.
