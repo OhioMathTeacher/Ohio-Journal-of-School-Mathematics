@@ -161,15 +161,32 @@ that stopped the validator from flagging legitimate unindexed
 citations also stopped it from flagging fabricated ones.  You can't
 have it both ways with deterministic logic alone.
 
-**AI resolves the dilemma.**  Gemini 2.5 Flash, applied as a second
-pass on the 96 `warning` citations from the Ansari dataset, correctly
-identified 90 as suspicious — raising the detection rate from 4% to
-94%.  Total cost: $0 (58,917 tokens against Gemini's free tier of 1M
-tokens/day).  Total time: 227 seconds for 100 citations.
+**AI resolves the dilemma — and the free tier wins.**
 
-Six fakes still slipped through.  We report them by name in the
-RESEARCH_LOG and plan to analyze what makes them harder than the
-other 94.
+We tested two AI providers as a second pass on the Ansari dataset:
+
+| Tier | Provider | Detection | Errors | Time | Cost |
+|------|----------|-----------|--------|------|------|
+| Deterministic | Free APIs | 4/100 | 0 | 94s | $0 |
+| Free AI | Gemini 2.5 Flash | **94/100** | 0 | 136s | **$0** |
+| Paid AI | Claude Sonnet 4 | 82/100 | 6 | 429s | ~$0.50 |
+
+The free tier outperformed the paid tier on every metric: accuracy
+(94% vs 82%), reliability (0 errors vs 6), speed (3x faster), and
+cost ($0 vs ~$0.50).  Six of Claude's 18 misses were HTTP 529
+(server overloaded) — citations that were never analyzed at all.
+Even on successful calls, Claude's judgment accuracy (78/90 = 87%)
+was below Gemini's (90/96 = 94%).
+
+This inverts a common assumption.  For this specific task, the access
+barrier between free and paid AI is not just unnecessary — it is
+counterproductive.  Small journals that can't afford paid APIs would
+actually get better results with the free alternative.
+
+We note that this is a single comparison on one dataset (n=100).
+Claude may perform differently on other deception types or with
+different prompting.  We report it as a preliminary finding, not a
+definitive ranking.
 
 ### What Remains
 

@@ -174,16 +174,25 @@ address these gaps.
 | Frankenstein (real author + fake title) | No | 0% | pending |
 | Nonsense (future years, obvious errors) | No | 25% | pending |
 
-**Key finding:** Deterministic checks are perfect when there's a DOI
-to verify.  Without a DOI, AI is necessary — and Gemini's free tier
-delivers 94% detection at $0 cost (58,917 tokens for 100 citations).
+### Three-Tier Comparison (Ansari 100 Fakes)
+
+| Tier | Provider | Detection | Errors | Time | Cost |
+|------|----------|-----------|--------|------|------|
+| Deterministic | Free APIs | 4% | 0 | 94s | $0 |
+| Free AI | Gemini 2.5 Flash | **94%** | 0 | 136s | **$0** |
+| Paid AI | Claude Sonnet 4 | 82% | 6 | 429s | ~$0.50 |
+
+**Key finding:** The free AI tier outperformed the paid tier on
+accuracy, reliability, speed, and cost.  The access barrier between
+free and paid is not just unnecessary — it's counterproductive.
 
 ### Limitations
 
 - 391 real citations is a small sample — scale validation required
 - Test set is heavily CS — non-English, humanities, books untested
-- 6 out of 100 Ansari fakes still evade both deterministic + AI
+- 6 out of 100 Ansari fakes still evade both deterministic + Gemini
 - AI comparison on real citations (FPR with AI) not yet measured
+- Provider comparison is preliminary (n=100, one dataset)
 - Same team wrote both the code and the tests
 
 ---

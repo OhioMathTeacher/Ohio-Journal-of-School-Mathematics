@@ -351,13 +351,86 @@ submission with 40 references, even if all 40 need AI analysis, uses
 
 ---
 
+## 2026-04-10 — Paid AI Comparison: Claude Sonnet 4 (Tier 3)
+
+### Objective
+Compare a paid AI provider (Anthropic Claude Sonnet 4) against the free
+provider (Gemini 2.5 Flash) on the same dataset to determine whether
+paying for AI improves detection.
+
+### Setup
+- Dataset: Ansari 100 (NeurIPS 2025 fakes) — same as Gemini run
+- Pipeline: Deterministic first, then Claude on all `warning` and
+  `invalid` citations
+- Model: Claude Sonnet 4 (`claude-sonnet-4-20250514`)
+- Cost: ~$0.50 per 100 citations (paid API)
+- Version: `580ab62`
+
+### Results
+
+| Metric | Gemini (free) | Claude (paid) |
+|--------|---------------|---------------|
+| Detection rate | **94/100 (94%)** | 82/100 (82%) |
+| API errors | 0 | 6 (HTTP 529 — overloaded) |
+| AI time | 135.9s | 429.3s |
+| Total tokens | 58,917 | 57,261 |
+| Avg tokens/call | 589 | 609 |
+| False negatives | 6 | 18 |
+| Cost | $0 | ~$0.50 |
+
+### Analysis
+
+**The free tier outperformed the paid tier on every metric.**
+
+- **Accuracy:** Gemini 94% vs Claude 82%.  Even excluding Claude's 6
+  server errors (529 overloaded), Claude's judgment accuracy on
+  successful calls was 78/90 = 86.7%, still below Gemini's 90/96 =
+  93.75%.
+
+- **Reliability:** Gemini had zero errors.  Claude returned 6 HTTP 529
+  (server overloaded) responses, meaning 6 citations were never
+  analyzed at all.
+
+- **Speed:** Gemini completed AI analysis in 136s.  Claude took 429s
+  — over 3x slower.
+
+- **Cost:** Gemini was free.  Claude costs approximately $0.50 per
+  100 citations.
+
+### False Negatives
+
+Claude missed 18 fakes.  Gemini missed 6.  The 6 that Gemini missed
+are a subset — `ansari100_022`, `ansari100_059`, `ansari100_084`,
+`ansari100_100` appear in both lists.  Claude missed 12 additional
+fakes that Gemini caught.
+
+### Interpretation
+
+This result inverts the typical assumption that paid services are
+superior.  For this specific task (citation hallucination detection),
+Gemini's free tier is more accurate, more reliable, faster, and
+cheaper than Claude's paid API.
+
+This is significant for the "research for the rest of us" thesis:
+**the access barrier is not just unnecessary — it's counterproductive.**
+Small journals and independent researchers who can't afford paid AI
+APIs would actually get better results with the free alternative.
+
+Note: this is a single comparison on one dataset (n=100).  Claude
+may perform differently on other fake types or with different
+prompting.  The 529 errors suggest server-side issues that may not
+be consistent.  We report this as a preliminary finding, not a
+definitive ranking.
+
+---
+
 ## Next Steps
 
-1. **Analyze the 6 false negatives:** What makes these fakes harder
-   than the other 94?  Can heuristic improvements catch some of them?
+1. **Analyze false negatives:** Compare the 6 Gemini misses vs 18
+   Claude misses — what makes these fakes harder?
 
-2. **Run AI comparison on real citations:** Confirm that Gemini doesn't
-   introduce new false positives on the 391 real citations.
+2. **Run AI on real citations:** Confirm Gemini doesn't introduce
+   false positives on the 391 real citations.
 
 3. **Diverse dataset testing:** Non-CS, non-English, books,
    dissertations.
