@@ -309,17 +309,16 @@ def analyze():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--port', type=int, default=5000)
+    args = parser.parse_args()
+
     print("\n" + "="*70)
-    print("🔍 Citation Validator Web App")
+    print("Citation Validator Web App")
     print("="*70)
-    print("\nStarting server...")
-    print("\n📱 Open in your browser:")
-    print("   http://localhost:5000")
-    print("\n💡 To share with others, deploy to:")
-    print("   - Heroku (free tier)")
-    print("   - Vercel")
-    print("   - PythonAnywhere")
-    print("\n Press Ctrl+C to stop the server")
+    print(f"\n  Open in your browser: http://localhost:{args.port}")
+    print("\n  Press Ctrl+C to stop the server")
     print("="*70 + "\n")
-    
-    app.run(debug=True, host='0.0.0.0', port=5000)
+
+    app.run(debug=True, host='0.0.0.0', port=args.port)

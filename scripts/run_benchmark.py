@@ -526,8 +526,13 @@ Examples:
                         help="Output directory (default: Test Results/experiments)")
     parser.add_argument("--list-datasets", "-l", action="store_true",
                         help="List available datasets and exit")
+    parser.add_argument("--server", "-s", default="http://localhost:5000",
+                        help="Server URL (default: http://localhost:5000)")
 
     args = parser.parse_args()
+
+    global SERVER
+    SERVER = args.server
 
     if args.list_datasets:
         list_datasets()
