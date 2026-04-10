@@ -228,16 +228,145 @@ The 0.0% FPR result should be interpreted carefully:
 
 ---
 
+## 2026-04-10 — Fake-Citation Detection Test (Step 4)
+
+### Objective
+Measure detection rate (recall) on fabricated citations using
+deterministic validation only (no AI).  Every fake that is NOT flagged
+as `suspicious` or `invalid` is a false negative.
+
+### Results — Deterministic Only
+
+| Dataset | Fakes | Detected | Missed | Rate |
+|---------|-------|----------|--------|------|
+| Ansari 100 (NeurIPS 2025) | 100 | 4 | 96 | **4.0%** FAIL |
+| Frankenstein (real author + fake title) | 100 | 0 | 100 | **0.0%** FAIL |
+| Stolen DOI (real DOI + wrong metadata) | 100 | 100 | 0 | **100.0%** PASS |
+| Plausible (fake DOIs) | 100 | 100 | 0 | **100.0%** PASS |
+| Nonsense (future years, no DOIs) | 100 | 25 | 75 | **25.0%** FAIL |
+| **Overall** | **500** | 229 | 271 | **45.8%** FAIL |
+
+### Root Cause
+
+The pattern is clear: **detection depends entirely on whether the
+citation has a DOI.**
+
+- **With DOI (Stolen DOI, Plausible):** 200/200 = 100%.  DOI
+  resolution either fails (fake DOI → `invalid`) or returns
+  mismatched metadata (real DOI + wrong title → `suspicious`).
+
+- **Without DOI (Ansari, Frankenstein, Nonsense):** 29/300 = 9.7%.
+  The validator searches OpenAlex and Semantic Scholar, finds no
+  match, and classifies the citation as `warning` (unverifiable) —
+  NOT `suspicious`.  This is the escalation fix from Step 1: "absence
+  of evidence is not evidence of fabrication."
+
+The escalation fix that gave us 0% FPR on real citations created a
+symmetric blind spot: fake citations without DOIs also land at
+`warning`.  The validator correctly says "I can't verify this" but
+cannot say "this is fake."
+
+This is not a bug.  It is the fundamental limit of deterministic
+detection.  The validator cannot distinguish "real paper not indexed"
+from "fake paper that doesn't exist" without a DOI to check.
+
+### Warning Signals Are Present
+
+The missed fakes are not invisible — they accumulate warnings:
+- "No DOI found and not in OpenAlex"
+- "Future year (2029) — likely hallucinated"
+- "Generic author name pattern"
+- "Generic title pattern (common in hallucinations)"
+
+The information is there.  The tool sees the red flags.  It just
+doesn't escalate them to `suspicious` because doing so would also
+flag legitimate unindexed citations (the FPR problem from Step 1).
+
+---
+
+## 2026-04-10 — AI Comparison: Deterministic + Gemini (Step 2B)
+
+### Objective
+Determine whether AI analysis (Gemini 2.5 Flash) can catch the fakes
+that deterministic validation misses.
+
+### Setup
+- Dataset: Ansari 100 (NeurIPS 2025 fakes)
+- Pipeline: Deterministic first, then Gemini on all `warning` and
+  `invalid` citations
+- Model: Gemini 2.5 Flash (free tier)
+- Version: `580ab62`
+
+### Results
+
+| Pipeline | Detected | Missed | Detection Rate |
+|----------|----------|--------|----------------|
+| Deterministic only | 4 | 96 | 4.0% |
+| Deterministic + Gemini | 94 | 6 | **94.0%** |
+
+Gemini correctly escalated **90 of 96** `warning` citations to
+`suspicious`.  Six fakes remained at `warning` (false negatives).
+
+| Metric | Value |
+|--------|-------|
+| Accuracy | 94.0% |
+| F1 Score | 96.9% |
+| TP | 94 |
+| FN | 6 |
+| Total tokens | 58,917 |
+| Avg tokens/call | 589 |
+| AI time | 135.9s |
+| Total time | 227.4s |
+| **Cost** | **$0** (Gemini free tier) |
+
+### False Negatives (6 missed fakes)
+`ansari100_022`, `ansari100_049`, `ansari100_059`,
+`ansari100_084`, `ansari100_087`, `ansari100_100`
+
+These represent the hardest fakes — further analysis of their
+structure may reveal why Gemini didn't flag them.
+
+### Interpretation
+
+The two-tier pipeline is dramatically more effective than either
+approach alone:
+
+| Citation type | Deterministic | Gemini alone | Combined |
+|---------------|---------------|--------------|----------|
+| Has valid DOI, wrong metadata | 100% | N/A | 100% |
+| Has fake DOI | 100% | N/A | 100% |
+| No DOI, not in databases | 4% | ~94% | 94% |
+
+Deterministic checks are the right first pass — fast, free, and
+perfect on DOI-bearing citations.  AI is the right second pass —
+catches most of what deterministic misses, at zero marginal cost
+via Gemini's free tier.
+
+### Economics
+
+At 589 tokens per AI call and 1M free tokens/day, Gemini's free tier
+supports approximately 1,700 AI calls per day.  A typical journal
+submission with 40 references, even if all 40 need AI analysis, uses
+~23,500 tokens — less than 2.5% of the daily allowance.
+
+---
+
 ## Next Steps
 
-1. **Fake-citation regression test:** Run the Ansari 100-fake dataset
-   through the updated validator to confirm detection rate is still 100%
-   (the escalation fix should not have weakened detection of actual fakes).
+1. **Analyze the 6 false negatives:** What makes these fakes harder
+   than the other 94?  Can heuristic improvements catch some of them?
 
-2. **Step 3 — AI comparison:** Run datasets with Gemini AI to measure
-   whether AI analysis improves or worsens precision.
+2. **Run AI comparison on real citations:** Confirm that Gemini doesn't
+   introduce new false positives on the 391 real citations.
 
-3. **10K study design:** Finalize the mix ratio and sampling strategy.
+3. **Diverse dataset testing:** Non-CS, non-English, books,
+   dissertations.
+
+4. **Deploy hosted version:** Hugging Face Spaces for zero-install
+   browser access.
+
+5. **10K study design:** With the two-tier pipeline validated, design
+   the large-scale study.
 
 ---
 

@@ -138,17 +138,48 @@ because we are aware of the risk of overfitting to our test data — all
 code changes addressed general design flaws, not specific test cases,
 but the same team wrote both the code and the tests.
 
+### Fake-Citation Detection
+
+We tested the pipeline against 500 fabricated citations across five
+deception strategies:
+
+| Fake type | Has DOI? | Deterministic | + Gemini AI |
+|-----------|----------|---------------|-------------|
+| Stolen DOI (real DOI, wrong metadata) | Yes | **100%** | — |
+| Plausible (fake DOIs) | Yes | **100%** | — |
+| Ansari 100 (NeurIPS 2025 hallucinations) | Mostly no | 4% | **94%** |
+| Frankenstein (real author + fake title) | No | 0% | not yet tested |
+| Nonsense (future years, obvious errors) | No | 25% | not yet tested |
+
+The pattern is stark: **detection depends on whether the citation has
+a DOI to check.**  When it does, deterministic validation is perfect.
+When it doesn't, the validator can't distinguish "real paper not
+indexed" from "fake paper that doesn't exist."
+
+This is the same escalation trade-off that gave us 0% FPR.  The fix
+that stopped the validator from flagging legitimate unindexed
+citations also stopped it from flagging fabricated ones.  You can't
+have it both ways with deterministic logic alone.
+
+**AI resolves the dilemma.**  Gemini 2.5 Flash, applied as a second
+pass on the 96 `warning` citations from the Ansari dataset, correctly
+identified 90 as suspicious — raising the detection rate from 4% to
+94%.  Total cost: $0 (58,917 tokens against Gemini's free tier of 1M
+tokens/day).  Total time: 227 seconds for 100 citations.
+
+Six fakes still slipped through.  We report them by name in the
+RESEARCH_LOG and plan to analyze what makes them harder than the
+other 94.
+
 ### What Remains
 
-- **Fake-citation recall:** Re-run the 100-fake-citation dataset to
-  confirm the escalation fix did not weaken detection of actual fakes.
+- **AI on real citations:** Confirm Gemini doesn't introduce false
+  positives on the 391 real citations.
 
-- **AI comparison:** Run the same datasets with and without AI to
-  quantify whether AI improves precision or whether deterministic
-  checks are sufficient.
+- **Diverse datasets:** Non-CS, non-English, books, dissertations.
 
-- **Scale validation:** A 10,000-citation study with diverse,
-  independently-sourced datasets to confirm generalizability.
+- **Scale validation:** 10,000-citation study with the two-tier
+  pipeline.
 
 ## The Ironies
 

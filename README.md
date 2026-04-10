@@ -5,6 +5,7 @@
 [![Cost](https://img.shields.io/badge/cost-%240-green)]()
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
 [![FPR](https://img.shields.io/badge/false_positive_rate-0%25_(n%3D391)-brightgreen)]()
+[![Detection](https://img.shields.io/badge/detection_rate-94%25_with_AI_(n%3D100)-blue)]()
 
 ---
 
@@ -38,9 +39,9 @@ AI required.
 | Metric | Result |
 |--------|--------|
 | **False positive rate** | 0/391 real citations incorrectly flagged = **0.0%** (95% CI: <1%) |
-| **Detection rate** | 100/100 fabricated citations caught = **100%** (deterministic only, no AI) |
-| **Cost** | **$0** — free APIs, no keys needed for core validation |
-| **AI budget (optional)** | Gemini free tier: 1M tokens/day = ~1,500 citations at **$0** |
+| **Detection (with DOI)** | 200/200 fabricated citations caught = **100%** (deterministic, no AI) |
+| **Detection (without DOI)** | 94/100 fakes caught = **94%** (deterministic + Gemini AI) |
+| **Cost** | **$0** — free APIs, Gemini free tier covers AI pass |
 
 ---
 
@@ -163,19 +164,27 @@ toward CS, and does not yet include books, dissertations, non-English
 works, or very old publications.  The 10,000-citation study will
 address these gaps.
 
-### Fake-Citation Detection (100 Fabricated Citations)
+### Fake-Citation Detection (500 Fabricated Citations)
 
-- **100% detection** via deterministic checks alone (no AI)
-- All 100 flagged as `suspicious` or `invalid`
-- Source: Ansari compound-deception benchmark (NeurIPS 2025 fakes)
+| Fake type | Has DOI? | Deterministic | + Gemini AI |
+|-----------|----------|---------------|-------------|
+| Stolen DOI (real DOI, wrong metadata) | Yes | **100%** | — |
+| Plausible (fake DOIs) | Yes | **100%** | — |
+| Ansari 100 (real-world NeurIPS fakes) | Mostly no | 4% | **94%** |
+| Frankenstein (real author + fake title) | No | 0% | pending |
+| Nonsense (future years, obvious errors) | No | 25% | pending |
+
+**Key finding:** Deterministic checks are perfect when there's a DOI
+to verify.  Without a DOI, AI is necessary — and Gemini's free tier
+delivers 94% detection at $0 cost (58,917 tokens for 100 citations).
 
 ### Limitations
 
-- 391 citations is a small sample — scale validation required
-- Code changes fixed general design flaws, not specific test cases,
-  but the same team wrote both the code and the tests
-- 94% of arXiv citations land at `warning` (unverifiable), which is
-  correct but means the tool can't *confirm* most preprints
+- 391 real citations is a small sample — scale validation required
+- Test set is heavily CS — non-English, humanities, books untested
+- 6 out of 100 Ansari fakes still evade both deterministic + AI
+- AI comparison on real citations (FPR with AI) not yet measured
+- Same team wrote both the code and the tests
 
 ---
 
