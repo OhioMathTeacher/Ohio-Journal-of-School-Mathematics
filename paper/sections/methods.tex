@@ -6,7 +6,7 @@ The tool was designed under three constraints: (1)~zero cost to the end user, (2
 
 \subsection{Validation Pipeline}
 
-The Citation Validator accepts a BibTeX bibliography (pasted into a web interface or passed to a command-line script) and classifies each citation into one of four statuses: \textit{valid} (verified against databases), \textit{warning} (unverifiable but not flagged), \textit{suspicious} (multiple red flags; flagged), or \textit{invalid} (confirmed fake or failed DOI; flagged). Only \textit{suspicious} and \textit{invalid} citations count as detections. The \textit{warning} status is deliberately not treated as a flag---this distinction is central to the epistemological argument developed in the Discussion.
+The \emph{Citation Validator} accepts a BibTeX bibliography (pasted into a web interface or passed to a command-line script) and classifies each citation into one of four statuses: \textit{valid} (verified against databases), \textit{warning} (unverifiable but not flagged), \textit{suspicious} (multiple red flags; flagged), or \textit{invalid} (confirmed fake or failed DOI; flagged). Only \textit{suspicious} and \textit{invalid} citations count as detections. The \textit{warning} status is deliberately not treated as a flag---this distinction is central to the epistemological argument developed in the Discussion.
 
 Validation proceeds through three tiers, each progressively more aggressive. Most citations are resolved by Tier~1 alone.
 
