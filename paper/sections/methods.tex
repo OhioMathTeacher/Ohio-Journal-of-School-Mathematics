@@ -148,6 +148,7 @@ The Ansari~100 dataset consists of real hallucinated citations found in 53 accep
 
 \subsubsection{Statistical Methods}
 
+\begingroup\samepage
 Confidence intervals on proportions (e.g., false-positive rate) are computed using the Wilson score interval \citep{wilson1927}, which provides reliable coverage even for proportions near 0 or 1 with small sample sizes. For $k$ successes in $n$ trials, the $1-\alpha$ Wilson interval is:
 %
 \begin{equation}
@@ -155,6 +156,7 @@ Confidence intervals on proportions (e.g., false-positive rate) are computed usi
 \end{equation}
 %
 where $\hat{p} = k/n$ and $z = z_{1-\alpha/2}$. All intervals reported use $\alpha = 0.05$.
+\endgroup
 
 \subsection{Code Audit}
 

@@ -23,6 +23,19 @@ Nature article   &  10 &   5 &   5 & 0 & 0 & 0.0\% \\
 
 Zero real citations were flagged as suspicious or invalid. The Wilson 95\% confidence interval for 0/391 is $[0.0\%,\; 0.96\%]$---we can claim less than 1\% FPR with 95\% confidence, but not exactly zero.
 
+\FloatBarrier
+\begin{figure}[!h]
+  \centering
+  \caption{\emph{Citation Validator} output showing all four status categories on a mixed bibliography.}
+  \label{fig:validator-output}
+  \includegraphics[width=0.85\textwidth]{figures/fig1-validator-output.png}
+  \vspace{0.75\baselineskip}
+  \caption*{%
+    \textbf{Note:} Citations with verified DOIs receive \textit{valid} status (green). Citations absent from databases receive \textit{warning} (yellow). Only \textit{suspicious} and \textit{invalid} statuses count as flags.
+  }
+\end{figure}
+\FloatBarrier
+
 Two features of these results warrant comment. First, 290 of 391 citations (74\%) received \textit{warning} status, meaning the validator could not verify them but did not flag them. This is by design: the \textit{warning} category absorbs the uncertainty that would otherwise produce false positives. Second, the arXiv dataset---where 283 of 285 citations landed at \textit{warning}---represents the hardest case for false-positive avoidance. These are legitimate preprints that mostly lack DOIs and are often absent from OpenAlex and Semantic Scholar. The validator's restraint on this dataset is the direct consequence of the escalation fix described in the Methods.
 
 \subsection{Fake-Citation Detection (Deterministic)}
@@ -148,4 +161,6 @@ AI applied unconditionally destroys precision \\
 \end{tabular}
 \end{table}
 
-The tool is most reliable in deterministic mode: zero false positives, perfect detection on DOI-bearing citations, and honest \textit{warning} on everything else. AI improves recall but requires selective routing---only citations with multiple red flags should be escalated, not every unverifiable citation.
+\noindent The tool is most reliable in deterministic mode: zero false positives, perfect detection on DOI-bearing citations, and honest \textit{warning} on everything else. AI improves recall but requires selective routing---only citations with multiple red flags should be escalated, not every unverifiable citation.
+
+\enlargethispage{\baselineskip}
