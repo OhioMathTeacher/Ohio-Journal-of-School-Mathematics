@@ -210,6 +210,6 @@ Five major studies inform our approach:
 
 ## Contact
 
-**Todd Grundmeier** — *Ohio Journal of School Mathematics*  
+**Todd Edwards** — *Ohio Journal of School Mathematics*  
 **Goal:** Publish Nature-quality paper on affordable hallucination detection  
 **Philosophy:** "Research for the rest of us" — accessible, reproducible, and cheap

@@ -1,6 +1,6 @@
 # Affordable Citation-Hallucination Detection: A Deterministic-First Approach
 
-**Todd Grundmeier**
+**Todd Edwards**
 Ohio Journal of School Mathematics
 
 ---

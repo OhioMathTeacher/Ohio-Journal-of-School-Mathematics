@@ -140,8 +140,8 @@ We welcome contributions! Areas of interest:
 If you use this tool in your research, please cite:
 
 ```bibtex
-@software{grundmeier2026citationvalidator,
-  author = {Grundmeier, Todd},
+@software{edwards2026citationvalidator,
+  author = {Edwards, Todd},
   title = {Citation Validator: AI Hallucination Detection for Academic References},
   year = {2026},
   url = {https://github.com/toddgr/Ohio-Journal-of-School-Mathematics},
@@ -159,6 +159,6 @@ MIT License — [LICENSE](LICENSE)
 
 ## Contact
 
-**Todd Grundmeier**  
+**Todd Edwards**  
 *Ohio Journal of School Mathematics*  
 **Goal:** Publish Nature-quality paper on affordable hallucination detection
