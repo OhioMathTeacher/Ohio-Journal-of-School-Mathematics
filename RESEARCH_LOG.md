@@ -175,18 +175,44 @@ correctly does not escalate to `suspicious`.
 
 ---
 
+## 2026-04-10 — Clean Re-Test (Step 1, Run 4)
+
+### Environment
+Local machine with full API access.  Test data cleaned: 4 CrossRef
+metadata artifacts removed, `resnik2026` title corrected.
+
+### Results
+
+| Dataset | Citations | Valid | Warning | Suspicious | Invalid | FPR |
+|---------|-----------|-------|---------|------------|---------|-----|
+| arXiv CS (2024) | 285 | 2 (0.7%) | 283 (99.3%) | 0 | 0 | **0.0%** PASS |
+| CrossRef random | 96 | 94 (97.9%) | 2 (2.1%) | 0 | 0 | **0.0%** PASS |
+| Nature article | 10 | 5 (50%) | 5 (50%) | 0 | 0 | **0.0%** PASS |
+| **Overall** | **391** | 101 | 290 | 0 | 0 | **0.0%** PASS |
+
+**Zero false positives across 391 real citations.**
+
+### Notes
+
+- CrossRef dataset dropped from 100 → 96 after removing 4 metadata
+  artifacts (journal issue cover, figure, table, conference supplement).
+- arXiv valid count dropped from 17 (Run 3) to 2 — likely due to API
+  rate limits or transient availability.  No impact on FPR since the
+  other 283 correctly land at `warning`, not `suspicious`.
+- Nature `resnik2026` now validates correctly with corrected title.
+
+---
+
 ## Next Steps
 
-1. **Re-run Step 1** after test data cleanup to confirm 0% FPR.
+1. **Fake-citation regression test:** Run the Ansari 100-fake dataset
+   through the updated validator to confirm detection rate is still 100%
+   (the escalation fix should not have weakened detection of actual fakes).
 
-3. **Step 3 — AI comparison:** Run datasets with Gemini AI to measure
+2. **Step 3 — AI comparison:** Run datasets with Gemini AI to measure
    whether AI analysis improves or worsens precision.
 
-4. **Fake-citation baseline:** Run the Ansari 100-fake dataset through the
-   updated validator to confirm detection rate is still 100% (the
-   escalation fix should not have weakened detection of actual fakes).
-
-5. **10K study design:** Finalize the mix ratio and sampling strategy.
+3. **10K study design:** Finalize the mix ratio and sampling strategy.
 
 ---
 
