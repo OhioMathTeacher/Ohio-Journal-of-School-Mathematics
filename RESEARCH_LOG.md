@@ -119,16 +119,70 @@ should resolve both.
 
 ---
 
+## 2026-04-10 — Local Re-Test (Step 1, Run 3)
+
+### Environment
+Local machine with full API access (CrossRef, DOI.org, OpenAlex,
+Semantic Scholar, arXiv all reachable).
+
+### Results
+
+| Dataset | Citations | Valid | Warning | Suspicious | Invalid | FPR |
+|---------|-----------|-------|---------|------------|---------|-----|
+| arXiv CS (2024) | 285 | 17 (6%) | 268 (94%) | 0 | 0 | **0.0%** PASS |
+| CrossRef random | 100 | 94 (94%) | 2 (2%) | 4 (4%) | 0 | **4.0%** PASS |
+| Nature article | 10 | 4 (40%) | 5 (50%) | 1 (10%) | 0 | **10.0%** FAIL |
+| **Overall** | **395** | 115 | 275 | 5 | 0 | **1.3%** PASS |
+
+### False-Positive Analysis
+
+All 5 false positives are **correct title-mismatch detections on incorrect
+test data** — the validator is behaving correctly in every case.
+
+**CrossRef FPs (4):** All have `title = {Unknown}` — CrossRef metadata
+artifacts (journal issue cover, PLOS ONE figure, PLOS ONE table,
+conference supplement).  These are not citable references.
+**Fix:** Removed from test data.
+
+| Key | DOI | Actual content |
+|-----|-----|----------------|
+| `unknown1949` | `10.1111/jace.1949.32.issue-9` | Journal issue cover |
+| `unknown2012` | `10.1371/journal.pone.0048225.g002` | Figure 2 of a paper |
+| `unknown2020` | `10.1371/journal.pone.0237224.t001` | Table 1 of a paper |
+| `unknown2024` | `10.1136/annrheumdis-2017-211123.supp3` | Conference supplement |
+
+**Nature FP (1):** `resnik2026` has BibTeX title "Fabricated references
+in academic publishing" but DOI `10.1080/08989621.2026.2645390` resolves
+to "Hallucinated citations produced by generative artificial
+intelligence...".  Either the title or the DOI is wrong in the BibTeX.
+**Fix:** Flagged for manual verification.
+
+### Interpretation
+
+The deterministic pipeline achieves **0% FPR on properly-formed
+citations** (arXiv dataset, 285 citations).  The remaining FPs are all
+test-data quality issues, not validator defects.  After cleaning the test
+data, expected FPR: 0/391 = **0.0%** (or 1/391 = 0.26% if resnik2026
+remains unresolved).
+
+### arXiv Warning Rate (94%)
+
+268/285 arXiv citations got `warning` (not `valid`).  This is expected
+and correct: most arXiv preprints lack DOIs and may not be indexed in
+OpenAlex/Semantic Scholar.  `warning` = "unverifiable" — the validator
+correctly does not escalate to `suspicious`.
+
+---
+
 ## Next Steps
 
-1. **Local re-test:** Re-run `python scripts/run_fp_baseline.py --step 1`
-   locally where all APIs are accessible.  Expected result: <2% FPR.
+1. **Fix resnik2026:** Verify DOI locally and correct either the title
+   or the DOI in `datasets/nature-article/refs.bib`.
 
-2. **Step 2 — Root cause analysis:** Once we have a clean local run,
-   analyze any remaining false positives to identify systematic patterns.
+2. **Re-run Step 1** after test data cleanup to confirm 0% FPR.
 
-3. **Step 3 — AI comparison:** Run the same datasets with Gemini AI to
-   measure whether AI analysis improves or worsens precision.
+3. **Step 3 — AI comparison:** Run datasets with Gemini AI to measure
+   whether AI analysis improves or worsens precision.
 
 4. **Fake-citation baseline:** Run the Ansari 100-fake dataset through the
    updated validator to confirm detection rate is still 100% (the
