@@ -201,6 +201,31 @@ metadata artifacts removed, `resnik2026` title corrected.
   other 283 correctly land at `warning`, not `suspicious`.
 - Nature `resnik2026` now validates correctly with corrected title.
 
+### Limitations and Overfitting Risk
+
+The 0.0% FPR result should be interpreted carefully:
+
+1. **Small sample size.** 391 citations yields a Wilson 95% confidence
+   interval of [0.0%, 0.96%].  We can claim "< 1% FPR with 95%
+   confidence," not "exactly 0%."
+
+2. **Limited diversity.** The test set is dominated by CS preprints
+   (285/391 = 73%).  Under-represented categories include: books,
+   dissertations, non-English publications, retracted papers, very old
+   works (pre-1950), and conference proceedings without DOIs.
+
+3. **Code changes vs. test data changes.**  All validator code changes
+   (escalation logic, retry, rate limiting) were conceptual fixes to
+   general design flaws — none targeted specific test cases.  The 5 FPs
+   from Run 3 were resolved by correcting the test data (removing
+   non-citation metadata artifacts, fixing a wrong title), not by
+   changing the validator.  Still, the risk of unconscious overfitting
+   exists whenever the same team writes both the code and the tests.
+
+4. **Validation at scale required.**  The planned 10K-citation study
+   with independently-sourced datasets is essential to confirm these
+   results generalize.
+
 ---
 
 ## Next Steps
