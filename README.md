@@ -131,6 +131,19 @@ should be public goods.  Every dataset, every line of code, and every
 test result in this project is freely available.  We believe that is
 not incidental to the research — it is the research.
 
+### An honest gap: accessibility
+
+Right now, using this tool requires Python and a command line.  For a
+developer, that's trivial.  For a math teacher evaluating a student's
+AI-assisted research, or a small-journal editor reviewing submissions
+on a weekend, it's a wall.
+
+We name this gap because we think it's one of the most important
+problems to solve.  The algorithm works, the APIs are free, the code
+is open — but the last mile (a hosted tool anyone can use from a
+browser, no install) hasn't been built yet.  That is an explicit
+goal of this project, and we welcome help getting there.
+
 ---
 
 ## Current Results

@@ -189,21 +189,62 @@ be public goods.  Every dataset, every line of code, and every test
 result in this project is freely available.  We believe that is not
 incidental to the research — it is the research.
 
+## The Accessibility Gap
+
+We should be honest about what "free and open-source" currently means
+in practice.
+
+Right now, using this tool requires installing Python, running a
+command-line script or starting a local Flask web server.  For a
+computer scientist, that's five minutes.  For a mathematics education
+journal editor — which is what the first author is — it's a real
+barrier.  For a high school teacher evaluating a student's AI-assisted
+research paper, it's a wall.
+
+The people who most need protection from hallucinated citations are
+often the least equipped to install developer tools.  This is not a
+new observation — it's the same access gap that makes the commercial
+solutions described in the Nature article inadequate.  The commercial
+tools fail on cost; ours currently fails on technical accessibility.
+Neither failure is acceptable.
+
+The underlying APIs (CrossRef, OpenAlex, Semantic Scholar) are free
+and public, but they cannot be called directly from a web browser due
+to cross-origin security restrictions.  A server-side component is
+required — which means either a local install or a hosted deployment.
+Hosting is straightforward and free (services like PythonAnywhere
+offer free-tier Python hosting), but someone has to do it.
+
+We name this gap explicitly because we believe it is one of the most
+important problems this line of research needs to solve.  The
+algorithm works.  The APIs are free.  The code is open.  What's
+missing is the last mile: getting a working tool into the hands of
+people who don't know what `pip install` means and shouldn't have to.
+
+This is not a limitation we plan to leave unaddressed.  It is a design
+goal for the next phase of this work, and we invite the community to
+help solve it.  A hosted version of this tool — free, no install, just
+a URL — is technically feasible today.  It simply hasn't been built yet.
+
 ## Why It Matters
 
 Citation hallucination is a solvable problem, and solving it should not
-require an institutional budget.  The databases that index legitimate
-scholarship — CrossRef, OpenAlex, Semantic Scholar — are free and
-public.  The logic to query them is straightforward.  The hardest part
-turned out to be getting the epistemology right: understanding that a
-citation absent from databases is *unverifiable*, not *fake*.
+require an institutional budget or a computer science degree.
+
+The databases that index legitimate scholarship — CrossRef, OpenAlex,
+Semantic Scholar — are free and public.  The logic to query them is
+straightforward.  The hardest part turned out to be getting the
+epistemology right: understanding that a citation absent from databases
+is *unverifiable*, not *fake*.
 
 If these preliminary results hold at scale, they suggest that the
 academic community already has the infrastructure to detect most
-hallucinated citations — we just need to use it.  An open-source tool
-running on free APIs, requiring no AI and no budget, can be deployed by
-any journal, any reviewer, any researcher, anywhere.
+hallucinated citations — we just need to use it.  And we need to make
+that use accessible to educators, reviewers, and editors who are not
+software developers.
 
 This is not just a tool.  It is a demonstration that generative AI can
-be part of the solution — not only the problem.  And it is an
-invitation: take the code, make it better, be a part of the solution.
+be part of the solution — not only the problem.  It is an argument
+that detection tools built on public infrastructure should themselves
+be public goods.  And it is an invitation: take the code, make it
+better, help close the last mile, be a part of the solution.
