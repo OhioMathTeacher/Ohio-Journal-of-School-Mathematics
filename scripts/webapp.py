@@ -32,7 +32,7 @@ HTML_FALLBACK = '''<!DOCTYPE html>
 @app.route('/')
 def index():
     """Serve the main page."""
-    page_path = REPO_ROOT / 'citation-validator.html'
+    page_path = REPO_ROOT / 'web' / 'citation-validator.html'
     if page_path.exists():
         return send_file(page_path)
     return Response(HTML_FALLBACK, mimetype='text/html'), 404

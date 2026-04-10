@@ -28,3 +28,10 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+*.code-workspace
+
+# Test caches
+.pytest_cache/
+
+# LaTeX junk
+texput.log

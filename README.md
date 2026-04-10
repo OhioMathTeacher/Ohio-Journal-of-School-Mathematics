@@ -214,11 +214,13 @@ general use.
 
 | Document | Purpose |
 |----------|---------|
-| [ABSTRACT.md](ABSTRACT.md) | Project summary, motivation, and ironies |
-| [RESEARCH_LOG.md](RESEARCH_LOG.md) | Chronological decisions, experiments, and results |
-| [PROJECT_STATUS.md](PROJECT_STATUS.md) | Current state and production readiness |
+| [docs/ABSTRACT.md](docs/ABSTRACT.md) | Project summary, motivation, and ironies |
+| [docs/RESEARCH_LOG.md](docs/RESEARCH_LOG.md) | Chronological decisions, experiments, and results |
+| [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) | Current state and production readiness |
+| [docs/ROADMAP.md](docs/ROADMAP.md) | Development roadmap |
 | [scripts/README.md](scripts/README.md) | User guide, installation, cost analysis |
 | [test_citations/TEST_DESIGN.md](test_citations/TEST_DESIGN.md) | Scientific methodology and evaluation metrics |
+| [paper/](paper/) | LaTeX manuscript |
 
 ---
 
