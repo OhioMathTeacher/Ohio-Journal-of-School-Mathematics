@@ -161,42 +161,60 @@ that stopped the validator from flagging legitimate unindexed
 citations also stopped it from flagging fabricated ones.  You can't
 have it both ways with deterministic logic alone.
 
-**AI resolves the dilemma — and the free tier wins.**
+**AI resolves the dilemma — but creates a new one.**
 
-We tested two AI providers as a second pass on the Ansari dataset:
+We tested two AI providers as a second pass on fakes (Ansari 100):
 
-| Tier | Provider | Detection | Errors | Time | Cost |
-|------|----------|-----------|--------|------|------|
-| Deterministic | Free APIs | 4/100 | 0 | 94s | $0 |
-| Free AI | Gemini 2.5 Flash | **94/100** | 0 | 136s | **$0** |
-| Paid AI | Claude Sonnet 4 | 82/100 | 6 | 429s | ~$0.50 |
+| Tier | Provider | Fake Detection | Cost |
+|------|----------|----------------|------|
+| Deterministic | Free APIs | 4/100 | $0 |
+| Free AI | Gemini 2.5 Flash | **94/100** | **$0** |
+| Paid AI | Claude Sonnet 4 | 82/100 | ~$0.50 |
 
-The free tier outperformed the paid tier on every metric: accuracy
-(94% vs 82%), reliability (0 errors vs 6), speed (3x faster), and
-cost ($0 vs ~$0.50).  Six of Claude's 18 misses were HTTP 529
-(server overloaded) — citations that were never analyzed at all.
-Even on successful calls, Claude's judgment accuracy (78/90 = 87%)
-was below Gemini's (90/96 = 94%).
+Gemini dramatically improved recall.  But when we ran Gemini on
+**real citations**, precision collapsed:
 
-This inverts a common assumption.  For this specific task, the access
-barrier between free and paid AI is not just unnecessary — it is
-counterproductive.  Small journals that can't afford paid APIs would
-actually get better results with the free alternative.
+| Dataset | Deterministic FPR | Gemini FPR |
+|---------|-------------------|------------|
+| arXiv (285 real, mostly no DOI) | 0% | **72.3%** |
+| CrossRef (96 real, mostly with DOI) | 0% | 2.1% |
 
-We note that this is a single comparison on one dataset (n=100).
-Claude may perform differently on other deception types or with
-different prompting.  We report it as a preliminary finding, not a
-definitive ranking.
+Gemini flagged 206 out of 285 real arXiv citations as suspicious.
+These are legitimate preprints that lack DOIs and aren't indexed
+in major databases.  The AI is making the same epistemological
+error we fixed in the deterministic pipeline: treating "I can't
+verify this" as "this is probably fake."
+
+The error recurs at every tier.  We fixed it in the deterministic
+logic (absence ≠ fabrication).  The AI hasn't learned the
+distinction.  This suggests that the problem is not primarily
+technical — it is conceptual.  Any detection system, whether
+rule-based or AI-powered, must grapple with the difference between
+*unverifiable* and *fabricated*.  Most don't.
+
+### The Honest Summary
+
+| What works | What doesn't (yet) |
+|------------|-------------------|
+| Deterministic on DOI citations: 0% FPR, 100% detection | Deterministic on no-DOI citations: 0% FPR but only 4% detection |
+| Gemini on fakes: 94% detection at $0 | Gemini on real preprints: 72% FPR — unusable |
+| Free outperforms paid (Gemini > Claude) | AI applied unconditionally destroys precision |
+
+The tool is most reliable in **deterministic mode**: zero false
+positives, perfect detection on DOI-bearing citations, and honest
+`warning` on everything else.  AI improves recall but needs
+selective routing — only citations with multiple red flags should
+be escalated, not every unverifiable citation.
 
 ### What Remains
 
-- **AI on real citations:** Confirm Gemini doesn't introduce false
-  positives on the 391 real citations.
+- **Selective AI routing:** Send to AI only when multiple warnings
+  accumulate, not on "not found" alone.
 
 - **Diverse datasets:** Non-CS, non-English, books, dissertations.
 
-- **Scale validation:** 10,000-citation study with the two-tier
-  pipeline.
+- **Write up:** The findings — especially the recurring
+  epistemological error across tiers — are ready for publication.
 
 ## The Ironies
 

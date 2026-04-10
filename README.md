@@ -5,7 +5,7 @@
 [![Cost](https://img.shields.io/badge/cost-%240-green)]()
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
 [![FPR](https://img.shields.io/badge/false_positive_rate-0%25_(n%3D391)-brightgreen)]()
-[![Detection](https://img.shields.io/badge/detection_rate-94%25_with_AI_(n%3D100)-blue)]()
+[![Detection](https://img.shields.io/badge/detection-100%25_with_DOI-blue)]()
 
 ---
 
@@ -38,10 +38,10 @@ AI required.
 
 | Metric | Result |
 |--------|--------|
-| **False positive rate** | 0/391 real citations incorrectly flagged = **0.0%** (95% CI: <1%) |
-| **Detection (with DOI)** | 200/200 fabricated citations caught = **100%** (deterministic, no AI) |
-| **Detection (without DOI)** | 94/100 fakes caught = **94%** (deterministic + Gemini AI) |
-| **Cost** | **$0** — free APIs, Gemini free tier covers AI pass |
+| **False positive rate** | 0/391 real citations incorrectly flagged = **0.0%** (deterministic) |
+| **Detection (with DOI)** | 200/200 fabricated citations caught = **100%** (deterministic) |
+| **Detection (without DOI)** | 94/100 fakes caught with AI, but 72% FPR on real preprints — see below |
+| **Cost** | **$0** — free APIs, no AI needed for core validation |
 
 ---
 
@@ -182,16 +182,29 @@ address these gaps.
 | Free AI | Gemini 2.5 Flash | **94%** | 0 | 136s | **$0** |
 | Paid AI | Claude Sonnet 4 | 82% | 6 | 429s | ~$0.50 |
 
-**Key finding:** The free AI tier outperformed the paid tier on
-accuracy, reliability, speed, and cost.  The access barrier between
-free and paid is not just unnecessary — it's counterproductive.
+### AI on Real Citations (The Precision Problem)
+
+| Dataset | Deterministic FPR | + Gemini FPR |
+|---------|-------------------|--------------|
+| arXiv (285 real, mostly no DOI) | **0%** | 72.3% |
+| CrossRef (96 real, mostly with DOI) | **0%** | 2.1% |
+
+**Key finding:** AI improves fake detection (4% → 94%) but destroys
+precision on unverifiable real citations (0% → 72% FPR on arXiv).
+The AI makes the same epistemological error we fixed in the
+deterministic pipeline: treating "can't verify" as "probably fake."
+
+**The tool is most reliable in deterministic mode** — zero false
+positives, perfect detection on DOI-bearing fakes, honest `warning`
+on everything else.  AI needs selective routing before it's safe for
+general use.
 
 ### Limitations
 
 - 391 real citations is a small sample — scale validation required
 - Test set is heavily CS — non-English, humanities, books untested
-- 6 out of 100 Ansari fakes still evade both deterministic + Gemini
-- AI comparison on real citations (FPR with AI) not yet measured
+- AI applied unconditionally creates unacceptable false positive rates
+- Selective AI routing (only on multi-flag citations) not yet built
 - Provider comparison is preliminary (n=100, one dataset)
 - Same team wrote both the code and the tests
 

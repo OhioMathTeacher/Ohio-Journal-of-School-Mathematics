@@ -424,22 +424,97 @@ definitive ranking.
 
 ---
 
+## 2026-04-10 — Gemini on Real Citations: The Precision Collapse
+
+### Objective
+Confirm that Gemini AI does not introduce false positives when applied
+to real citations.
+
+### Results
+
+| Dataset | Citations | Det. FPR | Gemini FPR | Gemini FPs |
+|---------|-----------|----------|------------|------------|
+| arXiv CS (285) | 285 | 0.0% | **72.3%** | 206 |
+| CrossRef random (96) | 96 | 0.0% | 2.1% | 2 |
+
+### What Happened
+
+**arXiv (catastrophic).** Deterministic validation correctly classified
+261 arXiv citations as `warning` (unverifiable — no DOI, not in
+databases).  Gemini then analyzed all 261 and escalated 206 of them to
+`suspicious`.  These are all real citations.  72.3% false positive rate.
+
+**CrossRef (acceptable).**  Only 2 citations went to AI (the rest were
+already `valid`).  Gemini flagged both as suspicious: `김계자2013` (a
+Korean-language paper) and `ward1885` (from 1885).  These are edge
+cases — non-English and very old — that Gemini likely can't verify
+from its training data.
+
+### The Epistemological Error, Again
+
+Gemini is making the exact same mistake we fixed in the deterministic
+pipeline: treating "I can't verify this" as "this is probably fake."
+
+- The deterministic fix: "not found in databases" → `warning`, not
+  `suspicious`.
+- Gemini's behavior: "I don't recognize this paper" → flag it.
+
+The AI hasn't learned the distinction between unverifiable and
+fabricated.  It is, in effect, re-introducing the escalation error
+at the AI tier.
+
+### The Precision-Recall Trade-Off, Quantified
+
+| Metric | Deterministic only | + Gemini AI |
+|--------|-------------------|-------------|
+| Fake detection (Ansari 100) | 4% | **94%** |
+| FPR on arXiv (285 real) | **0%** | 72.3% |
+| FPR on CrossRef (96 real) | **0%** | 2.1% |
+
+Gemini dramatically improves recall (4% → 94%) but destroys precision
+on unverifiable real citations (0% → 72%).  On well-indexed citations
+(CrossRef with DOIs), it's nearly clean (2.1% FPR).
+
+### Implications
+
+1. **AI cannot be applied unconditionally.**  The current approach
+   sends ALL `warning` citations to AI.  This works for fake detection
+   but floods real preprint bibliographies with false positives.
+
+2. **Citation type matters.**  CrossRef citations (with DOIs, in
+   indexed journals) have a 2.1% FPR with AI — acceptable.  arXiv
+   preprints (no DOIs, often not in databases) have 72.3% FPR —
+   unusable.
+
+3. **Selective AI routing is needed.**  The pipeline should only send
+   citations to AI when there are additional red flags beyond "not
+   found in databases" — e.g., generic author names, suspicious title
+   patterns, future years.  "Not found" alone should NOT trigger AI
+   analysis.
+
+4. **The tool is most valuable in deterministic mode.**  For a journal
+   editor running the tool, the deterministic tier (0% FPR, 100%
+   detection on DOI fakes) is reliable and trustworthy.  The AI tier
+   needs significant refinement before it can be recommended for
+   general use.
+
+---
+
 ## Next Steps
 
-1. **Analyze false negatives:** Compare the 6 Gemini misses vs 18
-   Claude misses — what makes these fakes harder?
+1. **Selective AI routing:** Design rules for when to send citations
+   to AI vs. when `warning` is the final status.  Only citations with
+   multiple warning signals should be escalated to AI.
 
-2. **Run AI on real citations:** Confirm Gemini doesn't introduce
-   false positives on the 391 real citations.
+2. **Diverse dataset testing:** Non-CS, non-English, books,
+   dissertations — to test deterministic FPR beyond arXiv.
 
-3. **Diverse dataset testing:** Non-CS, non-English, books,
-   dissertations.
+3. **Deploy hosted version:** Deterministic-only mode is ready for
+   production.  AI mode needs the selective routing fix first.
 
-4. **Deploy hosted version:** Hugging Face Spaces for zero-install
-   browser access.
-
-5. **10K study design:** With the two-tier pipeline validated, design
-   the large-scale study.
+4. **Write up findings:** The precision-recall trade-off, the
+   recurring epistemological error, and the free-vs-paid comparison
+   are all publishable findings.
 
 ---
 
