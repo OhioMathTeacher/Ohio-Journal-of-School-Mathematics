@@ -33,7 +33,7 @@ class CitationValidator:
         self.crossref_api = "https://api.crossref.org/works/"
         self.openalex_api = "https://api.openalex.org/works"
         self.groq_api = "https://api.groq.com/openai/v1/chat/completions"
-        self.rate_limit_delay = 0.1  # Polite delay between API calls
+        self.rate_limit_delay = 0.25  # Polite delay between API calls
         
         if self.use_ai and not self.groq_api_key:
             print("Warning: AI analysis requested but no GROQ_API_KEY found")
@@ -177,74 +177,90 @@ class CitationValidator:
         return fields
     
     def validate_doi(self, doi: str) -> Tuple[bool, Dict]:
-        """Validate a DOI using CrossRef API, with DataCite/arXiv fallback."""
+        """Validate a DOI using CrossRef API, with DataCite/arXiv fallback.
+
+        Retries once on transient errors (rate-limiting, timeouts) before
+        falling back to the DOI resolver.
+        """
         if not doi:
             return False, {'error': 'No DOI provided'}
-        
+
         # Clean DOI
         doi = doi.strip().replace('https://doi.org/', '').replace('http://dx.doi.org/', '')
-        
+
         # arXiv DOIs use DataCite, not CrossRef - check arXiv API directly
         arxiv_match = re.match(r'10\.48550/arXiv\.(\d+\.\d+)', doi)
         if arxiv_match:
             return self._validate_arxiv(arxiv_match.group(1))
-        
+
         url = f"{self.crossref_api}{quote(doi)}"
-        
-        try:
-            time.sleep(self.rate_limit_delay)  # Be polite to API
-            req = Request(url, headers={'User-Agent': 'OJSM-CitationValidator/1.0'})
-            response = urlopen(req, timeout=10)
-            data = json.loads(response.read().decode('utf-8'))
-            
-            if data.get('status') == 'ok':
-                return True, data.get('message', {})
-            else:
-                return False, {'error': 'DOI not found'}
-                
-        except (URLError, HTTPError) as e:
-            # CrossRef returned 404 - try DOI resolver as fallback
-            # This catches DataCite DOIs (Zenodo, Figshare, Dryad, etc.)
-            return self._validate_doi_resolver(doi)
-        except Exception as e:
-            return False, {'error': f'Unexpected error: {str(e)}'}
+
+        last_error = None
+        for attempt in range(2):  # Try twice before falling back
+            try:
+                time.sleep(self.rate_limit_delay * (attempt + 1))
+                req = Request(url, headers={'User-Agent': 'OJSM-CitationValidator/1.0'})
+                response = urlopen(req, timeout=15)
+                data = json.loads(response.read().decode('utf-8'))
+
+                if data.get('status') == 'ok':
+                    return True, data.get('message', {})
+                else:
+                    return False, {'error': 'DOI not found'}
+
+            except HTTPError as e:
+                if e.code == 404:
+                    # Definitive: DOI not in CrossRef. Try DOI resolver.
+                    break
+                # 429/5xx are transient — retry
+                last_error = e
+                if attempt == 0 and self.verbose:
+                    print(f"  CrossRef {e.code} for {doi}, retrying...")
+                continue
+            except (URLError, Exception) as e:
+                last_error = e
+                if attempt == 0:
+                    continue
+                break
+
+        # CrossRef failed — try DOI resolver as fallback
+        # This catches DataCite DOIs (Zenodo, Figshare, Dryad, etc.)
+        return self._validate_doi_resolver(doi)
     
     def _validate_arxiv(self, arxiv_id: str) -> Tuple[bool, Dict]:
-        """Validate an arXiv paper using the arXiv API."""
+        """Validate an arXiv paper using the arXiv API (with one retry)."""
         url = f"http://export.arxiv.org/api/query?id_list={arxiv_id}"
-        
-        try:
-            time.sleep(self.rate_limit_delay)
-            req = Request(url, headers={'User-Agent': 'OJSM-CitationValidator/1.0'})
-            response = urlopen(req, timeout=10)
-            data = response.read().decode('utf-8')
-            
-            # Check for valid entry (arXiv API returns XML)
-            if '<title>' in data and 'Error' not in data.split('<title>')[1].split('</title>')[0]:
-                # Extract title from XML
-                title_match = re.search(r'<title[^>]*>(.*?)</title>', data, re.DOTALL)
-                title = ''
-                if title_match:
-                    # Skip the feed title, get the entry title
+
+        for attempt in range(2):
+            try:
+                time.sleep(self.rate_limit_delay * (attempt + 1))
+                req = Request(url, headers={'User-Agent': 'OJSM-CitationValidator/1.0'})
+                response = urlopen(req, timeout=15)
+                data = response.read().decode('utf-8')
+
+                # Check for valid entry (arXiv API returns XML)
+                if '<title>' in data and 'Error' not in data.split('<title>')[1].split('</title>')[0]:
                     titles = re.findall(r'<title[^>]*>(.*?)</title>', data, re.DOTALL)
                     title = titles[-1].strip() if len(titles) > 1 else titles[0].strip()
-                
-                # Extract authors
-                authors = re.findall(r'<name>(.*?)</name>', data)
-                
-                return True, {
-                    'title': [title],
-                    'author': [{'given': a.split()[-1], 'family': ' '.join(a.split()[:-1])} for a in authors] if authors else [],
-                    'source': 'arxiv',
-                    'arxiv_id': arxiv_id
-                }
-            else:
-                return False, {'error': f'arXiv paper {arxiv_id} not found'}
-                
-        except (URLError, HTTPError) as e:
-            return False, {'error': f'arXiv API error: {str(e)}'}
-        except Exception as e:
-            return False, {'error': f'Unexpected error: {str(e)}'}
+                    authors = re.findall(r'<name>(.*?)</name>', data)
+
+                    return True, {
+                        'title': [title],
+                        'author': [{'given': a.split()[-1], 'family': ' '.join(a.split()[:-1])} for a in authors] if authors else [],
+                        'source': 'arxiv',
+                        'arxiv_id': arxiv_id
+                    }
+                else:
+                    return False, {'error': f'arXiv paper {arxiv_id} not found'}
+
+            except (URLError, HTTPError) as e:
+                if attempt == 0:
+                    continue  # Retry once on network/rate-limit errors
+                return False, {'error': f'arXiv API error: {str(e)}'}
+            except Exception as e:
+                return False, {'error': f'Unexpected error: {str(e)}'}
+
+        return False, {'error': f'arXiv API failed after retries'}
     
     def _validate_doi_resolver(self, doi: str) -> Tuple[bool, Dict]:
         """Fallback: check if a DOI resolves via doi.org (catches DataCite, Zenodo, Figshare, etc.)."""
@@ -541,8 +557,13 @@ Respond with JSON: {{"is_suspicious": true/false, "confidence": 0-100, "reason":
                         result['status'] = 'warning'
                 else:
                     result['warnings'].append('No DOI found and not in OpenAlex')
-                    result['status'] = 'suspicious'
-                    result['suspicion_reasons'].append('Citation not found in major databases (no DOI, not in OpenAlex)')
+                    # Stay at 'warning' — absence from databases is not evidence
+                    # of fabrication.  Many real papers (preprints, old papers,
+                    # non-English, grey literature) aren't indexed.
+                    # Escalation to 'suspicious' happens later only if additional
+                    # heuristic red flags accumulate.
+                    if result['status'] == 'valid':
+                        result['status'] = 'warning'
             else:
                 # Only warn if metadata is too sparse to perform any meaningful lookup.
                 has_author_or_venue = bool(fields.get('author') or fields.get('journal') or fields.get('booktitle'))
