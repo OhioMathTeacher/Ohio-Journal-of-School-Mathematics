@@ -1,0 +1,11 @@
+\begin{abstract}
+\noindent    
+We describe the development and evaluation of an open-source tool for detecting hallucinated citations in academic papers, built entirely on free public APIs (CrossRef, OpenAlex, Semantic Scholar). Testing against 391 real citations and 500 fabricated ones, we find that deterministic validation achieves 0\% false-positive rate and 100\% detection on citations with DOIs, but is nearly blind to fabricated citations without DOIs (4\% detection). Adding AI analysis (Gemini 2.5 Flash, free tier) raises detection to 94\% on fakes, but introduces a 72\% false-positive rate on real arXiv preprints.
+
+The central finding is not about the tool. It is about an epistemological error that recurs at every tier of detection: the conflation of unverifiable with fabricated. We identified and fixed this error in our deterministic logic, only to discover that AI models reproduce it independently. Grounded AI's analysis for Nature shows the same pattern — a 22\% false-flag rate on their most suspicious publications.
+
+We argue that citation hallucination detection is fundamentally a problem of epistemology, not engineering, and that any system, whether rule-based, AI-powered, or human, must grapple with the distinction between absence and fabrication. The tool, code, data, and all experimental results are freely available.
+\\\\   
+\smallskip
+\noindent\textbf{Keywords:} mathematical modeling, mathematics teacher education, modeling cycle, geometry
+\end{abstract}

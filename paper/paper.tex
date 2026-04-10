@@ -1,48 +1,213 @@
-% Compile with: lualatex paper.tex && biber paper && lualatex paper.tex
-\documentclass[12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Sophisticated Modern Article
+% LaTeX Template
+% Version 1.1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage{fontspec}
-\usepackage[backend=biber,style=numeric,sorting=none]{biblatex}
-\usepackage{booktabs}
-\usepackage{hyperref}
+\documentclass[11pt, a4paper, twoside]{article}
+\raggedbottom
+\usepackage{fontspec} % For custom fonts
+\usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{afterpage}
+\usepackage{mathdots}
+\usepackage{unicode-math}
+\usepackage{xcolor} % For color
+\usepackage[top=0.9in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage[raggedright]{titlesec} 
+\hyphenation{Education Collaborative Technology Mathematics}
+\usepackage{graphicx} % For including images
+\usepackage{fancyhdr} % Custom headers and footers
+% Ensure URL package gets desired options before hyperref loads it
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[hidelinks]{hyperref} % For hyperlinks without colored boxes
+\usepackage{lipsum}
+\usepackage{caption} % Custom captions
+\usepackage{float} % Floating figures and tables
+%\usepackage{libertine} % Not needed when using fontspec with direct font selection
+\usepackage{array} % For advanced table formatting
+\usepackage{booktabs,siunitx}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage{makecell}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=0pt, partopsep=0pt, parsep=0pt, itemsep=0pt}
+\usepackage{tikz}
 
-\addbibresource{references.bib}
+\usepackage{tcolorbox} % For creating beautiful boxes
+\usepackage{varwidth} % For dynamically adjusting text width
+\usepackage{adjustbox} % For adjusting boxes
+\usepackage{wrapfig} % For wrapping text around figures
+\usepackage{placeins} % For FloatBarrier
+\usepackage{pgfplots}
+\usepackage{pgf-pie} % For creating pie charts
+\pgfplotsset{compat=1.17} % or the version you have installed
+\urlstyle{same} % This makes the URL use the document's main font
+\usepackage{comment}
+\usepackage{soul} % For highlighting text
 
-\title{Absence of Evidence Is Not Evidence of Fabrication:\\
-       Lessons from Building an Open-Source Citation Hallucination Detector}
-\author{Todd Edwards\\
-        \textit{Ohio Journal of School Mathematics}}
-\date{April 2026}
+% Define the font settings (readable body + matching math; sans for headings)
+\setmainfont{Libertinus Serif}
+\setsansfont{Fira Sans}
+\setmathfont{Libertinus Math}
+
+% Paragraph Indenting settings
+\setlength{\parindent}{0pt} % Remove paragraph indentation
+\setlength{\parskip}{6pt}  % Add 10pt vertical space between paragraphs
+
+% Custom colors
+\definecolor{PrimaryColor}{HTML}{191970} % Midnight Blue
+\definecolor{lightblue}{rgb}{0.68, 0.85, 0.9}
+\definecolor{SecondaryColor}{HTML}{2980B9} % Subtle Blue
+\definecolor{LightSteelGray}{HTML}{B0C4DE} % Light Steel Gray for background
+\definecolor{lightgray}{gray}{0.9}
+\definecolor{DarkRed}{HTML}{8B0000} % Dark Red for disclaimer
+
+% Geometry settings
+\geometry{margin=1in}
+
+% Title formatting (sans headings; black color)
+% Use serif headings and color the main section headings to match OJSM style
+\titleformat{\section}{\rmfamily\Large\bfseries\color{PrimaryColor}}{\thesection}{1em}{}
+\titleformat{\subsection}{\rmfamily\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\rmfamily\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+% Adjust spacing for sections, subsections, and figures
+%\titlespacing*{\section}{0pt}{0.4}{0.2}
+%\titlespacing*{\subsection}{0pt}{0.4}{0.2}
+%\titlespacing*{\subsubsection}{0pt}{*0.5}{*-0.2}
+
+\titlespacing*{\section}
+  {0pt}{0.4\baselineskip}{0.2\baselineskip}
+\titlespacing*{\subsection}
+  {0pt}{0.4\baselineskip}{0.2\baselineskip}
+\titlespacing*{\subsubsection}
+  {0pt}{0.5\baselineskip}{0.2\baselineskip}
+
+\setlength{\textfloatsep}{2pt plus 0pt minus 2pt}
+%\setlength{\textfloatsep}{5pt plus 0pt minus 2pt}
+\setlength{\floatsep}{5pt plus 0pt minus 2pt}
+%\setlength{\intextsep}{10pt plus 10pt minus 2pt}
+%\setlength{\intextsep}{5pt plus 0pt minus 2pt}
+\setlength{\intextsep}{10pt plus 0pt minus 2pt}
+
+\usepackage{etoolbox} % For patching commands
+
+% Patch \abstract to reduce spacing
+\patchcmd{\abstract}{\null\vfil}{}{}{}
+
+% Manually control the space after the abstract heading
+\renewenvironment{abstract}{
+  \vspace{2em} % Adjust this value as needed
+  \centerline{\large\bfseries Abstract}%
+  \begin{quote}%
+  \vspace{-1em} % Adjust this value as needed
+}
+{
+  \end{quote}%
+  \vspace{0em} % Adjust this value as needed
+}
+
+% Caption settings
+\captionsetup{
+    font=small,
+    labelfont=bf,
+    textfont=it,
+    justification=raggedright,
+    singlelinecheck=false,
+    skip=1pt
+}
+
+
+
+% Author configuration
+\newcommand{\firstnameone}{Michael Todd}
+\newcommand{\lastnameone}{Edwards}
+\newcommand{\authornameone}{\textbf{\firstnameone\ \lastnameone}}
+\newcommand{\plainnameone}{\textbf{\firstnameone\ \lastnameone}}
+\newcommand{\authoraffiliation}{Miami University}
+\newcommand{\fullnames}{\authornameone}
+\newcommand{\formattedauthors}{\lastnameone}
+\newcommand{\papertitle}{Whose Writing Is This, Anyway?: Lessons from Building an Open-Source Citation Hallucination Detector}
+\newcommand{\shorttitle}{Whose Writing Is This?}
+
+% Header and footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\formattedauthors}
+\fancyhead[RO]{\small\shorttitle}
+\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[LO,RE]{\small \textit{Ohio Journal of School Mathematics, Issue 103, Summer 2026}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{14pt}
+
+% Title section
+\title{\huge\bfseries \papertitle}
+\author{\fullnames \\[0.2em] \authoraffiliation}
+\date{}
+
+% Custom maketitle spacing
+\makeatletter
+\renewcommand{\@maketitle}{%
+  \newpage
+  \null
+  \begin{center}%
+    {\LARGE \bfseries \color{PrimaryColor} \@title \par}%
+    {\large
+      \lineskip .5em%
+      \begin{tabular}[t]{c}%
+        \@author
+      \end{tabular}\par}%
+    {\large \@date}%
+  \end{center}%
+  \par}
+\makeatother
+
+% Bibliography settings for hanging indent
+\Urlmuskip=0mu plus 1mu
+
+\makeatletter
+\def\@biblabel#1{}
+\renewenvironment{thebibliography}[1]
+     {\section*{\refname}%
+      \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
+      \list{}%
+          {\settowidth\labelwidth{}%
+            \leftmargin\labelwidth
+            \advance\leftmargin15pt%
+            \advance\leftmargin\labelsep
+            \setlength\itemindent{-15pt}%
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+      {\@latex@warning{Empty `thebibliography' environment}}%
+      \endlist}
+\renewcommand\newblock{\hskip .10em\@plus.3em\@minus.05em}
+\makeatother
 
 \begin{document}
+
+\setcounter{page}{41}
 \maketitle
+\vspace{-2em}
+\thispagestyle{plain}
 
-\begin{abstract}
-% TODO — will draft together
-\end{abstract}
-
-\section{Introduction}
-% TODO
-
-\section{Related Work}
-% TODO
-
-\section{Methods}
-% TODO
-
-\section{Results}
-% TODO
-
-\section{Discussion}
-% TODO
-
-\section{Limitations and Future Work}
-% TODO
-
-\section{Conclusion}
-% TODO
-
-\printbibliography
-
+\input{sections/abstract-keywords}
+\input{sections/introduction}
+\input{sections/related-work}
+\input{sections/methods}
+\input{sections/results}
+\input{sections/discussion}
+\input{sections/limitations-and-future-work}
+\input{sections/conclusions}
 \end{document}
