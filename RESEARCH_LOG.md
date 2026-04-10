@@ -151,11 +151,12 @@ conference supplement).  These are not citable references.
 | `unknown2020` | `10.1371/journal.pone.0237224.t001` | Table 1 of a paper |
 | `unknown2024` | `10.1136/annrheumdis-2017-211123.supp3` | Conference supplement |
 
-**Nature FP (1):** `resnik2026` has BibTeX title "Fabricated references
+**Nature FP (1):** `resnik2026` had BibTeX title "Fabricated references
 in academic publishing" but DOI `10.1080/08989621.2026.2645390` resolves
-to "Hallucinated citations produced by generative artificial
-intelligence...".  Either the title or the DOI is wrong in the BibTeX.
-**Fix:** Flagged for manual verification.
+to "Hallucinated citations produced by generative artificial intelligence
+may constitute research misconduct when citations function as data in
+scholarly papers" (Resnik & Hosseini, Accountability in Research, 2026).
+**Fix:** Title corrected in BibTeX.
 
 ### Interpretation
 
@@ -176,10 +177,7 @@ correctly does not escalate to `suspicious`.
 
 ## Next Steps
 
-1. **Fix resnik2026:** Verify DOI locally and correct either the title
-   or the DOI in `datasets/nature-article/refs.bib`.
-
-2. **Re-run Step 1** after test data cleanup to confirm 0% FPR.
+1. **Re-run Step 1** after test data cleanup to confirm 0% FPR.
 
 3. **Step 3 — AI comparison:** Run datasets with Gemini AI to measure
    whether AI analysis improves or worsens precision.
