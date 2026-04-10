@@ -21,7 +21,7 @@
 % Ensure URL package gets desired options before hyperref loads it
 \PassOptionsToPackage{hyphens}{url}
 \usepackage[hidelinks]{hyperref} % For hyperlinks without colored boxes
-\usepackage{lipsum}
+%\usepackage{lipsum} % removed — no placeholder text needed
 \usepackage{caption} % Custom captions
 \usepackage{float} % Floating figures and tables
 %\usepackage{libertine} % Not needed when using fontspec with direct font selection
@@ -166,34 +166,10 @@
   \par}
 \makeatother
 
-% Bibliography settings for hanging indent
+% Bibliography via BibTeX — because a paper about BibTeX validation
+% should use BibTeX for its own references.
+\usepackage[numbers,sort&compress]{natbib}
 \Urlmuskip=0mu plus 1mu
-
-\makeatletter
-\def\@biblabel#1{}
-\renewenvironment{thebibliography}[1]
-     {\section*{\refname}%
-      \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
-      \list{}%
-          {\settowidth\labelwidth{}%
-            \leftmargin\labelwidth
-            \advance\leftmargin15pt%
-            \advance\leftmargin\labelsep
-            \setlength\itemindent{-15pt}%
-            \@openbib@code
-            \usecounter{enumiv}%
-            \let\p@enumiv\@empty
-            \renewcommand\theenumiv{}}%
-      \sloppy
-      \clubpenalty4000
-      \@clubpenalty \clubpenalty
-      \widowpenalty4000%
-      \sfcode`\.\@m}
-     {\def\@noitemerr
-      {\@latex@warning{Empty `thebibliography' environment}}%
-      \endlist}
-\renewcommand\newblock{\hskip .10em\@plus.3em\@minus.05em}
-\makeatother
 
 \begin{document}
 
@@ -210,4 +186,8 @@
 \input{sections/discussion}
 \input{sections/limitations-and-future-work}
 \input{sections/conclusions}
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
 \end{document}
