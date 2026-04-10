@@ -1,0 +1,29 @@
+\section{Limitations and Future Work}
+
+\subsection{Limitations}
+
+\paragraph{Sample size.} The false-positive baseline rests on 391 real citations. The Wilson 95\% confidence interval for 0/391 is $[0.0\%,\; 0.96\%]$---sufficient to claim less than 1\% FPR, but not to claim zero. A single false positive in a larger sample would change the point estimate. The planned 10{,}000-citation validation study is essential before any stronger claim is warranted.
+
+\paragraph{Domain bias.} The real-citation test set is 73\% computer science arXiv preprints. Under-represented categories include books, dissertations, non-English publications, retracted papers, pre-1950 works, humanities scholarship, and conference proceedings without DOIs. The validator's performance on these categories is unknown, and there are reasons to expect it may differ: non-English titles may not match well with Jaccard similarity on English tokens, and older works may have incomplete or inconsistent metadata in CrossRef.
+
+\paragraph{Same team, same tests.} The authors who wrote the validation code also designed and curated the test datasets. All code changes addressed general design flaws (escalation logic, confusion matrix convention, dead code removal), not specific test cases. The five test-data corrections in Run~3 (four CrossRef metadata artifacts, one incorrect BibTeX title) were data quality fixes, not validator adjustments. Nevertheless, the risk of unconscious overfitting exists whenever the same team writes both the tool and the evaluation. Independent replication with externally sourced datasets is needed.
+
+\paragraph{AI comparison is preliminary.} The Gemini-vs.-Claude comparison uses a single dataset ($n=100$), a single prompt per provider, and does not control for prompt optimization. Claude's six HTTP~529 errors may reflect transient server load rather than model capability. We report the comparison as a data point, not a definitive ranking of providers.
+
+\paragraph{Synthetic fakes may not represent real hallucinations.} Four of our five fabricated-citation datasets are synthetically generated. Only the Ansari~100 dataset contains real hallucinations found in published papers. Synthetic fakes may be systematically easier or harder to detect than real ones, depending on how closely the generation process mimics actual LLM behavior.
+
+\paragraph{No adversarial testing.} We have not tested the validator against citations deliberately crafted to evade it. An adversary who understands the pipeline---for instance, one who assigns real DOIs to fabricated metadata or who crafts titles to achieve high Jaccard similarity with existing papers---could likely bypass detection. The tool is designed for the common case (LLM-generated hallucinations in submitted manuscripts), not for adversarial deception.
+
+\subsection{Future Work}
+
+\paragraph{Selective AI routing.} The most pressing technical problem is designing rules for when to send citations to AI analysis. The current approach---route all \textit{warning} citations to AI---produces unacceptable false-positive rates on real preprints (72.3\%). A more selective policy would route citations to AI only when multiple heuristic warnings accumulate (e.g., generic author name \emph{and} title pattern \emph{and} not found in databases), while leaving single-warning citations at \textit{warning} status. The eight heuristic detectors already produce these signals; what remains is calibrating the threshold.
+
+\paragraph{Diverse dataset validation.} The 10{,}000-citation study should include: non-English publications (testing Jaccard similarity across languages), books and monographs (testing against WorldCat or similar), dissertations (ProQuest, institutional repositories), humanities and social science journals, retracted papers (Retraction Watch database), and pre-DOI-era publications. Several published benchmarks offer external ground truth: \citet{rao2026} provide a 931-paper benchmark across four scientific domains with field-level error annotations, and the GhostCite corpus \citep{ghostcite2026} includes 2.2 million real citations from 56{,}381 papers.
+
+\paragraph{Cross-tool comparison.} \emph{CheckIfExist} \citep{abbonato2026} is the closest comparable open-source tool. Running identical inputs through both tools would provide a direct performance comparison and might reveal complementary strengths. The CiteAudit benchmark offers 9{,}442 human-validated citations (6{,}475 real, 2{,}967 fake) across multiple domains---a rigorous external test set.
+
+\paragraph{Hosted deployment.} Eliminating the installation barrier is a design goal, not a feature request. The deterministic pipeline requires only server-side Python and free API access. Free hosting platforms (Hugging Face Spaces, PythonAnywhere) can serve the web interface at no cost. A Dockerfile is included in the repository. The goal is a URL that any journal editor or teacher can visit in a browser, paste a bibliography, and receive results---no Python, no terminal, no setup.
+
+\paragraph{Prompt engineering for precision.} The AI tier's 72.3\% FPR on arXiv preprints may be partly a prompting problem. The current prompt does not explicitly instruct the model to distinguish between ``unverifiable'' and ``fabricated.'' Prompt modifications that frame the task as a calibrated confidence assessment---rather than a binary suspicious/not-suspicious judgment---may reduce false positives while preserving recall. This is an empirical question that systematic prompt ablation can answer.
+
+\paragraph{Integration with editorial workflows.} The tool's ultimate value depends on adoption. Zotero and Mendeley plugins, browser extensions, and journal submission system integrations would place validation where editors and reviewers already work. The API-based architecture supports these integrations; what is needed is development effort and community contribution.

@@ -1,0 +1,11 @@
+\section{Conclusion}
+
+Citation hallucination is a solvable problem, and solving it should not require an institutional budget or a computer science degree.
+
+The databases that index legitimate scholarship---CrossRef, OpenAlex, Semantic Scholar---are free and public. A deterministic pipeline querying them achieves 0\% false-positive rate on 391 real citations and 100\% detection on fabricated citations with DOIs, at zero cost. AI analysis can extend detection to citations without DOIs (94\% on the Ansari~100 benchmark, also at zero cost via Gemini's free tier), but only with selective routing---applied unconditionally, it produces false-positive rates that would render any tool unusable.
+
+The harder problem is not technical but epistemological. Every detection system we examined---our own deterministic logic, AI models, and the commercial analysis reported by \textit{Nature}---independently made the same error: treating the absence of a database record as evidence of fabrication. We found this error in our code and fixed it. We watched Gemini reproduce it from scratch. We found it reported at industrial scale in Grounded AI's results. It recurs because it is intuitive, and it is dangerous because millions of legitimate publications are absent from the databases these systems query.
+
+Any system that aspires to detect hallucinated citations must first learn to say ``I don't know''---and to mean it. The distinction between \emph{unverifiable} and \emph{fabricated} is not a technicality. It is the difference between a tool that helps and a tool that accuses.
+
+The \emph{Citation Validator}, its complete codebase, all test data, and all experimental results described in this paper are freely available at \url{https://github.com/OhioMathTeacher/Ohio-Journal-of-School-Mathematics}. We offer it not as a finished product but as a demonstration: that the infrastructure exists, the problem is tractable, and the tools should be public. We invite the community to test it, break it, improve it, and build on it.
