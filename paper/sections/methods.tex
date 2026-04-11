@@ -14,10 +14,14 @@ The \emph{Citation Validator} accepts a BibTeX bibliography (pasted into a web i
   \caption{The \emph{Citation Validator} web interface.}
   \label{fig:web-interface}
   \vspace{0.5\baselineskip}
-  \fbox{\includegraphics[width=0.83\textwidth]{figures/fig2.png}}
+  \fbox{\includegraphics[width=0.83\textwidth]{figures/fig1.png}}
   \vspace{0.75\baselineskip}
   \caption*{%
-    \textbf{Note:} Users paste a BibTeX bibliography or select a benchmark dataset, then click \emph{Validate Citations}. The tool is freely hosted at \url{https://musichead17-citation-validator.hf.space}.
+    \textbf{Note:} The interface provides three input methods.
+    \ding{192}~\textbf{Benchmark Library:} Pre-loaded datasets of real and fabricated citations, organized by category and filterable by type. Users can load curated test sets to evaluate the validator or explore known hallucination patterns.
+    \ding{193}~\textbf{File Upload:} Drag-and-drop or click to upload a \texttt{.bib} file directly.
+    \ding{194}~\textbf{Text Entry:} Paste raw BibTeX entries into the editor.
+    An optional AI analysis toggle (bottom of interface) enables Tier~3 processing with a configurable provider. The tool is freely hosted at \url{https://musichead17-citation-validator.hf.space}.
   }
 \end{figure}
 \FloatBarrier
