@@ -48,7 +48,7 @@ Transient failures (HTTP~429 rate limits, 5xx server errors) trigger one automat
 
 \subsubsection{Tier 2: Database Search}
 
-Citations without DOIs are searched in two open databases:
+As previously mentioned, citations without DOIs are searched in two open databases:
 
 \begin{itemize}
   \item \textbf{OpenAlex} \citep{openalex2026}: structured title filter query, returning the top result. A Jaccard similarity $\geq 0.5$ between the query title and the returned title constitutes a strong match; $\geq 0.3$ is noted but not validating.
