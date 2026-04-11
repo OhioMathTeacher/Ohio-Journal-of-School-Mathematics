@@ -96,26 +96,34 @@ Gemini correctly escalated 90 of 96 \textit{warning} citations to \textit{suspic
 
 \subsubsection{Paid Tier: Claude Sonnet 4}
 
-We ran the identical experiment with Claude Sonnet 4 (Anthropic) as the AI provider, at a cost of approximately \$0.50 per 100 citations.
+We ran the identical experiment with Claude Sonnet 4 (Anthropic) as the AI provider, at a cost of approximately \$0.50 per 100 citations. We then ran both providers on a second dataset---the Frankenstein fakes (real authors paired with fabricated titles, no DOIs)---to test whether the Ansari results would replicate.
 
 \begin{table}[H]
 \centering
-\caption{Three-tier comparison on Ansari~100 fabricated citations.}
-\label{tab:three-tier}
-\begin{tabular}{@{}llrrrl@{}}
+\caption{AI provider comparison across two fabricated-citation datasets.}
+\label{tab:ai-comparison}
+\begin{tabular}{@{}llrrrrl@{}}
 \toprule
-\textbf{Tier} & \textbf{Provider} & \textbf{Detection} & \textbf{Errors} & \textbf{Time (s)} & \textbf{Cost} \\
+\textbf{Dataset} & \textbf{Provider} & \textbf{Detection} & \textbf{Errors} & \textbf{Time (s)} & \textbf{Cost} \\
 \midrule
-Deterministic & Free APIs         &   4\% & 0 &  94 & \$0 \\
-Free AI       & Gemini 2.5 Flash  &  94\% & 0 & 136 & \$0 \\
-Paid AI       & Claude Sonnet 4   &  82\% & 6 & 429 & \textasciitilde\$0.50 \\
+\multirow{3}{*}{Ansari 100}
+  & Deterministic      &   4\% & 0 &  94 & \$0 \\
+  & Gemini 2.5 Flash   &  94\% & 0 & 136 & \$0 \\
+  & Claude Sonnet 4    &  82\% & 6 & 429 & \textasciitilde\$0.50 \\
+\midrule
+\multirow{3}{*}{Frankenstein 100}
+  & Deterministic      &   0\% & 0 &  92 & \$0 \\
+  & Gemini 2.5 Flash   & 100\% & 0 & 120 & \$0 \\
+  & Claude Sonnet 4    & 100\% & 0 & 343 & \textasciitilde\$0.50 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The free tier outperformed the paid tier on every metric. Gemini detected 94 fakes versus Claude's 82. Even excluding Claude's 6 server errors (HTTP~529, server overloaded), Claude's judgment accuracy on successful calls was 78/90 = 86.7\%, still below Gemini's 90/96 = 93.75\%. Gemini was also 3$\times$ faster (136s vs.\ 429s) and had zero API errors.
+On the Frankenstein dataset, both providers achieved 100\% detection with zero errors. On the Ansari dataset---real hallucinations from published NeurIPS papers, which represent harder and more diverse fakes---Gemini detected 94\% versus Claude's 82\%. Claude's server errors (6 HTTP~529 responses on Ansari, 0 on Frankenstein) appear to have been transient. Even excluding those errors, Claude's judgment accuracy on successful Ansari calls was 78/90 = 86.7\%, below Gemini's 90/96 = 93.75\%.
 
-This result inverts the conventional assumption that paid services are superior. We note, however, that this is a preliminary comparison: a single dataset ($n=100$), a single prompt per provider, and Claude's server errors may reflect transient infrastructure issues rather than model capability. We report it as a data point, not a definitive ranking.
+Across both datasets, Gemini was consistently faster (120--136s vs.\ 343--429s) and had zero errors. The free tier matched or exceeded the paid tier on every metric.
+
+This finding is more robust than a single-dataset comparison, but we note its limits: two datasets ($n=200$ total), a single prompt per provider, and both datasets consist of fabricated citations without DOIs. The claim is not that Gemini is categorically superior to Claude. The claim is that the free tier is \emph{sufficient}---and that the access barrier imposed by paid APIs is not justified by superior performance on this task.
 
 \subsection{The Precision Collapse}
 
