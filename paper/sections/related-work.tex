@@ -1,0 +1,33 @@
+\section{Related Work}
+
+The Nature feature by \citet{naddaf2026} brought citation hallucination to broad attention, but the underlying research had been building for months. This section surveys the empirical studies that document the problem's scope, the detection tools that have been proposed, and the datasets available for evaluation.
+
+\subsection{Scope of the Problem}
+
+Several independent studies converge on similar estimates. \citet{bienz2026} compared high-performance computing conference papers from 2021 and 2025, finding 0\% hallucinated citations in the earlier year and 2--6\% in the later---a clean before-and-after picture of AI-assisted writing's impact. \citet{sakai2026} tracked hallucinated citations across three major NLP venues (ACL, NAACL, EMNLP) and found growth from 20 affected papers in 2024 to 275 in 2025. \citet{ansari2025} examined 53 accepted NeurIPS 2025 papers and extracted 100 fabricated citations that had evaded 3--5 expert reviewers per paper, providing a taxonomy of deception strategies: stolen DOIs, plausible fakes, Frankenstein citations (real authors paired with fabricated titles), and others. Our evaluation datasets draw directly on this taxonomy.
+
+\citet{rao2026} tested LLM citation accuracy across four scientific domains and found that only 50.9\% of LLM-generated BibTeX entries were fully correct---meaning roughly half contained at least one fabricated or erroneous field. Their 931-paper benchmark provides field-level error annotations, enabling finer-grained evaluation than citation-level binary classification.
+
+On the ethical and policy side, \citet{resnik2026} argued that hallucinated citations constitute research misconduct when citations function as data---as in systematic reviews, meta-analyses, or literature surveys where fabricated references corrupt the evidence base, not just the bibliography.
+
+\subsection{Detection Tools}
+
+The detection landscape divides sharply between commercial and open-source approaches.
+
+On the commercial side, Grounded AI's \emph{Veracity} tool---used in the Nature analysis---screened over 4{,}000 publications using a proprietary risk-scoring model calibrated against 20{,}000 synthetic papers. Neither the model, the calibration data, nor the tool itself were made public. GPTZero partnered with ICLR for conference-level screening, and Frontiers developed in-house AI detection---both institutional solutions unavailable to independent researchers or small journals.
+
+On the open-source side, \citet{abbonato2026} released \emph{CheckIfExist}, which queries CrossRef, Semantic Scholar, and OpenAlex to verify citations---the same databases our tool uses. CheckIfExist is the closest comparable work and the only open-source tool mentioned in the Nature article, where it received a single sentence. The GhostCite project \citep{ghostcite2026} analyzed 2.2 million real citations from 56{,}381 papers at scale, finding that 1.07\% contained invalid references, and released the CiteVerifier tool alongside a large corpus of validated citations.
+
+Our tool differs from CheckIfExist primarily in its status taxonomy---the four-level classification (valid, warning, suspicious, invalid) and the deliberate decision not to treat ``not found'' as evidence of fabrication. It differs from the commercial tools in being fully open-source, zero-cost, and reproducible: every prompt, dataset, and experimental result is published.
+
+\subsection{Datasets and Benchmarks}
+
+Evaluation in this space has been hampered by the absence of standard benchmarks. Most studies generate their own synthetic fakes or hand-curate small samples. Three recent datasets offer progress toward shared evaluation:
+
+\begin{itemize}
+  \item \citet{ansari2025}: 100 real hallucinated citations from NeurIPS 2025 papers, with a five-category deception taxonomy. We use this dataset directly.
+  \item \citet{rao2026}: 931 papers across four scientific domains with field-level error annotations (title, author, year, venue, DOI).
+  \item \citet{ghostcite2026}: 2.2 million real citations from 56{,}381 papers, with 9{,}442 human-validated citations (6{,}475 real, 2{,}967 fake) in the CiteAudit subset.
+\end{itemize}
+
+\noindent Our evaluation uses the Ansari dataset for real-world hallucinations and four additional synthetic categories (Section~3). Running our tool against the Rao and CiteAudit benchmarks is identified as future work.
