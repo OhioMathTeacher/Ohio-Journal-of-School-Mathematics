@@ -7,6 +7,8 @@
 [![FPR](https://img.shields.io/badge/false_positive_rate-0%25_(n%3D391)-brightgreen)]()
 [![Detection](https://img.shields.io/badge/detection-100%25_with_DOI-blue)]()
 
+> **[Try it online](https://ohiomathteacher-citation-validator.hf.space)** — no install required.  Paste a BibTeX bibliography and get results in minutes.
+
 ---
 
 ## The Problem
@@ -81,7 +83,10 @@ deterministic tiers handle the vast majority of cases without AI.
 
 ## Quick Start
 
-### Web App
+### Online (no install)
+**[Try it here](https://ohiomathteacher-citation-validator.hf.space)** — paste a BibTeX bibliography and get results in your browser.
+
+### Local Web App
 ```bash
 pip install -r scripts/requirements.txt
 python3 scripts/webapp.py
@@ -171,16 +176,19 @@ address these gaps.
 | Stolen DOI (real DOI, wrong metadata) | Yes | **100%** | — |
 | Plausible (fake DOIs) | Yes | **100%** | — |
 | Ansari 100 (real-world NeurIPS fakes) | Mostly no | 4% | **94%** |
-| Frankenstein (real author + fake title) | No | 0% | pending |
+| Frankenstein (real author + fake title) | No | 0% | **100%** |
 | Nonsense (future years, obvious errors) | No | 25% | pending |
 
-### Three-Tier Comparison (Ansari 100 Fakes)
+### AI Provider Comparison (Two Datasets, n=200)
 
-| Tier | Provider | Detection | Errors | Time | Cost |
-|------|----------|-----------|--------|------|------|
-| Deterministic | Free APIs | 4% | 0 | 94s | $0 |
-| Free AI | Gemini 2.5 Flash | **94%** | 0 | 136s | **$0** |
-| Paid AI | Claude Sonnet 4 | 82% | 6 | 429s | ~$0.50 |
+| Dataset | Provider | Detection | Errors | Time | Cost |
+|---------|----------|-----------|--------|------|------|
+| Ansari 100 | Deterministic | 4% | 0 | 94s | $0 |
+| Ansari 100 | Gemini 2.5 Flash | **94%** | 0 | 136s | **$0** |
+| Ansari 100 | Claude Sonnet 4 | 82% | 6 | 429s | ~$0.50 |
+| Frankenstein 100 | Deterministic | 0% | 0 | 92s | $0 |
+| Frankenstein 100 | Gemini 2.5 Flash | **100%** | 0 | 120s | **$0** |
+| Frankenstein 100 | Claude Sonnet 4 | **100%** | 0 | 343s | ~$0.50 |
 
 ### AI on Real Citations (The Precision Problem)
 
@@ -205,7 +213,7 @@ general use.
 - Test set is heavily CS — non-English, humanities, books untested
 - AI applied unconditionally creates unacceptable false positive rates
 - Selective AI routing (only on multi-flag citations) not yet built
-- Provider comparison is preliminary (n=100, one dataset)
+- Provider comparison is preliminary (n=200, two datasets)
 - Same team wrote both the code and the tests
 
 ---
