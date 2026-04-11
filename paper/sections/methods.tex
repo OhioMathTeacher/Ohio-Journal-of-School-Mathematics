@@ -14,7 +14,7 @@ The \emph{Citation Validator} accepts a BibTeX bibliography (pasted into a web i
   \caption{The \emph{Citation Validator} web interface.}
   \label{fig:web-interface}
   \vspace{0.5\baselineskip}
-  \fbox{\includegraphics[width=0.83\textwidth]{figures/fig1.png}}
+  \fbox{\includegraphics[width=0.80\textwidth]{figures/fig1.png}}
   \vspace{0.75\baselineskip}
   \caption*{%
     \textbf{Note:} The interface provides three input methods.
@@ -61,10 +61,7 @@ When a DOI resolves successfully, the returned metadata (title, author, year) is
   J(A, B) \;=\; \frac{|A \cap B|}{|A \cup B|}
 \end{equation}
 %
-where $A$ and $B$ are the sets of lowercase alphanumeric tokens extracted from the BibTeX title and the resolved title, respectively. A Jaccard score below 0.4 triggers a title-mismatch warning and potential escalation to \textit{suspicious}. Author matching checks whether any last name from the BibTeX \texttt{author} field appears (case-insensitive substring match) in the resolved author list. Year matching requires an exact match.
-
-
-Transient failures (HTTP~429 rate limits, 5xx server errors) trigger one automatic retry after a 0.25-second delay. Only a definitive 404 from CrossRef skips the retry.
+where $A$ and $B$ are the sets of lowercase alphanumeric tokens extracted from the BibTeX title and the resolved title, respectively. A Jaccard score below 0.4 triggers a title-mismatch warning and potential escalation to \textit{suspicious}. Author matching checks whether any last name from the BibTeX \texttt{author} field appears (case-insensitive substring match) in the resolved author list. Year matching requires an exact match. Transient failures (HTTP~429 rate limits, 5xx server errors) trigger one automatic retry after a 0.25-second delay. Only a definitive 404 from CrossRef skips the retry.
 
 \subsubsection{Tier 2: Database Search}
 
@@ -95,6 +92,7 @@ AI analysis is not enabled by default. The deterministic tiers (1--2) are the re
 \subsection{Heuristic Enhancement}
 
 In addition to the three-tier pipeline, eight heuristic detectors flag common hallucination patterns as supplementary warnings:
+\vspace{-0.5em}
 \begin{enumerate}[itemsep=0.1em]
   \item Future publication years
   \item Generic author names (e.g., ``Smith,'' ``et al,'' ``Unknown'')
@@ -178,10 +176,9 @@ where $\hat{p} = k/n$ and $z = z_{1-\alpha/2}$. All intervals reported use $\alp
 \endgroup
 
 \subsection{Code Audit}
-
 Before any experiments were run, a thorough code review of the approximately 6{,}000-line codebase identified six issues, three of them critical:
-
-\begin{enumerate}
+\vspace{-0.5em}
+\begin{enumerate}[itemsep=0.1em]
   \item \textbf{Inverted confusion matrix.} True positives and true negatives were swapped from standard detection convention. All previously computed accuracy metrics used non-standard definitions.
   \item \textbf{1{,}500+ lines of dead code.} An abandoned browser-side validation pipeline remained in production, including a contradictory AI prompt that instructed the model to ``assume citations are REAL''---the opposite of the active server-side prompt.
   \item \textbf{Escalation error.} The original logic treated ``not found in any database'' as evidence of fabrication, producing 100\% false-positive rates on legitimate citations. The validator was committing the same epistemological error it was designed to catch.
