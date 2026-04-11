@@ -46,21 +46,9 @@ The code audit deserves particular comment. Claude Opus 4.6 identified the inver
 
 We should be honest about what ``free and open-source'' currently means in practice.
 
-Using the \emph{Citation Validator} today requires installing Python, running a command-line script or starting a local Flask web server (Figure~\ref{fig:web-interface-local}).
+Using the \emph{Citation Validator} today requires installing Python, running a command-line script or starting a local Flask web server (Figure~\ref{fig:web-interface}).
 
-\FloatBarrier
-\begin{figure}[!h]
-  \centering
-  \caption{The \emph{Citation Validator} web interface running locally.}
-  \label{fig:web-interface-local}
-  \vspace{0.5\baselineskip}
-  \fbox{\includegraphics[width=0.83\textwidth]{figures/fig2-web-interface.png}}
-  \vspace{0.75\baselineskip}
-  \caption*{%
-    \textbf{Note:} Users paste a BibTeX bibliography and receive per-citation results. The interface runs on a local Flask server, which currently requires Python installation.
-  }
-\end{figure}
-\FloatBarrier For a computer scientist, that is five minutes of setup. For a mathematics education journal editor---which is what the first author is---it is a real barrier. For a high school teacher evaluating a student's AI-assisted research paper, it is a wall.
+For a computer scientist, that is five minutes of setup. For a mathematics education journal editor---which is what the first author is---it is a real barrier. For a high school teacher evaluating a student's AI-assisted research paper, it is a wall.
 
 The people who most need protection from hallucinated citations are often the least equipped to install developer tools. This is not a new observation---it is the same access gap that makes the commercial solutions described in the \textit{Nature} article inadequate. The commercial tools fail on cost; ours currently fails on technical accessibility. Neither failure is acceptable.
 
