@@ -163,6 +163,37 @@ Nonsense      & Future years, obvious errors             & 100 & No \\
 
 The Ansari~100 dataset consists of real hallucinated citations found in 53 accepted NeurIPS 2025 papers \citep{ansari2025}, providing ground truth from citations that evaded 3--5 expert human reviewers per paper. The remaining four categories are synthetic, generated with documented scripts included in the repository.
 
+\subsubsection{Reproducibility Pipeline}
+
+All experiments reported in this paper were run using two command-line scripts included in the repository. The false-positive baseline (\texttt{run\_fp\_baseline.py}) runs the validator directly against the real-citation datasets, requiring no server:
+
+\begin{verbatim}
+  python3 scripts/run_fp_baseline.py --step 1
+\end{verbatim}
+
+\noindent The benchmark runner (\texttt{run\_benchmark.py}) tests fabricated-citation datasets through the full pipeline, with optional AI analysis via a specified provider:
+
+\begin{verbatim}
+  python3 scripts/run_benchmark.py --dataset ansari100 --no-ai
+  python3 scripts/run_benchmark.py --dataset frankenstein --provider gemini
+\end{verbatim}
+
+\noindent Both scripts load BibTeX files from a dataset manifest (\texttt{datasets/manifest.json}), pass them through the validation pipeline, compare each citation's final status against ground-truth labels, and compute detection rates, false-positive rates, and timing. Every run is logged as a structured JSON record to \texttt{results/experiments/experiment\_log.jsonl}, capturing the dataset, provider, git commit hash, timestamp, per-citation results, and aggregate metrics. This log serves as the primary evidence for the results reported below---any claim in this paper can be traced to a specific, reproducible run.
+
+\FloatBarrier
+\begin{figure}[!h]
+  \centering
+  \caption{Terminal output from a benchmark run against the Ansari~100 dataset.}
+  \label{fig:benchmark-output}
+  \vspace{0.5\baselineskip}
+  \fbox{\includegraphics[width=0.83\textwidth]{figures/fig3.png}}
+  \vspace{0.75\baselineskip}
+  \caption*{%
+    \textbf{Note:} The script loads 100 fabricated citations from the Ansari dataset, runs each through the deterministic pipeline, and reports per-citation status and aggregate detection metrics. Each run is logged with a git commit hash for full traceability.
+  }
+\end{figure}
+\FloatBarrier
+
 \subsubsection{Statistical Methods}
 
 \begingroup\samepage
