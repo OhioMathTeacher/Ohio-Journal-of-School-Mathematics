@@ -7,7 +7,7 @@
 [![FPR](https://img.shields.io/badge/false_positive_rate-0%25_(n%3D391)-brightgreen)]()
 [![Detection](https://img.shields.io/badge/detection-100%25_with_DOI-blue)]()
 
-> **[Try it online](https://musichead17-citation-validator.hf.space)** — no install required.  Paste a BibTeX bibliography and get results in minutes.
+> **[Try it online](https://tea-ai-math-citation-validator.hf.space)** — no install required.  Paste a BibTeX bibliography and get results in minutes.
 
 ---
 
@@ -84,7 +84,7 @@ deterministic tiers handle the vast majority of cases without AI.
 ## Quick Start
 
 ### Online (no install)
-**[Try it here](https://musichead17-citation-validator.hf.space)** — paste a BibTeX bibliography and get results in your browser.
+**[Try it here](https://tea-ai-math-citation-validator.hf.space)** — paste a BibTeX bibliography and get results in your browser.
 
 ### Local Web App
 ```bash
