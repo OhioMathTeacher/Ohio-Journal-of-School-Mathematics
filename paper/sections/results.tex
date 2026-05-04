@@ -2,7 +2,7 @@
 
 \subsection{False-Positive Baseline (Deterministic)}
 
-We tested the deterministic pipeline (Tiers~1--2, no AI) against 391 real citations from three sources. Every citation flagged as \textit{suspicious} or \textit{invalid} is a false positive.
+I tested the deterministic pipeline (Tiers~1--2, no AI) against 391 real citations from three sources. Every citation flagged as \textit{suspicious} or \textit{invalid} is a false positive.
 
 \begin{table}[H]
 \centering
@@ -21,7 +21,7 @@ Nature article   &  10 &   5 &   5 & 0 & 0 & 0.0\% \\
 \end{tabular}
 \end{table}
 
-Zero real citations were flagged as suspicious or invalid. The Wilson 95\% confidence interval for 0/391 is $[0.0\%,\; 0.96\%]$---we can claim less than 1\% FPR with 95\% confidence, but not exactly zero.
+Zero real citations were flagged as suspicious or invalid. The Wilson 95\% confidence interval for 0/391 is $[0.0\%,\; 0.96\%]$---I can claim less than 1\% FPR with 95\% confidence, but not exactly zero.
 
 \begin{figure}[!h]
   \centering
@@ -40,7 +40,7 @@ Two features of these results warrant comment. First, 290 of 391 citations (74\%
 
 \subsection{Fake-Citation Detection (Deterministic)}
 
-We tested the same deterministic pipeline against 500 fabricated citations across five deception strategies. Every fake \emph{not} flagged as \textit{suspicious} or \textit{invalid} is a false negative.
+I tested the same deterministic pipeline against 500 fabricated citations across five deception strategies. Every fake \emph{not} flagged as \textit{suspicious} or \textit{invalid} is a false negative.
 
 \begin{table}[H]
 \centering
@@ -68,7 +68,7 @@ The pattern is stark: \textbf{detection depends entirely on whether the citation
   \item \textbf{Without DOI} (Ansari + Frankenstein + Nonsense): 29/300 = 9.7\%. The validator searches OpenAlex and Semantic Scholar, finds no match, and classifies the citation as \textit{warning}---not \textit{suspicious}.
 \end{itemize}
 
-This is the symmetric consequence of the escalation fix that gave us 0\% FPR. The same design decision that prevents flagging legitimate unindexed citations also prevents flagging fabricated ones. The validator correctly says ``I cannot verify this'' but cannot say ``this is fake.'' This is not a bug. It is the fundamental limit of deterministic detection without DOIs.
+This is the symmetric consequence of the escalation fix that yielded 0\% FPR. The same design decision that prevents flagging legitimate unindexed citations also prevents flagging fabricated ones. The validator correctly says ``I cannot verify this'' but cannot say ``this is fake.'' This is not a bug. It is the fundamental limit of deterministic detection without DOIs.
 
 The 25\% detection rate on Nonsense fakes comes from the heuristic detectors: future publication years and other obvious anomalies that trigger escalation independent of database lookups. The 4\% on Ansari~100 reflects the small number of those citations that happened to carry checkable DOIs.
 
@@ -76,7 +76,7 @@ The 25\% detection rate on Nonsense fakes comes from the heuristic detectors: fu
 
 \subsubsection{Free Tier: Gemini 2.5 Flash}
 
-We ran the Ansari~100 dataset through the full pipeline with Gemini 2.5 Flash as the Tier~3 AI provider. The deterministic tiers ran first; Gemini then analyzed all citations with \textit{warning} or \textit{suspicious} status.
+I ran the Ansari~100 dataset through the full pipeline with Gemini 2.5 Flash as the Tier~3 AI provider. The deterministic tiers ran first; Gemini then analyzed all citations with \textit{warning} or \textit{suspicious} status.
 
 \begin{table}[H]
 \centering
@@ -96,7 +96,7 @@ Gemini correctly escalated 90 of 96 \textit{warning} citations to \textit{suspic
 
 \subsubsection{Paid Tier: Claude Sonnet 4}
 
-We ran the identical experiment with Claude Sonnet 4 (Anthropic) as the AI provider, at a cost of approximately \$0.50 per 100 citations. We then ran both providers on a second dataset---the Frankenstein fakes (real authors paired with fabricated titles, no DOIs)---to test whether the Ansari results would replicate.
+I ran the identical experiment with Claude Sonnet 4 (Anthropic) as the AI provider, at a cost of approximately \$0.50 per 100 citations. I then ran both providers on a second dataset---the Frankenstein fakes (real authors paired with fabricated titles, no DOIs)---to test whether the Ansari results would replicate.
 
 \begin{table}[H]
 \centering
@@ -123,11 +123,11 @@ On the Frankenstein dataset, both providers achieved 100\% detection with zero e
 
 Across both datasets, Gemini was consistently faster (120--136s vs.\ 343--429s) and had zero errors. The free tier matched or exceeded the paid tier on every metric.
 
-This finding is more robust than a single-dataset comparison, but we note its limits: two datasets ($n=200$ total), a single prompt per provider, and both datasets consist of fabricated citations without DOIs. The claim is not that Gemini is categorically superior to Claude. The claim is that the free tier is \emph{sufficient}---and that the access barrier imposed by paid APIs is not justified by superior performance on this task.
+This finding is more robust than a single-dataset comparison, but its limits are real: two datasets ($n=200$ total), a single prompt per provider, and both datasets consist of fabricated citations without DOIs. The claim is not that Gemini is categorically superior to Claude. The claim is that the free tier is \emph{sufficient}---and that the access barrier imposed by paid APIs is not justified by superior performance on this task.
 
 \subsection{The Precision Collapse}
 
-The results above show that AI dramatically improves recall on fabricated citations. The critical question is whether it preserves precision on real ones. We ran Gemini on the real-citation datasets from Table~\ref{tab:fpr}.
+The results above show that AI dramatically improves recall on fabricated citations. The critical question is whether it preserves precision on real ones. I ran Gemini on the real-citation datasets from Table~\ref{tab:fpr}.
 
 \begin{table}[H]
 \centering

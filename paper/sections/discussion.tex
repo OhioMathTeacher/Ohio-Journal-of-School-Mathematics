@@ -2,13 +2,13 @@
 
 \subsection{The Recurring Error}
 
-The central finding of this work is not a detection rate or a cost comparison. It is the observation that a single epistemological error---the conflation of \emph{unverifiable} with \emph{fabricated}---recurs independently at every tier of citation validation we tested.
+The central finding of this work is not a detection rate or a cost comparison. It is the observation that a single epistemological error---the conflation of \emph{unverifiable} with \emph{fabricated}---recurs independently at every tier of citation validation I tested.
 
 \textbf{In the deterministic code.} The original escalation logic treated ``not found in any database'' as evidence of fabrication, producing a 100\% false-positive rate on legitimate arXiv preprints. The fix was straightforward: reclassify ``not found'' as \textit{warning} (unverifiable) rather than \textit{suspicious}. This single change reduced the FPR from 100\% to 0\%.
 
-\textbf{In the AI tier.} When Gemini 2.5 Flash analyzed the same arXiv preprints, it flagged 72.3\% of them as suspicious---reproducing the exact error we had already fixed in the deterministic pipeline. The AI was not given our escalation logic; it arrived at the same mistake independently, from its own training and reasoning. It treated ``I do not recognize this paper'' as ``this paper is probably fake.''
+\textbf{In the AI tier.} When Gemini 2.5 Flash analyzed the same arXiv preprints, it flagged 72.3\% of them as suspicious---reproducing the exact error I had already fixed in the deterministic pipeline. The AI was not given my escalation logic; it arrived at the same mistake independently, from its own training and reasoning. It treated ``I do not recognize this paper'' as ``this paper is probably fake.''
 
-\textbf{In commercial tools.} Grounded AI's analysis for \textit{Nature} \citep{naddaf2026} reported that 22 of their 100 most-flagged publications turned out to be genuine. While their methodology differs from ours, the pattern is the same: a system designed to detect fabrication instead flags legitimate work that happens to be hard to verify.
+\textbf{In commercial tools.} Grounded AI's analysis for \textit{Nature} \citep{naddaf2026} reported that 22 of their 100 most-flagged publications turned out to be genuine. While their methodology differs from mine, the pattern is the same: a system designed to detect fabrication instead flags legitimate work that happens to be hard to verify.
 
 The error recurs because it is intuitive. If you search for something and cannot find it, the natural conclusion is that it does not exist. But in a world where millions of legitimate publications lack DOIs, are not indexed in major databases, or are published in languages that AI models under-represent, that intuition is systematically wrong. The absence of a database record is information about the \emph{database}, not about the citation.
 
@@ -16,21 +16,21 @@ This has a direct consequence for tool design. Any detection system that treats 
 
 \subsection{The DOI Boundary}
 
-Our results reveal a sharp discontinuity in detection capability that we call the \emph{DOI boundary}. On one side: citations with DOIs are validated with 100\% accuracy and 0\% false-positive rate, because DOI resolution provides a ground-truth anchor. On the other side: citations without DOIs are validated with near-zero detection (4\% deterministic) or catastrophic false-positive rates (72.3\% with AI).
+The results reveal a sharp discontinuity in detection capability that I call the \emph{DOI boundary}. On one side: citations with DOIs are validated with 100\% accuracy and 0\% false-positive rate, because DOI resolution provides a ground-truth anchor. On the other side: citations without DOIs are validated with near-zero detection (4\% deterministic) or catastrophic false-positive rates (72.3\% with AI).
 
-This boundary is not an artifact of our implementation. It reflects a structural feature of the scholarly record: DOIs provide a unique, persistent, resolvable identifier that links a citation to verified metadata. Without that anchor, any validation system---ours or anyone else's---must rely on fuzzy matching against incomplete databases, and fuzzy matching against incomplete databases is where the epistemological error lives.
+This boundary is not an artifact of the implementation. It reflects a structural feature of the scholarly record: DOIs provide a unique, persistent, resolvable identifier that links a citation to verified metadata. Without that anchor, any validation system---this one or any other---must rely on fuzzy matching against incomplete databases, and fuzzy matching against incomplete databases is where the epistemological error lives.
 
 The practical implication is that the most effective intervention for citation integrity may not be better detection algorithms but broader DOI adoption. Every preprint, dissertation, conference paper, and technical report that receives a DOI becomes trivially verifiable. Every one that does not remains in the zone where detection systems fail or, worse, accuse legitimate scholarship of fabrication.
 
 \subsection{Free Infrastructure, Public Problem}
 
-The \textit{Nature} article frames citation hallucination as a problem requiring sophisticated AI solutions delivered by commercial partners. Our results suggest a different framing: the hard part of detection is already solved, for free, by the public infrastructure of scholarly metadata.
+The \textit{Nature} article frames citation hallucination as a problem requiring sophisticated AI solutions delivered by commercial partners. My results suggest a different framing: the hard part of detection is already solved, for free, by the public infrastructure of scholarly metadata.
 
-CrossRef, OpenAlex, and Semantic Scholar collectively index hundreds of millions of scholarly works and are freely accessible to anyone. A deterministic pipeline querying these databases achieves 0\% FPR and 100\% detection on DOI-bearing citations---performance that no AI tier in our experiments improved upon. The commercial tools described in the \textit{Nature} article use these same databases; what they add is AI interpretation, which our experiments show introduces more problems than it solves when applied without selective routing.
+CrossRef, OpenAlex, and Semantic Scholar collectively index hundreds of millions of scholarly works and are freely accessible to anyone. A deterministic pipeline querying these databases achieves 0\% FPR and 100\% detection on DOI-bearing citations---performance that no AI tier in my experiments improved upon. The commercial tools described in the \textit{Nature} article use these same databases; what they add is AI interpretation, which my experiments show introduces more problems than it solves when applied without selective routing.
 
 This is not an argument against AI in citation validation. Gemini's 94\% detection rate on fabricated citations without DOIs demonstrates real value. The argument is that AI should be a \emph{second pass} applied selectively to citations that accumulate multiple warning signals---not a wholesale replacement for deterministic verification, and certainly not a service that requires a subscription fee to access.
 
-The cost comparison reinforces this point. Gemini's free tier (1 million tokens/day) outperformed Claude Sonnet~4's paid API (\textasciitilde\$0.50/100 citations) on accuracy (94\% vs.\ 82\%), reliability (0 vs.\ 6 errors), and speed (136s vs.\ 429s). We are cautious about generalizing from a single comparison ($n=100$), but the direction is clear: for this specific task, the access barrier imposed by paid APIs is not justified by superior performance.
+The cost comparison reinforces this point. Gemini's free tier (1 million tokens/day) outperformed Claude Sonnet~4's paid API (\textasciitilde\$0.50/100 citations) on accuracy (94\% vs.\ 82\%), reliability (0 vs.\ 6 errors), and speed (136s vs.\ 429s). I am cautious about generalizing from a single comparison ($n=100$), but the direction is clear: for this specific task, the access barrier imposed by paid APIs is not justified by superior performance.
 
 If hallucinated citations are a threat to the shared infrastructure of science---and the evidence suggests they are \citep{bienz2026, sakai2026, ansari2025}---then detection tools should be public goods, not proprietary products. The databases are already public. The algorithms are straightforward. The remaining barrier is accessibility: getting a working tool into the hands of people who need it.
 
@@ -38,20 +38,20 @@ If hallucinated citations are a threat to the shared infrastructure of science--
 
 This project is layered with contradictions worth naming explicitly. The hallucinated-citation problem is caused by large language models. The code audit that found three critical bugs in this tool was performed by a large language model (Claude Opus 4.6). The AI tier that achieved 94\% detection on fabricated citations is itself a large language model (Gemini 2.5 Flash). The same class of technology that poisons citation networks helps make detection tools correct and effective.
 
-We do not pretend this tension is resolved. But we note that refusing to use AI to address AI-generated problems would be like refusing to use a calculator to check arithmetic. The relevant question is not whether AI is involved, but whether its involvement is transparent, auditable, and reproducible. In our case, the AI prompts are published, the model versions are documented, the results are timestamped and stored, and the entire pipeline can be reproduced by anyone with an internet connection and no API keys.
+I do not pretend this tension is resolved. But I note that refusing to use AI to address AI-generated problems would be like refusing to use a calculator to check arithmetic. The relevant question is not whether AI is involved, but whether its involvement is transparent, auditable, and reproducible. In this project, the AI prompts are published, the model versions are documented, the results are timestamped and stored, and the entire pipeline can be reproduced by anyone with an internet connection and no API keys.
 
-The code audit deserves particular comment. Claude Opus 4.6 identified the inverted confusion matrix, 1{,}500 lines of dead code, and the epistemological error in the escalation logic---three critical issues that the human developer had missed. This is precisely the kind of task where AI adds clear value: systematic review of a large codebase against known correctness criteria. The irony that an AI found the bugs in a tool designed to catch AI-generated errors is not lost on us, but irony is not an argument against effectiveness.
+The code audit deserves particular comment. Claude Opus 4.6 identified the inverted confusion matrix, 1{,}500 lines of dead code, and the epistemological error in the escalation logic---three critical issues I had missed. This is precisely the kind of task where AI adds clear value: systematic review of a large codebase against known correctness criteria. The irony that an AI found the bugs in a tool designed to catch AI-generated errors is not lost on me, but irony is not an argument against effectiveness.
 
 \subsection{The Accessibility Gap}
 
-We should be honest about what ``free and open-source'' currently means in practice.
+I should be honest about what ``free and open-source'' currently means in practice.
 
 Using the \emph{Citation Validator} today requires installing Python, running a command-line script or starting a local Flask web server (Figure~\ref{fig:web-interface}).
 
-For a computer scientist, that is five minutes of setup. For a mathematics education journal editor---which is what the first author is---it is a real barrier. For a high school teacher evaluating a student's AI-assisted research paper, it is a wall.
+For a computer scientist, that is five minutes of setup. For a mathematics education journal editor---which is what I am---it is a real barrier. For a high school teacher evaluating a student's AI-assisted research paper, it is a wall.
 
 The people who most need protection from hallucinated citations are often the least equipped to install developer tools. This is not a new observation---it is the same access gap that makes the commercial solutions described in the \textit{Nature} article inadequate. The commercial tools fail on cost; ours currently fails on technical accessibility. Neither failure is acceptable.
 
 The underlying APIs (CrossRef, OpenAlex, Semantic Scholar) are free and public, but they cannot be called directly from a web browser due to cross-origin security restrictions. A server-side component is required---which means either a local install or a hosted deployment. Hosting is straightforward and free (services like Hugging Face Spaces and PythonAnywhere offer free-tier Python hosting), but someone has to do it.
 
-We name this gap explicitly because we believe it is one of the most important problems this line of work needs to solve. The algorithm works. The APIs are free. The code is open. What is missing is the last mile: getting a working tool into the hands of people who do not know what \texttt{pip install} means and should not have to.
+I name this gap explicitly because I believe it is one of the most important problems this line of work needs to solve. The algorithm works. The APIs are free. The code is open. What is missing is the last mile: getting a working tool into the hands of people who do not know what \texttt{pip install} means and should not have to.

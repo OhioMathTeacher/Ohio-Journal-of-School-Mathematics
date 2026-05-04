@@ -72,7 +72,7 @@ As previously mentioned, citations without DOIs are searched in two open databas
   \item \textbf{Semantic Scholar} \citep{semanticscholar2026}: free-text title search, returning title, authors, year, venue, and external identifiers. A strong match requires both title similarity $\geq 0.5$ \emph{and} author/year cross-validation.
 \end{itemize}
 
-If neither database returns a match, the citation is classified as \textit{warning} (unverifiable)---\textbf{not} \textit{suspicious}. This is the critical design decision. Many legitimate citations (arXiv preprints, non-English journals, older publications, books) are absent from these databases. Treating absence as evidence of fabrication would produce unacceptable false-positive rates, as our experiments confirm.
+If neither database returns a match, the citation is classified as \textit{warning} (unverifiable)---\textbf{not} \textit{suspicious}. This is the critical design decision. Many legitimate citations (arXiv preprints, non-English journals, older publications, books) are absent from these databases. Treating absence as evidence of fabrication would produce unacceptable false-positive rates, as the experiments below confirm.
 
 \subsubsection{Tier 3: AI Analysis (Optional)}
 
@@ -110,7 +110,7 @@ These heuristics contribute warning signals but do not independently escalate a 
 
 \subsubsection{Confusion Matrix Convention}
 
-We adopt standard detection convention throughout:
+I adopt standard detection convention throughout:
 
 \begin{center}
 \begin{tabular}{@{}ll@{}}
@@ -215,4 +215,4 @@ Before any experiments were run, a thorough code review of the approximately 6{,
   \item \textbf{Escalation error.} The original logic treated ``not found in any database'' as evidence of fabrication, producing 100\% false-positive rates on legitimate citations. The validator was committing the same epistemological error it was designed to catch.
 \end{enumerate}
 
-After fixes, the codebase shrank by 1{,}604 lines while gaining a 19-test suite and the evaluation framework described above. The code audit was performed by Claude Opus 4.6 (Anthropic), a large language model---an irony we address in the Discussion.
+After fixes, the codebase shrank by 1{,}604 lines while gaining a 19-test suite and the evaluation framework described above. The code audit was performed by Claude Opus 4.6 (Anthropic), a large language model---an irony I address in the Discussion.
