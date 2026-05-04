@@ -129,6 +129,28 @@ results only.
 
 ---
 
+### Step 2E: DOI-List Input Mode
+
+**Why:** The current input methods (file upload, paste BibTeX, benchmark
+library) all assume the user has a `.bib` file or BibTeX-formatted
+text. Many users — journal editors checking a manuscript's references,
+teachers spot-checking a student paper, reviewers copying from a PDF —
+have a list of DOIs and nothing else. Forcing them to assemble BibTeX
+first is a real barrier.
+
+**What to do:** Add a fourth input mode to the web interface (and a
+matching CLI flag): a textarea that accepts one DOI per line, optionally
+prefixed with `https://doi.org/` or `doi:`. Each line is wrapped into a
+synthetic `@misc{auto_<n>, doi={...}}` BibTeX entry and passed to the
+existing validator unchanged. No changes to the validation pipeline are
+required — only an input-shim.
+
+**Acceptance:** A user can paste 50 DOIs (one per line, mixed formats),
+hit Validate, and receive the same per-citation status output the BibTeX
+path produces.
+
+---
+
 ## Phase 3: Scale and External Validation
 
 These steps strengthen the paper but are not strictly required for an
