@@ -16,7 +16,7 @@ The detection landscape divides sharply between commercial and open-source appro
 
 On the commercial side, Grounded AI's \emph{Veracity} tool---used in the Nature analysis---screened over 4{,}000 publications using a proprietary risk-scoring model calibrated against 20{,}000 synthetic papers. Neither the model, the calibration data, nor the tool itself were made public. GPTZero partnered with ICLR for conference-level screening, and Frontiers developed in-house AI detection---both institutional solutions unavailable to independent researchers or small journals.
 
-On the open-source side, \citet{abbonato2026} released \emph{CheckIfExist}, which queries CrossRef, Semantic Scholar, and OpenAlex to verify citations---the same databases my tool uses. CheckIfExist is the closest comparable work and the only open-source tool mentioned in the Nature article, where it received a single sentence. The GhostCite project \citep{ghostcite2026} analyzed 2.2 million real citations from 56{,}381 papers at scale, finding that 1.07\% contained invalid references, and released the CiteVerifier tool alongside a large corpus of validated citations.
+On the open-source side, \citet{abbonato2026} released \emph{CheckIfExist}, which queries CrossRef, Semantic Scholar, and OpenAlex to verify citations---the same databases my tool uses. CheckIfExist is the closest comparable work and the only open-source tool mentioned in the Nature article, where it received a single sentence. \citet{ghostcite2026} analyzed 2.2 million real citations from 56{,}381 papers at scale, finding that 1.07\% contained invalid references, and released the \emph{CiteVerifier} framework. Separately, \citet{citeaudit2026} introduced \emph{CiteAudit}, a human-validated benchmark of 9{,}442 citations (6{,}475 real, 2{,}967 fake) drawn from Google Scholar, OpenReview, arXiv, and BioRxiv---the most comprehensive labeled corpus released to date.
 
 My tool differs from CheckIfExist primarily in its status taxonomy---the four-level classification (valid, warning, suspicious, invalid) and the deliberate decision not to treat ``not found'' as evidence of fabrication. It differs from the commercial tools in being fully open-source, zero-cost, and reproducible: every prompt, dataset, and experimental result is published.
 
@@ -27,7 +27,8 @@ Evaluation in this space has been hampered by the absence of standard benchmarks
 \begin{itemize}
   \item \citet{ansari2025}: 100 real hallucinated citations from NeurIPS 2025 papers, with a five-category deception taxonomy. I use this dataset directly.
   \item \citet{rao2026}: 931 papers across four scientific domains with field-level error annotations (title, author, year, venue, DOI).
-  \item \citet{ghostcite2026}: 2.2 million real citations from 56{,}381 papers, with 9{,}442 human-validated citations (6{,}475 real, 2{,}967 fake) in the CiteAudit subset.
+  \item \citet{ghostcite2026}: 2.2 million citations from 56{,}381 papers in AI/ML and Security venues (2020--2025), with 1.07\% flagged as invalid.
+  \item \citet{citeaudit2026}: 9{,}442 human-validated citations (6{,}475 real, 2{,}967 fake) spanning Google Scholar, OpenReview, arXiv, and BioRxiv.
 \end{itemize}
 
-\noindent My evaluation uses the Ansari dataset for real-world hallucinations and four additional synthetic categories (Section~3). Running the tool against the Rao and CiteAudit benchmarks is identified as future work.
+\noindent My evaluation uses the Ansari dataset for real-world hallucinations and four additional synthetic categories (Section~3). Running the tool against the Rao \citep{rao2026} and CiteAudit \citep{citeaudit2026} benchmarks is identified as future work.
