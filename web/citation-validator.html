@@ -1464,10 +1464,17 @@ Respond with JSON only:
         }
 
         function extractDois(text) {
+            // Pre-pass: rejoin DOIs split across lines (common in PDF-pasted
+            // reference lists, e.g. "10.1080/14794802.\n2024.2444321"). We only
+            // fire when the next line starts with a digit or period, which
+            // matches DOI-suffix continuations and avoids fusing a DOI with an
+            // unrelated next-reference author name like "Smith, J.".
+            const joined = text.replace(/(10\.\d{4,9}\/\S*)\n[ \t]*(\.?\d[^\s,;)"'>\]]*)/gi, '$1$2');
+
             const doiRegex = /10\.\d{4,9}\/[^\s,;)"'>\]]+/gi;
             const seen = new Set();
             const dois = [];
-            for (const line of text.split('\n')) {
+            for (const line of joined.split('\n')) {
                 const matches = line.match(doiRegex) || [];
                 for (const raw of matches) {
                     const doi = raw.replace(/[.,;)"'>\]]+$/, '');
