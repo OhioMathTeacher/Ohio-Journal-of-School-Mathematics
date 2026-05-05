@@ -91,7 +91,37 @@
             outline: none;
             border-color: var(--primary);
         }
-        
+
+        .input-tabs {
+            display: flex;
+            gap: 0;
+            border-bottom: 2px solid var(--line);
+            margin-bottom: 12px;
+        }
+        .input-tab-btn {
+            padding: 8px 18px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--muted);
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: color 0.15s, border-color 0.15s;
+        }
+        .input-tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            font-weight: 600;
+        }
+        .input-tab-btn:hover:not(.active) { color: var(--text); }
+        .doi-status {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 6px;
+            min-height: 18px;
+        }
+
         .file-upload {
             border: 2px dashed var(--line);
             border-radius: 8px;
@@ -838,18 +868,21 @@
             </div>
 
             <div class="section">
-                <h2>Input BibTeX References</h2>
-                
-                <div class="file-upload" id="fileUpload">
-                    <input type="file" id="fileInput" accept=".bib,.txt">
-                    <p>📁 Click to upload .bib file or drag and drop</p>
-                    <p style="font-size: 0.9em; opacity: 0.7;">Supports BibTeX (.bib) files</p>
-                </div>
-                <p class="file-status" id="fileStatus"></p>
+                <h2>Input References</h2>
 
-                <h2>Entered References (BibTeX)</h2>
-                
-                <textarea id="bibInput" placeholder="Or paste your BibTeX entries here...
+                <div class="input-tabs">
+                    <button class="input-tab-btn active" id="tabBibtex" onclick="switchInputTab('bibtex')">BibTeX</button>
+                    <button class="input-tab-btn" id="tabDoi" onclick="switchInputTab('doi')">Reference list / DOIs</button>
+                </div>
+
+                <div id="panelBibtex">
+                    <div class="file-upload" id="fileUpload">
+                        <input type="file" id="fileInput" accept=".bib,.txt">
+                        <p>📁 Click to upload .bib file or drag and drop</p>
+                        <p style="font-size: 0.9em; opacity: 0.7;">Supports BibTeX (.bib) files</p>
+                    </div>
+                    <p class="file-status" id="fileStatus"></p>
+                    <textarea id="bibInput" placeholder="Or paste your BibTeX entries here...
 
 Example:
 @article{AuthorYear,
@@ -859,6 +892,19 @@ Example:
   year={2025},
   doi={10.1234/example}
 }"></textarea>
+                </div>
+
+                <div id="panelDoi" style="display:none;">
+                    <textarea id="doiInput" placeholder="Paste DOIs or a reference list here — one reference per line.
+DOIs are extracted automatically; everything else is ignored.
+
+Examples accepted:
+  10.1080/26939169.2024.2394534
+  https://doi.org/10.5038/1936-4660.4.2.8
+  Bates et al. (2025). Cultivating critical thinking... doi:10.1080/26939169.2024.2394534
+  Full APA or MLA references — any line containing a DOI works."></textarea>
+                    <p class="doi-status" id="doiStatus"></p>
+                </div>
             </div>
 
             <div class="section" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--card); border: 1px solid var(--line); border-radius: 8px;">
@@ -1399,16 +1445,84 @@ Respond with JSON only:
         fileUpload.addEventListener('click', () => {
             fileInput.click();
         });
-        
+
+        document.getElementById('doiInput').addEventListener('input', updateDoiStatus);
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // DOI-LIST INPUT TAB
+        // ═══════════════════════════════════════════════════════════════════════════
+
+        let activeInputTab = 'bibtex';
+
+        function switchInputTab(tab) {
+            activeInputTab = tab;
+            document.getElementById('panelBibtex').style.display = tab === 'bibtex' ? '' : 'none';
+            document.getElementById('panelDoi').style.display    = tab === 'doi'     ? '' : 'none';
+            document.getElementById('tabBibtex').classList.toggle('active', tab === 'bibtex');
+            document.getElementById('tabDoi').classList.toggle('active',    tab === 'doi');
+            if (tab === 'doi') updateDoiStatus();
+        }
+
+        function extractDois(text) {
+            const doiRegex = /10\.\d{4,9}\/[^\s,;)"'>\]]+/gi;
+            const seen = new Set();
+            const dois = [];
+            for (const line of text.split('\n')) {
+                const matches = line.match(doiRegex) || [];
+                for (const raw of matches) {
+                    const doi = raw.replace(/[.,;)"'>\]]+$/, '');
+                    if (!seen.has(doi.toLowerCase())) {
+                        seen.add(doi.toLowerCase());
+                        dois.push(doi);
+                    }
+                }
+            }
+            return dois;
+        }
+
+        function buildSyntheticBibtex(dois) {
+            return dois.map((doi, i) => {
+                const n = String(i + 1).padStart(3, '0');
+                return `@misc{auto_${n},\n  doi = {${doi}}\n}`;
+            }).join('\n\n');
+        }
+
+        function updateDoiStatus() {
+            const raw = document.getElementById('doiInput').value;
+            const status = document.getElementById('doiStatus');
+            if (!raw.trim()) { status.textContent = ''; return; }
+            const lines = raw.split('\n').filter(l => l.trim()).length;
+            const dois  = extractDois(raw);
+            const skipped = lines - dois.length;
+            status.textContent =
+                `Extracted ${dois.length} DOI${dois.length !== 1 ? 's' : ''} from ${lines} line${lines !== 1 ? 's' : ''}` +
+                (skipped > 0 ? ` (${skipped} line${skipped !== 1 ? 's' : ''} without a DOI skipped)` : '');
+        }
+
         // ═══════════════════════════════════════════════════════════════════════════
         // MAIN VALIDATION WORKFLOW
         // ═══════════════════════════════════════════════════════════════════════════
-        
+
         async function validateCitations() {
-            const bibText = document.getElementById('bibInput').value.trim();
-            if (!bibText) {
-                alert('Please paste BibTeX or upload a file');
-                return;
+            let bibText;
+            if (activeInputTab === 'doi') {
+                const raw = document.getElementById('doiInput').value.trim();
+                if (!raw) {
+                    alert('Please paste DOIs or references, or switch to the BibTeX tab.');
+                    return;
+                }
+                const dois = extractDois(raw);
+                if (dois.length === 0) {
+                    alert('No DOIs found. Make sure at least one line contains a DOI like 10.xxxx/...');
+                    return;
+                }
+                bibText = buildSyntheticBibtex(dois);
+            } else {
+                bibText = document.getElementById('bibInput').value.trim();
+                if (!bibText) {
+                    alert('Please paste BibTeX or upload a file');
+                    return;
+                }
             }
             
             const useAI = document.getElementById('useAI').checked;
