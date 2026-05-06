@@ -202,7 +202,7 @@ function extractCitedReference(refsText, doi) {
   return chunk;
 }
 
-function load() {
+async function load() {
   const r = await fetch('/api/candidates');
   const data = await r.json();
   candidates = data.candidates;
