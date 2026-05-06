@@ -22,6 +22,14 @@ This boundary is not an artifact of the implementation. It reflects a structural
 
 The practical implication is that the most effective intervention for citation integrity may not be better detection algorithms but broader DOI adoption. Every preprint, dissertation, conference paper, and technical report that receives a DOI becomes trivially verifiable. Every one that does not remains in the zone where detection systems fail or, worse, accuse legitimate scholarship of fabrication.
 
+\subsection{Frankenstein Citations}
+
+The DOI boundary discussion above assumes the DOI itself is real. Increasingly, that assumption fails. A growing failure mode---one the validator catches immediately---is what I call the \emph{Frankenstein citation}: a reference in which the authors, title, and journal are correct, but the DOI and supporting metadata are fabricated. The paper exists; the identifier does not.
+
+A concrete example encountered during testing: a 2026 journal article cited a 2024 paper with correct authors (S\"oderstr\"om and Palm), correct title, and correct journal (\emph{Research in Mathematics Education}), but with a DOI (\texttt{10.1080/14794802.2024.2444321}) that does not resolve in CrossRef and with page numbers (1--23) that differ from the actual pagination (163--184) by more than an order of magnitude. The real DOI was \texttt{10.1080/14794802.2024.2401488}. Neither error pattern resembles a human transcription mistake, but together they fit the signature of AI-assisted citation generation: the model correctly identifies that a paper of this description exists, then fabricates the specific identifiers because they were not in its training distribution.
+
+I name this as a category distinct from pure hallucination---which targets papers that do not exist at all---because the detection criteria differ. Frankenstein citations have real bodies but stitched-together identifiers; the validator's metadata cross-check (DOI-title match, year match, author match) catches them, while a tool that only verifies that a DOI exists in CrossRef would not. The Frankenstein category may well prove the more common AI-assisted failure mode in practice. A taxonomy paper applying the validator to a journal's full back catalog is in preparation.
+
 \subsection{Free Infrastructure, Public Problem}
 
 The \textit{Nature} article frames citation hallucination as a problem requiring sophisticated AI solutions delivered by commercial partners. My results suggest a different framing: the hard part of detection is already solved, for free, by the public infrastructure of scholarly metadata.
