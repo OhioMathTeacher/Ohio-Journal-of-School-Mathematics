@@ -29,7 +29,7 @@ import re
 import shutil
 import subprocess
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -51,11 +51,35 @@ END_HEADING_RE = re.compile(
     re.MULTILINE | re.IGNORECASE,
 )
 
-# DOI regex (same as the validator's web-side extractor).
-DOI_RE = re.compile(r"10\.\d{4,9}/[^\s,;)\"'>\]]+", re.IGNORECASE)
+# DOI regex — permissive: capture everything non-whitespace after the prefix.
+# DOIs per the spec can contain any character except whitespace, including
+# parentheses (old Elsevier DOIs like 10.1016/S0732-3123(01)00109-9) and
+# colons (old Springer DOIs like 10.1023/B:LITTLE.000123).  We rely on
+# trailing-punctuation cleanup below rather than narrow character classes.
+DOI_RE = re.compile(r"10\.\d{4,9}/\S+", re.IGNORECASE)
 
-# Pre-pass to rejoin DOIs split across line breaks.
-DOI_LINE_REJOIN_RE = re.compile(r"(10\.\d{4,9}/\S*)\n[ \t]*(\.?\d[^\s,;)\"'>\]]*)", re.IGNORECASE)
+# Line-rejoin pre-pass: if a DOI runs to a line break and the next line
+# starts with DOI-like content (alphanumeric / period / dash / underscore /
+# slash, no leading whitespace and no blank line between), merge them.
+# Refuses to merge across a blank line so distinct references don't fuse.
+DOI_LINE_REJOIN_RE = re.compile(
+    r"(10\.\d{4,9}/\S+)[ \t]*\n(?!\s*\n)[ \t]*([A-Za-z0-9._\-/:]+)",
+    re.IGNORECASE,
+)
+
+
+def clean_doi_tail(doi: str) -> str:
+    """Strip sentence-ending punctuation from a captured DOI.
+
+    Always strips trailing .,;"'> characters.  Strips a trailing ')' only if
+    it's unbalanced — i.e. there's no matching '(' earlier in the DOI suffix —
+    to preserve old Elsevier DOIs that include parens as literal characters.
+    """
+    while doi and doi[-1] in '.,;"\'>':
+        doi = doi[:-1]
+    if doi.endswith(')') and doi.count('(') < doi.count(')'):
+        doi = doi[:-1]
+    return doi
 
 
 def pdftotext(pdf_path: Path) -> str:
@@ -87,7 +111,9 @@ def extract_dois(text: str) -> list[str]:
     seen: set[str] = set()
     dois: list[str] = []
     for raw in DOI_RE.findall(joined):
-        doi = raw.rstrip(".,;)\"'>]")
+        doi = clean_doi_tail(raw)
+        if not doi:
+            continue
         if doi.lower() not in seen:
             seen.add(doi.lower())
             dois.append(doi)
@@ -106,7 +132,7 @@ def build_synthetic_bib(article_id: int, dois: list[str]) -> str:
     """Build a BibTeX file with one @misc entry per extracted DOI."""
     if not dois:
         return f"% Article {article_id}: 0 DOIs extracted\n"
-    entries = [f"% Article {article_id}: {len(dois)} DOIs extracted on {datetime.utcnow().date()}\n"]
+    entries = [f"% Article {article_id}: {len(dois)} DOIs extracted on {datetime.now(timezone.utc).date()}\n"]
     for i, doi in enumerate(dois, 1):
         key = f"a{article_id}_ref{i:03d}"
         entries.append(f"@misc{{{key},\n  doi = {{{doi}}}\n}}\n")
@@ -132,7 +158,7 @@ def main() -> int:
     REFS_DIR.mkdir(parents=True, exist_ok=True)
     BIBS_DIR.mkdir(parents=True, exist_ok=True)
 
-    summary = {"generated_at": datetime.utcnow().isoformat(timespec="seconds"), "articles": []}
+    summary = {"generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "articles": []}
     for art in articles:
         aid = art["article_id"]
         pdf_path = PDF_DIR / f"{aid}.pdf"

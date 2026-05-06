@@ -21,7 +21,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -57,7 +57,7 @@ def main() -> int:
     validator = CitationValidator(verbose=False, use_ai=args.use_ai)
 
     aggregate = {
-        "generated_at": datetime.utcnow().isoformat(timespec="seconds"),
+        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "ai_enabled": args.use_ai,
         "totals": {"valid": 0, "warnings": 0, "suspicious": 0, "invalid": 0, "total": 0},
         "frankenstein_candidates": [],   # invalid DOIs are likely Frankensteins

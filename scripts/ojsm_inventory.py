@@ -43,7 +43,7 @@ import json
 import re
 import sys
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 from urllib.parse import urljoin
@@ -175,7 +175,7 @@ def load_existing_inventory() -> dict:
 
 def save_inventory(inventory: dict) -> None:
     INVENTORY_PATH.parent.mkdir(parents=True, exist_ok=True)
-    inventory["generated_at"] = datetime.utcnow().isoformat(timespec="seconds")
+    inventory["generated_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
     inventory["total_articles"] = len(inventory["articles"])
     INVENTORY_PATH.write_text(
         json.dumps(inventory, indent=2, ensure_ascii=False) + "\n",
@@ -234,7 +234,7 @@ def main() -> int:
                 "issue_id": issue_id,
                 "url": article_url,
                 **meta,
-                "fetched_at": datetime.utcnow().isoformat(timespec="seconds"),
+                "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             }
             inventory["articles"].append(record)
             seen_ids.add(article_id)
