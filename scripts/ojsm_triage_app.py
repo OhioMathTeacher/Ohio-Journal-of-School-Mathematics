@@ -260,8 +260,9 @@ function renderActive() {
 
     <section class="quick-actions">
       <a href="${doiUrl}" target="_blank">Try DOI in browser ↗</a>
-      <a href="https://scholar.google.com/scholar?q=${searchQuery}" target="_blank" class="secondary">Search Google Scholar ↗</a>
-      <a href="https://search.crossref.org/?q=${searchQuery}" target="_blank" class="secondary">Search CrossRef ↗</a>
+      <a href="https://search.crossref.org/?q=${encodeURIComponent(c.candidate_doi || '')}" target="_blank" class="secondary">CrossRef: by DOI ↗</a>
+      <a href="https://search.crossref.org/?q=${searchQuery}" target="_blank" class="secondary">CrossRef: by citation ↗</a>
+      <a href="https://scholar.google.com/scholar?q=${searchQuery}" target="_blank" class="secondary">Google Scholar ↗</a>
       <a href="${localPdf}" target="_blank" class="secondary">Open article PDF ↗</a>
     </section>
 
