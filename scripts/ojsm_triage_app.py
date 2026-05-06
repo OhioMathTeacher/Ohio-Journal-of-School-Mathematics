@@ -135,8 +135,9 @@ PAGE_HTML = r"""<!DOCTYPE html>
   .quick-actions a:hover { opacity: 0.85; }
   .quick-actions a.secondary { background: #f3f4f6; color: var(--text); border: 1px solid var(--line); }
   .refs-box { background: white; border: 1px solid var(--line); border-radius: 6px; padding: 14px; max-height: 600px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.5; white-space: pre-wrap; }
-  .refs-box mark { background: #fde68a; padding: 1px 3px; font-weight: bold; }
-  .refs-help { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .refs-box mark { background: #fee2e2 !important; color: #991b1b !important; padding: 2px 4px; font-weight: 700; outline: 2px solid #ef4444; border-radius: 2px; }
+  .help-banner { background: #eff6ff; border-left: 4px solid var(--primary); padding: 12px 16px; border-radius: 0 6px 6px 0; margin-bottom: 16px; font-size: 13px; line-height: 1.5; }
+  .help-banner strong { color: var(--primary); }
   .verdict-form { background: white; border: 1px solid var(--line); border-radius: 6px; padding: 18px; margin-top: 18px; }
   .verdict-form label { display: block; font-size: 14px; font-weight: 600; margin: 12px 0 4px; }
   .verdict-form input, .verdict-form textarea, .verdict-form select { width: 100%; padding: 8px; border: 1px solid var(--line); border-radius: 4px; font-size: 14px; box-sizing: border-box; font-family: inherit; }
@@ -210,6 +211,9 @@ function renderActive() {
   const localPdf = '/pdf/' + c.article_id;
 
   document.getElementById('main').innerHTML = `
+    <div class="help-banner" style="background:#fef9c3;border-left-color:#ca8a04;margin-top:0">
+      <strong>Workflow:</strong> (1) Click <em>Try DOI in browser</em> to confirm it's broken. (2) Click <em>Search Google Scholar</em> with the article's title context to find the real paper. (3) If the paper exists with a different DOI → <strong>real_frankenstein</strong>. If it doesn't exist anywhere → <strong>pure_hallucination</strong>. If the printed DOI in the PDF is just one digit off → <strong>transcription_typo</strong>. If our pipeline mangled the extraction → <strong>extraction_artifact</strong>.
+    </div>
     <h2>art ${c.article_id} — ${escapeHtml((c.article_title || '?').replace(/&#x27;/g, "'").replace(/&amp;/g, '&'))}</h2>
     <div class="meta">issue ${c.issue_id || '—'} · article DOI: ${c.article_doi || '—'} · <a href="${c.article_url}" target="_blank">view on Janeway</a></div>
 
@@ -227,8 +231,11 @@ function renderActive() {
     </section>
 
     <section>
-      <h3>References Section (DOI highlighted)</h3>
-      <div class="refs-help">The suspect DOI is highlighted below — scroll within this box to find it. PDF text often splits long DOIs across lines, so look for the parts (e.g. <code>14794802.</code> on one line, <code>2024.2444321</code> on the next).</div>
+      <h3>References Section (extracted from article's PDF)</h3>
+      <div class="help-banner">
+        Below is the reference list as extracted from the article's PDF. The <strong>suspect DOI is highlighted in red</strong> — that's the one our pipeline flagged as failing CrossRef lookup.<br>
+        <strong>Your task:</strong> verify whether it's a real broken DOI (Frankenstein), a transcription typo, or just our extractor getting confused. Use the buttons above to check the DOI in the browser, search Google Scholar for the actual paper, and search CrossRef for the real DOI if one exists. PDF text-wrap often splits long DOIs across lines — the highlight will catch both halves.
+      </div>
       <div class="refs-box" id="refs-box">${refsHtml}</div>
     </section>
 
