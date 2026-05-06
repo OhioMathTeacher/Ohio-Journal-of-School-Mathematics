@@ -113,7 +113,7 @@ PAGE_HTML = r"""<!DOCTYPE html>
     --green: #10b981; --yellow: #f59e0b; --red: #ef4444; --gray: #9ca3af;
   }
   body { font-family: system-ui, -apple-system, sans-serif; margin: 0; background: var(--bg); color: var(--text); }
-  .layout { display: grid; grid-template-columns: 320px 1fr; min-height: 100vh; }
+  .layout { display: grid; grid-template-columns: 280px minmax(0, 1fr) 360px; min-height: 100vh; }
   .sidebar { background: var(--card); border-right: 1px solid var(--line); padding: 16px; overflow-y: auto; }
   .sidebar h1 { font-size: 16px; margin: 0 0 4px; }
   .progress { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
@@ -127,7 +127,19 @@ PAGE_HTML = r"""<!DOCTYPE html>
   .queue .badge.transcription_typo  { background: var(--yellow); }
   .queue .badge.extraction_artifact { background: var(--green); }
   .queue .badge.unsure              { background: #f97316; }
-  .main { padding: 24px 32px; max-width: 900px; }
+  .main { padding: 24px 32px; min-width: 0; }
+  .context-panel { background: var(--card); border-left: 1px solid var(--line); padding: 18px 18px 24px; position: sticky; top: 0; align-self: start; max-height: 100vh; overflow-y: auto; }
+  .context-panel h3.ctx-h { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 6px; }
+  .context-panel .ctx-title { font-size: 14px; font-weight: 700; line-height: 1.35; margin: 0 0 6px; color: var(--text); }
+  .context-panel .ctx-meta  { font-size: 12px; color: var(--muted); line-height: 1.5; margin: 0 0 14px; }
+  .context-panel .ctx-meta a { color: var(--primary); text-decoration: none; }
+  .context-panel .ctx-meta a:hover { text-decoration: underline; }
+  .context-panel .ctx-doi { font-family: 'JetBrains Mono', 'Courier New', monospace; background: #fef3c7; padding: 8px 10px; border-radius: 6px; font-size: 12px; word-break: break-all; cursor: pointer; margin-bottom: 14px; border: 1px solid #fde68a; }
+  .context-panel .ctx-doi:hover { background: #fde68a; }
+  .context-panel .ctx-ref { background: white; border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; font-family: 'Courier New', monospace; font-size: 11.5px; line-height: 1.55; white-space: pre-wrap; word-break: break-word; max-height: 280px; overflow-y: auto; }
+  .context-panel .ctx-ref mark { background: #fee2e2 !important; color: #991b1b !important; padding: 1px 3px; outline: 2px solid #ef4444; border-radius: 2px; font-weight: 700; }
+  @media (max-width: 1280px) { .layout { grid-template-columns: 260px minmax(0, 1fr) 320px; } }
+  @media (max-width: 1100px) { .layout { grid-template-columns: 260px 1fr; } .context-panel { display: none; } }
   .main h2 { margin: 0 0 4px; font-size: 22px; }
   .main .meta { color: var(--muted); font-size: 13px; margin-bottom: 16px; }
   .doi-line { font-family: 'JetBrains Mono', 'Courier New', monospace; background: #fef3c7; padding: 8px 12px; border-radius: 6px; word-break: break-all; }
@@ -188,6 +200,10 @@ PAGE_HTML = r"""<!DOCTYPE html>
   <main class="main" id="main">
     <p>Loading…</p>
   </main>
+  <aside class="context-panel" id="context">
+    <h3 class="ctx-h">Article context</h3>
+    <p class="ctx-meta">Loading…</p>
+  </aside>
 </div>
 
 <script>
@@ -369,6 +385,27 @@ function renderActive() {
   if (ta) ta.dataset.original = ta.value;
   updateCitationButtons();
   setTimeout(scrollHighlightIntoView, 0);
+
+  // Sticky right-side context panel — keeps article identity visible
+  // while the user tabs to external lookup sites.
+  const ctx = document.getElementById('context');
+  if (ctx) {
+    const cleanTitle = escapeHtml((c.article_title || '?').replace(/&#x27;/g, "'").replace(/&amp;/g, '&'));
+    ctx.innerHTML = `
+      <h3 class="ctx-h">Article context</h3>
+      <p class="ctx-title">${cleanTitle}</p>
+      <p class="ctx-meta">
+        art ${c.article_id} · issue ${c.issue_id || '—'}<br>
+        article DOI: ${c.article_doi || '—'}<br>
+        <a href="${c.article_url}" target="_blank">view on Janeway ↗</a> ·
+        <a href="${localPdf}" target="_blank">open article PDF ↗</a>
+      </p>
+      <h3 class="ctx-h">Suspect DOI <span style="font-weight:400;text-transform:none;letter-spacing:0">(click to copy)</span></h3>
+      <div class="ctx-doi" onclick="copySuspectDoi()" title="Click to copy this DOI to clipboard">${escapeHtml(c.candidate_doi || '')}</div>
+      <h3 class="ctx-h">Reference paragraph</h3>
+      <div class="ctx-ref">${citedRefHighlighted}</div>
+    `;
+  }
 }
 
 // Reads the current editable cited-reference textarea and updates the
