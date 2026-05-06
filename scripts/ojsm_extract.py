@@ -111,6 +111,15 @@ def extract_dois(text: str) -> list[str]:
     seen: set[str] = set()
     dois: list[str] = []
     for raw in DOI_RE.findall(joined):
+        # pdftotext sometimes fuses consecutive references when paragraph
+        # breaks are lost (e.g. ".../0119Feeding" where "Feeding" is the
+        # next reference's first word).  Cut at the first "word boundary"
+        # — a digit-or-lowercase character followed by Capital+lowercase
+        # — which signals a fused author name.  Acronyms like "S15324818AME"
+        # are NOT cut because they lack the lowercase suffix.
+        boundary = re.search(r'(?<=[a-z0-9])[A-Z][a-z]', raw)
+        if boundary:
+            raw = raw[:boundary.start()]
         doi = clean_doi_tail(raw)
         if not doi:
             continue
