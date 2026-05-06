@@ -197,33 +197,62 @@ let activeIdx = 0;
 
 function extractCitedReference(refsText, doi) {
   // Returns the text of the reference that CONTAINS the suspect DOI, so
-  // we can use it as a search query for Google Scholar / CrossRef.
-  // Heuristic: walk back from the DOI to the most recent line that starts
-  // at column 0 with a capital letter (the start of an APA-style reference).
+  // we can use it as a search query and display it as paragraph context.
+  //
+  // Strategy: scan the whole references text for likely reference-start
+  // markers, build a list of reference boundaries, then return the
+  // reference whose boundary range contains the DOI position.
+  //
+  // A "reference start" is a line that satisfies EITHER:
+  //   (a) starts with "Lastname, F." (capital + lowercase letters,
+  //       optionally with hyphen/space-joined surname parts, then
+  //       comma + space + capital initial), or
+  //   (b) starts with a capital letter and contains a (YYYY) year on
+  //       the same line — catches organizational authors like
+  //       "National Council of Teachers of Mathematics. (2020). ...".
+  //
+  // Continuation lines (which often start with whitespace, but sometimes
+  // start with a capital due to PDF text-wrap quirks) don't satisfy
+  // either condition because they lack both the comma-pattern and the
+  // year parenthetical.
   if (!refsText || !doi) return '';
+
   const doiPattern = doi.split('').map(c => escapeRe(c)).join('\\s*');
-  const re = new RegExp(doiPattern);
-  const match = re.exec(refsText);
-  if (!match) return '';
+  const doiRe = new RegExp(doiPattern);
+  const doiMatch = doiRe.exec(refsText);
+  if (!doiMatch) return '';
 
-  // Take ~500 chars before the DOI as a generous window
-  const windowStart = Math.max(0, match.index - 500);
-  const before = refsText.substring(windowStart, match.index);
+  // Combined reference-start pattern.
+  const refStartRe = /\n([A-Z][A-Za-zà-ÿÀ-ſ'-]+(?:[\- ][A-Z][a-zà-ÿÀ-ſ'-]+)*,\s+[A-Z]|[A-Z][^\n]*\(\d{4}[a-z]?\))/g;
 
-  // Find the last newline followed by a non-whitespace capital letter
-  // (i.e. the most recent line that starts a new reference at column 0)
-  let refStart = 0;
-  for (let i = before.length - 1; i > 0; i--) {
-    if (before[i - 1] === '\n' && /[A-ZÀ-ÝŚ]/.test(before[i])) {
-      refStart = i;
+  // Collect every reference-start position in the whole refsText.
+  const refStarts = [];
+  let m;
+  while ((m = refStartRe.exec(refsText)) !== null) {
+    refStarts.push(m.index + 1); // +1 to skip the leading \n
+  }
+  // If the very first reference begins at position 0 (no preceding \n),
+  // make sure 0 is in the list.
+  if (refStarts.length === 0 || refStarts[0] !== 0) {
+    refStarts.unshift(0);
+  }
+
+  // Find the reference whose range [start, nextStart) contains the DOI.
+  let containingStart = 0;
+  let containingEnd = refsText.length;
+  for (let i = 0; i < refStarts.length; i++) {
+    if (refStarts[i] <= doiMatch.index) {
+      containingStart = refStarts[i];
+      containingEnd = (i + 1 < refStarts.length) ? refStarts[i + 1] : refsText.length;
+    } else {
       break;
     }
   }
-  let chunk = before.substring(refStart);
-  // Collapse whitespace and remove any URL prefix from the DOI fragment
+
+  let chunk = refsText.substring(containingStart, containingEnd);
+  // Collapse internal whitespace so the displayed paragraph is one line
+  // per reference, easier to read at a glance.
   chunk = chunk.replace(/\s+/g, ' ').trim();
-  // Strip a trailing "https://doi.org/..." or "doi:" if present
-  chunk = chunk.replace(/(https?:\/\/(?:dx\.)?doi\.org\/|doi:\s*).*$/i, '').trim();
   return chunk;
 }
 
