@@ -30,9 +30,11 @@ Requires GROBID running on localhost:8070, e.g.::
 from __future__ import annotations
 
 import argparse
+import concurrent.futures
 import json
 import re
 import sys
+import time
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
@@ -122,21 +124,47 @@ def grobid_alive() -> bool:
         return False
 
 
-def process_references(pdf_path: Path, timeout: int = 180) -> str:
-    """POST a PDF to /api/processReferences and return TEI XML."""
-    with pdf_path.open("rb") as f:
-        files = {"input": (pdf_path.name, f, "application/pdf")}
-        data = {
-            "consolidateCitations": "0",  # don't enrich via CrossRef — we
-                                          # want what the PDF actually says
-            "includeRawCitations": "1",   # raw citation strings for refs.txt
-        }
-        r = requests.post(
-            f"{GROBID_URL}/api/processReferences",
-            files=files, data=data, timeout=timeout,
-        )
-    r.raise_for_status()
-    return r.text
+def process_references(pdf_path: Path, timeout: int = 180,
+                       max_retries: int = 3) -> str:
+    """POST a PDF to /api/processReferences and return TEI XML.
+
+    Retries on transient failures (connection errors, timeouts, 5xx) with
+    exponential backoff: 2s, 4s, 8s.  Does NOT retry on 4xx — those are
+    deterministic (bad PDF, unsupported format) and won't fix on retry.
+    """
+    last_exc: Exception | None = None
+    for attempt in range(max_retries):
+        try:
+            with pdf_path.open("rb") as f:
+                files = {"input": (pdf_path.name, f, "application/pdf")}
+                data = {
+                    "consolidateCitations": "0",  # don't enrich via CrossRef —
+                                                  # we want what the PDF says
+                    "includeRawCitations": "1",   # raw citation strings
+                }
+                r = requests.post(
+                    f"{GROBID_URL}/api/processReferences",
+                    files=files, data=data, timeout=timeout,
+                )
+            if 400 <= r.status_code < 500:
+                # Client error — don't retry, just raise.
+                r.raise_for_status()
+            if r.status_code >= 500:
+                raise requests.HTTPError(
+                    f"GROBID returned {r.status_code}", response=r
+                )
+            return r.text
+        except (requests.Timeout, requests.ConnectionError,
+                requests.HTTPError) as e:
+            last_exc = e
+            if attempt < max_retries - 1:
+                backoff = 2 ** (attempt + 1)
+                print(f"    (retry {attempt + 1}/{max_retries - 1} after {backoff}s: {e.__class__.__name__})")
+                time.sleep(backoff)
+    # Exhausted retries.
+    if last_exc:
+        raise last_exc
+    raise RuntimeError("process_references: unreachable")
 
 
 def _text(elem) -> str:
@@ -339,6 +367,9 @@ def main() -> int:
                         help="Limit to articles from this issue ID")
     parser.add_argument("--article", type=int, default=None,
                         help="Process a single article by ID (for testing)")
+    parser.add_argument("--workers", type=int, default=4,
+                        help="Concurrent GROBID requests (default: 4). "
+                             "Set to 1 for serial processing.")
     args = parser.parse_args()
 
     if not grobid_alive():
@@ -365,15 +396,36 @@ def main() -> int:
     summary = {
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "extractor": "grobid-0.8.1",
+        "workers": args.workers,
         "articles": [],
     }
-    for art in articles:
-        rec = process_article(art["article_id"])
-        if rec is None:
-            continue
-        rec["issue_id"] = art.get("issue_id")
-        rec["title"] = art.get("title")
-        summary["articles"].append(rec)
+
+    # Parallelism: GROBID 0.8 handles concurrent requests well; 4 workers is
+    # a safe default that doesn't overwhelm a typical desktop GROBID instance.
+    # Set --workers 1 for fully serial processing (e.g. for debugging).
+    art_by_id = {a["article_id"]: a for a in articles}
+    if args.workers <= 1:
+        for art in articles:
+            rec = process_article(art["article_id"])
+            if rec is None:
+                continue
+            rec["issue_id"] = art.get("issue_id")
+            rec["title"] = art.get("title")
+            summary["articles"].append(rec)
+    else:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=args.workers) as ex:
+            futures = {ex.submit(process_article, a["article_id"]): a["article_id"]
+                       for a in articles}
+            for fut in concurrent.futures.as_completed(futures):
+                rec = fut.result()
+                if rec is None:
+                    continue
+                src = art_by_id.get(rec["article_id"], {})
+                rec["issue_id"] = src.get("issue_id")
+                rec["title"] = src.get("title")
+                summary["articles"].append(rec)
+        # Restore stable ordering (by article_id) for deterministic diffs.
+        summary["articles"].sort(key=lambda r: r["article_id"])
 
     SUMMARY_PATH.write_text(
         json.dumps(summary, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"

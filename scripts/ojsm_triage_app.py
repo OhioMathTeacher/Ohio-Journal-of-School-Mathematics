@@ -367,6 +367,11 @@ function renderActive() {
 
         <label for="correct_doi">Correct DOI (if found)</label>
         <input type="text" id="correct_doi" value="${escapeHtml(v.correct_doi || '')}" placeholder="e.g. 10.1080/14794802.2024.2401488">
+        <div style="margin-top:6px;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <span>or upload a .bib file:</span>
+          <input type="file" id="bib_upload" accept=".bib,.bibtex,text/x-bibtex" onchange="extractDoiFromBib(event)" style="font-size:12px">
+          <span id="bib_status" style="color:var(--green);font-weight:600"></span>
+        </div>
 
         <label for="notes">Notes</label>
         <textarea id="notes" placeholder="Anything noteworthy: pages don't match, paper is from 2023 not 2024, source PDF actually shows different DOI, etc.">${escapeHtml(v.notes || '')}</textarea>
@@ -466,6 +471,46 @@ function copySuspectDoi() {
       toast._t = setTimeout(() => toast.classList.remove('show'), 2000);
     }
   });
+}
+
+// Read a user-uploaded .bib file and pull the DOI out of it.  Useful
+// because most publisher pages (T&F, Springer, Wiley) offer a "Cite this
+// article" download that produces a clean BibTeX file — uploading it is
+// less error-prone than copy-pasting a DOI string from a publisher page.
+//
+// Match strategy: find the first `doi = {...}` or `doi = "..."` field
+// (case-insensitive on the field name).  We don't match against URL fields
+// because some publishers put a doi.org URL there alongside a separate
+// `doi` field, and we want the canonical bare DOI.
+function extractDoiFromBib(event) {
+  const file = event.target.files && event.target.files[0];
+  const status = document.getElementById('bib_status');
+  if (!file) return;
+  if (file.size > 256 * 1024) {
+    status.textContent = '✗ File too large (>256KB)';
+    status.style.color = 'var(--red)';
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const content = e.target.result || '';
+    // doi = {...} or doi = "..."  — case-insensitive on field name.
+    const m = content.match(/\bdoi\s*=\s*[{"]([^}"]+)[}"]/i);
+    if (!m) {
+      status.textContent = '✗ No DOI field found in .bib';
+      status.style.color = 'var(--red)';
+      return;
+    }
+    const doi = m[1].trim().replace(/^https?:\/\/(dx\.)?doi\.org\//i, '');
+    document.getElementById('correct_doi').value = doi;
+    status.textContent = '✓ DOI extracted from ' + file.name;
+    status.style.color = 'var(--green)';
+  };
+  reader.onerror = function() {
+    status.textContent = '✗ Could not read file';
+    status.style.color = 'var(--red)';
+  };
+  reader.readAsText(file);
 }
 
 // Replace a non-English title with its [bracketed English translation].
