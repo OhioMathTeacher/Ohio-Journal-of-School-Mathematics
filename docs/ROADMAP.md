@@ -238,3 +238,18 @@ RESEARCH_LOG.md and this ROADMAP.md — they contain everything it needs.
 **Minimum credible result:** Steps 2A + 2B + 2D = ~2 hours of work.
 After that, you have two verified numbers (FPR and detection rate), a
 tested thesis (deterministic vs. AI), and honest documentation.
+
+---
+
+## Future Features (parked, not blocking)
+
+- **User-submission logging.** Capture references submitted to the public
+  validator (with opt-out consent) as a real-world dataset. Needs IRB
+  conversation before turning on. Full design notes in
+  [`user-submission-logging.md`](user-submission-logging.md).
+- **`/full`-suffix retry in validator.** Frontiers DOIs sometimes ship
+  with `/full` URL suffix appended. Auto-retry without common URL
+  suffixes (`/full`, `/abstract`, `/pdf`) on initial failure. Discovered
+  while testing Greg Foley's reference list (2026-05-06).
+- **GROBID for V103 pre-publication audit.** Once GROBID is running on
+  local Fedora, apply the same pipeline to OJSM's unpublished V103 issue.
