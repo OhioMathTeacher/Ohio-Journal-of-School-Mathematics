@@ -170,7 +170,7 @@ let candidates = [];
 let verdicts = {};
 let activeIdx = 0;
 
-async function extractCitedReference(refsText, doi) {
+function extractCitedReference(refsText, doi) {
   // Returns the text of the reference that CONTAINS the suspect DOI, so
   // we can use it as a search query for Google Scholar / CrossRef.
   // Heuristic: walk back from the DOI to the most recent line that starts
