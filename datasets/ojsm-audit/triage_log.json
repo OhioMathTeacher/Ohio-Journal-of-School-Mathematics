@@ -1,0 +1,15 @@
+{
+  "verdicts": {
+    "6569::10.1080/14794802.2024.2444321": {
+      "article_id": 6569,
+      "article_title": "USING AN AI-BASED CHATBOT TO SUPPORT THE LEARNING OF ALGEBRAIC FACTORING",
+      "issue_id": 362,
+      "candidate_doi": "10.1080/14794802.2024.2444321",
+      "verdict": "real_frankenstein",
+      "correct_doi": "https://doi.org/10.1080/14794802.2024.2401488",
+      "notes": "Wrong article number, too. 28 not 26\n\n\nSöderström, S., & Palm, T. (2026). Feedback in mathematics education research: a systematic literature review. Research in Mathematics Education, 28(1), 163–184. https://doi.org/10.1080/14794802.2024.2401488",
+      "saved_at": "2026-05-06T18:09:46.424Z"
+    }
+  },
+  "last_updated": "2026-05-06T18:09:46+00:00"
+}
