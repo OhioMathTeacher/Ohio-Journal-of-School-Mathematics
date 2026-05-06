@@ -105,21 +105,43 @@ def find_references_section(text: str) -> str:
     return after[:end_match.start()] if end_match else after
 
 
+# Boundary patterns where a fused next-reference author is likely starting.
+# Each matches a position INSIDE the captured DOI string where we should cut.
+#   a) digit/lowercase followed by Capital+lowercase   ("...0119Feeding")
+#   b) period followed by Capital+lowercase            (".Knapp", ".Harrison")
+# Acronyms like "S15324818AME" are NOT cut because they lack the lowercase
+# suffix; arXiv DOIs (10.48550/arXiv.YYMM.NNNNN) ARE preserved by an explicit
+# exception below.
+BOUNDARY_RE = re.compile(r'(?<=[a-z0-9])[A-Z][a-z]|(?<=\.)[A-Z][a-z]')
+
+
+def trim_fused_author(raw: str) -> str:
+    """Cut the captured DOI at the first sign of a fused next-reference author.
+
+    Special-cases arXiv DOIs: if the only candidate boundary is at 'Xiv' inside
+    'arXiv', preserve it.  Looks for the next boundary AFTER 'Xiv' if any.
+    """
+    pos = 0
+    while True:
+        m = BOUNDARY_RE.search(raw, pos)
+        if not m:
+            return raw
+        # arXiv exception: '10.48550/arXiv.YYMM.NNNNN' — the 'Xiv' would
+        # otherwise trigger the boundary at position 11.  Skip past it and
+        # keep looking.
+        if raw[m.start():m.start() + 3] == 'Xiv':
+            pos = m.end()
+            continue
+        return raw[:m.start()]
+
+
 def extract_dois(text: str) -> list[str]:
     """Extract unique DOIs from a block of text, handling line-wrapped DOIs."""
     joined = DOI_LINE_REJOIN_RE.sub(r"\1\2", text)
     seen: set[str] = set()
     dois: list[str] = []
     for raw in DOI_RE.findall(joined):
-        # pdftotext sometimes fuses consecutive references when paragraph
-        # breaks are lost (e.g. ".../0119Feeding" where "Feeding" is the
-        # next reference's first word).  Cut at the first "word boundary"
-        # — a digit-or-lowercase character followed by Capital+lowercase
-        # — which signals a fused author name.  Acronyms like "S15324818AME"
-        # are NOT cut because they lack the lowercase suffix.
-        boundary = re.search(r'(?<=[a-z0-9])[A-Z][a-z]', raw)
-        if boundary:
-            raw = raw[:boundary.start()]
+        raw = trim_fused_author(raw)
         doi = clean_doi_tail(raw)
         if not doi:
             continue
