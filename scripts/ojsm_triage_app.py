@@ -134,8 +134,9 @@ PAGE_HTML = r"""<!DOCTYPE html>
   .quick-actions a { display: inline-block; background: var(--primary); color: white; padding: 6px 12px; border-radius: 4px; text-decoration: none; margin-right: 6px; font-size: 13px; }
   .quick-actions a:hover { opacity: 0.85; }
   .quick-actions a.secondary { background: #f3f4f6; color: var(--text); border: 1px solid var(--line); }
-  .refs-box { background: white; border: 1px solid var(--line); border-radius: 6px; padding: 14px; max-height: 300px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.5; white-space: pre-wrap; }
-  .refs-box mark { background: #fde68a; padding: 1px 3px; }
+  .refs-box { background: white; border: 1px solid var(--line); border-radius: 6px; padding: 14px; max-height: 600px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.5; white-space: pre-wrap; }
+  .refs-box mark { background: #fde68a; padding: 1px 3px; font-weight: bold; }
+  .refs-help { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
   .verdict-form { background: white; border: 1px solid var(--line); border-radius: 6px; padding: 18px; margin-top: 18px; }
   .verdict-form label { display: block; font-size: 14px; font-weight: 600; margin: 12px 0 4px; }
   .verdict-form input, .verdict-form textarea, .verdict-form select { width: 100%; padding: 8px; border: 1px solid var(--line); border-radius: 4px; font-size: 14px; box-sizing: border-box; font-family: inherit; }
@@ -227,7 +228,8 @@ function renderActive() {
 
     <section>
       <h3>References Section (DOI highlighted)</h3>
-      <div class="refs-box">${refsHtml}</div>
+      <div class="refs-help">The suspect DOI is highlighted below — scroll within this box to find it. PDF text often splits long DOIs across lines, so look for the parts (e.g. <code>14794802.</code> on one line, <code>2024.2444321</code> on the next).</div>
+      <div class="refs-box" id="refs-box">${refsHtml}</div>
     </section>
 
     <section class="verdict-form">
@@ -256,6 +258,18 @@ function renderActive() {
       </div>
     </section>
   `;
+  setTimeout(scrollHighlightIntoView, 0);
+}
+
+function scrollHighlightIntoView() {
+  // After renderActive, scroll the references box so the first <mark> is visible.
+  const box = document.getElementById('refs-box');
+  if (!box) return;
+  const mark = box.querySelector('mark');
+  if (!mark) return;
+  const boxRect = box.getBoundingClientRect();
+  const markRect = mark.getBoundingClientRect();
+  box.scrollTop = mark.offsetTop - box.offsetTop - 60;
 }
 
 async function saveVerdict() {
@@ -299,9 +313,17 @@ function nextCandidate() {
 }
 
 function highlight(text, doi) {
+  // Highlights the suspect DOI inside the references text, even if the DOI
+  // is split across line breaks in the source (PDF text-wrap is common).
+  // Strategy: insert optional whitespace between every character of the DOI
+  // pattern so a DOI like "10.1080/14794802.2024.2444321" matches even when
+  // pdftotext wrote it as "10.1080/14794802.\n2024.2444321".
   if (!doi) return escapeHtml(text);
-  const re = new RegExp(escapeRe(doi.slice(0, 30)), 'g');
-  return escapeHtml(text).replace(re, m => '<mark>' + m + '</mark>');
+  const escaped = escapeHtml(text);
+  // Build a regex that lets ANY whitespace appear between consecutive DOI chars.
+  const pattern = doi.split('').map(c => escapeRe(c)).join('\\s*');
+  const re = new RegExp(pattern, 'g');
+  return escaped.replace(re, m => '<mark>' + m + '</mark>');
 }
 
 function escapeHtml(s) {
