@@ -140,6 +140,28 @@ PAGE_HTML = r"""<!DOCTYPE html>
   .refs-box mark { background: #fee2e2 !important; color: #991b1b !important; padding: 2px 4px; font-weight: 700; outline: 2px solid #ef4444; border-radius: 2px; }
   .help-banner { background: #eff6ff; border-left: 4px solid var(--primary); padding: 12px 16px; border-radius: 0 6px 6px 0; margin-bottom: 16px; font-size: 13px; line-height: 1.5; }
   .help-banner strong { color: var(--primary); }
+  /* Three-step layout: red suspect, blue find, green verdict. */
+  .step { padding: 16px 20px 18px; border-radius: 8px; margin-bottom: 16px; border-left: 5px solid; background: white; }
+  .step h3 { margin: 0 0 4px; font-size: 17px; font-weight: 700; }
+  .step .step-blurb { color: var(--muted); font-size: 12.5px; line-height: 1.5; margin: 0 0 14px; }
+  .step-suspect { border-left-color: #ef4444; background: #fef7f7; }
+  .step-suspect h3 { color: #b91c1c; }
+  .step-find { border-left-color: #3b82f6; background: #f5f9ff; }
+  .step-find h3 { color: #1d4ed8; }
+  .step-verdict { border-left-color: #10b981; background: #f5fdf9; }
+  .step-verdict h3 { color: #047857; }
+  .ref-context { background: white; border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; font-family: 'Courier New', monospace; font-size: 12.5px; line-height: 1.55; white-space: pre-wrap; word-break: break-word; max-height: 180px; overflow-y: auto; }
+  .ref-context mark { background: #fee2e2 !important; color: #991b1b !important; padding: 2px 4px; outline: 2px solid #ef4444; border-radius: 2px; font-weight: 700; }
+  details.full-refs { margin-top: 10px; }
+  details.full-refs summary { cursor: pointer; color: var(--muted); font-size: 12px; padding: 4px 0; }
+  details.full-refs summary:hover { color: var(--primary); }
+  .verdict-cheat { background: white; padding: 8px 12px; border-radius: 4px; border: 1px solid var(--line); font-size: 12px; line-height: 1.7; margin-bottom: 14px; color: var(--muted); }
+  .verdict-cheat code { background: #ecfdf5; color: #047857; padding: 1px 5px; border-radius: 3px; font-size: 11px; font-weight: 600; }
+  .article-meta-line { color: var(--muted); font-size: 13px; margin: 0 0 16px; }
+  .article-meta-line a { color: var(--primary); }
+  .compact-buttons { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+  .compact-buttons button { padding: 5px 10px; background: white; border: 1px solid var(--line); border-radius: 4px; cursor: pointer; font-size: 12px; }
+  .compact-buttons button:hover { border-color: var(--primary); }
   .verdict-form { background: white; border: 1px solid var(--line); border-radius: 6px; padding: 18px; margin-top: 18px; }
   .verdict-form label { display: block; font-size: 14px; font-weight: 600; margin: 12px 0 4px; }
   .verdict-form input, .verdict-form textarea, .verdict-form select { width: 100%; padding: 8px; border: 1px solid var(--line); border-radius: 4px; font-size: 14px; box-sizing: border-box; font-family: inherit; }
@@ -248,71 +270,90 @@ function renderActive() {
   const doiUrl = 'https://doi.org/' + (c.candidate_doi || '');
   const localPdf = '/pdf/' + c.article_id;
 
+  // Build the cited-reference paragraph with the suspect DOI highlighted
+  // — the same paragraph context as the editable textarea below, but
+  // visually marked up so the user immediately sees the broken DOI.
+  const citedRefHighlighted = highlight(citedRef || '(could not isolate the reference paragraph — see full references at bottom of Step 1)', c.candidate_doi);
+
   document.getElementById('main').innerHTML = `
-    <div class="help-banner" style="background:#fef9c3;border-left-color:#ca8a04;margin-top:0">
-      <strong>Workflow:</strong> (1) Click <em>Try DOI in browser</em> to confirm it's broken. (2) Click <em>Search Google Scholar</em> with the article's title context to find the real paper. (3) If the paper exists with a different DOI → <strong>real_frankenstein</strong>. If it doesn't exist anywhere → <strong>pure_hallucination</strong>. If the printed DOI in the PDF is just one digit off → <strong>transcription_typo</strong>. If our pipeline mangled the extraction → <strong>extraction_artifact</strong>.
-    </div>
-    <h2>art ${c.article_id} — ${escapeHtml((c.article_title || '?').replace(/&#x27;/g, "'").replace(/&amp;/g, '&'))}</h2>
-    <div class="meta">issue ${c.issue_id || '—'} · article DOI: ${c.article_doi || '—'} · <a href="${c.article_url}" target="_blank">view on Janeway</a></div>
+    <h2 style="margin:0 0 4px">art ${c.article_id} — ${escapeHtml((c.article_title || '?').replace(/&#x27;/g, "'").replace(/&amp;/g, '&'))}</h2>
+    <p class="article-meta-line">issue ${c.issue_id || '—'} · article DOI: ${c.article_doi || '—'} · <a href="${c.article_url}" target="_blank">view on Janeway ↗</a> · <a href="${localPdf}" target="_blank">open article PDF ↗</a></p>
 
-    <section>
-      <h3>Suspect DOI</h3>
+    <section class="step step-suspect">
+      <h3>🔴 Step 1 — The Suspect</h3>
+      <p class="step-blurb">This DOI failed CrossRef lookup. Confirm it's truly broken by clicking <em>Try DOI in browser</em>.</p>
+
       <div class="doi-line">${escapeHtml(c.candidate_doi || '')}</div>
-      <p class="meta" style="margin-top:6px">${(c.issues || []).join(' · ')}</p>
+      <p class="meta" style="margin:6px 0 12px">${(c.issues || []).join(' · ')}</p>
+
+      <div class="quick-actions">
+        <a href="${doiUrl}" target="_blank" data-copy="${escapeHtml(c.candidate_doi || '')}" data-label="suspect DOI">Try DOI in browser ↗</a>
+        <a id="btn-cr-doi" href="https://search.crossref.org/?q=${encodeURIComponent(c.candidate_doi || '')}" target="_blank" class="secondary" data-copy="${escapeHtml(c.candidate_doi || '')}" data-label="suspect DOI">CrossRef: by DOI ↗</a>
+      </div>
+
+      <h4 style="font-size:13px;margin:14px 0 6px;color:var(--muted)">Reference paragraph from article PDF (suspect DOI highlighted):</h4>
+      <div class="ref-context">${citedRefHighlighted}</div>
+
+      <details class="full-refs">
+        <summary>Show full references section from PDF</summary>
+        <div class="refs-box" style="max-height:300px;margin-top:8px">${refsHtml}</div>
+      </details>
     </section>
 
-    <section class="quick-actions" id="quick-actions">
-      <a href="${doiUrl}" target="_blank" data-copy="${escapeHtml(c.candidate_doi || '')}" data-label="suspect DOI">Try DOI in browser ↗</a>
-      <a id="btn-cr-doi" href="https://search.crossref.org/?q=${encodeURIComponent(c.candidate_doi || '')}" target="_blank" class="secondary" data-copy="${escapeHtml(c.candidate_doi || '')}" data-label="suspect DOI">CrossRef: by DOI ↗</a>
-      <a id="btn-cr-cite" href="#" target="_blank" class="secondary" data-label="cited reference">CrossRef: by citation ↗</a>
-      <a id="btn-scholar" href="#" target="_blank" class="secondary" data-label="cited reference">Google Scholar (English) ↗</a>
-      <a id="btn-translate" href="#" target="_blank" class="secondary" data-label="translation">Google Translate ↗</a>
-      <a href="${localPdf}" target="_blank" class="secondary">Open article PDF ↗</a>
-    </section>
+    <section class="step step-find">
+      <h3>🔵 Step 2 — Find the Real Paper</h3>
+      <p class="step-blurb">If the suspect DOI is broken, find the actual cited paper. Edit the text below if it's in a language you don't read — the buttons use whatever's in the box.</p>
 
-    <section>
-      <h3>Cited Reference (used for citation searches — edit if needed)</h3>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:6px">If the reference is in a language you don't read, edit this text — paste the English translation from the brackets, or trim non-essential text. The CrossRef-by-citation, Google Scholar, and Google Translate buttons use whatever's in this box.</div>
-      <textarea id="cited-ref-edit" oninput="updateCitationButtons()" style="width:100%;min-height:60px;padding:10px;border:1px solid var(--line);border-radius:6px;font-family:inherit;font-size:13px;line-height:1.5;box-sizing:border-box">${escapeHtml(citedRef || '')}</textarea>
-      <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap">
-        <button onclick="copyCitedRef()" style="padding:6px 12px;background:#f3f4f6;border:1px solid var(--line);border-radius:4px;cursor:pointer;font-size:13px">📋 Copy this text</button>
-        <button onclick="useEnglishTitle()" style="padding:6px 12px;background:#f3f4f6;border:1px solid var(--line);border-radius:4px;cursor:pointer;font-size:13px" title="Replaces non-English title with the [bracketed English translation] commonly found in APA references">🇬🇧 Use English title (if [bracketed] is present)</button>
-        <button onclick="resetCitedRef()" style="padding:6px 12px;background:#f3f4f6;border:1px solid var(--line);border-radius:4px;cursor:pointer;font-size:13px">↺ Reset to original</button>
+      <textarea id="cited-ref-edit" oninput="updateCitationButtons()" style="width:100%;min-height:70px;padding:10px;border:1px solid var(--line);border-radius:6px;font-family:inherit;font-size:13px;line-height:1.5;box-sizing:border-box">${escapeHtml(citedRef || '')}</textarea>
+
+      <div class="compact-buttons">
+        <button onclick="copyCitedRef()">📋 Copy</button>
+        <button onclick="useEnglishTitle()" title="Replaces non-English title with the [bracketed English translation] often found in APA references">🇬🇧 Use English title</button>
+        <button onclick="resetCitedRef()">↺ Reset</button>
+      </div>
+
+      <div class="quick-actions" style="margin-top:12px">
+        <a id="btn-cr-cite" href="#" target="_blank" data-label="cited reference">CrossRef: by citation ↗</a>
+        <a id="btn-scholar" href="#" target="_blank" class="secondary" data-label="cited reference">Google Scholar (English) ↗</a>
+        <a id="btn-translate" href="#" target="_blank" class="secondary" data-label="translation">Google Translate ↗</a>
       </div>
     </section>
 
-    <section>
-      <h3>References Section (extracted from article's PDF)</h3>
-      <div class="help-banner">
-        Below is the reference list as extracted from the article's PDF. The <strong>suspect DOI is highlighted in red</strong> — that's the one our pipeline flagged as failing CrossRef lookup.<br>
-        <strong>Your task:</strong> verify whether it's a real broken DOI (Frankenstein), a transcription typo, or just our extractor getting confused. Use the buttons above to check the DOI in the browser, search Google Scholar for the actual paper, and search CrossRef for the real DOI if one exists. PDF text-wrap often splits long DOIs across lines — the highlight will catch both halves.
+    <section class="step step-verdict">
+      <h3>🟢 Step 3 — Your Verdict</h3>
+      <p class="step-blurb">Pick the category that best describes what you found. The correct DOI and notes are optional but help build the eventual paper-2 evidence table.</p>
+
+      <div class="verdict-cheat">
+        <code>real_frankenstein</code> = paper exists, DOI fabricated ·
+        <code>pure_hallucination</code> = paper does not exist ·
+        <code>transcription_typo</code> = DOI is one digit off ·
+        <code>extraction_artifact</code> = our pipeline mangled the extraction
       </div>
-      <div class="refs-box" id="refs-box">${refsHtml}</div>
-    </section>
 
-    <section class="verdict-form">
-      <label for="verdict">Verdict</label>
-      <select id="verdict">
-        <option value="">— choose —</option>
-        ${[
-          ["real_frankenstein", "Real Frankenstein (paper exists, DOI fabricated)"],
-          ["pure_hallucination", "Pure hallucination (paper does not exist)"],
-          ["transcription_typo", "Transcription typo (DOI is close to correct)"],
-          ["extraction_artifact", "Extraction artifact (our pipeline mis-captured)"],
-          ["unsure", "Unsure — needs more investigation"]
-        ].map(([k,l]) => '<option value="'+k+'"'+(v.verdict===k?' selected':'')+'>'+l+'</option>').join('')}
-      </select>
+      <div class="verdict-form" style="border:none;background:transparent;padding:0;margin:0">
+        <label for="verdict">Verdict</label>
+        <select id="verdict">
+          <option value="">— choose —</option>
+          ${[
+            ["real_frankenstein", "Real Frankenstein (paper exists, DOI fabricated)"],
+            ["pure_hallucination", "Pure hallucination (paper does not exist)"],
+            ["transcription_typo", "Transcription typo (DOI is close to correct)"],
+            ["extraction_artifact", "Extraction artifact (our pipeline mis-captured)"],
+            ["unsure", "Unsure — needs more investigation"]
+          ].map(([k,l]) => '<option value="'+k+'"'+(v.verdict===k?' selected':'')+'>'+l+'</option>').join('')}
+        </select>
 
-      <label for="correct_doi">Correct DOI (if found)</label>
-      <input type="text" id="correct_doi" value="${escapeHtml(v.correct_doi || '')}" placeholder="e.g. 10.1080/14794802.2024.2401488">
+        <label for="correct_doi">Correct DOI (if found)</label>
+        <input type="text" id="correct_doi" value="${escapeHtml(v.correct_doi || '')}" placeholder="e.g. 10.1080/14794802.2024.2401488">
 
-      <label for="notes">Notes</label>
-      <textarea id="notes" placeholder="Anything noteworthy: pages don't match, paper is from 2023 not 2024, source PDF actually shows different DOI, etc.">${escapeHtml(v.notes || '')}</textarea>
+        <label for="notes">Notes</label>
+        <textarea id="notes" placeholder="Anything noteworthy: pages don't match, paper is from 2023 not 2024, source PDF actually shows different DOI, etc.">${escapeHtml(v.notes || '')}</textarea>
 
-      <div class="actions">
-        <button class="btn-save" onclick="saveVerdict()">Save & Next</button>
-        <button class="btn-skip" onclick="nextCandidate()">Skip</button>
-        <span class="saved-marker" id="saved">✓ Saved</span>
+        <div class="actions">
+          <button class="btn-save" onclick="saveVerdict()">Save & Next</button>
+          <button class="btn-skip" onclick="nextCandidate()">Skip</button>
+          <span class="saved-marker" id="saved">✓ Saved</span>
+        </div>
       </div>
     </section>
   `;
