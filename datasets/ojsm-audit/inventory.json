@@ -1,0 +1,2939 @@
+{
+  "generated_at": "2026-05-06T03:08:07",
+  "total_articles": 210,
+  "articles": [
+    {
+      "article_id": 6674,
+      "issue_id": 362,
+      "url": "https://ohiomathjournal.org/article/id/6674/",
+      "title": "From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses",
+      "authors": [
+        "Alesia Mickle Moldavan"
+      ],
+      "year": "2026",
+      "doi": "10.18061/ojsm.6674",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6674/download/pdf/",
+      "fetched_at": "2026-05-06T03:02:39"
+    },
+    {
+      "article_id": 6647,
+      "issue_id": 362,
+      "url": "https://ohiomathjournal.org/article/id/6647/",
+      "title": "Math Isn’t Neutral: Designing Word Problems with GPT-4 for Relevance",
+      "authors": [
+        "Mosum Trivedi"
+      ],
+      "year": "2026",
+      "doi": "10.18061/ojsm.6647",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6647/download/pdf/",
+      "fetched_at": "2026-05-06T03:02:40"
+    },
+    {
+      "article_id": 6569,
+      "issue_id": 362,
+      "url": "https://ohiomathjournal.org/article/id/6569/",
+      "title": "USING AN AI-BASED CHATBOT TO SUPPORT THE LEARNING OF ALGEBRAIC FACTORING",
+      "authors": [
+        "Mirelle Zavala Amezcua",
+        "Mario Sánchez Aguilar"
+      ],
+      "year": "2026",
+      "doi": "10.18061/ojsm.6569",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6569/download/pdf/",
+      "fetched_at": "2026-05-06T03:02:42"
+    },
+    {
+      "article_id": 6616,
+      "issue_id": 362,
+      "url": "https://ohiomathjournal.org/article/id/6616/",
+      "title": "Supporting Responsive Mathematics Teaching in Elementary Classrooms Using ChatGPT",
+      "authors": [
+        "Sarah Selmer"
+      ],
+      "year": "2026",
+      "doi": "10.18061/ojsm.6616",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6616/download/pdf/",
+      "fetched_at": "2026-05-06T03:02:43"
+    },
+    {
+      "article_id": 7047,
+      "issue_id": 362,
+      "url": "https://ohiomathjournal.org/article/id/7047/",
+      "title": "An Elementary Difference–Matrix Evaluation of the Series An Elementary Difference–Matrix Evaluation of the Series ∑(n=1 to ∞) nᵏ/2ⁿ",
+      "authors": [
+        "Mahdi Imaninezhad"
+      ],
+      "year": "2026",
+      "doi": "10.18061/ojsm.7047",
+      "pdf_url": "https://ohiomathjournal.org/article/id/7047/download/pdf/",
+      "fetched_at": "2026-05-06T03:02:44"
+    },
+    {
+      "article_id": 7046,
+      "issue_id": 362,
+      "url": "https://ohiomathjournal.org/article/id/7046/",
+      "title": "Recognizing and Celebrating the Life and Times of Raye Montague: A Teaching Tip",
+      "authors": [
+        "William Paul Bintz",
+        "Shabnam Moini Chaghervand"
+      ],
+      "year": "2026",
+      "doi": "10.18061/ojsm.7046",
+      "pdf_url": "https://ohiomathjournal.org/article/id/7046/download/pdf/",
+      "fetched_at": "2026-05-06T03:02:45"
+    },
+    {
+      "article_id": 7048,
+      "issue_id": 362,
+      "url": "https://ohiomathjournal.org/article/id/7048/",
+      "title": "“That’s Where I Sit!”: A Slow Reveal of the Coordinate Plane",
+      "authors": [
+        "Candace Joswick",
+        "Linda Krauser Williams",
+        "Matt Felton-Koestler"
+      ],
+      "year": "2026",
+      "doi": "10.18061/ojsm.7048",
+      "pdf_url": "https://ohiomathjournal.org/article/id/7048/download/pdf/",
+      "fetched_at": "2026-05-06T03:02:46"
+    },
+    {
+      "article_id": 6902,
+      "issue_id": 362,
+      "url": "https://ohiomathjournal.org/article/id/6902/",
+      "title": "Helping Students Hit the Target on Probability",
+      "authors": [
+        "Ahmad M Alhammouri",
+        "Bre Winningham",
+        "Steve Phelps",
+        "Gregory D. Foley"
+      ],
+      "year": "2026",
+      "doi": "10.18061/ojsm.6902",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6902/download/pdf/",
+      "fetched_at": "2026-05-06T03:02:47"
+    },
+    {
+      "article_id": 6986,
+      "issue_id": 362,
+      "url": "https://ohiomathjournal.org/article/id/6986/",
+      "title": "AI as Collaborative Tool for Teachers for Effective Integration of Dynamic Geometry Tools",
+      "authors": [
+        "S. Asli Ozgun-Koca",
+        "Michael Meagher",
+        "Todd Edwards"
+      ],
+      "year": "2026",
+      "doi": "10.18061/ojsm.6986",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6986/download/pdf/",
+      "fetched_at": "2026-05-06T03:02:48"
+    },
+    {
+      "article_id": 6622,
+      "issue_id": 362,
+      "url": "https://ohiomathjournal.org/article/id/6622/",
+      "title": "Using AI to Make Definitions Personal",
+      "authors": [
+        "Jeremy Strayer",
+        "Ivan Lozano"
+      ],
+      "year": "2026",
+      "doi": "10.18061/ojsm.6622",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6622/download/pdf/",
+      "fetched_at": "2026-05-06T03:02:50"
+    },
+    {
+      "article_id": 6578,
+      "issue_id": 357,
+      "url": "https://ohiomathjournal.org/article/id/6578/",
+      "title": "Digital Divide and Conquer: Collaborative Tools for Inclusive Ohio Math Classrooms",
+      "authors": [
+        "Erik Kormos"
+      ],
+      "year": "2025",
+      "doi": "10.18061/ojsm.6578",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6578/download/pdf/",
+      "fetched_at": "2026-05-06T03:02:52"
+    },
+    {
+      "article_id": 6682,
+      "issue_id": 357,
+      "url": "https://ohiomathjournal.org/article/id/6682/",
+      "title": "Proof Without Words: Sums of Odd Integers",
+      "authors": [
+        "Stephan Berendonk"
+      ],
+      "year": "2025",
+      "doi": "10.18061/ojsm.6682",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6682/download/pdf/",
+      "fetched_at": "2026-05-06T03:02:53"
+    },
+    {
+      "article_id": 6572,
+      "issue_id": 357,
+      "url": "https://ohiomathjournal.org/article/id/6572/",
+      "title": "On the Impact of Homework Format in an Elementary Statistics Course",
+      "authors": [
+        "Lisa Kaylor",
+        "Bradford Westgate"
+      ],
+      "year": "2025",
+      "doi": "10.18061/ojsm.6572",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6572/download/pdf/",
+      "fetched_at": "2026-05-06T03:02:55"
+    },
+    {
+      "article_id": 6575,
+      "issue_id": 357,
+      "url": "https://ohiomathjournal.org/article/id/6575/",
+      "title": "Artificial Stupidity: Generative Artificial Intelligence Chatbots&#x27; Inability to Multiply",
+      "authors": [
+        "Amanda Gantt Sawyer",
+        "Pierre Sutherland",
+        "Zareen Gul Aga"
+      ],
+      "year": "2025",
+      "doi": "10.18061/ojsm.6575",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6575/download/pdf/",
+      "fetched_at": "2026-05-06T03:02:56"
+    },
+    {
+      "article_id": 6574,
+      "issue_id": 357,
+      "url": "https://ohiomathjournal.org/article/id/6574/",
+      "title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
+      "authors": [
+        "Nirmala Naresh",
+        "Zuhal Yimaz",
+        "Iris DeLoach Johnson",
+        "Deborah Cockerham"
+      ],
+      "year": "2025",
+      "doi": "10.18061/ojsm.6574",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6574/download/pdf/",
+      "fetched_at": "2026-05-06T03:02:58"
+    },
+    {
+      "article_id": 6627,
+      "issue_id": 357,
+      "url": "https://ohiomathjournal.org/article/id/6627/",
+      "title": "Beyond Excel: Leveraging AI for Student Data Exploration",
+      "authors": [
+        "Jennifer Kleiman",
+        "Kez Fitzgerald"
+      ],
+      "year": "2025",
+      "doi": "10.18061/ojsm.6627",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6627/download/pdf/",
+      "fetched_at": "2026-05-06T03:02:59"
+    },
+    {
+      "article_id": 6571,
+      "issue_id": 357,
+      "url": "https://ohiomathjournal.org/article/id/6571/",
+      "title": "Development and Application of a Chatbot for University-level Calculus Learning",
+      "authors": [
+        "Jae Hwa Lee",
+        "Doyoung Park",
+        "Dong Sun Lim",
+        "Sang-Gu Lee"
+      ],
+      "year": "2025",
+      "doi": "10.18061/ojsm.6571",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6571/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:01"
+    },
+    {
+      "article_id": 6645,
+      "issue_id": 357,
+      "url": "https://ohiomathjournal.org/article/id/6645/",
+      "title": "Designing for Discernment: A Mixed-Methods Case Study of GenAI-Supported Critical Thinking",
+      "authors": [
+        "Yueyue Li",
+        "Jie Wu",
+        "Zheng Yang"
+      ],
+      "year": "2025",
+      "doi": "10.18061/ojsm.6645",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6645/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:03"
+    },
+    {
+      "article_id": 6617,
+      "issue_id": 357,
+      "url": "https://ohiomathjournal.org/article/id/6617/",
+      "title": "Using AI to Craft Linguistically Accessible Mathematical Tasks",
+      "authors": [
+        "Hongze Zhu",
+        "Ri Ayat Ainul Bashirah",
+        "Sheida Moghtader Eslami",
+        "Aimaral Tabarak",
+        "Melissa M. Soto",
+        "Kayla Sutcliffe",
+        "Hong Zhang",
+        "Cindy Naranjo"
+      ],
+      "year": "2025",
+      "doi": "10.18061/ojsm.6617",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6617/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:04"
+    },
+    {
+      "article_id": 6577,
+      "issue_id": 357,
+      "url": "https://ohiomathjournal.org/article/id/6577/",
+      "title": "Exploring the Relationship Between Tangents and Intercepted Arcs in Conic Sections — Specifically Circles: A Supplementary Theorem",
+      "authors": [
+        "Juliet Halaseh",
+        "Nicole Halaseh"
+      ],
+      "year": "2025",
+      "doi": "10.18061/ojsm.6577",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6577/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:05"
+    },
+    {
+      "article_id": 6613,
+      "issue_id": 357,
+      "url": "https://ohiomathjournal.org/article/id/6613/",
+      "title": "Enhancing Formative Assessment Practices with Strategic Use of the Activity Builder",
+      "authors": [
+        "Dana Christine Cox",
+        "Suzanne R. Harper",
+        "Leah Simon"
+      ],
+      "year": "2026",
+      "doi": "10.18061/ojsm.6613",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6613/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:07"
+    },
+    {
+      "article_id": 6570,
+      "issue_id": 357,
+      "url": "https://ohiomathjournal.org/article/id/6570/",
+      "title": "Utilizing AI to Create Mathematics-Themed Children&#x27;s Books",
+      "authors": [
+        "Ann Wheeler",
+        "Tiffany Sears Leach",
+        "Sarah Cooley"
+      ],
+      "year": "2026",
+      "doi": "10.18061/ojsm.6570",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6570/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:08"
+    },
+    {
+      "article_id": 6620,
+      "issue_id": 357,
+      "url": "https://ohiomathjournal.org/article/id/6620/",
+      "title": "Considering AI for Generating Mnemonics to Support Learning in Introductory Business Statistics",
+      "authors": [
+        "Megan E. Mocko",
+        "Lawrence M Lesser",
+        "Alejandra Lugo",
+        "Megan Shein"
+      ],
+      "year": "2026",
+      "doi": "10.18061/ojsm.6620",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6620/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:09"
+    },
+    {
+      "article_id": 6933,
+      "issue_id": 357,
+      "url": "https://ohiomathjournal.org/article/id/6933/",
+      "title": "Visual Reasoning in Summation: Area-based Approaches to Arithmetic and Geometric Progressions",
+      "authors": [
+        "Md Sadikur Rahman"
+      ],
+      "year": "2025",
+      "doi": "10.18061/ojsm.6933",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6933/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:11"
+    },
+    {
+      "article_id": 6593,
+      "issue_id": 316,
+      "url": "https://ohiomathjournal.org/article/id/6593/",
+      "title": "A Legacy of Learning: The Life and Impact of Johnny Hill",
+      "authors": [
+        "David Kullman",
+        "Jeff Wanko",
+        "Suzanne Harper",
+        "Michael Todd Edwards"
+      ],
+      "year": "2025",
+      "doi": "10.18061/ojsm.6593",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6593/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:13"
+    },
+    {
+      "article_id": 6594,
+      "issue_id": 316,
+      "url": "https://ohiomathjournal.org/article/id/6594/",
+      "title": "Proof without Words: Partial Fraction Decomposition",
+      "authors": [
+        "Hervé Svoboda"
+      ],
+      "year": "2025",
+      "doi": "10.18061/ojsm.6594",
+      "pdf_url": "https://ohiomathjournal.org/article/id/6594/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:14"
+    },
+    {
+      "article_id": 4158,
+      "issue_id": 331,
+      "url": "https://ohiomathjournal.org/article/id/4158/",
+      "title": "An Alternative Proof that the Real Numbers are Uncountable",
+      "authors": [
+        "Richard Kaufman"
+      ],
+      "year": "2025",
+      "doi": "10.18061/ojsm.4158",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4158/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:17"
+    },
+    {
+      "article_id": 5050,
+      "issue_id": 331,
+      "url": "https://ohiomathjournal.org/article/id/5050/",
+      "title": "Proof Without Words: a^2-b^2=(a+b)(a-b)",
+      "authors": [
+        "Krishnamurthy Bala Subramaniam"
+      ],
+      "year": "2025",
+      "doi": "10.18061/ojsm.5050",
+      "pdf_url": "https://ohiomathjournal.org/article/id/5050/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:19"
+    },
+    {
+      "article_id": 5051,
+      "issue_id": 331,
+      "url": "https://ohiomathjournal.org/article/id/5051/",
+      "title": "Using Generative AI to Reframe Mathematical Tasks for Personalized Learning",
+      "authors": [
+        "Theodora Beauchamp",
+        "Candace Walkington",
+        "Katie Bainbridge"
+      ],
+      "year": "2025",
+      "doi": "10.18061/ojsm.5051",
+      "pdf_url": "https://ohiomathjournal.org/article/id/5051/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:21"
+    },
+    {
+      "article_id": 5052,
+      "issue_id": 331,
+      "url": "https://ohiomathjournal.org/article/id/5052/",
+      "title": "Examining preservice teachers&#x27; descriptions of the Standards for Mathematical Practice",
+      "authors": [
+        "Elyssa Stoddard"
+      ],
+      "year": "2025",
+      "doi": "10.18061/ojsm.5052",
+      "pdf_url": "https://ohiomathjournal.org/article/id/5052/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:22"
+    },
+    {
+      "article_id": 5053,
+      "issue_id": 331,
+      "url": "https://ohiomathjournal.org/article/id/5053/",
+      "title": "High School Students View Snapchat AI to Be Like Google",
+      "authors": [
+        "Haley M. Smiley",
+        "Amanda Gantt Sawyer",
+        "Juliana E. Galano"
+      ],
+      "year": "2025",
+      "doi": "10.18061/ojsm.5053",
+      "pdf_url": "https://ohiomathjournal.org/article/id/5053/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:24"
+    },
+    {
+      "article_id": 5054,
+      "issue_id": 331,
+      "url": "https://ohiomathjournal.org/article/id/5054/",
+      "title": "Exploring Hyperbolic Geometry (Part 2)",
+      "authors": [
+        "Todd O. Moyer"
+      ],
+      "year": "2025",
+      "doi": "10.18061/ojsm.5054",
+      "pdf_url": "https://ohiomathjournal.org/article/id/5054/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:26"
+    },
+    {
+      "article_id": 4163,
+      "issue_id": 332,
+      "url": "https://ohiomathjournal.org/article/id/4163/",
+      "title": "Teacher Candidate Perceptions of Learning through Simulation Technology",
+      "authors": [
+        "Ryan Griesmer",
+        "Gabriel Matney"
+      ],
+      "year": "2024",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4163/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:28"
+    },
+    {
+      "article_id": 4164,
+      "issue_id": 332,
+      "url": "https://ohiomathjournal.org/article/id/4164/",
+      "title": "Mathematics of Peace",
+      "authors": [
+        "Satyam Mishra",
+        "Janet Walker"
+      ],
+      "year": "2024",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4164/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:29"
+    },
+    {
+      "article_id": 4166,
+      "issue_id": 332,
+      "url": "https://ohiomathjournal.org/article/id/4166/",
+      "title": "An Elementary Mathematics Lesson about the 2020 Presidential Election",
+      "authors": [
+        "Blair Izard",
+        "Kristal Cloft"
+      ],
+      "year": "2024",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4166/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:31"
+    },
+    {
+      "article_id": 6717,
+      "issue_id": 332,
+      "url": "https://ohiomathjournal.org/article/id/6717/",
+      "title": "How Mathematics Education in Ohio Impacted the Nation: Incorporating Technology to Carry Out the Vision",
+      "authors": [
+        "James E. Schultz"
+      ],
+      "year": "2025",
+      "doi": "10.18061/ojsm.6717",
+      "pdf_url": null,
+      "fetched_at": "2026-05-06T03:03:32"
+    },
+    {
+      "article_id": 4165,
+      "issue_id": 332,
+      "url": "https://ohiomathjournal.org/article/id/4165/",
+      "title": "Exploring Hyperbolic Geometry",
+      "authors": [
+        "Todd O Moyer"
+      ],
+      "year": "2024",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4165/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:33"
+    },
+    {
+      "article_id": 4161,
+      "issue_id": 332,
+      "url": "https://ohiomathjournal.org/article/id/4161/",
+      "title": "Time with Demana/Waits",
+      "authors": [
+        "Edward D. Laughbaum"
+      ],
+      "year": "2024",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4161/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:34"
+    },
+    {
+      "article_id": 4160,
+      "issue_id": 332,
+      "url": "https://ohiomathjournal.org/article/id/4160/",
+      "title": "Reflections on How Mathematics Education in Ohio Impacted the Nation",
+      "authors": [
+        "Gail Burrill"
+      ],
+      "year": "2024",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4160/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:36"
+    },
+    {
+      "article_id": 4159,
+      "issue_id": 332,
+      "url": "https://ohiomathjournal.org/article/id/4159/",
+      "title": "More of the Story",
+      "authors": [
+        "Gregory D. Foley"
+      ],
+      "year": "2024",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4159/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:37"
+    },
+    {
+      "article_id": 4171,
+      "issue_id": 333,
+      "url": "https://ohiomathjournal.org/article/id/4171/",
+      "title": "Keeping Modeling with Mathematics as the Focus in Authentic Tasks",
+      "authors": [
+        "Ryan Griesmer",
+        "Stefanie D.  Livers",
+        "Thomas Roberts"
+      ],
+      "year": "2024",
+      "doi": "10.18061/ojsm.4171",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4171/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:39"
+    },
+    {
+      "article_id": 4172,
+      "issue_id": 333,
+      "url": "https://ohiomathjournal.org/article/id/4172/",
+      "title": "Gauss&#x27;s Area Formula for Irregular Shapes",
+      "authors": [
+        "Jacob Gechlik",
+        "Hayk Sedrakyan"
+      ],
+      "year": "2024",
+      "doi": "10.18061/ojsm.4172",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4172/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:41"
+    },
+    {
+      "article_id": 4168,
+      "issue_id": 333,
+      "url": "https://ohiomathjournal.org/article/id/4168/",
+      "title": "How Mathematics Education in Ohio Impacted the Nation",
+      "authors": [
+        "James E. Schultz"
+      ],
+      "year": "2024",
+      "doi": "10.18061/ojsm.4168",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4168/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:42"
+    },
+    {
+      "article_id": 4167,
+      "issue_id": 333,
+      "url": "https://ohiomathjournal.org/article/id/4167/",
+      "title": "Drawing Taylor Swift, Orcas are Dolphins, &amp;amp; “What if” Questions",
+      "authors": [
+        "Kelsly Chatraw",
+        "Melissa Soto"
+      ],
+      "year": "2024",
+      "doi": "10.18061/ojsm.4167",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4167/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:44"
+    },
+    {
+      "article_id": 4169,
+      "issue_id": 333,
+      "url": "https://ohiomathjournal.org/article/id/4169/",
+      "title": "Unlocking the Use of Coding to Understand Geometric Concepts",
+      "authors": [
+        "Ann Wheeler",
+        "Hannah  Barrera",
+        "Sarah Cooley"
+      ],
+      "year": "2024",
+      "doi": "10.18061/ojsm.4169",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4169/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:45"
+    },
+    {
+      "article_id": 4170,
+      "issue_id": 333,
+      "url": "https://ohiomathjournal.org/article/id/4170/",
+      "title": "A Transformational Approach to Factoring",
+      "authors": [
+        "Erin Prins",
+        "Hawthorne Casey",
+        "Kevin Hutson"
+      ],
+      "year": "2024",
+      "doi": "10.18061/ojsm.4170",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4170/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:47"
+    },
+    {
+      "article_id": 4179,
+      "issue_id": 334,
+      "url": "https://ohiomathjournal.org/article/id/4179/",
+      "title": "Modeling the Functions of Atmospheric Carbon",
+      "authors": [
+        "Samuel Otten",
+        "Andrew Otten",
+        "Faustina Baah",
+        "Maria Stewart"
+      ],
+      "year": "2024",
+      "doi": "10.18061/ojsm.4179",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4179/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:48"
+    },
+    {
+      "article_id": 4178,
+      "issue_id": 334,
+      "url": "https://ohiomathjournal.org/article/id/4178/",
+      "title": "“Mental Math”: Building Coping and Problem-solving Skills in Math Class",
+      "authors": [
+        "Alexander Lower",
+        "Monica Whitehead"
+      ],
+      "year": "2024",
+      "doi": "10.18061/ojsm.4178",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4178/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:51"
+    },
+    {
+      "article_id": 4180,
+      "issue_id": 334,
+      "url": "https://ohiomathjournal.org/article/id/4180/",
+      "title": "Interesting Analysis on a Curious Convergence Series",
+      "authors": [
+        "Pritam Biswas",
+        "Ritam Sinha"
+      ],
+      "year": "2024",
+      "doi": "10.18061/ojsm.4180",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4180/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:52"
+    },
+    {
+      "article_id": 4175,
+      "issue_id": 334,
+      "url": "https://ohiomathjournal.org/article/id/4175/",
+      "title": "An Argument for a New Description of “Division by Zero”",
+      "authors": [
+        "Richard Kaufman"
+      ],
+      "year": "2024",
+      "doi": "10.18061/ojsm.4175",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4175/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:54"
+    },
+    {
+      "article_id": 4177,
+      "issue_id": 334,
+      "url": "https://ohiomathjournal.org/article/id/4177/",
+      "title": "Exploring the Hand in Hands-On Learning: Illuminating the Standards for Mathematical Practice",
+      "authors": [
+        "Mark D. Hogue",
+        "Laura Reade"
+      ],
+      "year": "2024",
+      "doi": "10.18061/ojsm.4177",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4177/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:55"
+    },
+    {
+      "article_id": 4174,
+      "issue_id": 334,
+      "url": "https://ohiomathjournal.org/article/id/4174/",
+      "title": "The Potential Impact of the Removal of a Middle Grades Licensure Band on Ohio’s Teacher Education Majors",
+      "authors": [
+        "Anita O&#x27;Mellan",
+        "Karl W. Kosko",
+        "Lynne M. Pachnowski",
+        "Gabriel Matney",
+        "Shannon O. Driskell"
+      ],
+      "year": "2024",
+      "doi": "10.18061/ojsm.4174",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4174/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:57"
+    },
+    {
+      "article_id": 4173,
+      "issue_id": 334,
+      "url": "https://ohiomathjournal.org/article/id/4173/",
+      "title": "Teacher Tracking in High School Mathematics",
+      "authors": [
+        "Wayne Nirode",
+        "Brian Boyd"
+      ],
+      "year": "2024",
+      "doi": "10.18061/ojsm.4173",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4173/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:58"
+    },
+    {
+      "article_id": 4176,
+      "issue_id": 334,
+      "url": "https://ohiomathjournal.org/article/id/4176/",
+      "title": "Harnessing Restorative Circles to Cultivate an Effective Learning Community in Elementary Mathematics",
+      "authors": [
+        "Amy Crawford"
+      ],
+      "year": "2024",
+      "doi": "10.18061/ojsm.4176",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4176/download/pdf/",
+      "fetched_at": "2026-05-06T03:03:59"
+    },
+    {
+      "article_id": 4184,
+      "issue_id": 335,
+      "url": "https://ohiomathjournal.org/article/id/4184/",
+      "title": "The Food Drive Task: Problem Solving for Social Justice in the Elementary Grades",
+      "authors": [
+        "Montana Smithey",
+        "Alesia Mickle Moldavan"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4184",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4184/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:02"
+    },
+    {
+      "article_id": 4183,
+      "issue_id": 335,
+      "url": "https://ohiomathjournal.org/article/id/4183/",
+      "title": "This graph stinks . . . but I fixed it",
+      "authors": [
+        "Blair Izard",
+        "Kristal Cloft"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4183",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4183/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:03"
+    },
+    {
+      "article_id": 4186,
+      "issue_id": 335,
+      "url": "https://ohiomathjournal.org/article/id/4186/",
+      "title": "Brain Physiology’s Connection to Teaching Algebra",
+      "authors": [
+        "Edward D. Laughbaum"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4186",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4186/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:05"
+    },
+    {
+      "article_id": 4182,
+      "issue_id": 335,
+      "url": "https://ohiomathjournal.org/article/id/4182/",
+      "title": "Efficacy and Attitudes Towards Online Homework Systems in First-Semester Calculus",
+      "authors": [
+        "James Quinlan"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4182",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4182/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:06"
+    },
+    {
+      "article_id": 4185,
+      "issue_id": 335,
+      "url": "https://ohiomathjournal.org/article/id/4185/",
+      "title": "GPS &amp;amp; SONAR",
+      "authors": [
+        "Kelly Remijan"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4185",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4185/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:08"
+    },
+    {
+      "article_id": 4181,
+      "issue_id": 335,
+      "url": "https://ohiomathjournal.org/article/id/4181/",
+      "title": "Fostering Culturally-Responsive Calculus Instruction",
+      "authors": [
+        "Michael Todd Edwards",
+        "Zheng Yang",
+        "Carlos A. Lopez-Gonzalez"
+      ],
+      "year": "2024",
+      "doi": "10.18061/ojsm.4181",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4181/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:09"
+    },
+    {
+      "article_id": 4187,
+      "issue_id": 335,
+      "url": "https://ohiomathjournal.org/article/id/4187/",
+      "title": "How Fast Is the TI-Rover?",
+      "authors": [
+        "Ahmad M. Alhammouri"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4187",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4187/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:11"
+    },
+    {
+      "article_id": 4192,
+      "issue_id": 336,
+      "url": "https://ohiomathjournal.org/article/id/4192/",
+      "title": "Gabriel’s Horn and the Painter&#x27;s Paradox in Perspective",
+      "authors": [
+        "Richard Kaufman"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4192",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4192/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:16"
+    },
+    {
+      "article_id": 4194,
+      "issue_id": 336,
+      "url": "https://ohiomathjournal.org/article/id/4194/",
+      "title": "A Laboratory for Secondary Math",
+      "authors": [
+        "Steven P. Meiring"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4194",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4194/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:18"
+    },
+    {
+      "article_id": 4189,
+      "issue_id": 336,
+      "url": "https://ohiomathjournal.org/article/id/4189/",
+      "title": "Examining Textbooks to Support Prospective Teachers’ Pedagogical Content Knowledge of Geometry",
+      "authors": [
+        "Ayse Ozturk",
+        "Lydia Schramm",
+        "McKenzie Milligan",
+        "Mickenna Canning",
+        "Mya Rapol",
+        "Sarah Wilson"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4189",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4189/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:20"
+    },
+    {
+      "article_id": 4193,
+      "issue_id": 336,
+      "url": "https://ohiomathjournal.org/article/id/4193/",
+      "title": "Building a Foundational Understanding of Systems of Equations",
+      "authors": [
+        "Mark D. Hogue",
+        "Miranda Spengler",
+        "Rachel Hughes",
+        "Caitlyn Bell"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4193",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4193/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:21"
+    },
+    {
+      "article_id": 4190,
+      "issue_id": 336,
+      "url": "https://ohiomathjournal.org/article/id/4190/",
+      "title": "Delving Deeper: Squares within Squares and Cubes within Cubes",
+      "authors": [
+        "Ruby Schwan",
+        "Sarah Daye"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4190",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4190/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:23"
+    },
+    {
+      "article_id": 4188,
+      "issue_id": 336,
+      "url": "https://ohiomathjournal.org/article/id/4188/",
+      "title": "The Power of Basic Math: Preparing Students for a World Beyond the Classroom",
+      "authors": [
+        "Reuben Herrle",
+        "Jennifer Flory Edwards",
+        "Michael Todd Edwards"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4188",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4188/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:25"
+    },
+    {
+      "article_id": 4191,
+      "issue_id": 336,
+      "url": "https://ohiomathjournal.org/article/id/4191/",
+      "title": "Unpacking the Ambiguous Case to Develop Conceptual Knowledge and Representational Competence",
+      "authors": [
+        "Kyle Schultz"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4191",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4191/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:26"
+    },
+    {
+      "article_id": 4203,
+      "issue_id": 337,
+      "url": "https://ohiomathjournal.org/article/id/4203/",
+      "title": "Mathematics and Thinking",
+      "authors": [
+        "Steven P. Meiring"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4203",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4203/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:28"
+    },
+    {
+      "article_id": 4199,
+      "issue_id": 337,
+      "url": "https://ohiomathjournal.org/article/id/4199/",
+      "title": "Novice Teacher Supports the Mathematics Learning of English Language Learners in Any Language",
+      "authors": [
+        "Meghan Miller",
+        "Aidong &quot;Linda&quot; Zhang",
+        "Iris DeLoach Johnson",
+        "Jianan &quot;Gianna&quot; Yang"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4199",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4199/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:30"
+    },
+    {
+      "article_id": 4200,
+      "issue_id": 337,
+      "url": "https://ohiomathjournal.org/article/id/4200/",
+      "title": "A Picture is Worth a Thousand Words",
+      "authors": [
+        "Gabriel Matney",
+        "Corrinne Fischer",
+        "Jack Jackson"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4200",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4200/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:32"
+    },
+    {
+      "article_id": 4201,
+      "issue_id": 337,
+      "url": "https://ohiomathjournal.org/article/id/4201/",
+      "title": "Nurturing Structural Thinking through Teacher-Facilitated Problem Solving",
+      "authors": [
+        "Xiangquan Yao"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4201",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4201/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:33"
+    },
+    {
+      "article_id": 4196,
+      "issue_id": 337,
+      "url": "https://ohiomathjournal.org/article/id/4196/",
+      "title": "Nemeth in a Box",
+      "authors": [
+        "Tina Herzberg",
+        "Tiffany Wild",
+        "L. Penny Rosenblum"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4196",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4196/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:34"
+    },
+    {
+      "article_id": 4197,
+      "issue_id": 337,
+      "url": "https://ohiomathjournal.org/article/id/4197/",
+      "title": "Where do they all belong?",
+      "authors": [
+        "Dan Jaworski",
+        "Janet Walker"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4197",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4197/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:36"
+    },
+    {
+      "article_id": 4198,
+      "issue_id": 337,
+      "url": "https://ohiomathjournal.org/article/id/4198/",
+      "title": "Bridging Math Content and Teaching through Pre-Service Undergraduate Apprenticeship",
+      "authors": [
+        "Madeline Negrelli",
+        "Marilyn Ortiz",
+        "Bridget Druken"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4198",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4198/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:38"
+    },
+    {
+      "article_id": 4195,
+      "issue_id": 337,
+      "url": "https://ohiomathjournal.org/article/id/4195/",
+      "title": "Walking the Ellipse",
+      "authors": [
+        "Michael Waters",
+        "Katie  Waters"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4195",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4195/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:39"
+    },
+    {
+      "article_id": 4202,
+      "issue_id": 337,
+      "url": "https://ohiomathjournal.org/article/id/4202/",
+      "title": "The Sum of Even Powers",
+      "authors": [
+        "Ritam Sinha",
+        "Bikash Chakraborty"
+      ],
+      "year": "2023",
+      "doi": "10.18061/ojsm.4202",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4202/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:41"
+    },
+    {
+      "article_id": 4210,
+      "issue_id": 338,
+      "url": "https://ohiomathjournal.org/article/id/4210/",
+      "title": "A Modeling Activity",
+      "authors": [
+        "Megan Snyder",
+        "Melike Kara"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4210",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4210/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:43"
+    },
+    {
+      "article_id": 4209,
+      "issue_id": 338,
+      "url": "https://ohiomathjournal.org/article/id/4209/",
+      "title": "A New Divisibility Test for a Class of Integers",
+      "authors": [
+        "Darrell Minor"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4209",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4209/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:46"
+    },
+    {
+      "article_id": 4212,
+      "issue_id": 338,
+      "url": "https://ohiomathjournal.org/article/id/4212/",
+      "title": "Formulas! Formulas! Everywhere!",
+      "authors": [
+        "Todd O Moyer",
+        "R. Michael Krach"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4212",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4212/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:47"
+    },
+    {
+      "article_id": 4208,
+      "issue_id": 338,
+      "url": "https://ohiomathjournal.org/article/id/4208/",
+      "title": "Area and perimeter relationship for different shapes with an inradius",
+      "authors": [
+        "Richard Kaufman"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4208",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4208/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:51"
+    },
+    {
+      "article_id": 4211,
+      "issue_id": 338,
+      "url": "https://ohiomathjournal.org/article/id/4211/",
+      "title": "Produce Basket: The Development of PB module for improving fraction learning",
+      "authors": [
+        "Deb Adams",
+        "Terri Bucci",
+        "Lee McEwan",
+        "Kevin Reinthal"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4211",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4211/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:52"
+    },
+    {
+      "article_id": 4206,
+      "issue_id": 338,
+      "url": "https://ohiomathjournal.org/article/id/4206/",
+      "title": "Produce Basket: The Effect of Experiential Fraction Pedagogy on Preservice Teacher Learning",
+      "authors": [
+        "Deb Adams",
+        "Terri Bucci",
+        "Lee McEwan",
+        "Kevin Reinthal"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4206",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4206/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:53"
+    },
+    {
+      "article_id": 4207,
+      "issue_id": 338,
+      "url": "https://ohiomathjournal.org/article/id/4207/",
+      "title": "Investigation and Discovery",
+      "authors": [
+        "Steven P. Meiring"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4207",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4207/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:55"
+    },
+    {
+      "article_id": 4205,
+      "issue_id": 338,
+      "url": "https://ohiomathjournal.org/article/id/4205/",
+      "title": "Visualizing an Alternating Series",
+      "authors": [
+        "Ritam Sinha"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4205",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4205/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:56"
+    },
+    {
+      "article_id": 4204,
+      "issue_id": 338,
+      "url": "https://ohiomathjournal.org/article/id/4204/",
+      "title": "Contest Corner",
+      "authors": [
+        "Michael Flick",
+        "Debbie Kuchey"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4204",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4204/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:57"
+    },
+    {
+      "article_id": 4216,
+      "issue_id": 339,
+      "url": "https://ohiomathjournal.org/article/id/4216/",
+      "title": "Proof Without Words: One Elegant Relationship Between the Angles Formed in an Acute Triangle",
+      "authors": [
+        "Victor Oxman"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4216",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4216/download/pdf/",
+      "fetched_at": "2026-05-06T03:04:59"
+    },
+    {
+      "article_id": 4215,
+      "issue_id": 339,
+      "url": "https://ohiomathjournal.org/article/id/4215/",
+      "title": "Technology-Mediated Dot Talks",
+      "authors": [
+        "Candace Joswick",
+        "Kimberly Conner",
+        "Brandon McMillan"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4215",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4215/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:00"
+    },
+    {
+      "article_id": 4214,
+      "issue_id": 339,
+      "url": "https://ohiomathjournal.org/article/id/4214/",
+      "title": "Using Mathematical Modeling to Motivate the Study of Polynomial Functions",
+      "authors": [
+        "Rachelle Bouchat",
+        "Kristen Barnard"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4214",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4214/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:02"
+    },
+    {
+      "article_id": 4213,
+      "issue_id": 339,
+      "url": "https://ohiomathjournal.org/article/id/4213/",
+      "title": "Fostering Mathematical Inquiry with Language Independent Board Games",
+      "authors": [
+        "Michael Todd Edwards",
+        "Zheng Yang",
+        "Jingyi Zeng"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4213",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4213/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:03"
+    },
+    {
+      "article_id": 4221,
+      "issue_id": 340,
+      "url": "https://ohiomathjournal.org/article/id/4221/",
+      "title": "Engaging All Mathematical Learners Through Project-Based Design",
+      "authors": [
+        "Judy Brown",
+        "Jennifer Walls",
+        "Heather Leis",
+        "Ann Farrell",
+        "Michelle Meadows",
+        "Joanne Caniglia"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4221",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4221/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:05"
+    },
+    {
+      "article_id": 4222,
+      "issue_id": 340,
+      "url": "https://ohiomathjournal.org/article/id/4222/",
+      "title": "Beware of the Parallel-Replacement Zombies",
+      "authors": [
+        "Brian Sharp",
+        "Katie Perkins",
+        "Taylor Keracher",
+        "Laura Lehman"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4222",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4222/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:07"
+    },
+    {
+      "article_id": 4219,
+      "issue_id": 340,
+      "url": "https://ohiomathjournal.org/article/id/4219/",
+      "title": "Contest Corner: The 2021 State Tournament of Mathematics Results",
+      "authors": [
+        "Michael Flick",
+        "Debora Kuchey"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4219",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4219/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:09"
+    },
+    {
+      "article_id": 4220,
+      "issue_id": 340,
+      "url": "https://ohiomathjournal.org/article/id/4220/",
+      "title": "Another Proof of Pythagoras Theorem",
+      "authors": [
+        "Amarnath Murthy"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4220",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4220/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:10"
+    },
+    {
+      "article_id": 4217,
+      "issue_id": 340,
+      "url": "https://ohiomathjournal.org/article/id/4217/",
+      "title": "Fruitful Fraction Models with Digital Tools",
+      "authors": [
+        "Alesia Mickle Moldavan",
+        "Asia  Franks",
+        "Marquette Richardson"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4217",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4217/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:12"
+    },
+    {
+      "article_id": 4218,
+      "issue_id": 340,
+      "url": "https://ohiomathjournal.org/article/id/4218/",
+      "title": "Side Lengths of a Right Triangle Reproduced as Perimeters of Other Right Triangles: A Sketch and Proof",
+      "authors": [
+        "Richard Kaufman"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4218",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4218/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:13"
+    },
+    {
+      "article_id": 4228,
+      "issue_id": 341,
+      "url": "https://ohiomathjournal.org/article/id/4228/",
+      "title": "Advocacy Corner: High School Math Pathways---Ohio&#x27;s Pathway to Equity",
+      "authors": [
+        "Lynne Pachnowski",
+        "Anna Cannelongo"
+      ],
+      "year": "2021",
+      "doi": "10.18061/ojsm.4228",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4228/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:15"
+    },
+    {
+      "article_id": 4226,
+      "issue_id": 341,
+      "url": "https://ohiomathjournal.org/article/id/4226/",
+      "title": "Using RStudio to Engage School Students in Data Science",
+      "authors": [
+        "Ahmad M Alhammouri",
+        "Rami Al-Ouran"
+      ],
+      "year": "2021",
+      "doi": "10.18061/ojsm.4226",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4226/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:17"
+    },
+    {
+      "article_id": 4224,
+      "issue_id": 341,
+      "url": "https://ohiomathjournal.org/article/id/4224/",
+      "title": "The Product of Two Positive Integers is the Product of Their GCF and LCM",
+      "authors": [
+        "Krishnamurthy Bala Subramaniam",
+        "Aji Thomas"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4224",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4224/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:18"
+    },
+    {
+      "article_id": 4225,
+      "issue_id": 341,
+      "url": "https://ohiomathjournal.org/article/id/4225/",
+      "title": "A Response to a Criticism of the Teaching Profession",
+      "authors": [
+        "Ruby Schwan"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4225",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4225/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:20"
+    },
+    {
+      "article_id": 4227,
+      "issue_id": 341,
+      "url": "https://ohiomathjournal.org/article/id/4227/",
+      "title": "Factoring in Minecraft",
+      "authors": [
+        "Kenneth L Butler"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4227",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4227/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:21"
+    },
+    {
+      "article_id": 4223,
+      "issue_id": 341,
+      "url": "https://ohiomathjournal.org/article/id/4223/",
+      "title": "Proof Without Words : The Sum of the First n Odd Integers is a Perfect Square",
+      "authors": [
+        "Ritam Sinha"
+      ],
+      "year": "2022",
+      "doi": "10.18061/ojsm.4223",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4223/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:22"
+    },
+    {
+      "article_id": 4232,
+      "issue_id": 342,
+      "url": "https://ohiomathjournal.org/article/id/4232/",
+      "title": "Advocacy Corner: The Case for Ohio’s Mathematical Modeling and Reasoning Course",
+      "authors": [
+        "Steve Miller",
+        "Jennifer L Walls"
+      ],
+      "year": "2021",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4232/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:24"
+    },
+    {
+      "article_id": 4230,
+      "issue_id": 342,
+      "url": "https://ohiomathjournal.org/article/id/4230/",
+      "title": "Interrogating Data to Explore Digital Inequity",
+      "authors": [
+        "Robert Michael Knurek"
+      ],
+      "year": "2021",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4230/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:25"
+    },
+    {
+      "article_id": 4231,
+      "issue_id": 342,
+      "url": "https://ohiomathjournal.org/article/id/4231/",
+      "title": "Exploring Matrix Multiplication with Manipulatives",
+      "authors": [
+        "Maria Speakman",
+        "Scott A. Courtney"
+      ],
+      "year": "2021",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4231/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:27"
+    },
+    {
+      "article_id": 4237,
+      "issue_id": 343,
+      "url": "https://ohiomathjournal.org/article/id/4237/",
+      "title": "The Failure of Diagrams on Standardized Testing to Assess Students’ Understanding: What Teachers Need to Know to Use Diagrams Appropriately",
+      "authors": [
+        "Casey Hawthorne",
+        "Charles Michael",
+        "Mikayla Miley"
+      ],
+      "year": "2021",
+      "doi": "10.18061/ojsm.4237",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4237/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:29"
+    },
+    {
+      "article_id": 4236,
+      "issue_id": 343,
+      "url": "https://ohiomathjournal.org/article/id/4236/",
+      "title": "Base 3 Numeration System Requiring a Negative Digit",
+      "authors": [
+        "Steven Meiring"
+      ],
+      "year": "2021",
+      "doi": "10.18061/ojsm.4236",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4236/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:30"
+    },
+    {
+      "article_id": 4234,
+      "issue_id": 343,
+      "url": "https://ohiomathjournal.org/article/id/4234/",
+      "title": "How Slime Can Help Students Make Sense of Volume",
+      "authors": [
+        "Ann Wheeler",
+        "Katelynn Hogan"
+      ],
+      "year": "2021",
+      "doi": "10.18061/ojsm.4234",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4234/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:32"
+    },
+    {
+      "article_id": 4235,
+      "issue_id": 343,
+      "url": "https://ohiomathjournal.org/article/id/4235/",
+      "title": "Math + Books = Mathical!",
+      "authors": [
+        "Brenda Dales"
+      ],
+      "year": "2021",
+      "doi": "10.18061/ojsm.4235",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4235/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:33"
+    },
+    {
+      "article_id": 4233,
+      "issue_id": 343,
+      "url": "https://ohiomathjournal.org/article/id/4233/",
+      "title": "From Gatekeeper to Gateway---The Role of Quantitative Reasoning",
+      "authors": [
+        "Gregory D. Foley",
+        "Patrick W. Wachira"
+      ],
+      "year": "2021",
+      "doi": "10.18061/ojsm.4233",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4233/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:35"
+    },
+    {
+      "article_id": 4060,
+      "issue_id": 344,
+      "url": "https://ohiomathjournal.org/article/id/4060/",
+      "title": "Towards More Inclusive Mathematics: Opening up the Standards for Mathematical Practice",
+      "authors": [
+        "Nenad Radakovic",
+        "Tracey Hunter-Doniger"
+      ],
+      "year": "2020",
+      "doi": "10.18061/ojsm.4060",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4060/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:37"
+    },
+    {
+      "article_id": 4058,
+      "issue_id": 344,
+      "url": "https://ohiomathjournal.org/article/id/4058/",
+      "title": "Mathematical Misconceptions: Exploring the Teaching and Learning of Tangent Lines",
+      "authors": [
+        "Mark D. Hogue",
+        "Dominic Scarcelli"
+      ],
+      "year": "2020",
+      "doi": "10.18061/ojsm.4058",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4058/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:38"
+    },
+    {
+      "article_id": 4059,
+      "issue_id": 344,
+      "url": "https://ohiomathjournal.org/article/id/4059/",
+      "title": "Remembering What Matters in Teaching and Learning of Mathematics",
+      "authors": [
+        "Sandra Wilder"
+      ],
+      "year": "2020",
+      "doi": "10.18061/ojsm.4059",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4059/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:39"
+    },
+    {
+      "article_id": 4056,
+      "issue_id": 344,
+      "url": "https://ohiomathjournal.org/article/id/4056/",
+      "title": "CONTEST CORNER: The 2020 State Tournament of Mathematics Results",
+      "authors": [
+        "Michael Flick",
+        "Debora Kuchey"
+      ],
+      "year": "2020",
+      "doi": "10.18061/ojsm.4056",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4056/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:41"
+    },
+    {
+      "article_id": 4054,
+      "issue_id": 344,
+      "url": "https://ohiomathjournal.org/article/id/4054/",
+      "title": "What Every Teacher Should Know about Joe Crosswhite",
+      "authors": [
+        "Margaret &quot;Peggy&quot; Kasten",
+        "James E. Schultz"
+      ],
+      "year": "2020",
+      "doi": "10.18061/ojsm.4054",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4054/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:42"
+    },
+    {
+      "article_id": 4057,
+      "issue_id": 344,
+      "url": "https://ohiomathjournal.org/article/id/4057/",
+      "title": "The Four Levels of Implementing Mathematical Rap in Your Classroom",
+      "authors": [
+        "Rodney Andres Perez"
+      ],
+      "year": "2020",
+      "doi": "10.18061/ojsm.4057",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4057/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:43"
+    },
+    {
+      "article_id": 4053,
+      "issue_id": 344,
+      "url": "https://ohiomathjournal.org/article/id/4053/",
+      "title": "Stella and the Stunners: The Mathematical Legacy of Rudd Crawford",
+      "authors": [
+        "Steve Meiring"
+      ],
+      "year": "2020",
+      "doi": "10.18061/ojsm.4053",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4053/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:45"
+    },
+    {
+      "article_id": 4055,
+      "issue_id": 344,
+      "url": "https://ohiomathjournal.org/article/id/4055/",
+      "title": "The Math-alachian Trail",
+      "authors": [
+        "Cacey L Wells"
+      ],
+      "year": "2021",
+      "doi": "10.18061/ojsm.4055",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4055/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:46"
+    },
+    {
+      "article_id": 4065,
+      "issue_id": 345,
+      "url": "https://ohiomathjournal.org/article/id/4065/",
+      "title": "Introducing Actuarial Science to High School Students",
+      "authors": [
+        "Chloe Wilson",
+        "Janet M. Walker"
+      ],
+      "year": "2020",
+      "doi": "10.18061/ojsm.4065",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4065/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:48"
+    },
+    {
+      "article_id": 4064,
+      "issue_id": 345,
+      "url": "https://ohiomathjournal.org/article/id/4064/",
+      "title": "Culturally Responsive Teaching: Connecting Mathematics to Art",
+      "authors": [
+        "Patrick W Wachira"
+      ],
+      "year": "2020",
+      "doi": "10.18061/ojsm.4064",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4064/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:49"
+    },
+    {
+      "article_id": 4063,
+      "issue_id": 345,
+      "url": "https://ohiomathjournal.org/article/id/4063/",
+      "title": "Tiny House, Big Learning",
+      "authors": [
+        "Shannon O. S. Driskell",
+        "Lindsay A. Gold",
+        "Dave Herick"
+      ],
+      "year": "2020",
+      "doi": "10.18061/ojsm.4063",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4063/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:51"
+    },
+    {
+      "article_id": 4061,
+      "issue_id": 345,
+      "url": "https://ohiomathjournal.org/article/id/4061/",
+      "title": "Advocacy Corner: The Value of Middle Grades Licensure on K-12 Mathematics Achievement",
+      "authors": [
+        "Thomas Roberts",
+        "Lynne Pachnowski"
+      ],
+      "year": "2020",
+      "doi": "10.18061/ojsm.4061",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4061/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:52"
+    },
+    {
+      "article_id": 4066,
+      "issue_id": 345,
+      "url": "https://ohiomathjournal.org/article/id/4066/",
+      "title": "Preservice Mathematics Teacher Professional Learning through Informal Field Experiences",
+      "authors": [
+        "Kelly Colabianchi",
+        "Gabriel Matney"
+      ],
+      "year": "2020",
+      "doi": "10.18061/ojsm.4066",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4066/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:53"
+    },
+    {
+      "article_id": 4072,
+      "issue_id": 346,
+      "url": "https://ohiomathjournal.org/article/id/4072/",
+      "title": "ELL Corner - Linguistic Modifications in Action (Part 3 of 3)",
+      "authors": [
+        "Brooke Norval",
+        "Martha Castaneda"
+      ],
+      "year": "2020",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4072/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:56"
+    },
+    {
+      "article_id": 4070,
+      "issue_id": 346,
+      "url": "https://ohiomathjournal.org/article/id/4070/",
+      "title": "Indelible Math Moments",
+      "authors": [
+        "Michael Todd Edwards"
+      ],
+      "year": "2020",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4070/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:57"
+    },
+    {
+      "article_id": 4073,
+      "issue_id": 346,
+      "url": "https://ohiomathjournal.org/article/id/4073/",
+      "title": "Less is More: Right Triangle Relationships",
+      "authors": [
+        "Lisa Jacob"
+      ],
+      "year": "2020",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4073/download/pdf/",
+      "fetched_at": "2026-05-06T03:05:59"
+    },
+    {
+      "article_id": 4067,
+      "issue_id": 346,
+      "url": "https://ohiomathjournal.org/article/id/4067/",
+      "title": "Proof Without Words: Trisection of a Parallelogram’s Diagonal",
+      "authors": [
+        "Victor Oxman",
+        "Moshe Stupel"
+      ],
+      "year": "2020",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4067/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:00"
+    },
+    {
+      "article_id": 4068,
+      "issue_id": 346,
+      "url": "https://ohiomathjournal.org/article/id/4068/",
+      "title": "Contest Corner: Developing Mathematical Thinking",
+      "authors": [
+        "Michael Flick",
+        "Debora Kuchey"
+      ],
+      "year": "2020",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4068/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:02"
+    },
+    {
+      "article_id": 4069,
+      "issue_id": 346,
+      "url": "https://ohiomathjournal.org/article/id/4069/",
+      "title": "Student Teaching Reform",
+      "authors": [
+        "Zach Thornton"
+      ],
+      "year": "2020",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4069/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:03"
+    },
+    {
+      "article_id": 4071,
+      "issue_id": 346,
+      "url": "https://ohiomathjournal.org/article/id/4071/",
+      "title": "McCain’s Messages: Matrices and Mathematical Practices",
+      "authors": [
+        "Valerie N Long",
+        "Brian Sharp"
+      ],
+      "year": "2020",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4071/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:04"
+    },
+    {
+      "article_id": 4075,
+      "issue_id": 346,
+      "url": "https://ohiomathjournal.org/article/id/4075/",
+      "title": "Exploring Circle Area with Radius Squares",
+      "authors": [
+        "Kristyn Walters"
+      ],
+      "year": "2020",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4075/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:06"
+    },
+    {
+      "article_id": 4074,
+      "issue_id": 346,
+      "url": "https://ohiomathjournal.org/article/id/4074/",
+      "title": "Looking for Pythagoras",
+      "authors": [
+        "Caroline Schulte"
+      ],
+      "year": "2020",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4074/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:07"
+    },
+    {
+      "article_id": 4076,
+      "issue_id": 346,
+      "url": "https://ohiomathjournal.org/article/id/4076/",
+      "title": "Solving Quadratic Equations Activity &amp;amp; Revisions",
+      "authors": [
+        "Jackie McCarthy"
+      ],
+      "year": "2020",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4076/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:09"
+    },
+    {
+      "article_id": 4077,
+      "issue_id": 346,
+      "url": "https://ohiomathjournal.org/article/id/4077/",
+      "title": "Taco Cart Lesson, a Three Act Task",
+      "authors": [
+        "Hannah Dietz"
+      ],
+      "year": "2020",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4077/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:10"
+    },
+    {
+      "article_id": 4082,
+      "issue_id": 347,
+      "url": "https://ohiomathjournal.org/article/id/4082/",
+      "title": "Rewriting the Script",
+      "authors": [
+        "Megan Haerr"
+      ],
+      "year": "2019",
+      "doi": "10.18061/ojsm.4082",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4082/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:12"
+    },
+    {
+      "article_id": 4080,
+      "issue_id": 347,
+      "url": "https://ohiomathjournal.org/article/id/4080/",
+      "title": "Problem Solving the Hungarian Way (Part 2)",
+      "authors": [
+        "Janet M. Walker",
+        "Bridget C Scanga"
+      ],
+      "year": "2019",
+      "doi": "10.18061/ojsm.4080",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4080/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:14"
+    },
+    {
+      "article_id": 4081,
+      "issue_id": 347,
+      "url": "https://ohiomathjournal.org/article/id/4081/",
+      "title": "How to modify test items for ELLs: What research says (Part 2 of 3)",
+      "authors": [
+        "Brooke Norval"
+      ],
+      "year": "2019",
+      "doi": "10.18061/ojsm.4081",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4081/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:15"
+    },
+    {
+      "article_id": 4085,
+      "issue_id": 347,
+      "url": "https://ohiomathjournal.org/article/id/4085/",
+      "title": "Connecting Polygons to Coding",
+      "authors": [
+        "Allyson Klovekorn"
+      ],
+      "year": "2019",
+      "doi": "10.18061/ojsm.4085",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4085/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:16"
+    },
+    {
+      "article_id": 4083,
+      "issue_id": 347,
+      "url": "https://ohiomathjournal.org/article/id/4083/",
+      "title": "The Third-Year Teacher Rut",
+      "authors": [
+        "Lesley Miller"
+      ],
+      "year": "2019",
+      "doi": "10.18061/ojsm.4083",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4083/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:18"
+    },
+    {
+      "article_id": 4086,
+      "issue_id": 347,
+      "url": "https://ohiomathjournal.org/article/id/4086/",
+      "title": "Teaching Two-Way Frequency Tables Through Misconceptions",
+      "authors": [
+        "Lindsey Jakes"
+      ],
+      "year": "2019",
+      "doi": "10.18061/ojsm.4086",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4086/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:20"
+    },
+    {
+      "article_id": 4079,
+      "issue_id": 347,
+      "url": "https://ohiomathjournal.org/article/id/4079/",
+      "title": "CONTEST CORNER: The 2019 State Tournament of Mathematics",
+      "authors": [
+        "Michael Flick",
+        "Debora Kuchey"
+      ],
+      "year": "2019",
+      "doi": "10.18061/ojsm.4079",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4079/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:21"
+    },
+    {
+      "article_id": 4078,
+      "issue_id": 347,
+      "url": "https://ohiomathjournal.org/article/id/4078/",
+      "title": "Strings, Bears, &amp;amp; Boards: Making Fractions Meaning-filled",
+      "authors": [
+        "Bridget K Druken",
+        "Alison S Marzocchi"
+      ],
+      "year": "2019",
+      "doi": "10.18061/ojsm.4078",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4078/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:23"
+    },
+    {
+      "article_id": 4084,
+      "issue_id": 347,
+      "url": "https://ohiomathjournal.org/article/id/4084/",
+      "title": "The Challenges of Finding Area",
+      "authors": [
+        "Kayleigh George"
+      ],
+      "year": "2019",
+      "doi": "10.18061/ojsm.4084",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4084/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:24"
+    },
+    {
+      "article_id": 4091,
+      "issue_id": 348,
+      "url": "https://ohiomathjournal.org/article/id/4091/",
+      "title": "Sparking Surprise: A Negative Number Game to Promote Productive Concepts of Addition and Subtraction",
+      "authors": [
+        "Julie Nurnberger-Haag",
+        "Jamie L. Wernet"
+      ],
+      "year": "2019",
+      "doi": "10.18061/ojsm.4091",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4091/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:27"
+    },
+    {
+      "article_id": 4088,
+      "issue_id": 348,
+      "url": "https://ohiomathjournal.org/article/id/4088/",
+      "title": "Using Literature to Engage Students Mathematically",
+      "authors": [
+        "Ann Wheeler",
+        "Joe Champion",
+        "Holly Dybvig"
+      ],
+      "year": "2019",
+      "doi": "10.18061/ojsm.4088",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4088/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:29"
+    },
+    {
+      "article_id": 4090,
+      "issue_id": 348,
+      "url": "https://ohiomathjournal.org/article/id/4090/",
+      "title": "Getting Past the Sticking Points: A Questioning Framework for Fraction Multiplication",
+      "authors": [
+        "Debra Johanning"
+      ],
+      "year": "2019",
+      "doi": "10.18061/ojsm.4090",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4090/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:30"
+    },
+    {
+      "article_id": 4087,
+      "issue_id": 348,
+      "url": "https://ohiomathjournal.org/article/id/4087/",
+      "title": "Can we change mathematics test items to be more equitable to ELLs? (Part 1 of 3)",
+      "authors": [
+        "Brooke Norval"
+      ],
+      "year": "2019",
+      "doi": "10.18061/ojsm.4087",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4087/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:31"
+    },
+    {
+      "article_id": 4089,
+      "issue_id": 348,
+      "url": "https://ohiomathjournal.org/article/id/4089/",
+      "title": "Mitigating Misconceptions of Preservice Teachers: The Relationship between Area and Perimeter",
+      "authors": [
+        "Sister Cecilia Anne Wanner"
+      ],
+      "year": "2019",
+      "doi": "10.18061/ojsm.4089",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4089/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:33"
+    },
+    {
+      "article_id": 4098,
+      "issue_id": 349,
+      "url": "https://ohiomathjournal.org/article/id/4098/",
+      "title": "Using Literature to Teach Problem Solving in Mathematics",
+      "authors": [
+        "William Paul Bintz",
+        "Sara Delano Moore"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4098",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4098/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:34"
+    },
+    {
+      "article_id": 4099,
+      "issue_id": 349,
+      "url": "https://ohiomathjournal.org/article/id/4099/",
+      "title": "Environmental Math in the Classroom: What Do Your Walls Say?",
+      "authors": [
+        "Julie Nurnberger-Haag",
+        "Janis McTeer",
+        "Amy Hopkins",
+        "Jessica Ries",
+        "Amanda Catterall",
+        "Hannah Maxwell",
+        "Isabella J Branham"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4099",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4099/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:36"
+    },
+    {
+      "article_id": 4097,
+      "issue_id": 349,
+      "url": "https://ohiomathjournal.org/article/id/4097/",
+      "title": "Examining Number Talks with Secondary Preservice Teachers",
+      "authors": [
+        "Alyssa Lustgarten",
+        "Gabriel Matney"
+      ],
+      "year": "2019",
+      "doi": "10.18061/ojsm.4097",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4097/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:38"
+    },
+    {
+      "article_id": 4096,
+      "issue_id": 349,
+      "url": "https://ohiomathjournal.org/article/id/4096/",
+      "title": "Anchoring Number Talks",
+      "authors": [
+        "Katie Biro",
+        "Lara K. Dick"
+      ],
+      "year": "2019",
+      "doi": "10.18061/ojsm.4096",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4096/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:39"
+    },
+    {
+      "article_id": 4094,
+      "issue_id": 349,
+      "url": "https://ohiomathjournal.org/article/id/4094/",
+      "title": "Digital Resources of &quot;Floor to Ceiling&quot; Tasks",
+      "authors": [
+        "Michael Flick",
+        "Debbie Kuchey"
+      ],
+      "year": "2019",
+      "doi": "10.18061/ojsm.4094",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4094/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:40"
+    },
+    {
+      "article_id": 4095,
+      "issue_id": 349,
+      "url": "https://ohiomathjournal.org/article/id/4095/",
+      "title": "Unleashing the Inner Math Monster: Counting and Cardinality in Kindergarten",
+      "authors": [
+        "Emily Borodkin",
+        "Katelyn Martin",
+        "Kellie Roy",
+        "Emily Stapleton"
+      ],
+      "year": "2019",
+      "doi": "10.18061/ojsm.4095",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4095/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:42"
+    },
+    {
+      "article_id": 4093,
+      "issue_id": 349,
+      "url": "https://ohiomathjournal.org/article/id/4093/",
+      "title": "Problem Solving the Hungarian Way",
+      "authors": [
+        "Bridget C. Scanga",
+        "Janet M. Walker"
+      ],
+      "year": "2019",
+      "doi": "10.18061/ojsm.4093",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4093/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:43"
+    },
+    {
+      "article_id": 4092,
+      "issue_id": 349,
+      "url": "https://ohiomathjournal.org/article/id/4092/",
+      "title": "Weaving Mathematics and Culture into Danish Hearts",
+      "authors": [
+        "Rachel Chioda",
+        "Julie Killian"
+      ],
+      "year": "2019",
+      "doi": "10.18061/ojsm.4092",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4092/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:44"
+    },
+    {
+      "article_id": 4105,
+      "issue_id": 350,
+      "url": "https://ohiomathjournal.org/article/id/4105/",
+      "title": "Think Like an Ancient Egyptian",
+      "authors": [
+        "Lara K. Dick",
+        "Rebecca Ogle"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4105",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4105/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:47"
+    },
+    {
+      "article_id": 4108,
+      "issue_id": 350,
+      "url": "https://ohiomathjournal.org/article/id/4108/",
+      "title": "Follow the Signs to Promote Accurate Geometric Shape Knowledge",
+      "authors": [
+        "Julie Nurnberger-Haag"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4108",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4108/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:49"
+    },
+    {
+      "article_id": 4106,
+      "issue_id": 350,
+      "url": "https://ohiomathjournal.org/article/id/4106/",
+      "title": "Primes, Primitives, and Pythagoras",
+      "authors": [
+        "Taylor Wood",
+        "Jenna Odom"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4106",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4106/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:50"
+    },
+    {
+      "article_id": 4101,
+      "issue_id": 350,
+      "url": "https://ohiomathjournal.org/article/id/4101/",
+      "title": "CONTEST CORNER: The 2018 State Tournament of Mathematics",
+      "authors": [
+        "Michael Flick",
+        "Debbie Kuchey"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4101",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4101/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:51"
+    },
+    {
+      "article_id": 4103,
+      "issue_id": 350,
+      "url": "https://ohiomathjournal.org/article/id/4103/",
+      "title": "Proof Without Words: Sum of the First n Integers",
+      "authors": [
+        "Greg Orosi"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4103",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4103/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:53"
+    },
+    {
+      "article_id": 4100,
+      "issue_id": 350,
+      "url": "https://ohiomathjournal.org/article/id/4100/",
+      "title": "Rich Task Construction: Making &quot;Good&quot; Problems Better",
+      "authors": [
+        "Michael Waters"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4100",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4100/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:54"
+    },
+    {
+      "article_id": 4104,
+      "issue_id": 350,
+      "url": "https://ohiomathjournal.org/article/id/4104/",
+      "title": "Making Students’ Mathematical Arguments Explicit",
+      "authors": [
+        "Karl Wesley Kosko",
+        "Elizabeth Guilford"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4104",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4104/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:55"
+    },
+    {
+      "article_id": 4102,
+      "issue_id": 350,
+      "url": "https://ohiomathjournal.org/article/id/4102/",
+      "title": "Proof Without Words: Arithmetic Mean / Geometric Mean Inequality",
+      "authors": [
+        "Wasim Akram Mandal"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4102",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4102/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:56"
+    },
+    {
+      "article_id": 4107,
+      "issue_id": 350,
+      "url": "https://ohiomathjournal.org/article/id/4107/",
+      "title": "Using Monty Python and The Holy Grail to Teach the van Hiele Model for Geometric Thought and Logic",
+      "authors": [
+        "Todd O Moyer"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4107",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4107/download/pdf/",
+      "fetched_at": "2026-05-06T03:06:57"
+    },
+    {
+      "article_id": 4118,
+      "issue_id": 351,
+      "url": "https://ohiomathjournal.org/article/id/4118/",
+      "title": "Let&#x27;s Talk Context",
+      "authors": [
+        "Jamie Wernet"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4118",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4118/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:00"
+    },
+    {
+      "article_id": 4115,
+      "issue_id": 351,
+      "url": "https://ohiomathjournal.org/article/id/4115/",
+      "title": "Vetting Online Resources that Support Teachers&#x27; Promotion of Mathematical Habits of Mind",
+      "authors": [
+        "Scott A. Courtney",
+        "Zachary Longanecker",
+        "Shannon Duncan",
+        "Chad Metzger",
+        "David Olszewski"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4115",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4115/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:01"
+    },
+    {
+      "article_id": 4117,
+      "issue_id": 351,
+      "url": "https://ohiomathjournal.org/article/id/4117/",
+      "title": "Using Visual Modeling Tools to Reach Students with Learning Disabilities",
+      "authors": [
+        "Casey Hord",
+        "Susan A. Gregson",
+        "Jennifer B. Walsh",
+        "Samantha Marita"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4117",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4117/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:03"
+    },
+    {
+      "article_id": 4113,
+      "issue_id": 351,
+      "url": "https://ohiomathjournal.org/article/id/4113/",
+      "title": "Shapes and Their Equations: Experimentation with Desmos",
+      "authors": [
+        "Christopher Simon Iobst"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4113",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4113/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:05"
+    },
+    {
+      "article_id": 4112,
+      "issue_id": 351,
+      "url": "https://ohiomathjournal.org/article/id/4112/",
+      "title": "Survival of the Fitness: Mathematical Activity as a Union of Content and Process",
+      "authors": [
+        "Nat Banting"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4112",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4112/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:06"
+    },
+    {
+      "article_id": 4114,
+      "issue_id": 351,
+      "url": "https://ohiomathjournal.org/article/id/4114/",
+      "title": "Financial Literacy in the Elementary Classroom: Integrate not Recreate",
+      "authors": [
+        "Lindsay A Gold"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4114",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4114/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:07"
+    },
+    {
+      "article_id": 4116,
+      "issue_id": 351,
+      "url": "https://ohiomathjournal.org/article/id/4116/",
+      "title": "Modeling with Math Trails",
+      "authors": [
+        "Bridget Druken",
+        "Sarah Frazin"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4116",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4116/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:09"
+    },
+    {
+      "article_id": 4109,
+      "issue_id": 351,
+      "url": "https://ohiomathjournal.org/article/id/4109/",
+      "title": "Euclid&#x27;s Dilemma",
+      "authors": [
+        "Megan Rhyal"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4109",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4109/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:10"
+    },
+    {
+      "article_id": 4111,
+      "issue_id": 351,
+      "url": "https://ohiomathjournal.org/article/id/4111/",
+      "title": "Uncle Paul&#x27;s Adventure: Saving Abuela&#x27;s Tiles",
+      "authors": [
+        "Kassie Paul"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4111",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4111/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:12"
+    },
+    {
+      "article_id": 4110,
+      "issue_id": 351,
+      "url": "https://ohiomathjournal.org/article/id/4110/",
+      "title": "Building Up Geometry",
+      "authors": [
+        "Abby King"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4110",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4110/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:14"
+    },
+    {
+      "article_id": 4123,
+      "issue_id": 352,
+      "url": "https://ohiomathjournal.org/article/id/4123/",
+      "title": "Multiplying Mistakes",
+      "authors": [
+        "Tom Romano"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4123",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4123/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:16"
+    },
+    {
+      "article_id": 4127,
+      "issue_id": 352,
+      "url": "https://ohiomathjournal.org/article/id/4127/",
+      "title": "Productive Mathematical Discussions in Teaching Through Problem Solving",
+      "authors": [
+        "Awsaf Abdulla Alwarsh"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4127",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4127/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:17"
+    },
+    {
+      "article_id": 4124,
+      "issue_id": 352,
+      "url": "https://ohiomathjournal.org/article/id/4124/",
+      "title": "The Trouble with KISSing and Other Mnemonic Devices",
+      "authors": [
+        "Christy Danko Graybeal",
+        "Tricia K. Strickland"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4124",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4124/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:19"
+    },
+    {
+      "article_id": 4125,
+      "issue_id": 352,
+      "url": "https://ohiomathjournal.org/article/id/4125/",
+      "title": "Mondrian Math: An Artful Exploration of Area and Perimeter",
+      "authors": [
+        "Elisabeth Johnston",
+        "Elizabeth Kennedy Ward"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4125",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4125/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:20"
+    },
+    {
+      "article_id": 4126,
+      "issue_id": 352,
+      "url": "https://ohiomathjournal.org/article/id/4126/",
+      "title": "Proof Without Words: Sum of the First n Integers Squared",
+      "authors": [
+        "Greg Orosi"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4126",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4126/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:21"
+    },
+    {
+      "article_id": 4120,
+      "issue_id": 352,
+      "url": "https://ohiomathjournal.org/article/id/4120/",
+      "title": "Taking Teaching out of the Equation with Technology",
+      "authors": [
+        "Michael Todd Edwards",
+        "Zheng Yang",
+        "Xiang Shen",
+        "Tong Xie"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4120",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4120/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:22"
+    },
+    {
+      "article_id": 4119,
+      "issue_id": 352,
+      "url": "https://ohiomathjournal.org/article/id/4119/",
+      "title": "Proof without Words: (a+b+c)^2,(a+b-c)^2,(a+b+c)^2-(a+b-c)^2",
+      "authors": [
+        "Wasim Akram Mandal"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4119",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4119/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:26"
+    },
+    {
+      "article_id": 4122,
+      "issue_id": 352,
+      "url": "https://ohiomathjournal.org/article/id/4122/",
+      "title": "Four Corners in Learning Mathematics with Technology",
+      "authors": [
+        "Jessica Edwards",
+        "Alfinio Flores"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4122",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4122/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:27"
+    },
+    {
+      "article_id": 4121,
+      "issue_id": 352,
+      "url": "https://ohiomathjournal.org/article/id/4121/",
+      "title": "Considering ELLs When Planning Lessons",
+      "authors": [
+        "Jim Ewing"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4121",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4121/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:28"
+    },
+    {
+      "article_id": 4134,
+      "issue_id": 353,
+      "url": "https://ohiomathjournal.org/article/id/4134/",
+      "title": "What Are The Next Three Terms In This Sequence?",
+      "authors": [
+        "Janet M Walker",
+        "Matthew R McBurney"
+      ],
+      "year": "2017",
+      "doi": "10.18061/ojsm.4134",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4134/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:31"
+    },
+    {
+      "article_id": 4132,
+      "issue_id": 353,
+      "url": "https://ohiomathjournal.org/article/id/4132/",
+      "title": "The Joy of Following Students Down Unexpected Paths",
+      "authors": [
+        "Catherine Lane"
+      ],
+      "year": "2017",
+      "doi": "10.18061/ojsm.4132",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4132/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:32"
+    },
+    {
+      "article_id": 4133,
+      "issue_id": 353,
+      "url": "https://ohiomathjournal.org/article/id/4133/",
+      "title": "When Scaffolding is Not Helpful",
+      "authors": [
+        "Catherine Bare",
+        "Leah Simon"
+      ],
+      "year": "2017",
+      "doi": "10.18061/ojsm.4133",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4133/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:33"
+    },
+    {
+      "article_id": 4130,
+      "issue_id": 353,
+      "url": "https://ohiomathjournal.org/article/id/4130/",
+      "title": "Establishing Equations and Encountering Elves",
+      "authors": [
+        "Kendra Maree DeWater"
+      ],
+      "year": "2017",
+      "doi": "10.18061/ojsm.4130",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4130/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:35"
+    },
+    {
+      "article_id": 4131,
+      "issue_id": 353,
+      "url": "https://ohiomathjournal.org/article/id/4131/",
+      "title": "Exploring Sequences through Variations on Fibonacci",
+      "authors": [
+        "Gordon A Swain"
+      ],
+      "year": "2017",
+      "doi": "10.18061/ojsm.4131",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4131/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:36"
+    },
+    {
+      "article_id": 4129,
+      "issue_id": 353,
+      "url": "https://ohiomathjournal.org/article/id/4129/",
+      "title": "Fueling Teachers’ Interest in Learning about the Standards for Mathematical Practice",
+      "authors": [
+        "Lance Michael Kruse",
+        "Megan Schlosser",
+        "Jonathan Bostic"
+      ],
+      "year": "2017",
+      "doi": "10.18061/ojsm.4129",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4129/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:38"
+    },
+    {
+      "article_id": 4128,
+      "issue_id": 353,
+      "url": "https://ohiomathjournal.org/article/id/4128/",
+      "title": "Contest Corner",
+      "authors": [
+        "Michael Flick",
+        "Debbie Kuchey"
+      ],
+      "year": "2018",
+      "doi": "10.18061/ojsm.4128",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4128/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:39"
+    },
+    {
+      "article_id": 4144,
+      "issue_id": 170,
+      "url": "https://ohiomathjournal.org/article/id/4144/",
+      "title": "Chewing Your Way to Understanding",
+      "authors": [
+        "Dittika Gupta",
+        "Suzanne F Lindt",
+        "Diana Moss"
+      ],
+      "year": "2017",
+      "doi": "10.18061/ojsm.4144",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4144/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:41"
+    },
+    {
+      "article_id": 4145,
+      "issue_id": 170,
+      "url": "https://ohiomathjournal.org/article/id/4145/",
+      "title": "Pixels:  Creating Lessons with Historical Connections Between Perimeter and Circumference",
+      "authors": [
+        "Shelly Sheats Harkness",
+        "Bethany Noblitt"
+      ],
+      "year": "2017",
+      "doi": "10.18061/ojsm.4145",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4145/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:42"
+    },
+    {
+      "article_id": 4146,
+      "issue_id": 170,
+      "url": "https://ohiomathjournal.org/article/id/4146/",
+      "title": "Stocking Fish: A Recursive Problem",
+      "authors": [
+        "S. Asli Ozgun-Koca",
+        "Michael Meagher"
+      ],
+      "year": "2017",
+      "doi": "10.18061/ojsm.4146",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4146/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:44"
+    },
+    {
+      "article_id": 4147,
+      "issue_id": 170,
+      "url": "https://ohiomathjournal.org/article/id/4147/",
+      "title": "The Calculator Provided the &quot;Wrong&quot; Answer.  Now What?",
+      "authors": [
+        "Scott States"
+      ],
+      "year": "2017",
+      "doi": "10.18061/ojsm.4147",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4147/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:45"
+    },
+    {
+      "article_id": 4148,
+      "issue_id": 170,
+      "url": "https://ohiomathjournal.org/article/id/4148/",
+      "title": "Using Push and Support Cards for Differentiation",
+      "authors": [
+        "Rachael Eriksen Brown",
+        "Zora Mackiewicz-Wolfe",
+        "Susan Tily"
+      ],
+      "year": "2017",
+      "doi": "10.18061/ojsm.4148",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4148/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:47"
+    },
+    {
+      "article_id": 4139,
+      "issue_id": 354,
+      "url": "https://ohiomathjournal.org/article/id/4139/",
+      "title": "Using Number Talks to Build Procedural Fluency through Conceptual Understanding",
+      "authors": [
+        "Anne (Maranda) Berger"
+      ],
+      "year": "2017",
+      "doi": "10.18061/ojsm.4139",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4139/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:49"
+    },
+    {
+      "article_id": 4143,
+      "issue_id": 354,
+      "url": "https://ohiomathjournal.org/article/id/4143/",
+      "title": "Body Image and Barbie",
+      "authors": [
+        "Courtney Frydryk"
+      ],
+      "year": "2017",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4143/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:51"
+    },
+    {
+      "article_id": 4138,
+      "issue_id": 354,
+      "url": "https://ohiomathjournal.org/article/id/4138/",
+      "title": "Decimal Dilemmas: Interpreting and Addressing Misconceptions",
+      "authors": [
+        "Cindy Jong",
+        "Jonathan N Thomas",
+        "Molly H Fisher",
+        "Edna O Schack",
+        "Meredith A Davis",
+        "Mallory E Bickett"
+      ],
+      "year": "2017",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4138/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:52"
+    },
+    {
+      "article_id": 4142,
+      "issue_id": 354,
+      "url": "https://ohiomathjournal.org/article/id/4142/",
+      "title": "A proposition from algebra – how would Pythagoras phrase it?",
+      "authors": [
+        "Moshe Stupel",
+        "Avi Sigler"
+      ],
+      "year": "2017",
+      "doi": "10.18061/ojsm.4142",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4142/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:53"
+    },
+    {
+      "article_id": 4141,
+      "issue_id": 354,
+      "url": "https://ohiomathjournal.org/article/id/4141/",
+      "title": "Revisiting the Meaning of the Denominator",
+      "authors": [
+        "Debra Johanning",
+        "Lindsey Haubert"
+      ],
+      "year": "2017",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4141/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:54"
+    },
+    {
+      "article_id": 4137,
+      "issue_id": 354,
+      "url": "https://ohiomathjournal.org/article/id/4137/",
+      "title": "Student Math Circles: Building collaborative places of mathematical inquiry across grades",
+      "authors": [
+        "Chris Bolognese",
+        "Sonam Shahani"
+      ],
+      "year": "2017",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4137/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:56"
+    },
+    {
+      "article_id": 4136,
+      "issue_id": 354,
+      "url": "https://ohiomathjournal.org/article/id/4136/",
+      "title": "Where to Place a Post? Engaging Students in the Mathematical Modeling Process",
+      "authors": [
+        "Ahmad Alhammouri",
+        "Jami Durkee",
+        "Gregory D Foley"
+      ],
+      "year": "2017",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4136/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:57"
+    },
+    {
+      "article_id": 4140,
+      "issue_id": 354,
+      "url": "https://ohiomathjournal.org/article/id/4140/",
+      "title": "Narrowing the Achievement Gap with C-STEM Curriculum",
+      "authors": [
+        "Debora Kuchey",
+        "Michael Flick"
+      ],
+      "year": "2017",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4140/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:58"
+    },
+    {
+      "article_id": 4135,
+      "issue_id": 354,
+      "url": "https://ohiomathjournal.org/article/id/4135/",
+      "title": "The Resource Corner",
+      "authors": [
+        "Courtney Koestler"
+      ],
+      "year": "2017",
+      "doi": null,
+      "pdf_url": "https://ohiomathjournal.org/article/id/4135/download/pdf/",
+      "fetched_at": "2026-05-06T03:07:59"
+    },
+    {
+      "article_id": 4157,
+      "issue_id": 356,
+      "url": "https://ohiomathjournal.org/article/id/4157/",
+      "title": "Using Toy Animal Ball Poppers to Explore Projectile Motion in Algebra and Calculus Classes",
+      "authors": [
+        "Marsha Nicol Guntharp",
+        "Fred Browning",
+        "Gloria Royle"
+      ],
+      "year": "2017",
+      "doi": "10.18061/ojsm.4157",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4157/download/pdf/",
+      "fetched_at": "2026-05-06T03:08:01"
+    },
+    {
+      "article_id": 4154,
+      "issue_id": 356,
+      "url": "https://ohiomathjournal.org/article/id/4154/",
+      "title": "Mike&#x27;s Problem - A Proposed Solution",
+      "authors": [
+        "Bob Kinner"
+      ],
+      "year": "2017",
+      "doi": "10.18061/ojsm.4154",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4154/download/pdf/",
+      "fetched_at": "2026-05-06T03:08:02"
+    },
+    {
+      "article_id": 4156,
+      "issue_id": 356,
+      "url": "https://ohiomathjournal.org/article/id/4156/",
+      "title": "Using Soma Cubes to Master Common Core State Standards",
+      "authors": [
+        "Amanda Mickus"
+      ],
+      "year": "2017",
+      "doi": "10.18061/ojsm.4156",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4156/download/pdf/",
+      "fetched_at": "2026-05-06T03:08:04"
+    },
+    {
+      "article_id": 4155,
+      "issue_id": 356,
+      "url": "https://ohiomathjournal.org/article/id/4155/",
+      "title": "The Simplex Method for Systems of Linear Inequalities",
+      "authors": [
+        "Todd O Moyer"
+      ],
+      "year": "2017",
+      "doi": "10.18061/ojsm.4155",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4155/download/pdf/",
+      "fetched_at": "2026-05-06T03:08:05"
+    },
+    {
+      "article_id": 4153,
+      "issue_id": 356,
+      "url": "https://ohiomathjournal.org/article/id/4153/",
+      "title": "Social Justice Drives Students Deeper: A Statistics Lesson on Wealth Impacting Quality of Life",
+      "authors": [
+        "Mackenzie Wall"
+      ],
+      "year": "2017",
+      "doi": "10.18061/ojsm.4153",
+      "pdf_url": "https://ohiomathjournal.org/article/id/4153/download/pdf/",
+      "fetched_at": "2026-05-06T03:08:06"
+    }
+  ]
+}

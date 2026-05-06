@@ -1,0 +1,1886 @@
+{
+  "generated_at": "2026-05-06T03:33:39+00:00",
+  "articles": [
+    {
+      "article_id": 6674,
+      "issue_id": 362,
+      "title": "From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses",
+      "references_found": true,
+      "estimated_ref_count": 9,
+      "doi_count": 21,
+      "doi_coverage": 2.3333333333333335
+    },
+    {
+      "article_id": 6647,
+      "issue_id": 362,
+      "title": "Math Isn’t Neutral: Designing Word Problems with GPT-4 for Relevance",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 2,
+      "doi_coverage": 0.6666666666666666
+    },
+    {
+      "article_id": 6569,
+      "issue_id": 362,
+      "title": "USING AN AI-BASED CHATBOT TO SUPPORT THE LEARNING OF ALGEBRAIC FACTORING",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 3,
+      "doi_coverage": 0.6
+    },
+    {
+      "article_id": 6616,
+      "issue_id": 362,
+      "title": "Supporting Responsive Mathematics Teaching in Elementary Classrooms Using ChatGPT",
+      "references_found": true,
+      "estimated_ref_count": 7,
+      "doi_count": 9,
+      "doi_coverage": 1.2857142857142858
+    },
+    {
+      "article_id": 7047,
+      "issue_id": 362,
+      "title": "An Elementary Difference–Matrix Evaluation of the Series An Elementary Difference–Matrix Evaluation of the Series ∑(n=1 to ∞) nᵏ/2ⁿ",
+      "references_found": false,
+      "estimated_ref_count": 0,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 7046,
+      "issue_id": 362,
+      "title": "Recognizing and Celebrating the Life and Times of Raye Montague: A Teaching Tip",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 7048,
+      "issue_id": 362,
+      "title": "“That’s Where I Sit!”: A Slow Reveal of the Coordinate Plane",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 6902,
+      "issue_id": 362,
+      "title": "Helping Students Hit the Target on Probability",
+      "references_found": true,
+      "estimated_ref_count": 7,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 6986,
+      "issue_id": 362,
+      "title": "AI as Collaborative Tool for Teachers for Effective Integration of Dynamic Geometry Tools",
+      "references_found": true,
+      "estimated_ref_count": 6,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 6622,
+      "issue_id": 362,
+      "title": "Using AI to Make Definitions Personal",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 4,
+      "doi_coverage": 1.0
+    },
+    {
+      "article_id": 6578,
+      "issue_id": 357,
+      "title": "Digital Divide and Conquer: Collaborative Tools for Inclusive Ohio Math Classrooms",
+      "references_found": true,
+      "estimated_ref_count": 7,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 6682,
+      "issue_id": 357,
+      "title": "Proof Without Words: Sums of Odd Integers",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 6572,
+      "issue_id": 357,
+      "title": "On the Impact of Homework Format in an Elementary Statistics Course",
+      "references_found": true,
+      "estimated_ref_count": 23,
+      "doi_count": 11,
+      "doi_coverage": 0.4782608695652174
+    },
+    {
+      "article_id": 6575,
+      "issue_id": 357,
+      "title": "Artificial Stupidity: Generative Artificial Intelligence Chatbots&#x27; Inability to Multiply",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 1,
+      "doi_coverage": 0.2
+    },
+    {
+      "article_id": 6574,
+      "issue_id": 357,
+      "title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
+      "references_found": true,
+      "estimated_ref_count": 14,
+      "doi_count": 26,
+      "doi_coverage": 1.8571428571428572
+    },
+    {
+      "article_id": 6627,
+      "issue_id": 357,
+      "title": "Beyond Excel: Leveraging AI for Student Data Exploration",
+      "references_found": true,
+      "estimated_ref_count": 8,
+      "doi_count": 15,
+      "doi_coverage": 1.875
+    },
+    {
+      "article_id": 6571,
+      "issue_id": 357,
+      "title": "Development and Application of a Chatbot for University-level Calculus Learning",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 8,
+      "doi_coverage": 2.0
+    },
+    {
+      "article_id": 6645,
+      "issue_id": 357,
+      "title": "Designing for Discernment: A Mixed-Methods Case Study of GenAI-Supported Critical Thinking",
+      "references_found": true,
+      "estimated_ref_count": 7,
+      "doi_count": 10,
+      "doi_coverage": 1.4285714285714286
+    },
+    {
+      "article_id": 6617,
+      "issue_id": 357,
+      "title": "Using AI to Craft Linguistically Accessible Mathematical Tasks",
+      "references_found": true,
+      "estimated_ref_count": 12,
+      "doi_count": 16,
+      "doi_coverage": 1.3333333333333333
+    },
+    {
+      "article_id": 6577,
+      "issue_id": 357,
+      "title": "Exploring the Relationship Between Tangents and Intercepted Arcs in Conic Sections — Specifically Circles: A Supplementary Theorem",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 6613,
+      "issue_id": 357,
+      "title": "Enhancing Formative Assessment Practices with Strategic Use of the Activity Builder",
+      "references_found": true,
+      "estimated_ref_count": 6,
+      "doi_count": 3,
+      "doi_coverage": 0.5
+    },
+    {
+      "article_id": 6570,
+      "issue_id": 357,
+      "title": "Utilizing AI to Create Mathematics-Themed Children&#x27;s Books",
+      "references_found": true,
+      "estimated_ref_count": 7,
+      "doi_count": 5,
+      "doi_coverage": 0.7142857142857143
+    },
+    {
+      "article_id": 6620,
+      "issue_id": 357,
+      "title": "Considering AI for Generating Mnemonics to Support Learning in Introductory Business Statistics",
+      "references_found": true,
+      "estimated_ref_count": 43,
+      "doi_count": 18,
+      "doi_coverage": 0.4186046511627907
+    },
+    {
+      "article_id": 6933,
+      "issue_id": 357,
+      "title": "Visual Reasoning in Summation: Area-based Approaches to Arithmetic and Geometric Progressions",
+      "references_found": true,
+      "estimated_ref_count": 6,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 6593,
+      "issue_id": 316,
+      "title": "A Legacy of Learning: The Life and Impact of Johnny Hill",
+      "references_found": true,
+      "estimated_ref_count": 6,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 6594,
+      "issue_id": 316,
+      "title": "Proof without Words: Partial Fraction Decomposition",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4158,
+      "issue_id": 331,
+      "title": "An Alternative Proof that the Real Numbers are Uncountable",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 1,
+      "doi_coverage": 0.3333333333333333
+    },
+    {
+      "article_id": 5050,
+      "issue_id": 331,
+      "title": "Proof Without Words: a^2-b^2=(a+b)(a-b)",
+      "references_found": true,
+      "estimated_ref_count": 2,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 5051,
+      "issue_id": 331,
+      "title": "Using Generative AI to Reframe Mathematical Tasks for Personalized Learning",
+      "references_found": true,
+      "estimated_ref_count": 6,
+      "doi_count": 5,
+      "doi_coverage": 0.8333333333333334
+    },
+    {
+      "article_id": 5052,
+      "issue_id": 331,
+      "title": "Examining preservice teachers&#x27; descriptions of the Standards for Mathematical Practice",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 4,
+      "doi_coverage": 0.8
+    },
+    {
+      "article_id": 5053,
+      "issue_id": 331,
+      "title": "High School Students View Snapchat AI to Be Like Google",
+      "references_found": true,
+      "estimated_ref_count": 7,
+      "doi_count": 1,
+      "doi_coverage": 0.14285714285714285
+    },
+    {
+      "article_id": 5054,
+      "issue_id": 331,
+      "title": "Exploring Hyperbolic Geometry (Part 2)",
+      "references_found": false,
+      "estimated_ref_count": 0,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4163,
+      "issue_id": 332,
+      "title": "Teacher Candidate Perceptions of Learning through Simulation Technology",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 5,
+      "doi_coverage": 1.25
+    },
+    {
+      "article_id": 4164,
+      "issue_id": 332,
+      "title": "Mathematics of Peace",
+      "references_found": true,
+      "estimated_ref_count": 6,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4166,
+      "issue_id": 332,
+      "title": "An Elementary Mathematics Lesson about the 2020 Presidential Election",
+      "references_found": true,
+      "estimated_ref_count": 9,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4165,
+      "issue_id": 332,
+      "title": "Exploring Hyperbolic Geometry",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4161,
+      "issue_id": 332,
+      "title": "Time with Demana/Waits",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4160,
+      "issue_id": 332,
+      "title": "Reflections on How Mathematics Education in Ohio Impacted the Nation",
+      "references_found": true,
+      "estimated_ref_count": 17,
+      "doi_count": 1,
+      "doi_coverage": 0.058823529411764705
+    },
+    {
+      "article_id": 4159,
+      "issue_id": 332,
+      "title": "More of the Story",
+      "references_found": true,
+      "estimated_ref_count": 70,
+      "doi_count": 4,
+      "doi_coverage": 0.05714285714285714
+    },
+    {
+      "article_id": 4171,
+      "issue_id": 333,
+      "title": "Keeping Modeling with Mathematics as the Focus in Authentic Tasks",
+      "references_found": true,
+      "estimated_ref_count": 17,
+      "doi_count": 3,
+      "doi_coverage": 0.17647058823529413
+    },
+    {
+      "article_id": 4172,
+      "issue_id": 333,
+      "title": "Gauss&#x27;s Area Formula for Irregular Shapes",
+      "references_found": true,
+      "estimated_ref_count": 8,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4168,
+      "issue_id": 333,
+      "title": "How Mathematics Education in Ohio Impacted the Nation",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4167,
+      "issue_id": 333,
+      "title": "Drawing Taylor Swift, Orcas are Dolphins, &amp;amp; “What if” Questions",
+      "references_found": true,
+      "estimated_ref_count": 10,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4169,
+      "issue_id": 333,
+      "title": "Unlocking the Use of Coding to Understand Geometric Concepts",
+      "references_found": true,
+      "estimated_ref_count": 7,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4170,
+      "issue_id": 333,
+      "title": "A Transformational Approach to Factoring",
+      "references_found": true,
+      "estimated_ref_count": 12,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4179,
+      "issue_id": 334,
+      "title": "Modeling the Functions of Atmospheric Carbon",
+      "references_found": true,
+      "estimated_ref_count": 7,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4178,
+      "issue_id": 334,
+      "title": "“Mental Math”: Building Coping and Problem-solving Skills in Math Class",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 6,
+      "doi_coverage": 1.2
+    },
+    {
+      "article_id": 4180,
+      "issue_id": 334,
+      "title": "Interesting Analysis on a Curious Convergence Series",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 1,
+      "doi_coverage": 0.3333333333333333
+    },
+    {
+      "article_id": 4175,
+      "issue_id": 334,
+      "title": "An Argument for a New Description of “Division by Zero”",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4177,
+      "issue_id": 334,
+      "title": "Exploring the Hand in Hands-On Learning: Illuminating the Standards for Mathematical Practice",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 1,
+      "doi_coverage": 0.25
+    },
+    {
+      "article_id": 4174,
+      "issue_id": 334,
+      "title": "The Potential Impact of the Removal of a Middle Grades Licensure Band on Ohio’s Teacher Education Majors",
+      "references_found": true,
+      "estimated_ref_count": 8,
+      "doi_count": 4,
+      "doi_coverage": 0.5
+    },
+    {
+      "article_id": 4173,
+      "issue_id": 334,
+      "title": "Teacher Tracking in High School Mathematics",
+      "references_found": true,
+      "estimated_ref_count": 11,
+      "doi_count": 5,
+      "doi_coverage": 0.45454545454545453
+    },
+    {
+      "article_id": 4176,
+      "issue_id": 334,
+      "title": "Harnessing Restorative Circles to Cultivate an Effective Learning Community in Elementary Mathematics",
+      "references_found": true,
+      "estimated_ref_count": 18,
+      "doi_count": 1,
+      "doi_coverage": 0.05555555555555555
+    },
+    {
+      "article_id": 4184,
+      "issue_id": 335,
+      "title": "The Food Drive Task: Problem Solving for Social Justice in the Elementary Grades",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 2,
+      "doi_coverage": 0.4
+    },
+    {
+      "article_id": 4183,
+      "issue_id": 335,
+      "title": "This graph stinks . . . but I fixed it",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4186,
+      "issue_id": 335,
+      "title": "Brain Physiology’s Connection to Teaching Algebra",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4182,
+      "issue_id": 335,
+      "title": "Efficacy and Attitudes Towards Online Homework Systems in First-Semester Calculus",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 1,
+      "doi_coverage": 0.3333333333333333
+    },
+    {
+      "article_id": 4185,
+      "issue_id": 335,
+      "title": "GPS &amp;amp; SONAR",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4181,
+      "issue_id": 335,
+      "title": "Fostering Culturally-Responsive Calculus Instruction",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 1,
+      "doi_coverage": 0.2
+    },
+    {
+      "article_id": 4187,
+      "issue_id": 335,
+      "title": "How Fast Is the TI-Rover?",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4192,
+      "issue_id": 336,
+      "title": "Gabriel’s Horn and the Painter&#x27;s Paradox in Perspective",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 1,
+      "doi_coverage": 0.25
+    },
+    {
+      "article_id": 4194,
+      "issue_id": 336,
+      "title": "A Laboratory for Secondary Math",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4189,
+      "issue_id": 336,
+      "title": "Examining Textbooks to Support Prospective Teachers’ Pedagogical Content Knowledge of Geometry",
+      "references_found": true,
+      "estimated_ref_count": 9,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4193,
+      "issue_id": 336,
+      "title": "Building a Foundational Understanding of Systems of Equations",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 1,
+      "doi_coverage": 0.3333333333333333
+    },
+    {
+      "article_id": 4190,
+      "issue_id": 336,
+      "title": "Delving Deeper: Squares within Squares and Cubes within Cubes",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4188,
+      "issue_id": 336,
+      "title": "The Power of Basic Math: Preparing Students for a World Beyond the Classroom",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4191,
+      "issue_id": 336,
+      "title": "Unpacking the Ambiguous Case to Develop Conceptual Knowledge and Representational Competence",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 8,
+      "doi_coverage": 2.0
+    },
+    {
+      "article_id": 4203,
+      "issue_id": 337,
+      "title": "Mathematics and Thinking",
+      "references_found": true,
+      "estimated_ref_count": 50,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4199,
+      "issue_id": 337,
+      "title": "Novice Teacher Supports the Mathematics Learning of English Language Learners in Any Language",
+      "references_found": true,
+      "estimated_ref_count": 7,
+      "doi_count": 1,
+      "doi_coverage": 0.14285714285714285
+    },
+    {
+      "article_id": 4200,
+      "issue_id": 337,
+      "title": "A Picture is Worth a Thousand Words",
+      "references_found": true,
+      "estimated_ref_count": 6,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4201,
+      "issue_id": 337,
+      "title": "Nurturing Structural Thinking through Teacher-Facilitated Problem Solving",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 2,
+      "doi_coverage": 0.6666666666666666
+    },
+    {
+      "article_id": 4196,
+      "issue_id": 337,
+      "title": "Nemeth in a Box",
+      "references_found": true,
+      "estimated_ref_count": 6,
+      "doi_count": 2,
+      "doi_coverage": 0.3333333333333333
+    },
+    {
+      "article_id": 4197,
+      "issue_id": 337,
+      "title": "Where do they all belong?",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4198,
+      "issue_id": 337,
+      "title": "Bridging Math Content and Teaching through Pre-Service Undergraduate Apprenticeship",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 1,
+      "doi_coverage": 0.2
+    },
+    {
+      "article_id": 4195,
+      "issue_id": 337,
+      "title": "Walking the Ellipse",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 2,
+      "doi_coverage": 0.4
+    },
+    {
+      "article_id": 4202,
+      "issue_id": 337,
+      "title": "The Sum of Even Powers",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 1,
+      "doi_coverage": 0.3333333333333333
+    },
+    {
+      "article_id": 4210,
+      "issue_id": 338,
+      "title": "A Modeling Activity",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4209,
+      "issue_id": 338,
+      "title": "A New Divisibility Test for a Class of Integers",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4212,
+      "issue_id": 338,
+      "title": "Formulas! Formulas! Everywhere!",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4208,
+      "issue_id": 338,
+      "title": "Area and perimeter relationship for different shapes with an inradius",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4211,
+      "issue_id": 338,
+      "title": "Produce Basket: The Development of PB module for improving fraction learning",
+      "references_found": true,
+      "estimated_ref_count": 10,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4206,
+      "issue_id": 338,
+      "title": "Produce Basket: The Effect of Experiential Fraction Pedagogy on Preservice Teacher Learning",
+      "references_found": true,
+      "estimated_ref_count": 10,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4207,
+      "issue_id": 338,
+      "title": "Investigation and Discovery",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4205,
+      "issue_id": 338,
+      "title": "Visualizing an Alternating Series",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4204,
+      "issue_id": 338,
+      "title": "Contest Corner",
+      "references_found": false,
+      "estimated_ref_count": 0,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4216,
+      "issue_id": 339,
+      "title": "Proof Without Words: One Elegant Relationship Between the Angles Formed in an Acute Triangle",
+      "references_found": true,
+      "estimated_ref_count": 2,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4215,
+      "issue_id": 339,
+      "title": "Technology-Mediated Dot Talks",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 2,
+      "doi_coverage": 0.4
+    },
+    {
+      "article_id": 4214,
+      "issue_id": 339,
+      "title": "Using Mathematical Modeling to Motivate the Study of Polynomial Functions",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4213,
+      "issue_id": 339,
+      "title": "Fostering Mathematical Inquiry with Language Independent Board Games",
+      "references_found": true,
+      "estimated_ref_count": 6,
+      "doi_count": 1,
+      "doi_coverage": 0.16666666666666666
+    },
+    {
+      "article_id": 4221,
+      "issue_id": 340,
+      "title": "Engaging All Mathematical Learners Through Project-Based Design",
+      "references_found": true,
+      "estimated_ref_count": 11,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4222,
+      "issue_id": 340,
+      "title": "Beware of the Parallel-Replacement Zombies",
+      "references_found": true,
+      "estimated_ref_count": 6,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4219,
+      "issue_id": 340,
+      "title": "Contest Corner: The 2021 State Tournament of Mathematics Results",
+      "references_found": false,
+      "estimated_ref_count": 0,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4220,
+      "issue_id": 340,
+      "title": "Another Proof of Pythagoras Theorem",
+      "references_found": false,
+      "estimated_ref_count": 0,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4217,
+      "issue_id": 340,
+      "title": "Fruitful Fraction Models with Digital Tools",
+      "references_found": true,
+      "estimated_ref_count": 6,
+      "doi_count": 1,
+      "doi_coverage": 0.16666666666666666
+    },
+    {
+      "article_id": 4218,
+      "issue_id": 340,
+      "title": "Side Lengths of a Right Triangle Reproduced as Perimeters of Other Right Triangles: A Sketch and Proof",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4228,
+      "issue_id": 341,
+      "title": "Advocacy Corner: High School Math Pathways---Ohio&#x27;s Pathway to Equity",
+      "references_found": true,
+      "estimated_ref_count": 6,
+      "doi_count": 1,
+      "doi_coverage": 0.16666666666666666
+    },
+    {
+      "article_id": 4226,
+      "issue_id": 341,
+      "title": "Using RStudio to Engage School Students in Data Science",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4224,
+      "issue_id": 341,
+      "title": "The Product of Two Positive Integers is the Product of Their GCF and LCM",
+      "references_found": true,
+      "estimated_ref_count": 2,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4225,
+      "issue_id": 341,
+      "title": "A Response to a Criticism of the Teaching Profession",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4227,
+      "issue_id": 341,
+      "title": "Factoring in Minecraft",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4223,
+      "issue_id": 341,
+      "title": "Proof Without Words : The Sum of the First n Odd Integers is a Perfect Square",
+      "references_found": true,
+      "estimated_ref_count": 2,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4232,
+      "issue_id": 342,
+      "title": "Advocacy Corner: The Case for Ohio’s Mathematical Modeling and Reasoning Course",
+      "references_found": true,
+      "estimated_ref_count": 13,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4230,
+      "issue_id": 342,
+      "title": "Interrogating Data to Explore Digital Inequity",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4231,
+      "issue_id": 342,
+      "title": "Exploring Matrix Multiplication with Manipulatives",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 1,
+      "doi_coverage": 0.2
+    },
+    {
+      "article_id": 4237,
+      "issue_id": 343,
+      "title": "The Failure of Diagrams on Standardized Testing to Assess Students’ Understanding: What Teachers Need to Know to Use Diagrams Appropriately",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4236,
+      "issue_id": 343,
+      "title": "Base 3 Numeration System Requiring a Negative Digit",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4234,
+      "issue_id": 343,
+      "title": "How Slime Can Help Students Make Sense of Volume",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4235,
+      "issue_id": 343,
+      "title": "Math + Books = Mathical!",
+      "references_found": true,
+      "estimated_ref_count": 18,
+      "doi_count": 2,
+      "doi_coverage": 0.1111111111111111
+    },
+    {
+      "article_id": 4233,
+      "issue_id": 343,
+      "title": "From Gatekeeper to Gateway---The Role of Quantitative Reasoning",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 1,
+      "doi_coverage": 0.2
+    },
+    {
+      "article_id": 4060,
+      "issue_id": 344,
+      "title": "Towards More Inclusive Mathematics: Opening up the Standards for Mathematical Practice",
+      "references_found": true,
+      "estimated_ref_count": 33,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4058,
+      "issue_id": 344,
+      "title": "Mathematical Misconceptions: Exploring the Teaching and Learning of Tangent Lines",
+      "references_found": true,
+      "estimated_ref_count": 10,
+      "doi_count": 1,
+      "doi_coverage": 0.1
+    },
+    {
+      "article_id": 4059,
+      "issue_id": 344,
+      "title": "Remembering What Matters in Teaching and Learning of Mathematics",
+      "references_found": true,
+      "estimated_ref_count": 11,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4056,
+      "issue_id": 344,
+      "title": "CONTEST CORNER: The 2020 State Tournament of Mathematics Results",
+      "references_found": false,
+      "estimated_ref_count": 0,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4054,
+      "issue_id": 344,
+      "title": "What Every Teacher Should Know about Joe Crosswhite",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4057,
+      "issue_id": 344,
+      "title": "The Four Levels of Implementing Mathematical Rap in Your Classroom",
+      "references_found": true,
+      "estimated_ref_count": 22,
+      "doi_count": 1,
+      "doi_coverage": 0.045454545454545456
+    },
+    {
+      "article_id": 4053,
+      "issue_id": 344,
+      "title": "Stella and the Stunners: The Mathematical Legacy of Rudd Crawford",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4055,
+      "issue_id": 344,
+      "title": "The Math-alachian Trail",
+      "references_found": true,
+      "estimated_ref_count": 7,
+      "doi_count": 1,
+      "doi_coverage": 0.14285714285714285
+    },
+    {
+      "article_id": 4065,
+      "issue_id": 345,
+      "title": "Introducing Actuarial Science to High School Students",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4064,
+      "issue_id": 345,
+      "title": "Culturally Responsive Teaching: Connecting Mathematics to Art",
+      "references_found": true,
+      "estimated_ref_count": 22,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4063,
+      "issue_id": 345,
+      "title": "Tiny House, Big Learning",
+      "references_found": true,
+      "estimated_ref_count": 6,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4061,
+      "issue_id": 345,
+      "title": "Advocacy Corner: The Value of Middle Grades Licensure on K-12 Mathematics Achievement",
+      "references_found": true,
+      "estimated_ref_count": 29,
+      "doi_count": 1,
+      "doi_coverage": 0.034482758620689655
+    },
+    {
+      "article_id": 4066,
+      "issue_id": 345,
+      "title": "Preservice Mathematics Teacher Professional Learning through Informal Field Experiences",
+      "references_found": true,
+      "estimated_ref_count": 9,
+      "doi_count": 1,
+      "doi_coverage": 0.1111111111111111
+    },
+    {
+      "article_id": 4072,
+      "issue_id": 346,
+      "title": "ELL Corner - Linguistic Modifications in Action (Part 3 of 3)",
+      "references_found": true,
+      "estimated_ref_count": 10,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4070,
+      "issue_id": 346,
+      "title": "Indelible Math Moments",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4073,
+      "issue_id": 346,
+      "title": "Less is More: Right Triangle Relationships",
+      "references_found": true,
+      "estimated_ref_count": 8,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4067,
+      "issue_id": 346,
+      "title": "Proof Without Words: Trisection of a Parallelogram’s Diagonal",
+      "references_found": false,
+      "estimated_ref_count": 0,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4068,
+      "issue_id": 346,
+      "title": "Contest Corner: Developing Mathematical Thinking",
+      "references_found": false,
+      "estimated_ref_count": 0,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4069,
+      "issue_id": 346,
+      "title": "Student Teaching Reform",
+      "references_found": true,
+      "estimated_ref_count": 11,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4071,
+      "issue_id": 346,
+      "title": "McCain’s Messages: Matrices and Mathematical Practices",
+      "references_found": true,
+      "estimated_ref_count": 15,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4075,
+      "issue_id": 346,
+      "title": "Exploring Circle Area with Radius Squares",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4074,
+      "issue_id": 346,
+      "title": "Looking for Pythagoras",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4076,
+      "issue_id": 346,
+      "title": "Solving Quadratic Equations Activity &amp;amp; Revisions",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 2,
+      "doi_coverage": 0.6666666666666666
+    },
+    {
+      "article_id": 4077,
+      "issue_id": 346,
+      "title": "Taco Cart Lesson, a Three Act Task",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4082,
+      "issue_id": 347,
+      "title": "Rewriting the Script",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 1,
+      "doi_coverage": 0.3333333333333333
+    },
+    {
+      "article_id": 4080,
+      "issue_id": 347,
+      "title": "Problem Solving the Hungarian Way (Part 2)",
+      "references_found": true,
+      "estimated_ref_count": 6,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4081,
+      "issue_id": 347,
+      "title": "How to modify test items for ELLs: What research says (Part 2 of 3)",
+      "references_found": true,
+      "estimated_ref_count": 35,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4085,
+      "issue_id": 347,
+      "title": "Connecting Polygons to Coding",
+      "references_found": true,
+      "estimated_ref_count": 7,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4083,
+      "issue_id": 347,
+      "title": "The Third-Year Teacher Rut",
+      "references_found": true,
+      "estimated_ref_count": 12,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4086,
+      "issue_id": 347,
+      "title": "Teaching Two-Way Frequency Tables Through Misconceptions",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4079,
+      "issue_id": 347,
+      "title": "CONTEST CORNER: The 2019 State Tournament of Mathematics",
+      "references_found": false,
+      "estimated_ref_count": 0,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4078,
+      "issue_id": 347,
+      "title": "Strings, Bears, &amp;amp; Boards: Making Fractions Meaning-filled",
+      "references_found": true,
+      "estimated_ref_count": 10,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4084,
+      "issue_id": 347,
+      "title": "The Challenges of Finding Area",
+      "references_found": true,
+      "estimated_ref_count": 6,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4091,
+      "issue_id": 348,
+      "title": "Sparking Surprise: A Negative Number Game to Promote Productive Concepts of Addition and Subtraction",
+      "references_found": true,
+      "estimated_ref_count": 12,
+      "doi_count": 1,
+      "doi_coverage": 0.08333333333333333
+    },
+    {
+      "article_id": 4088,
+      "issue_id": 348,
+      "title": "Using Literature to Engage Students Mathematically",
+      "references_found": true,
+      "estimated_ref_count": 9,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4090,
+      "issue_id": 348,
+      "title": "Getting Past the Sticking Points: A Questioning Framework for Fraction Multiplication",
+      "references_found": true,
+      "estimated_ref_count": 6,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4087,
+      "issue_id": 348,
+      "title": "Can we change mathematics test items to be more equitable to ELLs? (Part 1 of 3)",
+      "references_found": true,
+      "estimated_ref_count": 15,
+      "doi_count": 3,
+      "doi_coverage": 0.2
+    },
+    {
+      "article_id": 4089,
+      "issue_id": 348,
+      "title": "Mitigating Misconceptions of Preservice Teachers: The Relationship between Area and Perimeter",
+      "references_found": true,
+      "estimated_ref_count": 15,
+      "doi_count": 4,
+      "doi_coverage": 0.26666666666666666
+    },
+    {
+      "article_id": 4098,
+      "issue_id": 349,
+      "title": "Using Literature to Teach Problem Solving in Mathematics",
+      "references_found": true,
+      "estimated_ref_count": 13,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4099,
+      "issue_id": 349,
+      "title": "Environmental Math in the Classroom: What Do Your Walls Say?",
+      "references_found": true,
+      "estimated_ref_count": 24,
+      "doi_count": 2,
+      "doi_coverage": 0.08333333333333333
+    },
+    {
+      "article_id": 4097,
+      "issue_id": 349,
+      "title": "Examining Number Talks with Secondary Preservice Teachers",
+      "references_found": true,
+      "estimated_ref_count": 10,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4096,
+      "issue_id": 349,
+      "title": "Anchoring Number Talks",
+      "references_found": true,
+      "estimated_ref_count": 13,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4094,
+      "issue_id": 349,
+      "title": "Digital Resources of &quot;Floor to Ceiling&quot; Tasks",
+      "references_found": true,
+      "estimated_ref_count": 7,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4095,
+      "issue_id": 349,
+      "title": "Unleashing the Inner Math Monster: Counting and Cardinality in Kindergarten",
+      "references_found": true,
+      "estimated_ref_count": 7,
+      "doi_count": 1,
+      "doi_coverage": 0.14285714285714285
+    },
+    {
+      "article_id": 4093,
+      "issue_id": 349,
+      "title": "Problem Solving the Hungarian Way",
+      "references_found": true,
+      "estimated_ref_count": 8,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4092,
+      "issue_id": 349,
+      "title": "Weaving Mathematics and Culture into Danish Hearts",
+      "references_found": true,
+      "estimated_ref_count": 10,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4105,
+      "issue_id": 350,
+      "title": "Think Like an Ancient Egyptian",
+      "references_found": true,
+      "estimated_ref_count": 16,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4108,
+      "issue_id": 350,
+      "title": "Follow the Signs to Promote Accurate Geometric Shape Knowledge",
+      "references_found": true,
+      "estimated_ref_count": 15,
+      "doi_count": 2,
+      "doi_coverage": 0.13333333333333333
+    },
+    {
+      "article_id": 4106,
+      "issue_id": 350,
+      "title": "Primes, Primitives, and Pythagoras",
+      "references_found": true,
+      "estimated_ref_count": 12,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4101,
+      "issue_id": 350,
+      "title": "CONTEST CORNER: The 2018 State Tournament of Mathematics",
+      "references_found": false,
+      "estimated_ref_count": 0,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4103,
+      "issue_id": 350,
+      "title": "Proof Without Words: Sum of the First n Integers",
+      "references_found": false,
+      "estimated_ref_count": 0,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4100,
+      "issue_id": 350,
+      "title": "Rich Task Construction: Making &quot;Good&quot; Problems Better",
+      "references_found": true,
+      "estimated_ref_count": 7,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4104,
+      "issue_id": 350,
+      "title": "Making Students’ Mathematical Arguments Explicit",
+      "references_found": true,
+      "estimated_ref_count": 13,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4102,
+      "issue_id": 350,
+      "title": "Proof Without Words: Arithmetic Mean / Geometric Mean Inequality",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4107,
+      "issue_id": 350,
+      "title": "Using Monty Python and The Holy Grail to Teach the van Hiele Model for Geometric Thought and Logic",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4118,
+      "issue_id": 351,
+      "title": "Let&#x27;s Talk Context",
+      "references_found": true,
+      "estimated_ref_count": 17,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4115,
+      "issue_id": 351,
+      "title": "Vetting Online Resources that Support Teachers&#x27; Promotion of Mathematical Habits of Mind",
+      "references_found": true,
+      "estimated_ref_count": 14,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4117,
+      "issue_id": 351,
+      "title": "Using Visual Modeling Tools to Reach Students with Learning Disabilities",
+      "references_found": true,
+      "estimated_ref_count": 18,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4113,
+      "issue_id": 351,
+      "title": "Shapes and Their Equations: Experimentation with Desmos",
+      "references_found": false,
+      "estimated_ref_count": 0,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4112,
+      "issue_id": 351,
+      "title": "Survival of the Fitness: Mathematical Activity as a Union of Content and Process",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4114,
+      "issue_id": 351,
+      "title": "Financial Literacy in the Elementary Classroom: Integrate not Recreate",
+      "references_found": true,
+      "estimated_ref_count": 17,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4116,
+      "issue_id": 351,
+      "title": "Modeling with Math Trails",
+      "references_found": true,
+      "estimated_ref_count": 12,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4109,
+      "issue_id": 351,
+      "title": "Euclid&#x27;s Dilemma",
+      "references_found": false,
+      "estimated_ref_count": 0,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4111,
+      "issue_id": 351,
+      "title": "Uncle Paul&#x27;s Adventure: Saving Abuela&#x27;s Tiles",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 1,
+      "doi_coverage": 0.25
+    },
+    {
+      "article_id": 4110,
+      "issue_id": 351,
+      "title": "Building Up Geometry",
+      "references_found": true,
+      "estimated_ref_count": 2,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4123,
+      "issue_id": 352,
+      "title": "Multiplying Mistakes",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4127,
+      "issue_id": 352,
+      "title": "Productive Mathematical Discussions in Teaching Through Problem Solving",
+      "references_found": true,
+      "estimated_ref_count": 7,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4124,
+      "issue_id": 352,
+      "title": "The Trouble with KISSing and Other Mnemonic Devices",
+      "references_found": true,
+      "estimated_ref_count": 9,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4125,
+      "issue_id": 352,
+      "title": "Mondrian Math: An Artful Exploration of Area and Perimeter",
+      "references_found": true,
+      "estimated_ref_count": 11,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4126,
+      "issue_id": 352,
+      "title": "Proof Without Words: Sum of the First n Integers Squared",
+      "references_found": false,
+      "estimated_ref_count": 0,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4120,
+      "issue_id": 352,
+      "title": "Taking Teaching out of the Equation with Technology",
+      "references_found": true,
+      "estimated_ref_count": 15,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4119,
+      "issue_id": 352,
+      "title": "Proof without Words: (a+b+c)^2,(a+b-c)^2,(a+b+c)^2-(a+b-c)^2",
+      "references_found": true,
+      "estimated_ref_count": 6,
+      "doi_count": 1,
+      "doi_coverage": 0.16666666666666666
+    },
+    {
+      "article_id": 4122,
+      "issue_id": 352,
+      "title": "Four Corners in Learning Mathematics with Technology",
+      "references_found": true,
+      "estimated_ref_count": 9,
+      "doi_count": 1,
+      "doi_coverage": 0.1111111111111111
+    },
+    {
+      "article_id": 4121,
+      "issue_id": 352,
+      "title": "Considering ELLs When Planning Lessons",
+      "references_found": true,
+      "estimated_ref_count": 19,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4134,
+      "issue_id": 353,
+      "title": "What Are The Next Three Terms In This Sequence?",
+      "references_found": true,
+      "estimated_ref_count": 10,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4132,
+      "issue_id": 353,
+      "title": "The Joy of Following Students Down Unexpected Paths",
+      "references_found": true,
+      "estimated_ref_count": 6,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4133,
+      "issue_id": 353,
+      "title": "When Scaffolding is Not Helpful",
+      "references_found": true,
+      "estimated_ref_count": 6,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4130,
+      "issue_id": 353,
+      "title": "Establishing Equations and Encountering Elves",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4131,
+      "issue_id": 353,
+      "title": "Exploring Sequences through Variations on Fibonacci",
+      "references_found": true,
+      "estimated_ref_count": 10,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4129,
+      "issue_id": 353,
+      "title": "Fueling Teachers’ Interest in Learning about the Standards for Mathematical Practice",
+      "references_found": true,
+      "estimated_ref_count": 20,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4128,
+      "issue_id": 353,
+      "title": "Contest Corner",
+      "references_found": false,
+      "estimated_ref_count": 0,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4144,
+      "issue_id": 170,
+      "title": "Chewing Your Way to Understanding",
+      "references_found": true,
+      "estimated_ref_count": 9,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4145,
+      "issue_id": 170,
+      "title": "Pixels:  Creating Lessons with Historical Connections Between Perimeter and Circumference",
+      "references_found": true,
+      "estimated_ref_count": 18,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4146,
+      "issue_id": 170,
+      "title": "Stocking Fish: A Recursive Problem",
+      "references_found": true,
+      "estimated_ref_count": 9,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4147,
+      "issue_id": 170,
+      "title": "The Calculator Provided the &quot;Wrong&quot; Answer.  Now What?",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4148,
+      "issue_id": 170,
+      "title": "Using Push and Support Cards for Differentiation",
+      "references_found": true,
+      "estimated_ref_count": 5,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4139,
+      "issue_id": 354,
+      "title": "Using Number Talks to Build Procedural Fluency through Conceptual Understanding",
+      "references_found": true,
+      "estimated_ref_count": 7,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4143,
+      "issue_id": 354,
+      "title": "Body Image and Barbie",
+      "references_found": true,
+      "estimated_ref_count": 3,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4138,
+      "issue_id": 354,
+      "title": "Decimal Dilemmas: Interpreting and Addressing Misconceptions",
+      "references_found": true,
+      "estimated_ref_count": 17,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4142,
+      "issue_id": 354,
+      "title": "A proposition from algebra – how would Pythagoras phrase it?",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4141,
+      "issue_id": 354,
+      "title": "Revisiting the Meaning of the Denominator",
+      "references_found": true,
+      "estimated_ref_count": 8,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4137,
+      "issue_id": 354,
+      "title": "Student Math Circles: Building collaborative places of mathematical inquiry across grades",
+      "references_found": true,
+      "estimated_ref_count": 13,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4136,
+      "issue_id": 354,
+      "title": "Where to Place a Post? Engaging Students in the Mathematical Modeling Process",
+      "references_found": true,
+      "estimated_ref_count": 10,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4140,
+      "issue_id": 354,
+      "title": "Narrowing the Achievement Gap with C-STEM Curriculum",
+      "references_found": true,
+      "estimated_ref_count": 8,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4135,
+      "issue_id": 354,
+      "title": "The Resource Corner",
+      "references_found": false,
+      "estimated_ref_count": 0,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4157,
+      "issue_id": 356,
+      "title": "Using Toy Animal Ball Poppers to Explore Projectile Motion in Algebra and Calculus Classes",
+      "references_found": false,
+      "estimated_ref_count": 0,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4154,
+      "issue_id": 356,
+      "title": "Mike&#x27;s Problem - A Proposed Solution",
+      "references_found": false,
+      "estimated_ref_count": 0,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4156,
+      "issue_id": 356,
+      "title": "Using Soma Cubes to Master Common Core State Standards",
+      "references_found": false,
+      "estimated_ref_count": 0,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4155,
+      "issue_id": 356,
+      "title": "The Simplex Method for Systems of Linear Inequalities",
+      "references_found": true,
+      "estimated_ref_count": 4,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    },
+    {
+      "article_id": 4153,
+      "issue_id": 356,
+      "title": "Social Justice Drives Students Deeper: A Statistics Lesson on Wealth Impacting Quality of Life",
+      "references_found": true,
+      "estimated_ref_count": 26,
+      "doi_count": 0,
+      "doi_coverage": 0.0
+    }
+  ]
+}

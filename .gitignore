@@ -35,3 +35,10 @@ Thumbs.db
 
 # LaTeX junk
 texput.log
+
+# OJSM audit bulk artifacts (regenerable from scripts)
+datasets/ojsm-audit/pdfs/
+datasets/ojsm-audit/refs/
+datasets/ojsm-audit/bibs/
+datasets/ojsm-audit/validation/
+
