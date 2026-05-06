@@ -1,0 +1,15 @@
+{
+  "generated_at": "2026-05-06T19:03:38+00:00",
+  "extractor": "grobid-0.8.1",
+  "articles": [
+    {
+      "article_id": 6574,
+      "references_found": true,
+      "estimated_ref_count": 64,
+      "doi_count": 28,
+      "doi_coverage": 0.4375,
+      "issue_id": 357,
+      "title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom"
+    }
+  ]
+}

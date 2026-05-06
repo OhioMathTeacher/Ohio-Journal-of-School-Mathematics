@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-06T19:44:21+00:00",
+  "generated_at": "2026-05-06T04:18:54+00:00",
   "ai_enabled": false,
   "totals": {
-    "valid": 268,
+    "valid": 235,
     "warnings": 0,
     "suspicious": 0,
-    "invalid": 8,
-    "total": 276
+    "invalid": 14,
+    "total": 249
   },
   "frankenstein_candidates": [
     {
@@ -19,12 +19,30 @@
       ]
     },
     {
-      "article_id": 6645,
-      "article_title": "Designing for Discernment: A Mixed-Methods Case Study of GenAI-Supported Critical Thinking",
+      "article_id": 6574,
+      "article_title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
       "issue_id": 357,
-      "fabricated_doi": "10.30574/ijsra.2024.13.1.1960",
+      "fabricated_doi": "10.51204/Anali_PFBU_24405AFagbohun",
       "issues": [
-        "Invalid DOI: DOI 10.30574/ijsra.2024.13.1.1960 not found in CrossRef or DOI resolver"
+        "Invalid DOI: DOI 10.51204/Anali_PFBU_24405AFagbohun not found in CrossRef or DOI resolver"
+      ]
+    },
+    {
+      "article_id": 6574,
+      "article_title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
+      "issue_id": 357,
+      "fabricated_doi": "10.1093/mind/LIX.236.433U.S",
+      "issues": [
+        "Invalid DOI: DOI 10.1093/mind/LIX.236.433U.S not found in CrossRef or DOI resolver"
+      ]
+    },
+    {
+      "article_id": 6627,
+      "article_title": "Beyond Excel: Leveraging AI for Student Data Exploration",
+      "issue_id": 357,
+      "fabricated_doi": "10.1207/s1532690xci2203_2di",
+      "issues": [
+        "Invalid DOI: DOI 10.1207/s1532690xci2203_2di not found in CrossRef or DOI resolver"
       ]
     },
     {
@@ -37,6 +55,15 @@
       ]
     },
     {
+      "article_id": 6617,
+      "article_title": "Using AI to Craft Linguistically Accessible Mathematical Tasks",
+      "issue_id": 357,
+      "fabricated_doi": "10.1037/edu0000036WIDA",
+      "issues": [
+        "Invalid DOI: DOI 10.1037/edu0000036WIDA not found in CrossRef or DOI resolver"
+      ]
+    },
+    {
       "article_id": 5051,
       "article_title": "Using Generative AI to Reframe Mathematical Tasks for Personalized Learning",
       "issue_id": 331,
@@ -46,12 +73,39 @@
       ]
     },
     {
+      "article_id": 4174,
+      "article_title": "The Potential Impact of the Removal of a Middle Grades Licensure Band on Ohio’s Teacher Education Majors",
+      "issue_id": 334,
+      "fabricated_doi": "10.1002/(SICI)1098-2736(200003",
+      "issues": [
+        "Invalid DOI: DOI 10.1002/(SICI)1098-2736(200003 not found in CrossRef or DOI resolver"
+      ]
+    },
+    {
+      "article_id": 4174,
+      "article_title": "The Potential Impact of the Removal of a Middle Grades Licensure Band on Ohio’s Teacher Education Majors",
+      "issue_id": 334,
+      "fabricated_doi": "10.1111/j.1949-8594.2006.tb17921.xU.S",
+      "issues": [
+        "Invalid DOI: DOI 10.1111/j.1949-8594.2006.tb17921.xU.S not found in CrossRef or DOI resolver"
+      ]
+    },
+    {
       "article_id": 4182,
       "article_title": "Efficacy and Attitudes Towards Online Homework Systems in First-Semester Calculus",
       "issue_id": 335,
       "fabricated_doi": "10.1023/B:EDUC.0000036357.99615.ff",
       "issues": [
         "Invalid DOI: DOI 10.1023/B:EDUC.0000036357.99615.ff not found in CrossRef or DOI resolver"
+      ]
+    },
+    {
+      "article_id": 4192,
+      "article_title": "Gabriel’s Horn and the Painter&#x27;s Paradox in Perspective",
+      "issue_id": 336,
+      "fabricated_doi": "10.4169/math.mag.87.4.263discovermaths",
+      "issues": [
+        "Invalid DOI: DOI 10.4169/math.mag.87.4.263discovermaths not found in CrossRef or DOI resolver"
       ]
     },
     {
@@ -87,21 +141,21 @@
       "article_id": 6674,
       "issue_id": 362,
       "title": "From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses",
-      "valid": 25,
+      "valid": 21,
       "warnings": 0,
       "suspicious": 0,
       "invalid": 0,
-      "total": 25
+      "total": 21
     },
     {
       "article_id": 6647,
       "issue_id": 362,
       "title": "Math Isn’t Neutral: Designing Word Problems with GPT-4 for Relevance",
-      "valid": 3,
+      "valid": 2,
       "warnings": 0,
       "suspicious": 0,
       "invalid": 0,
-      "total": 3
+      "total": 2
     },
     {
       "article_id": 6569,
@@ -137,11 +191,11 @@
       "article_id": 6572,
       "issue_id": 357,
       "title": "On the Impact of Homework Format in an Elementary Statistics Course",
-      "valid": 12,
+      "valid": 11,
       "warnings": 0,
       "suspicious": 0,
       "invalid": 0,
-      "total": 12
+      "total": 11
     },
     {
       "article_id": 6575,
@@ -157,31 +211,31 @@
       "article_id": 6574,
       "issue_id": 357,
       "title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
-      "valid": 28,
+      "valid": 24,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 0,
-      "total": 28
+      "invalid": 2,
+      "total": 26
     },
     {
       "article_id": 6627,
       "issue_id": 357,
       "title": "Beyond Excel: Leveraging AI for Student Data Exploration",
-      "valid": 16,
+      "valid": 14,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 0,
-      "total": 16
+      "invalid": 1,
+      "total": 15
     },
     {
       "article_id": 6571,
       "issue_id": 357,
       "title": "Development and Application of a Chatbot for University-level Calculus Learning",
-      "valid": 10,
+      "valid": 8,
       "warnings": 0,
       "suspicious": 0,
       "invalid": 0,
-      "total": 10
+      "total": 8
     },
     {
       "article_id": 6645,
@@ -190,18 +244,18 @@
       "valid": 9,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 2,
-      "total": 11
+      "invalid": 1,
+      "total": 10
     },
     {
       "article_id": 6617,
       "issue_id": 357,
       "title": "Using AI to Craft Linguistically Accessible Mathematical Tasks",
-      "valid": 18,
+      "valid": 15,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 0,
-      "total": 18
+      "invalid": 1,
+      "total": 16
     },
     {
       "article_id": 6613,
@@ -217,21 +271,21 @@
       "article_id": 6570,
       "issue_id": 357,
       "title": "Utilizing AI to Create Mathematics-Themed Children&#x27;s Books",
-      "valid": 4,
+      "valid": 5,
       "warnings": 0,
       "suspicious": 0,
       "invalid": 0,
-      "total": 4
+      "total": 5
     },
     {
       "article_id": 6620,
       "issue_id": 357,
       "title": "Considering AI for Generating Mnemonics to Support Learning in Introductory Business Statistics",
-      "valid": 21,
+      "valid": 18,
       "warnings": 0,
       "suspicious": 0,
       "invalid": 0,
-      "total": 21
+      "total": 18
     },
     {
       "article_id": 4158,
@@ -247,21 +301,21 @@
       "article_id": 5051,
       "issue_id": 331,
       "title": "Using Generative AI to Reframe Mathematical Tasks for Personalized Learning",
-      "valid": 5,
+      "valid": 4,
       "warnings": 0,
       "suspicious": 0,
       "invalid": 1,
-      "total": 6
+      "total": 5
     },
     {
       "article_id": 5052,
       "issue_id": 331,
       "title": "Examining preservice teachers&#x27; descriptions of the Standards for Mathematical Practice",
-      "valid": 7,
+      "valid": 4,
       "warnings": 0,
       "suspicious": 0,
       "invalid": 0,
-      "total": 7
+      "total": 4
     },
     {
       "article_id": 5053,
@@ -347,21 +401,21 @@
       "article_id": 4174,
       "issue_id": 334,
       "title": "The Potential Impact of the Removal of a Middle Grades Licensure Band on Ohio’s Teacher Education Majors",
-      "valid": 5,
+      "valid": 2,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 0,
-      "total": 5
+      "invalid": 2,
+      "total": 4
     },
     {
       "article_id": 4173,
       "issue_id": 334,
       "title": "Teacher Tracking in High School Mathematics",
-      "valid": 6,
+      "valid": 5,
       "warnings": 0,
       "suspicious": 0,
       "invalid": 0,
-      "total": 6
+      "total": 5
     },
     {
       "article_id": 4176,
@@ -377,11 +431,11 @@
       "article_id": 4184,
       "issue_id": 335,
       "title": "The Food Drive Task: Problem Solving for Social Justice in the Elementary Grades",
-      "valid": 3,
+      "valid": 2,
       "warnings": 0,
       "suspicious": 0,
       "invalid": 0,
-      "total": 3
+      "total": 2
     },
     {
       "article_id": 4182,
@@ -407,20 +461,10 @@
       "article_id": 4192,
       "issue_id": 336,
       "title": "Gabriel’s Horn and the Painter&#x27;s Paradox in Perspective",
-      "valid": 1,
+      "valid": 0,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 0,
-      "total": 1
-    },
-    {
-      "article_id": 4189,
-      "issue_id": 336,
-      "title": "Examining Textbooks to Support Prospective Teachers’ Pedagogical Content Knowledge of Geometry",
-      "valid": 1,
-      "warnings": 0,
-      "suspicious": 0,
-      "invalid": 0,
+      "invalid": 1,
       "total": 1
     },
     {
@@ -437,11 +481,11 @@
       "article_id": 4191,
       "issue_id": 336,
       "title": "Unpacking the Ambiguous Case to Develop Conceptual Knowledge and Representational Competence",
-      "valid": 9,
+      "valid": 7,
       "warnings": 0,
       "suspicious": 0,
       "invalid": 0,
-      "total": 9
+      "total": 7
     },
     {
       "article_id": 4199,
@@ -467,11 +511,11 @@
       "article_id": 4196,
       "issue_id": 337,
       "title": "Nemeth in a Box",
-      "valid": 1,
+      "valid": 2,
       "warnings": 0,
       "suspicious": 0,
       "invalid": 0,
-      "total": 1
+      "total": 2
     },
     {
       "article_id": 4198,
@@ -667,11 +711,11 @@
       "article_id": 4089,
       "issue_id": 348,
       "title": "Mitigating Misconceptions of Preservice Teachers: The Relationship between Area and Perimeter",
-      "valid": 4,
+      "valid": 3,
       "warnings": 0,
       "suspicious": 0,
       "invalid": 1,
-      "total": 5
+      "total": 4
     },
     {
       "article_id": 4099,
@@ -702,16 +746,6 @@
       "suspicious": 0,
       "invalid": 0,
       "total": 2
-    },
-    {
-      "article_id": 4109,
-      "issue_id": 351,
-      "title": "Euclid&#x27;s Dilemma",
-      "valid": 1,
-      "warnings": 0,
-      "suspicious": 0,
-      "invalid": 0,
-      "total": 1
     },
     {
       "article_id": 4111,
