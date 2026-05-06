@@ -134,6 +134,8 @@ PAGE_HTML = r"""<!DOCTYPE html>
   .quick-actions a { display: inline-block; background: var(--primary); color: white; padding: 6px 12px; border-radius: 4px; text-decoration: none; margin-right: 6px; font-size: 13px; }
   .quick-actions a:hover { opacity: 0.85; }
   .quick-actions a.secondary { background: #f3f4f6; color: var(--text); border: 1px solid var(--line); }
+  #copy-toast { position: fixed; top: 20px; right: 20px; background: #10b981; color: white; padding: 10px 16px; border-radius: 6px; font-size: 14px; z-index: 1000; opacity: 0; transition: opacity 0.3s; pointer-events: none; max-width: 400px; word-break: break-word; }
+  #copy-toast.show { opacity: 1; }
   .refs-box { background: white; border: 1px solid var(--line); border-radius: 6px; padding: 14px; max-height: 600px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.5; white-space: pre-wrap; }
   .refs-box mark { background: #fee2e2 !important; color: #991b1b !important; padding: 2px 4px; font-weight: 700; outline: 2px solid #ef4444; border-radius: 2px; }
   .help-banner { background: #eff6ff; border-left: 4px solid var(--primary); padding: 12px 16px; border-radius: 0 6px 6px 0; margin-bottom: 16px; font-size: 13px; line-height: 1.5; }
@@ -154,6 +156,7 @@ PAGE_HTML = r"""<!DOCTYPE html>
 </style>
 </head>
 <body>
+<div id="copy-toast"></div>
 <div class="layout">
   <aside class="sidebar">
     <h1>Frankenstein Triage</h1>
@@ -259,10 +262,10 @@ function renderActive() {
     </section>
 
     <section class="quick-actions">
-      <a href="${doiUrl}" target="_blank">Try DOI in browser ↗</a>
-      <a href="https://search.crossref.org/?q=${encodeURIComponent(c.candidate_doi || '')}" target="_blank" class="secondary">CrossRef: by DOI ↗</a>
-      <a href="https://search.crossref.org/?q=${searchQuery}" target="_blank" class="secondary">CrossRef: by citation ↗</a>
-      <a href="https://scholar.google.com/scholar?q=${searchQuery}" target="_blank" class="secondary">Google Scholar ↗</a>
+      <a href="${doiUrl}" target="_blank" data-copy="${escapeHtml(c.candidate_doi || '')}" data-label="suspect DOI">Try DOI in browser ↗</a>
+      <a href="https://search.crossref.org/?q=${encodeURIComponent(c.candidate_doi || '')}" target="_blank" class="secondary" data-copy="${escapeHtml(c.candidate_doi || '')}" data-label="suspect DOI">CrossRef: by DOI ↗</a>
+      <a href="https://search.crossref.org/?q=${searchQuery}" target="_blank" class="secondary" data-copy="${escapeHtml(citedRef || '')}" data-label="cited reference">CrossRef: by citation ↗</a>
+      <a href="https://scholar.google.com/scholar?q=${searchQuery}&hl=en" target="_blank" class="secondary" data-copy="${escapeHtml(citedRef || '')}" data-label="cited reference">Google Scholar (English) ↗</a>
       <a href="${localPdf}" target="_blank" class="secondary">Open article PDF ↗</a>
     </section>
 
@@ -380,6 +383,26 @@ function escapeHtml(s) {
   return (s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 function escapeRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+// Copy-on-click for quick-action buttons.  Whenever a link with
+// data-copy="..." is clicked, copy that text to the clipboard and
+// flash a confirmation toast.  The link still navigates normally.
+document.addEventListener('click', function(e) {
+  const a = e.target.closest('a[data-copy]');
+  if (!a) return;
+  const text = a.dataset.copy;
+  const label = a.dataset.label || 'text';
+  if (text && navigator.clipboard) {
+    navigator.clipboard.writeText(text).catch(() => {});
+  }
+  const toast = document.getElementById('copy-toast');
+  if (toast) {
+    toast.textContent = `📋 Copied ${label} — Ctrl+V to paste in the search box`;
+    toast.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+});
 
 load();
 </script>
