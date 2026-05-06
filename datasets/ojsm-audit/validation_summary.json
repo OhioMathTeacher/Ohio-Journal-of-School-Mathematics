@@ -1,176 +1,14 @@
 {
-  "generated_at": "2026-05-06T03:33:43+00:00",
+  "generated_at": "2026-05-06T04:03:09+00:00",
   "ai_enabled": false,
   "totals": {
-    "valid": 105,
+    "valid": 220,
     "warnings": 0,
     "suspicious": 0,
-    "invalid": 145,
-    "total": 250
+    "invalid": 29,
+    "total": 249
   },
   "frankenstein_candidates": [
-    {
-      "article_id": 6674,
-      "article_title": "From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses",
-      "issue_id": 362,
-      "fabricated_doi": "10.1007/s43681-021-00096-7Association",
-      "issues": [
-        "Invalid DOI: DOI 10.1007/s43681-021-00096-7Association not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6674,
-      "article_title": "From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses",
-      "issue_id": 362,
-      "fabricated_doi": "10.1080/08923647.2024.2430766Casler-Failing",
-      "issues": [
-        "Invalid DOI: DOI 10.1080/08923647.2024.2430766Casler-Failing not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6674,
-      "article_title": "From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses",
-      "issue_id": 362,
-      "fabricated_doi": "10.22329/jtl.v18i1.7813Casler-Failing",
-      "issues": [
-        "Invalid DOI: DOI 10.22329/jtl.v18i1.7813Casler-Failing not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6674,
-      "article_title": "From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses",
-      "issue_id": 362,
-      "fabricated_doi": "10.1007/s11023-020-09548-1Grab",
-      "issues": [
-        "Invalid DOI: DOI 10.1007/s11023-020-09548-1Grab not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6674,
-      "article_title": "From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses",
-      "issue_id": 362,
-      "fabricated_doi": "10.1177/016146810911100905Hiebert",
-      "issues": [
-        "Invalid DOI: DOI 10.1177/016146810911100905Hiebert not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6674,
-      "article_title": "From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses",
-      "issue_id": 362,
-      "fabricated_doi": "10.1007/s40593-021-00239-1Horn",
-      "issues": [
-        "Invalid DOI: DOI 10.1007/s40593-021-00239-1Horn not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6674,
-      "article_title": "From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses",
-      "issue_id": 362,
-      "fabricated_doi": "10.3102/0002831215573773International",
-      "issues": [
-        "Invalid DOI: DOI 10.3102/0002831215573773International not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6674,
-      "article_title": "From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses",
-      "issue_id": 362,
-      "fabricated_doi": "10.1080/10508406.2011.591717Kasepalu",
-      "issues": [
-        "Invalid DOI: DOI 10.1080/10508406.2011.591717Kasepalu not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6674,
-      "article_title": "From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses",
-      "issue_id": 362,
-      "fabricated_doi": "10.3389/feduc.2022.736194Kazemi",
-      "issues": [
-        "Invalid DOI: DOI 10.3389/feduc.2022.736194Kazemi not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6674,
-      "article_title": "From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses",
-      "issue_id": 362,
-      "fabricated_doi": "10.1111/edth.12449National",
-      "issues": [
-        "Invalid DOI: DOI 10.1111/edth.12449National not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6674,
-      "article_title": "From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses",
-      "issue_id": 362,
-      "fabricated_doi": "10.46827/ejes.v11i12.5687Rhodes",
-      "issues": [
-        "Invalid DOI: DOI 10.46827/ejes.v11i12.5687Rhodes not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6674,
-      "article_title": "From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses",
-      "issue_id": 362,
-      "fabricated_doi": "10.1080/02607476.2021.1877087Townsend",
-      "issues": [
-        "Invalid DOI: DOI 10.1080/02607476.2021.1877087Townsend not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6674,
-      "article_title": "From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses",
-      "issue_id": 362,
-      "fabricated_doi": "10.1007/s10857-014-9286-3Warshauer",
-      "issues": [
-        "Invalid DOI: DOI 10.1007/s10857-014-9286-3Warshauer not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6674,
-      "article_title": "From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses",
-      "issue_id": 362,
-      "fabricated_doi": "10.5951/mathteacmiddscho.20.7.0390Wollny",
-      "issues": [
-        "Invalid DOI: DOI 10.5951/mathteacmiddscho.20.7.0390Wollny not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6674,
-      "article_title": "From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses",
-      "issue_id": 362,
-      "fabricated_doi": "10.3389/frai.2021.654924Yin",
-      "issues": [
-        "Invalid DOI: DOI 10.3389/frai.2021.654924Yin not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6647,
-      "article_title": "Math Isn’t Neutral: Designing Word Problems with GPT-4 for Relevance",
-      "issue_id": 362,
-      "fabricated_doi": "10.3102/0034654312457429Verschaffel",
-      "issues": [
-        "Invalid DOI: DOI 10.3102/0034654312457429Verschaffel not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6569,
-      "article_title": "USING AN AI-BASED CHATBOT TO SUPPORT THE LEARNING OF ALGEBRAIC FACTORING",
-      "issue_id": 362,
-      "fabricated_doi": "10.1016/j.sbspro.2015.04.140Chung",
-      "issues": [
-        "Invalid DOI: DOI 10.1016/j.sbspro.2015.04.140Chung not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6569,
-      "article_title": "USING AN AI-BASED CHATBOT TO SUPPORT THE LEARNING OF ALGEBRAIC FACTORING",
-      "issue_id": 362,
-      "fabricated_doi": "10.3102/003465430298487Kilgore",
-      "issues": [
-        "Invalid DOI: DOI 10.3102/003465430298487Kilgore not found in CrossRef or DOI resolver"
-      ]
-    },
     {
       "article_id": 6569,
       "article_title": "USING AN AI-BASED CHATBOT TO SUPPORT THE LEARNING OF ALGEBRAIC FACTORING",
@@ -184,126 +22,9 @@
       "article_id": 6616,
       "article_title": "Supporting Responsive Mathematics Teaching in Elementary Classrooms Using ChatGPT",
       "issue_id": 362,
-      "fabricated_doi": "10.1002/tea.20440Dao",
+      "fabricated_doi": "10.48550/ar",
       "issues": [
-        "Invalid DOI: DOI 10.1002/tea.20440Dao not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6616,
-      "article_title": "Supporting Responsive Mathematics Teaching in Elementary Classrooms Using ChatGPT",
-      "issue_id": 362,
-      "fabricated_doi": "10.1177/1049732305276687Henningsen",
-      "issues": [
-        "Invalid DOI: DOI 10.1177/1049732305276687Henningsen not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6616,
-      "article_title": "Supporting Responsive Mathematics Teaching in Elementary Classrooms Using ChatGPT",
-      "issue_id": 362,
-      "fabricated_doi": "10.1016/j.compedu.2022.104646Limna",
-      "issues": [
-        "Invalid DOI: DOI 10.1016/j.compedu.2022.104646Limna not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6616,
-      "article_title": "Supporting Responsive Mathematics Teaching in Elementary Classrooms Using ChatGPT",
-      "issue_id": 362,
-      "fabricated_doi": "10.3389/feduc.2024.1328769National",
-      "issues": [
-        "Invalid DOI: DOI 10.3389/feduc.2024.1328769National not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6616,
-      "article_title": "Supporting Responsive Mathematics Teaching in Elementary Classrooms Using ChatGPT",
-      "issue_id": 362,
-      "fabricated_doi": "10.3390/educsci12100656Sherin",
-      "issues": [
-        "Invalid DOI: DOI 10.3390/educsci12100656Sherin not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6616,
-      "article_title": "Supporting Responsive Mathematics Teaching in Elementary Classrooms Using ChatGPT",
-      "issue_id": 362,
-      "fabricated_doi": "10.1016/j.tate.2024.104640Stein",
-      "issues": [
-        "Invalid DOI: DOI 10.1016/j.tate.2024.104640Stein not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6622,
-      "article_title": "Using AI to Make Definitions Personal",
-      "issue_id": 362,
-      "fabricated_doi": "10.1016/j.patter.2023.100694Edwards",
-      "issues": [
-        "Invalid DOI: DOI 10.1016/j.patter.2023.100694Edwards not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6622,
-      "article_title": "Using AI to Make Definitions Personal",
-      "issue_id": 362,
-      "fabricated_doi": "10.1007/s40593-025-00505-6Shute",
-      "issues": [
-        "Invalid DOI: DOI 10.1007/s40593-025-00505-6Shute not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6622,
-      "article_title": "Using AI to Make Definitions Personal",
-      "issue_id": 362,
-      "fabricated_doi": "10.3102/0034654307313795Tabach",
-      "issues": [
-        "Invalid DOI: DOI 10.3102/0034654307313795Tabach not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6622,
-      "article_title": "Using AI to Make Definitions Personal",
-      "issue_id": 362,
-      "fabricated_doi": "10.1007/0-306-47203-1_5Miao",
-      "issues": [
-        "Invalid DOI: DOI 10.1007/0-306-47203-1_5Miao not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6575,
-      "article_title": "Artificial Stupidity: Generative Artificial Intelligence Chatbots&#x27; Inability to Multiply",
-      "issue_id": 357,
-      "fabricated_doi": "10.62365/2576-0955.1106Sawyer",
-      "issues": [
-        "Invalid DOI: DOI 10.62365/2576-0955.1106Sawyer not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6574,
-      "article_title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
-      "issue_id": 357,
-      "fabricated_doi": "10.46328/ijemst.4654Boaler",
-      "issues": [
-        "Invalid DOI: DOI 10.46328/ijemst.4654Boaler not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6574,
-      "article_title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
-      "issue_id": 357,
-      "fabricated_doi": "10.24059/olj.v28i3.4508Center",
-      "issues": [
-        "Invalid DOI: DOI 10.24059/olj.v28i3.4508Center not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6574,
-      "article_title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
-      "issue_id": 357,
-      "fabricated_doi": "10.1109/ACCESS.2020.2988510Dykema",
-      "issues": [
-        "Invalid DOI: DOI 10.1109/ACCESS.2020.2988510Dykema not found in CrossRef or DOI resolver"
+        "Invalid DOI: DOI 10.48550/ar not found in CrossRef or DOI resolver"
       ]
     },
     {
@@ -319,63 +40,9 @@
       "article_id": 6574,
       "article_title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
       "issue_id": 357,
-      "fabricated_doi": "10.21100/msor.v23i1.1515Holmes",
-      "issues": [
-        "Invalid DOI: DOI 10.21100/msor.v23i1.1515Holmes not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6574,
-      "article_title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
-      "issue_id": 357,
-      "fabricated_doi": "10.1007/978-3-030-23204-7_1Hwang",
-      "issues": [
-        "Invalid DOI: DOI 10.1007/978-3-030-23204-7_1Hwang not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6574,
-      "article_title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
-      "issue_id": 357,
-      "fabricated_doi": "10.3390/math9060584Jatin",
-      "issues": [
-        "Invalid DOI: DOI 10.3390/math9060584Jatin not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6574,
-      "article_title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
-      "issue_id": 357,
       "fabricated_doi": "10.1016/j.caeai.2022.100074.Lawasi",
       "issues": [
         "Invalid DOI: DOI 10.1016/j.caeai.2022.100074.Lawasi not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6574,
-      "article_title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
-      "issue_id": 357,
-      "fabricated_doi": "10.30595/pssh.v18i.1279Lim",
-      "issues": [
-        "Invalid DOI: DOI 10.30595/pssh.v18i.1279Lim not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6574,
-      "article_title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
-      "issue_id": 357,
-      "fabricated_doi": "10.1016/j.ijme.2023.100790McCarthy",
-      "issues": [
-        "Invalid DOI: DOI 10.1016/j.ijme.2023.100790McCarthy not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6574,
-      "article_title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
-      "issue_id": 357,
-      "fabricated_doi": "10.1609/aimag.v27i4.1904Milicevic",
-      "issues": [
-        "Invalid DOI: DOI 10.1609/aimag.v27i4.1904Milicevic not found in CrossRef or DOI resolver"
       ]
     },
     {
@@ -391,36 +58,9 @@
       "article_id": 6574,
       "article_title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
       "issue_id": 357,
-      "fabricated_doi": "10.1016/j.ijer.2017.11.003Ofgang",
-      "issues": [
-        "Invalid DOI: DOI 10.1016/j.ijer.2017.11.003Ofgang not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6574,
-      "article_title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
-      "issue_id": 357,
-      "fabricated_doi": "10.1177/01626434241298954Pepin",
-      "issues": [
-        "Invalid DOI: DOI 10.1177/01626434241298954Pepin not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6574,
-      "article_title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
-      "issue_id": 357,
       "fabricated_doi": "10.1016/j.caeo.2024.100169.The",
       "issues": [
         "Invalid DOI: DOI 10.1016/j.caeo.2024.100169.The not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6574,
-      "article_title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
-      "issue_id": 357,
-      "fabricated_doi": "10.1007/s10639-022-11431-8Turing",
-      "issues": [
-        "Invalid DOI: DOI 10.1007/s10639-022-11431-8Turing not found in CrossRef or DOI resolver"
       ]
     },
     {
@@ -433,318 +73,39 @@
       ]
     },
     {
-      "article_id": 6574,
-      "article_title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
+      "article_id": 6627,
+      "article_title": "Beyond Excel: Leveraging AI for Student Data Exploration",
       "issue_id": 357,
-      "fabricated_doi": "10.1111/ssm.18356Wardat",
+      "fabricated_doi": "10.1207/s1532690xci2203_2di",
       "issues": [
-        "Invalid DOI: DOI 10.1111/ssm.18356Wardat not found in CrossRef or DOI resolver"
+        "Invalid DOI: DOI 10.1207/s1532690xci2203_2di not found in CrossRef or DOI resolver"
       ]
     },
     {
       "article_id": 6627,
       "article_title": "Beyond Excel: Leveraging AI for Student Data Exploration",
       "issue_id": 357,
-      "fabricated_doi": "10.1109/TVCG.2022.3209442Bargagliotti",
+      "fabricated_doi": "10.48550/ar",
       "issues": [
-        "Invalid DOI: DOI 10.1109/TVCG.2022.3209442Bargagliotti not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6627,
-      "article_title": "Beyond Excel: Leveraging AI for Student Data Exploration",
-      "issue_id": 357,
-      "fabricated_doi": "10.1073/pnas.1807180116Camm",
-      "issues": [
-        "Invalid DOI: DOI 10.1073/pnas.1807180116Camm not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6627,
-      "article_title": "Beyond Excel: Leveraging AI for Student Data Exploration",
-      "issue_id": 357,
-      "fabricated_doi": "10.1111/dsji.12282Chang",
-      "issues": [
-        "Invalid DOI: DOI 10.1111/dsji.12282Chang not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6627,
-      "article_title": "Beyond Excel: Leveraging AI for Student Data Exploration",
-      "issue_id": 357,
-      "fabricated_doi": "10.1207/s1532690xci2203_2diSessa",
-      "issues": [
-        "Invalid DOI: DOI 10.1207/s1532690xci2203_2diSessa not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6627,
-      "article_title": "Beyond Excel: Leveraging AI for Student Data Exploration",
-      "issue_id": 357,
-      "fabricated_doi": "10.1016/S0732-3123(01)00051-7Donnelly-Hermosillo",
-      "issues": [
-        "Invalid DOI: DOI 10.1016/S0732-3123(01)00051-7Donnelly-Hermosillo not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6627,
-      "article_title": "Beyond Excel: Leveraging AI for Student Data Exploration",
-      "issue_id": 357,
-      "fabricated_doi": "10.1080/26939169.2023.2223609Frischemeier",
-      "issues": [
-        "Invalid DOI: DOI 10.1080/26939169.2023.2223609Frischemeier not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6627,
-      "article_title": "Beyond Excel: Leveraging AI for Student Data Exploration",
-      "issue_id": 357,
-      "fabricated_doi": "10.1111/test.12283Gkintoni",
-      "issues": [
-        "Invalid DOI: DOI 10.1111/test.12283Gkintoni not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6627,
-      "article_title": "Beyond Excel: Leveraging AI for Student Data Exploration",
-      "issue_id": 357,
-      "fabricated_doi": "10.3390/brainsci15020203Harel",
-      "issues": [
-        "Invalid DOI: DOI 10.3390/brainsci15020203Harel not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6627,
-      "article_title": "Beyond Excel: Leveraging AI for Student Data Exploration",
-      "issue_id": 357,
-      "fabricated_doi": "10.1187/cbe.18-02-0023Kynigos",
-      "issues": [
-        "Invalid DOI: DOI 10.1187/cbe.18-02-0023Kynigos not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6627,
-      "article_title": "Beyond Excel: Leveraging AI for Student Data Exploration",
-      "issue_id": 357,
-      "fabricated_doi": "10.17226/18290Papert",
-      "issues": [
-        "Invalid DOI: DOI 10.17226/18290Papert not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6627,
-      "article_title": "Beyond Excel: Leveraging AI for Student Data Exploration",
-      "issue_id": 357,
-      "fabricated_doi": "10.1111/bjet.13245Twarek",
-      "issues": [
-        "Invalid DOI: DOI 10.1111/bjet.13245Twarek not found in CrossRef or DOI resolver"
+        "Invalid DOI: DOI 10.48550/ar not found in CrossRef or DOI resolver"
       ]
     },
     {
       "article_id": 6571,
       "article_title": "Development and Application of a Chatbot for University-level Calculus Learning",
       "issue_id": 357,
-      "fabricated_doi": "10.29333/iejme/14614Gurl",
+      "fabricated_doi": "10.48550/ar",
       "issues": [
-        "Invalid DOI: DOI 10.29333/iejme/14614Gurl not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6571,
-      "article_title": "Development and Application of a Chatbot for University-level Calculus Learning",
-      "issue_id": 357,
-      "fabricated_doi": "10.1007/s40751-024-00162-9Jancarik",
-      "issues": [
-        "Invalid DOI: DOI 10.1007/s40751-024-00162-9Jancarik not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6571,
-      "article_title": "Development and Application of a Chatbot for University-level Calculus Learning",
-      "issue_id": 357,
-      "fabricated_doi": "10.7468/jksmee.2022.36.4.611Lee",
-      "issues": [
-        "Invalid DOI: DOI 10.7468/jksmee.2022.36.4.611Lee not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6571,
-      "article_title": "Development and Application of a Chatbot for University-level Calculus Learning",
-      "issue_id": 357,
-      "fabricated_doi": "10.1016/j.compedu.2022.104646Pepin",
-      "issues": [
-        "Invalid DOI: DOI 10.1016/j.compedu.2022.104646Pepin not found in CrossRef or DOI resolver"
+        "Invalid DOI: DOI 10.48550/ar not found in CrossRef or DOI resolver"
       ]
     },
     {
       "article_id": 6645,
       "article_title": "Designing for Discernment: A Mixed-Methods Case Study of GenAI-Supported Critical Thinking",
       "issue_id": 357,
-      "fabricated_doi": "10.1080/03075079.2019.1586325Wu",
+      "fabricated_doi": "10.1186/s40561-024-00334-7",
       "issues": [
-        "Invalid DOI: DOI 10.1080/03075079.2019.1586325Wu not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6645,
-      "article_title": "Designing for Discernment: A Mixed-Methods Case Study of GenAI-Supported Critical Thinking",
-      "issue_id": 357,
-      "fabricated_doi": "10.1145/3571730Zhang",
-      "issues": [
-        "Invalid DOI: DOI 10.1145/3571730Zhang not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6645,
-      "article_title": "Designing for Discernment: A Mixed-Methods Case Study of GenAI-Supported Critical Thinking",
-      "issue_id": 357,
-      "fabricated_doi": "10.1177/08944393231220483Alghamdi",
-      "issues": [
-        "Invalid DOI: DOI 10.1177/08944393231220483Alghamdi not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6645,
-      "article_title": "Designing for Discernment: A Mixed-Methods Case Study of GenAI-Supported Critical Thinking",
-      "issue_id": 357,
-      "fabricated_doi": "10.1007/s10639-024-12594-2Hu",
-      "issues": [
-        "Invalid DOI: DOI 10.1007/s10639-024-12594-2Hu not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6645,
-      "article_title": "Designing for Discernment: A Mixed-Methods Case Study of GenAI-Supported Critical Thinking",
-      "issue_id": 357,
-      "fabricated_doi": "10.1186/s40561-024-00334-7Wu",
-      "issues": [
-        "Invalid DOI: DOI 10.1186/s40561-024-00334-7Wu not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6645,
-      "article_title": "Designing for Discernment: A Mixed-Methods Case Study of GenAI-Supported Critical Thinking",
-      "issue_id": 357,
-      "fabricated_doi": "10.3390/su16135367Lee",
-      "issues": [
-        "Invalid DOI: DOI 10.3390/su16135367Lee not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6645,
-      "article_title": "Designing for Discernment: A Mixed-Methods Case Study of GenAI-Supported Critical Thinking",
-      "issue_id": 357,
-      "fabricated_doi": "10.3389/frai.2024.1452131Marchena",
-      "issues": [
-        "Invalid DOI: DOI 10.3389/frai.2024.1452131Marchena not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6617,
-      "article_title": "Using AI to Craft Linguistically Accessible Mathematical Tasks",
-      "issue_id": 357,
-      "fabricated_doi": "10.1207/S15324818AME1403_2Allen",
-      "issues": [
-        "Invalid DOI: DOI 10.1207/S15324818AME1403_2Allen not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6617,
-      "article_title": "Using AI to Craft Linguistically Accessible Mathematical Tasks",
-      "issue_id": 357,
-      "fabricated_doi": "10.1080/15391523.2022.2119450Baek",
-      "issues": [
-        "Invalid DOI: DOI 10.1080/15391523.2022.2119450Baek not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6617,
-      "article_title": "Using AI to Craft Linguistically Accessible Mathematical Tasks",
-      "issue_id": 357,
-      "fabricated_doi": "10.1191/1478088706qp063oaChan",
-      "issues": [
-        "Invalid DOI: DOI 10.1191/1478088706qp063oaChan not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6617,
-      "article_title": "Using AI to Craft Linguistically Accessible Mathematical Tasks",
-      "issue_id": 357,
-      "fabricated_doi": "10.3389/fpsyg.2015.00348Edwards",
-      "issues": [
-        "Invalid DOI: DOI 10.3389/fpsyg.2015.00348Edwards not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6617,
-      "article_title": "Using AI to Craft Linguistically Accessible Mathematical Tasks",
-      "issue_id": 357,
-      "fabricated_doi": "10.1007/978-1-4614-4684-2_3Koedinger",
-      "issues": [
-        "Invalid DOI: DOI 10.1007/978-1-4614-4684-2_3Koedinger not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6617,
-      "article_title": "Using AI to Craft Linguistically Accessible Mathematical Tasks",
-      "issue_id": 357,
-      "fabricated_doi": "10.1207/s15327809jls1302_1Krashen",
-      "issues": [
-        "Invalid DOI: DOI 10.1207/s15327809jls1302_1Krashen not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6617,
-      "article_title": "Using AI to Craft Linguistically Accessible Mathematical Tasks",
-      "issue_id": 357,
-      "fabricated_doi": "10.1007/s10857-023-09600-8Sawyer",
-      "issues": [
-        "Invalid DOI: DOI 10.1007/s10857-023-09600-8Sawyer not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6617,
-      "article_title": "Using AI to Craft Linguistically Accessible Mathematical Tasks",
-      "issue_id": 357,
-      "fabricated_doi": "10.62365/2576-0955.1106Schleppegrell",
-      "issues": [
-        "Invalid DOI: DOI 10.62365/2576-0955.1106Schleppegrell not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6617,
-      "article_title": "Using AI to Craft Linguistically Accessible Mathematical Tasks",
-      "issue_id": 357,
-      "fabricated_doi": "10.1080/10573560601158461Sugimoto",
-      "issues": [
-        "Invalid DOI: DOI 10.1080/10573560601158461Sugimoto not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6617,
-      "article_title": "Using AI to Craft Linguistically Accessible Mathematical Tasks",
-      "issue_id": 357,
-      "fabricated_doi": "10.1016/j.tate.2017.06.010Supriyadi",
-      "issues": [
-        "Invalid DOI: DOI 10.1016/j.tate.2017.06.010Supriyadi not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6617,
-      "article_title": "Using AI to Craft Linguistically Accessible Mathematical Tasks",
-      "issue_id": 357,
-      "fabricated_doi": "10.1080/00220272.2013.839003Walkington",
-      "issues": [
-        "Invalid DOI: DOI 10.1080/00220272.2013.839003Walkington not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6617,
-      "article_title": "Using AI to Craft Linguistically Accessible Mathematical Tasks",
-      "issue_id": 357,
-      "fabricated_doi": "10.1007/s11251-019-09481-6Walkington",
-      "issues": [
-        "Invalid DOI: DOI 10.1007/s11251-019-09481-6Walkington not found in CrossRef or DOI resolver"
+        "Invalid DOI: DOI 10.1186/s40561-024-00334-7 not found in CrossRef or DOI resolver"
       ]
     },
     {
@@ -757,66 +118,12 @@
       ]
     },
     {
-      "article_id": 6613,
-      "article_title": "Enhancing Formative Assessment Practices with Strategic Use of the Activity Builder",
+      "article_id": 6620,
+      "article_title": "Considering AI for Generating Mnemonics to Support Learning in Introductory Business Statistics",
       "issue_id": 357,
-      "fabricated_doi": "10.1007/s11092-008-9068-5Harper",
+      "fabricated_doi": "10.48550/ar",
       "issues": [
-        "Invalid DOI: DOI 10.1007/s11092-008-9068-5Harper not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6613,
-      "article_title": "Enhancing Formative Assessment Practices with Strategic Use of the Activity Builder",
-      "issue_id": 357,
-      "fabricated_doi": "10.1080/10986060802229675Wiliam",
-      "issues": [
-        "Invalid DOI: DOI 10.1080/10986060802229675Wiliam not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6570,
-      "article_title": "Utilizing AI to Create Mathematics-Themed Children&#x27;s Books",
-      "issue_id": 357,
-      "fabricated_doi": "10.18860/ijtlm.v3i1.9206Wheeler",
-      "issues": [
-        "Invalid DOI: DOI 10.18860/ijtlm.v3i1.9206Wheeler not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6570,
-      "article_title": "Utilizing AI to Create Mathematics-Themed Children&#x27;s Books",
-      "issue_id": 357,
-      "fabricated_doi": "10.18061/ojsm.5051Kessinger",
-      "issues": [
-        "Invalid DOI: DOI 10.18061/ojsm.5051Kessinger not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6570,
-      "article_title": "Utilizing AI to Create Mathematics-Themed Children&#x27;s Books",
-      "issue_id": 357,
-      "fabricated_doi": "10.18061/ojsm.6574National",
-      "issues": [
-        "Invalid DOI: DOI 10.18061/ojsm.6574National not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6570,
-      "article_title": "Utilizing AI to Create Mathematics-Themed Children&#x27;s Books",
-      "issue_id": 357,
-      "fabricated_doi": "10.18061/ojsm.6575Smiley",
-      "issues": [
-        "Invalid DOI: DOI 10.18061/ojsm.6575Smiley not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6570,
-      "article_title": "Utilizing AI to Create Mathematics-Themed Children&#x27;s Books",
-      "issue_id": 357,
-      "fabricated_doi": "10.18061/ojsm.5053Watson-Huggins",
-      "issues": [
-        "Invalid DOI: DOI 10.18061/ojsm.5053Watson-Huggins not found in CrossRef or DOI resolver"
+        "Invalid DOI: DOI 10.48550/ar not found in CrossRef or DOI resolver"
       ]
     },
     {
@@ -832,198 +139,9 @@
       "article_id": 5051,
       "article_title": "Using Generative AI to Reframe Mathematical Tasks for Personalized Learning",
       "issue_id": 331,
-      "fabricated_doi": "10.55284/ajce.v7i2.1278Beauchamp",
+      "fabricated_doi": "10.46328/iemst.4654",
       "issues": [
-        "Invalid DOI: DOI 10.55284/ajce.v7i2.1278Beauchamp not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 5051,
-      "article_title": "Using Generative AI to Reframe Mathematical Tasks for Personalized Learning",
-      "issue_id": 331,
-      "fabricated_doi": "10.46328/iemst.4654Broutin",
-      "issues": [
-        "Invalid DOI: DOI 10.46328/iemst.4654Broutin not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 5051,
-      "article_title": "Using Generative AI to Reframe Mathematical Tasks for Personalized Learning",
-      "issue_id": 331,
-      "fabricated_doi": "10.53478/yuksekogretim.1347061Kaplan",
-      "issues": [
-        "Invalid DOI: DOI 10.53478/yuksekogretim.1347061Kaplan not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 5051,
-      "article_title": "Using Generative AI to Reframe Mathematical Tasks for Personalized Learning",
-      "issue_id": 331,
-      "fabricated_doi": "10.52866/ijcsm.2024.05.01.004WebFX",
-      "issues": [
-        "Invalid DOI: DOI 10.52866/ijcsm.2024.05.01.004WebFX not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 5052,
-      "article_title": "Examining preservice teachers&#x27; descriptions of the Standards for Mathematical Practice",
-      "issue_id": 331,
-      "fabricated_doi": "10.5951/teacchilmath.21.6.0336Bostic",
-      "issues": [
-        "Invalid DOI: DOI 10.5951/teacchilmath.21.6.0336Bostic not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 5052,
-      "article_title": "Examining preservice teachers&#x27; descriptions of the Standards for Mathematical Practice",
-      "issue_id": 331,
-      "fabricated_doi": "10.1111/ssm.12275Kilpatrick",
-      "issues": [
-        "Invalid DOI: DOI 10.1111/ssm.12275Kilpatrick not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 5052,
-      "article_title": "Examining preservice teachers&#x27; descriptions of the Standards for Mathematical Practice",
-      "issue_id": 331,
-      "fabricated_doi": "10.1111/ssm.18327Max",
-      "issues": [
-        "Invalid DOI: DOI 10.1111/ssm.18327Max not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 5052,
-      "article_title": "Examining preservice teachers&#x27; descriptions of the Standards for Mathematical Practice",
-      "issue_id": 331,
-      "fabricated_doi": "10.1007/s10857-007-9033-0Shelton",
-      "issues": [
-        "Invalid DOI: DOI 10.1007/s10857-007-9033-0Shelton not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 5053,
-      "article_title": "High School Students View Snapchat AI to Be Like Google",
-      "issue_id": 331,
-      "fabricated_doi": "10.62365/2576-0955.1106Sawyer",
-      "issues": [
-        "Invalid DOI: DOI 10.62365/2576-0955.1106Sawyer not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4163,
-      "article_title": "Teacher Candidate Perceptions of Learning through Simulation Technology",
-      "issue_id": 332,
-      "fabricated_doi": "10.14221/ajte.2011v36n1.2Brame",
-      "issues": [
-        "Invalid DOI: DOI 10.14221/ajte.2011v36n1.2Brame not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4163,
-      "article_title": "Teacher Candidate Perceptions of Learning through Simulation Technology",
-      "issue_id": 332,
-      "fabricated_doi": "10.4324/9781003064121-8Decker",
-      "issues": [
-        "Invalid DOI: DOI 10.4324/9781003064121-8Decker not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4163,
-      "article_title": "Teacher Candidate Perceptions of Learning through Simulation Technology",
-      "issue_id": 332,
-      "fabricated_doi": "10.14742/ajet.3885Hatch",
-      "issues": [
-        "Invalid DOI: DOI 10.14742/ajet.3885Hatch not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4163,
-      "article_title": "Teacher Candidate Perceptions of Learning through Simulation Technology",
-      "issue_id": 332,
-      "fabricated_doi": "10.1086/728673Sanko",
-      "issues": [
-        "Invalid DOI: DOI 10.1086/728673Sanko not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4178,
-      "article_title": "“Mental Math”: Building Coping and Problem-solving Skills in Math Class",
-      "issue_id": 334,
-      "fabricated_doi": "10.3389/feduc.2021.784393Bodicherla",
-      "issues": [
-        "Invalid DOI: DOI 10.3389/feduc.2021.784393Bodicherla not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4178,
-      "article_title": "“Mental Math”: Building Coping and Problem-solving Skills in Math Class",
-      "issue_id": 334,
-      "fabricated_doi": "10.1007/s10488-020-01080-9Durlak",
-      "issues": [
-        "Invalid DOI: DOI 10.1007/s10488-020-01080-9Durlak not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4178,
-      "article_title": "“Mental Math”: Building Coping and Problem-solving Skills in Math Class",
-      "issue_id": 334,
-      "fabricated_doi": "10.1037/bul0000383Flick",
-      "issues": [
-        "Invalid DOI: DOI 10.1037/bul0000383Flick not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4178,
-      "article_title": "“Mental Math”: Building Coping and Problem-solving Skills in Math Class",
-      "issue_id": 334,
-      "fabricated_doi": "10.3389/fpsyg.2021.723289Kamour",
-      "issues": [
-        "Invalid DOI: DOI 10.3389/fpsyg.2021.723289Kamour not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4178,
-      "article_title": "“Mental Math”: Building Coping and Problem-solving Skills in Math Class",
-      "issue_id": 334,
-      "fabricated_doi": "10.1111/jcpp.12937Ohio",
-      "issues": [
-        "Invalid DOI: DOI 10.1111/jcpp.12937Ohio not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4180,
-      "article_title": "Interesting Analysis on a Curious Convergence Series",
-      "issue_id": 334,
-      "fabricated_doi": "10.1142/S1793557121501588Saha",
-      "issues": [
-        "Invalid DOI: DOI 10.1142/S1793557121501588Saha not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4177,
-      "article_title": "Exploring the Hand in Hands-On Learning: Illuminating the Standards for Mathematical Practice",
-      "issue_id": 334,
-      "fabricated_doi": "10.5951/mtms.10.7.0326Council",
-      "issues": [
-        "Invalid DOI: DOI 10.5951/mtms.10.7.0326Council not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4174,
-      "article_title": "The Potential Impact of the Removal of a Middle Grades Licensure Band on Ohio’s Teacher Education Majors",
-      "issue_id": 334,
-      "fabricated_doi": "10.1111/j.1949-8594.2006.tb18073.xConference",
-      "issues": [
-        "Invalid DOI: DOI 10.1111/j.1949-8594.2006.tb18073.xConference not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4174,
-      "article_title": "The Potential Impact of the Removal of a Middle Grades Licensure Band on Ohio’s Teacher Education Majors",
-      "issue_id": 334,
-      "fabricated_doi": "10.2139/ssrn.3327922Haciomeroglu",
-      "issues": [
-        "Invalid DOI: DOI 10.2139/ssrn.3327922Haciomeroglu not found in CrossRef or DOI resolver"
+        "Invalid DOI: DOI 10.46328/iemst.4654 not found in CrossRef or DOI resolver"
       ]
     },
     {
@@ -1045,30 +163,12 @@
       ]
     },
     {
-      "article_id": 4184,
-      "article_title": "The Food Drive Task: Problem Solving for Social Justice in the Elementary Grades",
-      "issue_id": 335,
-      "fabricated_doi": "10.5951/MTLT.2020.0119Feeding",
-      "issues": [
-        "Invalid DOI: DOI 10.5951/MTLT.2020.0119Feeding not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
       "article_id": 4182,
       "article_title": "Efficacy and Attitudes Towards Online Homework Systems in First-Semester Calculus",
       "issue_id": 335,
-      "fabricated_doi": "10.1023/B:EDUC.0000036357.99615.ffHauk",
+      "fabricated_doi": "10.1023/B:EDUC.0000036357.99615.ff",
       "issues": [
-        "Invalid DOI: DOI 10.1023/B:EDUC.0000036357.99615.ffHauk not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4181,
-      "article_title": "Fostering Culturally-Responsive Calculus Instruction",
-      "issue_id": 335,
-      "fabricated_doi": "10.5951/MTLT.2020.0119Elbow",
-      "issues": [
-        "Invalid DOI: DOI 10.5951/MTLT.2020.0119Elbow not found in CrossRef or DOI resolver"
+        "Invalid DOI: DOI 10.1023/B:EDUC.0000036357.99615.ff not found in CrossRef or DOI resolver"
       ]
     },
     {
@@ -1135,51 +235,6 @@
       ]
     },
     {
-      "article_id": 4199,
-      "article_title": "Novice Teacher Supports the Mathematics Learning of English Language Learners in Any Language",
-      "issue_id": 337,
-      "fabricated_doi": "10.5951/mathteacher.107.1.0028Ruiz",
-      "issues": [
-        "Invalid DOI: DOI 10.5951/mathteacher.107.1.0028Ruiz not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4201,
-      "article_title": "Nurturing Structural Thinking through Teacher-Facilitated Problem Solving",
-      "issue_id": 337,
-      "fabricated_doi": "10.1007/s10649-016-9747-yMason",
-      "issues": [
-        "Invalid DOI: DOI 10.1007/s10649-016-9747-yMason not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4201,
-      "article_title": "Nurturing Structural Thinking through Teacher-Facilitated Problem Solving",
-      "issue_id": 337,
-      "fabricated_doi": "10.1007/BF03217543Mason",
-      "issues": [
-        "Invalid DOI: DOI 10.1007/BF03217543Mason not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4196,
-      "article_title": "Nemeth in a Box",
-      "issue_id": 337,
-      "fabricated_doi": "10.1177/0145482X1210600604National",
-      "issues": [
-        "Invalid DOI: DOI 10.1177/0145482X1210600604National not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4198,
-      "article_title": "Bridging Math Content and Teaching through Pre-Service Undergraduate Apprenticeship",
-      "issue_id": 337,
-      "fabricated_doi": "10.1080/10511970.2018.1456499Mosvold",
-      "issues": [
-        "Invalid DOI: DOI 10.1080/10511970.2018.1456499Mosvold not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
       "article_id": 4195,
       "article_title": "Walking the Ellipse",
       "issue_id": 337,
@@ -1189,102 +244,12 @@
       ]
     },
     {
-      "article_id": 4215,
-      "article_title": "Technology-Mediated Dot Talks",
-      "issue_id": 339,
-      "fabricated_doi": "10.1080/19477503.2020.1804273National",
-      "issues": [
-        "Invalid DOI: DOI 10.1080/19477503.2020.1804273National not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4215,
-      "article_title": "Technology-Mediated Dot Talks",
-      "issue_id": 339,
-      "fabricated_doi": "10.5951/teacchilmath.18.3.0198Puentedura",
-      "issues": [
-        "Invalid DOI: DOI 10.5951/teacchilmath.18.3.0198Puentedura not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4213,
-      "article_title": "Fostering Mathematical Inquiry with Language Independent Board Games",
-      "issue_id": 339,
-      "fabricated_doi": "10.5951/mathteacher.110.7.0514Wells",
-      "issues": [
-        "Invalid DOI: DOI 10.5951/mathteacher.110.7.0514Wells not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4217,
-      "article_title": "Fruitful Fraction Models with Digital Tools",
-      "issue_id": 340,
-      "fabricated_doi": "10.1007/s11256-021-00611-4Moyer",
-      "issues": [
-        "Invalid DOI: DOI 10.1007/s11256-021-00611-4Moyer not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4228,
-      "article_title": "Advocacy Corner: High School Math Pathways---Ohio&#x27;s Pathway to Equity",
-      "issue_id": 341,
-      "fabricated_doi": "10.1080/10511970701598752Huang",
-      "issues": [
-        "Invalid DOI: DOI 10.1080/10511970701598752Huang not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4231,
-      "article_title": "Exploring Matrix Multiplication with Manipulatives",
-      "issue_id": 342,
-      "fabricated_doi": "10.1016/C2018-0-02192-1Miller",
-      "issues": [
-        "Invalid DOI: DOI 10.1016/C2018-0-02192-1Miller not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4233,
-      "article_title": "From Gatekeeper to Gateway---The Role of Quantitative Reasoning",
-      "issue_id": 343,
-      "fabricated_doi": "10.5038/1936-4660.7.2.5National",
-      "issues": [
-        "Invalid DOI: DOI 10.5038/1936-4660.7.2.5National not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
       "article_id": 4057,
       "article_title": "The Four Levels of Implementing Mathematical Rap in Your Classroom",
       "issue_id": 344,
       "fabricated_doi": "10.1090/1554480X.2013.768518",
       "issues": [
         "Invalid DOI: DOI 10.1090/1554480X.2013.768518 not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4076,
-      "article_title": "Solving Quadratic Equations Activity &amp;amp; Revisions",
-      "issue_id": 346,
-      "fabricated_doi": "10.1093/teamat/hrh018Bostic",
-      "issues": [
-        "Invalid DOI: DOI 10.1093/teamat/hrh018Bostic not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4076,
-      "article_title": "Solving Quadratic Equations Activity &amp;amp; Revisions",
-      "issue_id": 346,
-      "fabricated_doi": "10.12738/estp.2015.4.2743Gael",
-      "issues": [
-        "Invalid DOI: DOI 10.12738/estp.2015.4.2743Gael not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4082,
-      "article_title": "Rewriting the Script",
-      "issue_id": 347,
-      "fabricated_doi": "10.5951/mathteacher.111.6.0432Watson",
-      "issues": [
-        "Invalid DOI: DOI 10.5951/mathteacher.111.6.0432Watson not found in CrossRef or DOI resolver"
       ]
     },
     {
@@ -1304,15 +269,6 @@
       "issues": [
         "Invalid DOI: DOI 10.2307/41182652 not found in CrossRef or DOI resolver"
       ]
-    },
-    {
-      "article_id": 4099,
-      "article_title": "Environmental Math in the Classroom: What Do Your Walls Say?",
-      "issue_id": 349,
-      "fabricated_doi": "10.1080/10409289.2016.1242993Nurnberger-Haag",
-      "issues": [
-        "Invalid DOI: DOI 10.1080/10409289.2016.1242993Nurnberger-Haag not found in CrossRef or DOI resolver"
-      ]
     }
   ],
   "articles": [
@@ -1320,50 +276,50 @@
       "article_id": 6674,
       "issue_id": 362,
       "title": "From Prompt to Practice: Using Artificial Intelligence to Support Productive Struggle in Elementary Mathematics Methods Courses",
-      "valid": 6,
+      "valid": 21,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 15,
+      "invalid": 0,
       "total": 21
     },
     {
       "article_id": 6647,
       "issue_id": 362,
       "title": "Math Isn’t Neutral: Designing Word Problems with GPT-4 for Relevance",
-      "valid": 1,
+      "valid": 2,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
+      "invalid": 0,
       "total": 2
     },
     {
       "article_id": 6569,
       "issue_id": 362,
       "title": "USING AN AI-BASED CHATBOT TO SUPPORT THE LEARNING OF ALGEBRAIC FACTORING",
-      "valid": 0,
+      "valid": 2,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 3,
+      "invalid": 1,
       "total": 3
     },
     {
       "article_id": 6616,
       "issue_id": 362,
       "title": "Supporting Responsive Mathematics Teaching in Elementary Classrooms Using ChatGPT",
-      "valid": 3,
+      "valid": 8,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 6,
+      "invalid": 1,
       "total": 9
     },
     {
       "article_id": 6622,
       "issue_id": 362,
       "title": "Using AI to Make Definitions Personal",
-      "valid": 0,
+      "valid": 4,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 4,
+      "invalid": 0,
       "total": 4
     },
     {
@@ -1380,90 +336,90 @@
       "article_id": 6575,
       "issue_id": 357,
       "title": "Artificial Stupidity: Generative Artificial Intelligence Chatbots&#x27; Inability to Multiply",
-      "valid": 0,
+      "valid": 1,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
+      "invalid": 0,
       "total": 1
     },
     {
       "article_id": 6574,
       "issue_id": 357,
       "title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
-      "valid": 8,
+      "valid": 21,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 18,
+      "invalid": 5,
       "total": 26
     },
     {
       "article_id": 6627,
       "issue_id": 357,
       "title": "Beyond Excel: Leveraging AI for Student Data Exploration",
-      "valid": 4,
+      "valid": 13,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 11,
+      "invalid": 2,
       "total": 15
     },
     {
       "article_id": 6571,
       "issue_id": 357,
       "title": "Development and Application of a Chatbot for University-level Calculus Learning",
-      "valid": 4,
+      "valid": 6,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 4,
-      "total": 8
+      "invalid": 1,
+      "total": 7
     },
     {
       "article_id": 6645,
       "issue_id": 357,
       "title": "Designing for Discernment: A Mixed-Methods Case Study of GenAI-Supported Critical Thinking",
-      "valid": 3,
+      "valid": 9,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 7,
+      "invalid": 1,
       "total": 10
     },
     {
       "article_id": 6617,
       "issue_id": 357,
       "title": "Using AI to Craft Linguistically Accessible Mathematical Tasks",
-      "valid": 3,
+      "valid": 15,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 13,
+      "invalid": 1,
       "total": 16
     },
     {
       "article_id": 6613,
       "issue_id": 357,
       "title": "Enhancing Formative Assessment Practices with Strategic Use of the Activity Builder",
-      "valid": 1,
+      "valid": 3,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 2,
+      "invalid": 0,
       "total": 3
     },
     {
       "article_id": 6570,
       "issue_id": 357,
       "title": "Utilizing AI to Create Mathematics-Themed Children&#x27;s Books",
-      "valid": 0,
+      "valid": 5,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 5,
+      "invalid": 0,
       "total": 5
     },
     {
       "article_id": 6620,
       "issue_id": 357,
       "title": "Considering AI for Generating Mnemonics to Support Learning in Introductory Business Statistics",
-      "valid": 18,
+      "valid": 17,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 0,
+      "invalid": 1,
       "total": 18
     },
     {
@@ -1480,40 +436,40 @@
       "article_id": 5051,
       "issue_id": 331,
       "title": "Using Generative AI to Reframe Mathematical Tasks for Personalized Learning",
-      "valid": 1,
+      "valid": 4,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 4,
+      "invalid": 1,
       "total": 5
     },
     {
       "article_id": 5052,
       "issue_id": 331,
       "title": "Examining preservice teachers&#x27; descriptions of the Standards for Mathematical Practice",
-      "valid": 0,
+      "valid": 4,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 4,
+      "invalid": 0,
       "total": 4
     },
     {
       "article_id": 5053,
       "issue_id": 331,
       "title": "High School Students View Snapchat AI to Be Like Google",
-      "valid": 0,
+      "valid": 1,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
+      "invalid": 0,
       "total": 1
     },
     {
       "article_id": 4163,
       "issue_id": 332,
       "title": "Teacher Candidate Perceptions of Learning through Simulation Technology",
-      "valid": 1,
+      "valid": 5,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 4,
+      "invalid": 0,
       "total": 5
     },
     {
@@ -1550,40 +506,40 @@
       "article_id": 4178,
       "issue_id": 334,
       "title": "“Mental Math”: Building Coping and Problem-solving Skills in Math Class",
-      "valid": 1,
+      "valid": 6,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 5,
+      "invalid": 0,
       "total": 6
     },
     {
       "article_id": 4180,
       "issue_id": 334,
       "title": "Interesting Analysis on a Curious Convergence Series",
-      "valid": 0,
+      "valid": 1,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
+      "invalid": 0,
       "total": 1
     },
     {
       "article_id": 4177,
       "issue_id": 334,
       "title": "Exploring the Hand in Hands-On Learning: Illuminating the Standards for Mathematical Practice",
-      "valid": 0,
+      "valid": 1,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
+      "invalid": 0,
       "total": 1
     },
     {
       "article_id": 4174,
       "issue_id": 334,
       "title": "The Potential Impact of the Removal of a Middle Grades Licensure Band on Ohio’s Teacher Education Majors",
-      "valid": 0,
+      "valid": 2,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 4,
+      "invalid": 2,
       "total": 4
     },
     {
@@ -1610,10 +566,10 @@
       "article_id": 4184,
       "issue_id": 335,
       "title": "The Food Drive Task: Problem Solving for Social Justice in the Elementary Grades",
-      "valid": 1,
+      "valid": 2,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
+      "invalid": 0,
       "total": 2
     },
     {
@@ -1630,10 +586,10 @@
       "article_id": 4181,
       "issue_id": 335,
       "title": "Fostering Culturally-Responsive Calculus Instruction",
-      "valid": 0,
+      "valid": 1,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
+      "invalid": 0,
       "total": 1
     },
     {
@@ -1670,40 +626,40 @@
       "article_id": 4199,
       "issue_id": 337,
       "title": "Novice Teacher Supports the Mathematics Learning of English Language Learners in Any Language",
-      "valid": 0,
+      "valid": 1,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
+      "invalid": 0,
       "total": 1
     },
     {
       "article_id": 4201,
       "issue_id": 337,
       "title": "Nurturing Structural Thinking through Teacher-Facilitated Problem Solving",
-      "valid": 0,
+      "valid": 2,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 2,
+      "invalid": 0,
       "total": 2
     },
     {
       "article_id": 4196,
       "issue_id": 337,
       "title": "Nemeth in a Box",
-      "valid": 1,
+      "valid": 2,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
+      "invalid": 0,
       "total": 2
     },
     {
       "article_id": 4198,
       "issue_id": 337,
       "title": "Bridging Math Content and Teaching through Pre-Service Undergraduate Apprenticeship",
-      "valid": 0,
+      "valid": 1,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
+      "invalid": 0,
       "total": 1
     },
     {
@@ -1730,50 +686,50 @@
       "article_id": 4215,
       "issue_id": 339,
       "title": "Technology-Mediated Dot Talks",
-      "valid": 0,
+      "valid": 2,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 2,
+      "invalid": 0,
       "total": 2
     },
     {
       "article_id": 4213,
       "issue_id": 339,
       "title": "Fostering Mathematical Inquiry with Language Independent Board Games",
-      "valid": 0,
+      "valid": 1,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
+      "invalid": 0,
       "total": 1
     },
     {
       "article_id": 4217,
       "issue_id": 340,
       "title": "Fruitful Fraction Models with Digital Tools",
-      "valid": 0,
+      "valid": 1,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
+      "invalid": 0,
       "total": 1
     },
     {
       "article_id": 4228,
       "issue_id": 341,
       "title": "Advocacy Corner: High School Math Pathways---Ohio&#x27;s Pathway to Equity",
-      "valid": 0,
+      "valid": 1,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
+      "invalid": 0,
       "total": 1
     },
     {
       "article_id": 4231,
       "issue_id": 342,
       "title": "Exploring Matrix Multiplication with Manipulatives",
-      "valid": 0,
+      "valid": 1,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
+      "invalid": 0,
       "total": 1
     },
     {
@@ -1790,10 +746,10 @@
       "article_id": 4233,
       "issue_id": 343,
       "title": "From Gatekeeper to Gateway---The Role of Quantitative Reasoning",
-      "valid": 0,
+      "valid": 1,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
+      "invalid": 0,
       "total": 1
     },
     {
@@ -1850,20 +806,20 @@
       "article_id": 4076,
       "issue_id": 346,
       "title": "Solving Quadratic Equations Activity &amp;amp; Revisions",
-      "valid": 0,
+      "valid": 2,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 2,
+      "invalid": 0,
       "total": 2
     },
     {
       "article_id": 4082,
       "issue_id": 347,
       "title": "Rewriting the Script",
-      "valid": 0,
+      "valid": 1,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
+      "invalid": 0,
       "total": 1
     },
     {
@@ -1900,10 +856,10 @@
       "article_id": 4099,
       "issue_id": 349,
       "title": "Environmental Math in the Classroom: What Do Your Walls Say?",
-      "valid": 1,
+      "valid": 2,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
+      "invalid": 0,
       "total": 2
     },
     {

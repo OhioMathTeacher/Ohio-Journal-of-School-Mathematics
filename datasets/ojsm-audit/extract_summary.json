@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-06T03:33:39+00:00",
+  "generated_at": "2026-05-06T04:03:06+00:00",
   "articles": [
     {
       "article_id": 6674,
@@ -151,8 +151,8 @@
       "title": "Development and Application of a Chatbot for University-level Calculus Learning",
       "references_found": true,
       "estimated_ref_count": 4,
-      "doi_count": 8,
-      "doi_coverage": 2.0
+      "doi_count": 7,
+      "doi_coverage": 1.75
     },
     {
       "article_id": 6645,
