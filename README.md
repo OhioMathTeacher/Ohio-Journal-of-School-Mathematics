@@ -7,7 +7,7 @@
 [![FPR](https://img.shields.io/badge/false_positive_rate-0%25_(n%3D391)-brightgreen)]()
 [![Detection](https://img.shields.io/badge/detection-100%25_with_DOI-blue)]()
 
-> **[Try it online](https://huggingface.co/spaces/OJSM/citation-validator)** — no install required.  Paste a BibTeX bibliography or a reference list with DOIs and get results in minutes.
+> **[Try it online](https://huggingface.co/spaces/ojsm/citation-validator)** — no install required.  Paste a BibTeX bibliography or a reference list with DOIs and get results in minutes.
 
 ---
 
@@ -84,7 +84,7 @@ deterministic tiers handle the vast majority of cases without AI.
 ## Quick Start
 
 ### Online (no install)
-**[Try it here](https://huggingface.co/spaces/OJSM/citation-validator)** — two input modes:
+**[Try it here](https://huggingface.co/spaces/ojsm/citation-validator)** — two input modes:
 - **BibTeX tab:** paste BibTeX entries or upload a `.bib` file
 - **Reference list / DOIs tab:** paste a formatted reference list (APA, MLA, etc.) or a list of DOIs — the tool extracts the DOIs automatically
 
@@ -149,7 +149,7 @@ student's AI-assisted research, or a small-journal editor reviewing
 submissions on a weekend, it was a wall.
 
 The hosted version at
-[huggingface.co/spaces/OJSM/citation-validator](https://huggingface.co/spaces/OJSM/citation-validator)
+[huggingface.co/spaces/ojsm/citation-validator](https://huggingface.co/spaces/ojsm/citation-validator)
 closes most of that gap — paste a bibliography (or a reference list
 with embedded DOIs) into a browser, get results in seconds, no install.
 The remaining accessibility work is integration: Zotero/Mendeley
