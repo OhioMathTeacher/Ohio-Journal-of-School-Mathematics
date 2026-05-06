@@ -196,25 +196,24 @@ let verdicts = {};
 let activeIdx = 0;
 
 function extractCitedReference(refsText, doi) {
-  // Returns the text of the reference that CONTAINS the suspect DOI, so
-  // we can use it as a search query and display it as paragraph context.
+  // Return only the reference paragraph that contains the suspect DOI.
   //
-  // Strategy: scan the whole references text for likely reference-start
-  // markers, build a list of reference boundaries, then return the
-  // reference whose boundary range contains the DOI position.
+  // Strategy: every APA reference contains exactly one "(YYYY)" year
+  // marker, immediately after the author list.  We use those years as
+  // anchors and find the reference whose year is closest BEFORE the DOI.
   //
-  // A "reference start" is a line that satisfies EITHER:
-  //   (a) starts with "Lastname, F." (capital + lowercase letters,
-  //       optionally with hyphen/space-joined surname parts, then
-  //       comma + space + capital initial), or
-  //   (b) starts with a capital letter and contains a (YYYY) year on
-  //       the same line — catches organizational authors like
-  //       "National Council of Teachers of Mathematics. (2020). ...".
+  // Boundaries within the surrounding text:
+  //   START: the first "Lastname, F." author-pattern AFTER the previous
+  //          year marker — i.e. the start of OUR authors.
+  //   END:   the LAST "Lastname, F." author-pattern BEFORE the next year
+  //          marker — i.e. the start of the NEXT reference's authors.
   //
-  // Continuation lines (which often start with whitespace, but sometimes
-  // start with a capital due to PDF text-wrap quirks) don't satisfy
-  // either condition because they lack both the comma-pattern and the
-  // year parenthetical.
+  // Falls back to start/end of refsText when there is no previous/next
+  // year (i.e. when our reference is the first or last).
+  //
+  // Newlines and indentation in the source are preserved so the user
+  // sees the original visual structure; only repeated spaces/tabs are
+  // collapsed.
   if (!refsText || !doi) return '';
 
   const doiPattern = doi.split('').map(c => escapeRe(c)).join('\\s*');
@@ -222,37 +221,69 @@ function extractCitedReference(refsText, doi) {
   const doiMatch = doiRe.exec(refsText);
   if (!doiMatch) return '';
 
-  // Combined reference-start pattern.
-  const refStartRe = /\n([A-Z][A-Za-zà-ÿÀ-ſ'-]+(?:[\- ][A-Z][a-zà-ÿÀ-ſ'-]+)*,\s+[A-Z]|[A-Z][^\n]*\(\d{4}[a-z]?\))/g;
-
-  // Collect every reference-start position in the whole refsText.
-  const refStarts = [];
+  // Find every (YYYY) marker in the references text.
+  const yearRe = /\((\d{4}[a-z]?)\)/g;
+  const yearPositions = [];
   let m;
-  while ((m = refStartRe.exec(refsText)) !== null) {
-    refStarts.push(m.index + 1); // +1 to skip the leading \n
-  }
-  // If the very first reference begins at position 0 (no preceding \n),
-  // make sure 0 is in the list.
-  if (refStarts.length === 0 || refStarts[0] !== 0) {
-    refStarts.unshift(0);
+  while ((m = yearRe.exec(refsText)) !== null) {
+    yearPositions.push(m.index);
   }
 
-  // Find the reference whose range [start, nextStart) contains the DOI.
-  let containingStart = 0;
-  let containingEnd = refsText.length;
-  for (let i = 0; i < refStarts.length; i++) {
-    if (refStarts[i] <= doiMatch.index) {
-      containingStart = refStarts[i];
-      containingEnd = (i + 1 < refStarts.length) ? refStarts[i + 1] : refsText.length;
-    } else {
-      break;
+  // Identify OUR reference's year (the latest year strictly before the DOI),
+  // plus the previous year (end of previous reference) and next year (end
+  // of next reference).
+  let ourYear = -1, prevYear = -1, nextYear = -1;
+  for (const yp of yearPositions) {
+    if (yp < doiMatch.index) {
+      prevYear = ourYear;
+      ourYear = yp;
+    } else if (nextYear < 0) {
+      nextYear = yp;
     }
   }
 
-  let chunk = refsText.substring(containingStart, containingEnd);
-  // Collapse internal whitespace so the displayed paragraph is one line
-  // per reference, easier to read at a glance.
-  chunk = chunk.replace(/\s+/g, ' ').trim();
+  // Author-list pattern: "Lastname, F." (possibly with hyphenated or
+  // multi-word surnames, with Unicode-safe lower-letter range).
+  const authorRe = /[A-Z][A-Za-zà-ÿÀ-ſ'-]+(?:[\- ][A-Z][A-Za-zà-ÿÀ-ſ'-]+)*,\s+[A-Z]\./g;
+
+  // Reference start: first author-pattern AFTER prevYear (or pos 0 if no prev).
+  let refStart = 0;
+  if (prevYear >= 0) {
+    authorRe.lastIndex = prevYear + 5; // skip past "(YYYY"
+    const startMatch = authorRe.exec(refsText);
+    if (startMatch && startMatch.index < doiMatch.index) {
+      refStart = startMatch.index;
+    } else {
+      refStart = prevYear + 6;
+    }
+  } else if (yearPositions.length > 0 && ourYear === yearPositions[0]) {
+    // Our year is the FIRST year in the text — refStart = 0 (or first author pattern from 0).
+    authorRe.lastIndex = 0;
+    const startMatch = authorRe.exec(refsText);
+    if (startMatch && startMatch.index < doiMatch.index) refStart = startMatch.index;
+  }
+
+  // Reference end: LAST author-pattern BEFORE nextYear (or end of text if no next).
+  let refEnd = refsText.length;
+  if (nextYear >= 0) {
+    authorRe.lastIndex = doiMatch.index;
+    let lastMatchBeforeNext = null;
+    let am;
+    while ((am = authorRe.exec(refsText)) !== null) {
+      if (am.index >= nextYear) break;
+      lastMatchBeforeNext = am;
+    }
+    if (lastMatchBeforeNext) {
+      refEnd = lastMatchBeforeNext.index;
+    } else {
+      refEnd = nextYear;
+    }
+  }
+
+  let chunk = refsText.substring(refStart, refEnd);
+  // Collapse repeated spaces/tabs but keep newlines so the original
+  // hanging-indent structure is visible to the reader.
+  chunk = chunk.replace(/[ \t]+/g, ' ').replace(/\n[ \t]*/g, '\n').trim();
   return chunk;
 }
 
