@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-05-06T04:03:09+00:00",
+  "generated_at": "2026-05-06T04:18:54+00:00",
   "ai_enabled": false,
   "totals": {
-    "valid": 220,
+    "valid": 235,
     "warnings": 0,
     "suspicious": 0,
-    "invalid": 29,
+    "invalid": 14,
     "total": 249
   },
   "frankenstein_candidates": [
@@ -19,48 +19,12 @@
       ]
     },
     {
-      "article_id": 6616,
-      "article_title": "Supporting Responsive Mathematics Teaching in Elementary Classrooms Using ChatGPT",
-      "issue_id": 362,
-      "fabricated_doi": "10.48550/ar",
-      "issues": [
-        "Invalid DOI: DOI 10.48550/ar not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
       "article_id": 6574,
       "article_title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
       "issue_id": 357,
       "fabricated_doi": "10.51204/Anali_PFBU_24405AFagbohun",
       "issues": [
         "Invalid DOI: DOI 10.51204/Anali_PFBU_24405AFagbohun not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6574,
-      "article_title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
-      "issue_id": 357,
-      "fabricated_doi": "10.1016/j.caeai.2022.100074.Lawasi",
-      "issues": [
-        "Invalid DOI: DOI 10.1016/j.caeai.2022.100074.Lawasi not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6574,
-      "article_title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
-      "issue_id": 357,
-      "fabricated_doi": "10.17226/1199.Ng",
-      "issues": [
-        "Invalid DOI: DOI 10.17226/1199.Ng not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6574,
-      "article_title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
-      "issue_id": 357,
-      "fabricated_doi": "10.1016/j.caeo.2024.100169.The",
-      "issues": [
-        "Invalid DOI: DOI 10.1016/j.caeo.2024.100169.The not found in CrossRef or DOI resolver"
       ]
     },
     {
@@ -82,24 +46,6 @@
       ]
     },
     {
-      "article_id": 6627,
-      "article_title": "Beyond Excel: Leveraging AI for Student Data Exploration",
-      "issue_id": 357,
-      "fabricated_doi": "10.48550/ar",
-      "issues": [
-        "Invalid DOI: DOI 10.48550/ar not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6571,
-      "article_title": "Development and Application of a Chatbot for University-level Calculus Learning",
-      "issue_id": 357,
-      "fabricated_doi": "10.48550/ar",
-      "issues": [
-        "Invalid DOI: DOI 10.48550/ar not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
       "article_id": 6645,
       "article_title": "Designing for Discernment: A Mixed-Methods Case Study of GenAI-Supported Critical Thinking",
       "issue_id": 357,
@@ -115,24 +61,6 @@
       "fabricated_doi": "10.1037/edu0000036WIDA",
       "issues": [
         "Invalid DOI: DOI 10.1037/edu0000036WIDA not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 6620,
-      "article_title": "Considering AI for Generating Mnemonics to Support Learning in Introductory Business Statistics",
-      "issue_id": 357,
-      "fabricated_doi": "10.48550/ar",
-      "issues": [
-        "Invalid DOI: DOI 10.48550/ar not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4158,
-      "article_title": "An Alternative Proof that the Real Numbers are Uncountable",
-      "issue_id": 331,
-      "fabricated_doi": "10.4169/amer.math.monthly.122.6.596.Knapp",
-      "issues": [
-        "Invalid DOI: DOI 10.4169/amer.math.monthly.122.6.596.Knapp not found in CrossRef or DOI resolver"
       ]
     },
     {
@@ -178,69 +106,6 @@
       "fabricated_doi": "10.4169/math.mag.87.4.263discovermaths",
       "issues": [
         "Invalid DOI: DOI 10.4169/math.mag.87.4.263discovermaths not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4191,
-      "article_title": "Unpacking the Ambiguous Case to Develop Conceptual Knowledge and Representational Competence",
-      "issue_id": 336,
-      "fabricated_doi": "10.5951/MT.101.6.0404.Harrison",
-      "issues": [
-        "Invalid DOI: DOI 10.5951/MT.101.6.0404.Harrison not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4191,
-      "article_title": "Unpacking the Ambiguous Case to Develop Conceptual Knowledge and Representational Competence",
-      "issue_id": 336,
-      "fabricated_doi": "10.5951/MT.95.2.0114.Huinker",
-      "issues": [
-        "Invalid DOI: DOI 10.5951/MT.95.2.0114.Huinker not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4191,
-      "article_title": "Unpacking the Ambiguous Case to Develop Conceptual Knowledge and Representational Competence",
-      "issue_id": 336,
-      "fabricated_doi": "10.5951/MT.80.3.0207.Levine",
-      "issues": [
-        "Invalid DOI: DOI 10.5951/MT.80.3.0207.Levine not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4191,
-      "article_title": "Unpacking the Ambiguous Case to Develop Conceptual Knowledge and Representational Competence",
-      "issue_id": 336,
-      "fabricated_doi": "10.5951/tcm.17.1.0038.National",
-      "issues": [
-        "Invalid DOI: DOI 10.5951/tcm.17.1.0038.National not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4191,
-      "article_title": "Unpacking the Ambiguous Case to Develop Conceptual Knowledge and Representational Competence",
-      "issue_id": 336,
-      "fabricated_doi": "10.1207/s15327833mtl0603_3.Peek",
-      "issues": [
-        "Invalid DOI: DOI 10.1207/s15327833mtl0603_3.Peek not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4191,
-      "article_title": "Unpacking the Ambiguous Case to Develop Conceptual Knowledge and Representational Competence",
-      "issue_id": 336,
-      "fabricated_doi": "10.5951/MT.85.3.0198.Yeshurun",
-      "issues": [
-        "Invalid DOI: DOI 10.5951/MT.85.3.0198.Yeshurun not found in CrossRef or DOI resolver"
-      ]
-    },
-    {
-      "article_id": 4195,
-      "article_title": "Walking the Ellipse",
-      "issue_id": 337,
-      "fabricated_doi": "10.4169/mathhorizons.23.4.23.Sloggatt",
-      "issues": [
-        "Invalid DOI: DOI 10.4169/mathhorizons.23.4.23.Sloggatt not found in CrossRef or DOI resolver"
       ]
     },
     {
@@ -306,10 +171,10 @@
       "article_id": 6616,
       "issue_id": 362,
       "title": "Supporting Responsive Mathematics Teaching in Elementary Classrooms Using ChatGPT",
-      "valid": 8,
+      "valid": 9,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
+      "invalid": 0,
       "total": 9
     },
     {
@@ -346,31 +211,31 @@
       "article_id": 6574,
       "issue_id": 357,
       "title": "Exploring Potential Uses and Concerns of GenAI Use in Problem Solving in the Mathematics Classroom",
-      "valid": 21,
+      "valid": 24,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 5,
+      "invalid": 2,
       "total": 26
     },
     {
       "article_id": 6627,
       "issue_id": 357,
       "title": "Beyond Excel: Leveraging AI for Student Data Exploration",
-      "valid": 13,
+      "valid": 14,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 2,
+      "invalid": 1,
       "total": 15
     },
     {
       "article_id": 6571,
       "issue_id": 357,
       "title": "Development and Application of a Chatbot for University-level Calculus Learning",
-      "valid": 6,
+      "valid": 8,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
-      "total": 7
+      "invalid": 0,
+      "total": 8
     },
     {
       "article_id": 6645,
@@ -416,20 +281,20 @@
       "article_id": 6620,
       "issue_id": 357,
       "title": "Considering AI for Generating Mnemonics to Support Learning in Introductory Business Statistics",
-      "valid": 17,
+      "valid": 18,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
+      "invalid": 0,
       "total": 18
     },
     {
       "article_id": 4158,
       "issue_id": 331,
       "title": "An Alternative Proof that the Real Numbers are Uncountable",
-      "valid": 0,
+      "valid": 1,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
+      "invalid": 0,
       "total": 1
     },
     {
@@ -616,11 +481,11 @@
       "article_id": 4191,
       "issue_id": 336,
       "title": "Unpacking the Ambiguous Case to Develop Conceptual Knowledge and Representational Competence",
-      "valid": 2,
+      "valid": 7,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 6,
-      "total": 8
+      "invalid": 0,
+      "total": 7
     },
     {
       "article_id": 4199,
@@ -666,10 +531,10 @@
       "article_id": 4195,
       "issue_id": 337,
       "title": "Walking the Ellipse",
-      "valid": 1,
+      "valid": 2,
       "warnings": 0,
       "suspicious": 0,
-      "invalid": 1,
+      "invalid": 0,
       "total": 2
     },
     {
