@@ -170,7 +170,39 @@ let candidates = [];
 let verdicts = {};
 let activeIdx = 0;
 
-async function load() {
+async function extractCitedReference(refsText, doi) {
+  // Returns the text of the reference that CONTAINS the suspect DOI, so
+  // we can use it as a search query for Google Scholar / CrossRef.
+  // Heuristic: walk back from the DOI to the most recent line that starts
+  // at column 0 with a capital letter (the start of an APA-style reference).
+  if (!refsText || !doi) return '';
+  const doiPattern = doi.split('').map(c => escapeRe(c)).join('\\s*');
+  const re = new RegExp(doiPattern);
+  const match = re.exec(refsText);
+  if (!match) return '';
+
+  // Take ~500 chars before the DOI as a generous window
+  const windowStart = Math.max(0, match.index - 500);
+  const before = refsText.substring(windowStart, match.index);
+
+  // Find the last newline followed by a non-whitespace capital letter
+  // (i.e. the most recent line that starts a new reference at column 0)
+  let refStart = 0;
+  for (let i = before.length - 1; i > 0; i--) {
+    if (before[i - 1] === '\n' && /[A-ZÀ-ÝŚ]/.test(before[i])) {
+      refStart = i;
+      break;
+    }
+  }
+  let chunk = before.substring(refStart);
+  // Collapse whitespace and remove any URL prefix from the DOI fragment
+  chunk = chunk.replace(/\s+/g, ' ').trim();
+  // Strip a trailing "https://doi.org/..." or "doi:" if present
+  chunk = chunk.replace(/(https?:\/\/(?:dx\.)?doi\.org\/|doi:\s*).*$/i, '').trim();
+  return chunk;
+}
+
+function load() {
   const r = await fetch('/api/candidates');
   const data = await r.json();
   candidates = data.candidates;
@@ -206,7 +238,10 @@ function renderActive() {
   if (!c) return;
   const v = verdicts[keyFor(c)] || {};
   const refsHtml = highlight(c.refs_text || '(no references text saved for this article)', c.candidate_doi);
-  const titleQuery = encodeURIComponent((c.article_title || '').replace(/&#x27;/g, "'").replace(/&amp;/g, '&').slice(0, 80));
+  const citedRef = extractCitedReference(c.refs_text || '', c.candidate_doi);
+  const searchQuery = citedRef
+    ? encodeURIComponent(citedRef.slice(0, 200))
+    : encodeURIComponent((c.article_title || '').replace(/&#x27;/g, "'").replace(/&amp;/g, '&').slice(0, 80));
   const doiUrl = 'https://doi.org/' + (c.candidate_doi || '');
   const localPdf = '/pdf/' + c.article_id;
 
@@ -225,10 +260,17 @@ function renderActive() {
 
     <section class="quick-actions">
       <a href="${doiUrl}" target="_blank">Try DOI in browser ↗</a>
-      <a href="https://scholar.google.com/scholar?q=${titleQuery}" target="_blank" class="secondary">Search Google Scholar ↗</a>
-      <a href="https://search.crossref.org/?q=${titleQuery}" target="_blank" class="secondary">Search CrossRef ↗</a>
+      <a href="https://scholar.google.com/scholar?q=${searchQuery}" target="_blank" class="secondary">Search Google Scholar ↗</a>
+      <a href="https://search.crossref.org/?q=${searchQuery}" target="_blank" class="secondary">Search CrossRef ↗</a>
       <a href="${localPdf}" target="_blank" class="secondary">Open article PDF ↗</a>
     </section>
+
+    ${citedRef ? `
+    <section>
+      <h3>Cited Reference (used for Scholar/CrossRef search)</h3>
+      <div style="background:#f9fafb;border:1px solid var(--line);border-radius:6px;padding:10px 12px;font-size:13px;line-height:1.5">${escapeHtml(citedRef)}</div>
+    </section>
+    ` : ''}
 
     <section>
       <h3>References Section (extracted from article's PDF)</h3>
