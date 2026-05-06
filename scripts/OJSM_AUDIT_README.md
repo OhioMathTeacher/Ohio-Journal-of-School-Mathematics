@@ -94,3 +94,20 @@ Open `datasets/ojsm-audit/validation_summary.json` after Stage 4.
   records the error but doesn't back off.  For the full corpus run,
   watch for transient errors in `validation/*.json` and re-run the
   affected articles.
+
+## Future improvements
+
+- **Switch reference extraction to Anystyle.**  The current
+  `ojsm_extract.py` uses regex heuristics to find DOIs in
+  references text — fast and dependency-free, but limited to
+  citations that already include a DOI.  [Anystyle](https://anystyle.io/)
+  is a Ruby gem trained on real reference data; it parses a
+  single reference string into structured fields (author, year,
+  title, journal, DOI).  Plugging it in at Stage 3 would let us
+  validate references that lack DOIs but match a CrossRef record
+  by title+author+year, expanding coverage from the current
+  ~15% DOI density to a much larger fraction.  Heavier alternative:
+  [GROBID](https://github.com/kermitt2/grobid) — ML-based,
+  takes raw PDF in and returns structured XML; overkill for our
+  pipeline (we already have pdftotext output) but the industry
+  standard for full-PDF bibliometric work.
