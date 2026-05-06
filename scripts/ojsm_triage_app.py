@@ -287,18 +287,18 @@ function renderActive() {
 
     <section class="step step-suspect">
       <h3>🔴 Step 1 — The Suspect</h3>
-      <p class="step-blurb">This DOI failed CrossRef lookup. Confirm it's truly broken by clicking <em>Try DOI in browser</em>.</p>
+      <p class="step-blurb">This DOI failed CrossRef lookup. Confirm it's truly broken by clicking <em>Try DOI in browser</em>. Click the yellow DOI box to copy it to your clipboard.</p>
 
-      <div class="doi-line">${escapeHtml(c.candidate_doi || '')}</div>
+      <div class="doi-line" id="suspect-doi-box" onclick="copySuspectDoi()" title="Click to copy this DOI to clipboard" style="cursor:pointer">${escapeHtml(c.candidate_doi || '')}</div>
       <p class="meta" style="margin:6px 0 12px">${(c.issues || []).join(' · ')}</p>
-
-      <div class="quick-actions">
-        <a href="${doiUrl}" target="_blank" data-copy="${escapeHtml(c.candidate_doi || '')}" data-label="suspect DOI">Try DOI in browser ↗</a>
-        <a id="btn-cr-doi" href="https://search.crossref.org/?q=${encodeURIComponent(c.candidate_doi || '')}" target="_blank" class="secondary" data-copy="${escapeHtml(c.candidate_doi || '')}" data-label="suspect DOI">CrossRef: by DOI ↗</a>
-      </div>
 
       <h4 style="font-size:13px;margin:14px 0 6px;color:var(--muted)">Reference paragraph from article PDF (suspect DOI highlighted):</h4>
       <div class="ref-context">${citedRefHighlighted}</div>
+
+      <div class="quick-actions" style="margin-top:12px">
+        <a href="${doiUrl}" target="_blank">Try DOI in browser ↗</a>
+        <a href="https://search.crossref.org/?q=${encodeURIComponent(c.candidate_doi || '')}" target="_blank" class="secondary">CrossRef: by DOI ↗</a>
+      </div>
 
       <details class="full-refs">
         <summary>Show full references section from PDF</summary>
@@ -405,6 +405,25 @@ function copyCitedRef() {
     const toast = document.getElementById('copy-toast');
     if (toast) {
       toast.textContent = '📋 Copied — paste into any search box with Ctrl+V';
+      toast.classList.add('show');
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+  });
+}
+
+// Copy the suspect DOI (Step 1 yellow box) to the clipboard, with toast
+// confirmation.  Triggered by clicking the DOI box itself — we don't
+// auto-copy on the lookup-button clicks because that would silently
+// overwrite whatever the user copied from Step 2.
+function copySuspectDoi() {
+  const box = document.getElementById('suspect-doi-box');
+  if (!box || !navigator.clipboard) return;
+  const text = box.textContent.trim();
+  navigator.clipboard.writeText(text).then(() => {
+    const toast = document.getElementById('copy-toast');
+    if (toast) {
+      toast.textContent = '📋 Copied suspect DOI to clipboard';
       toast.classList.add('show');
       clearTimeout(toast._t);
       toast._t = setTimeout(() => toast.classList.remove('show'), 2000);
