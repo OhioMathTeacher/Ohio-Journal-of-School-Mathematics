@@ -131,8 +131,8 @@ PAGE_HTML = r"""<!DOCTYPE html>
   .main h2 { margin: 0 0 4px; font-size: 22px; }
   .main .meta { color: var(--muted); font-size: 13px; margin-bottom: 16px; }
   .doi-line { font-family: 'JetBrains Mono', 'Courier New', monospace; background: #fef3c7; padding: 8px 12px; border-radius: 6px; word-break: break-all; }
-  .quick-actions a { display: inline-block; background: var(--primary); color: white; padding: 6px 12px; border-radius: 4px; text-decoration: none; margin-right: 6px; font-size: 13px; }
-  .quick-actions a:hover { opacity: 0.85; }
+  .quick-actions a { display: inline-block; background: #f3f4f6; color: var(--text); border: 1px solid var(--line); padding: 6px 12px; border-radius: 4px; text-decoration: none; margin-right: 6px; font-size: 13px; }
+  .quick-actions a:hover { background: #e5e7eb; }
   .quick-actions a.secondary { background: #f3f4f6; color: var(--text); border: 1px solid var(--line); }
   #copy-toast { position: fixed; top: 20px; right: 20px; background: #10b981; color: white; padding: 10px 16px; border-radius: 6px; font-size: 14px; z-index: 1000; opacity: 0; transition: opacity 0.3s; pointer-events: none; max-width: 400px; word-break: break-word; }
   #copy-toast.show { opacity: 1; }
@@ -296,8 +296,8 @@ function renderActive() {
       <div class="ref-context">${citedRefHighlighted}</div>
 
       <div class="quick-actions" style="margin-top:12px">
-        <a href="${doiUrl}" target="_blank">Try DOI in browser ↗</a>
-        <a href="https://search.crossref.org/?q=${encodeURIComponent(c.candidate_doi || '')}" target="_blank" class="secondary">CrossRef: by DOI ↗</a>
+        <a href="${doiUrl}" target="_blank" title="Resolve this DOI at doi.org. If the DOI is real, this opens the publisher's page for the article. If it's fabricated, you'll get a 'DOI Not Found' page — that confirms the DOI is broken.">Try DOI in browser ↗</a>
+        <a href="https://search.crossref.org/?q=${encodeURIComponent(c.candidate_doi || '')}" target="_blank" title="Search CrossRef's database for this exact DOI string. If CrossRef knows about it, the metadata appears here. No results = the DOI was never registered.">CrossRef: by DOI ↗</a>
       </div>
 
       <details class="full-refs">
@@ -319,9 +319,9 @@ function renderActive() {
       </div>
 
       <div class="quick-actions" style="margin-top:12px">
-        <a id="btn-cr-cite" href="#" target="_blank" data-label="cited reference">CrossRef: by citation ↗</a>
-        <a id="btn-scholar" href="#" target="_blank" class="secondary" data-label="cited reference">Google Scholar (English) ↗</a>
-        <a id="btn-translate" href="#" target="_blank" class="secondary" data-label="translation">Google Translate ↗</a>
+        <a id="btn-cr-cite" href="#" target="_blank" data-label="cited reference" title="Search CrossRef using the reference text above (authors, year, title). If the real paper is in CrossRef, it usually appears in the top hit — copy that DOI into Step 3.">CrossRef: by citation ↗</a>
+        <a id="btn-scholar" href="#" target="_blank" data-label="cited reference" title="Search Google Scholar with the reference text above. Useful when CrossRef misses the paper (books, dissertations, non-English journals). Click through to the publisher page to find the real DOI.">Google Scholar ↗</a>
+        <a id="btn-translate" href="#" target="_blank" data-label="translation" title="Open Google Translate with the reference text. Use this when the citation is in a language you don't read — translate first, then click 'Use English title' or edit the textarea, then re-run the search buttons.">Google Translate ↗</a>
       </div>
     </section>
 
