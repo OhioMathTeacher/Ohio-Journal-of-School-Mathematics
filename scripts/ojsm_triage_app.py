@@ -261,20 +261,25 @@ function renderActive() {
       <p class="meta" style="margin-top:6px">${(c.issues || []).join(' · ')}</p>
     </section>
 
-    <section class="quick-actions">
+    <section class="quick-actions" id="quick-actions">
       <a href="${doiUrl}" target="_blank" data-copy="${escapeHtml(c.candidate_doi || '')}" data-label="suspect DOI">Try DOI in browser ↗</a>
-      <a href="https://search.crossref.org/?q=${encodeURIComponent(c.candidate_doi || '')}" target="_blank" class="secondary" data-copy="${escapeHtml(c.candidate_doi || '')}" data-label="suspect DOI">CrossRef: by DOI ↗</a>
-      <a href="https://search.crossref.org/?q=${searchQuery}" target="_blank" class="secondary" data-copy="${escapeHtml(citedRef || '')}" data-label="cited reference">CrossRef: by citation ↗</a>
-      <a href="https://scholar.google.com/scholar?q=${searchQuery}&hl=en" target="_blank" class="secondary" data-copy="${escapeHtml(citedRef || '')}" data-label="cited reference">Google Scholar (English) ↗</a>
+      <a id="btn-cr-doi" href="https://search.crossref.org/?q=${encodeURIComponent(c.candidate_doi || '')}" target="_blank" class="secondary" data-copy="${escapeHtml(c.candidate_doi || '')}" data-label="suspect DOI">CrossRef: by DOI ↗</a>
+      <a id="btn-cr-cite" href="#" target="_blank" class="secondary" data-label="cited reference">CrossRef: by citation ↗</a>
+      <a id="btn-scholar" href="#" target="_blank" class="secondary" data-label="cited reference">Google Scholar (English) ↗</a>
+      <a id="btn-translate" href="#" target="_blank" class="secondary" data-label="translation">Google Translate ↗</a>
       <a href="${localPdf}" target="_blank" class="secondary">Open article PDF ↗</a>
     </section>
 
-    ${citedRef ? `
     <section>
-      <h3>Cited Reference (used for Scholar/CrossRef search)</h3>
-      <div style="background:#f9fafb;border:1px solid var(--line);border-radius:6px;padding:10px 12px;font-size:13px;line-height:1.5">${escapeHtml(citedRef)}</div>
+      <h3>Cited Reference (used for citation searches — edit if needed)</h3>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:6px">If the reference is in a language you don't read, edit this text — paste the English translation from the brackets, or trim non-essential text. The CrossRef-by-citation, Google Scholar, and Google Translate buttons use whatever's in this box.</div>
+      <textarea id="cited-ref-edit" oninput="updateCitationButtons()" style="width:100%;min-height:60px;padding:10px;border:1px solid var(--line);border-radius:6px;font-family:inherit;font-size:13px;line-height:1.5;box-sizing:border-box">${escapeHtml(citedRef || '')}</textarea>
+      <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap">
+        <button onclick="copyCitedRef()" style="padding:6px 12px;background:#f3f4f6;border:1px solid var(--line);border-radius:4px;cursor:pointer;font-size:13px">📋 Copy this text</button>
+        <button onclick="useEnglishTitle()" style="padding:6px 12px;background:#f3f4f6;border:1px solid var(--line);border-radius:4px;cursor:pointer;font-size:13px" title="Replaces non-English title with the [bracketed English translation] commonly found in APA references">🇬🇧 Use English title (if [bracketed] is present)</button>
+        <button onclick="resetCitedRef()" style="padding:6px 12px;background:#f3f4f6;border:1px solid var(--line);border-radius:4px;cursor:pointer;font-size:13px">↺ Reset to original</button>
+      </div>
     </section>
-    ` : ''}
 
     <section>
       <h3>References Section (extracted from article's PDF)</h3>
@@ -311,7 +316,90 @@ function renderActive() {
       </div>
     </section>
   `;
+  // Stash the originally-extracted cited reference on the textarea so the
+  // Reset button can restore it after edits or English-title swap.
+  const ta = document.getElementById('cited-ref-edit');
+  if (ta) ta.dataset.original = ta.value;
+  updateCitationButtons();
   setTimeout(scrollHighlightIntoView, 0);
+}
+
+// Reads the current editable cited-reference textarea and updates the
+// three citation-driven button URLs + data-copy attributes accordingly.
+// Called on every keystroke in the textarea, plus once after each render.
+function updateCitationButtons() {
+  const ta = document.getElementById('cited-ref-edit');
+  if (!ta) return;
+  const text = ta.value.trim();
+  const q = encodeURIComponent(text.slice(0, 200));
+  const crCite = document.getElementById('btn-cr-cite');
+  const scholar = document.getElementById('btn-scholar');
+  const translate = document.getElementById('btn-translate');
+  if (crCite) {
+    crCite.href = 'https://search.crossref.org/?q=' + q;
+    crCite.dataset.copy = text;
+  }
+  if (scholar) {
+    scholar.href = 'https://scholar.google.com/scholar?q=' + q + '&hl=en';
+    scholar.dataset.copy = text;
+  }
+  if (translate) {
+    translate.href = 'https://translate.google.com/?sl=auto&tl=en&op=translate&text=' + q;
+    translate.dataset.copy = text;
+  }
+}
+
+// Manually copy the current textarea contents to clipboard (no new tab,
+// so the toast is actually visible).
+function copyCitedRef() {
+  const ta = document.getElementById('cited-ref-edit');
+  if (!ta || !navigator.clipboard) return;
+  navigator.clipboard.writeText(ta.value).then(() => {
+    const toast = document.getElementById('copy-toast');
+    if (toast) {
+      toast.textContent = '📋 Copied — paste into any search box with Ctrl+V';
+      toast.classList.add('show');
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+  });
+}
+
+// Replace a non-English title with its [bracketed English translation].
+// Pattern: "Authors (Year). Original Title [English Title]. Journal..."
+// becomes: "Authors (Year). English Title. Journal..."
+// If no brackets are found, leaves the text unchanged and toasts a notice.
+function useEnglishTitle() {
+  const ta = document.getElementById('cited-ref-edit');
+  if (!ta) return;
+  const original = ta.value;
+  // Match "(YEAR). Original Title [English Title]." structure.
+  const m = original.match(/^(.*?\(\d{4}[a-z]?\)\.\s*)([^\[]+?)\s*\[([^\]]+)\]\.?\s*(.*)$/s);
+  if (m) {
+    ta.value = (m[1] + m[3] + '. ' + m[4]).trim();
+    updateCitationButtons();
+    return;
+  }
+  const toast = document.getElementById('copy-toast');
+  if (toast) {
+    toast.textContent = 'No [bracketed translation] found in this reference.';
+    toast.style.background = '#f59e0b';
+    toast.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => {
+      toast.classList.remove('show');
+      toast.style.background = '';
+    }, 2200);
+  }
+}
+
+// Restore the textarea to the originally-extracted reference (in case
+// the user edited it and wants to undo).
+function resetCitedRef() {
+  const ta = document.getElementById('cited-ref-edit');
+  if (!ta || !ta.dataset.original) return;
+  ta.value = ta.dataset.original;
+  updateCitationButtons();
 }
 
 function scrollHighlightIntoView() {
