@@ -2,6 +2,8 @@
 
 **Free, open-source detection of hallucinated citations in academic papers**
 
+> **Read the latest paper draft:** [*Whose Writing Is This, Anyway?: Lessons from Building an Open-Source Citation Hallucination Detector*](paper/paper.pdf) — full PDF, compiled from source. The LaTeX source lives in [`paper/`](paper/) and is updated continuously; this PDF is a recent snapshot.
+
 [![Cost](https://img.shields.io/badge/cost-%240-green)]()
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
 [![FPR](https://img.shields.io/badge/false_positive_rate-0%25_(n%3D391)-brightgreen)]()
